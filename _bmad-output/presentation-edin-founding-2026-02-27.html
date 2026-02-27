@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edin — Founding Narrative</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #1a1a1a;
+    --bg-alt: #2a2520;
+    --text-primary: #f0ebe3;
+    --text-muted: #a89f94;
+    --accent-amber: #c4953a;
+    --accent-green: #6b7c5e;
+  }
+
+  .reveal {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: var(--text-primary);
+  }
+
+  .reveal .slides {
+    text-align: left;
+  }
+
+  .reveal .slides section {
+    background-color: var(--bg-primary);
+    box-sizing: border-box;
+    padding: 30px 50px;
+    height: 100%;
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .reveal .slides section.centered {
+    text-align: center;
+    align-items: center;
+  }
+
+  .reveal .slides section.alt-bg {
+    background-color: var(--bg-alt);
+  }
+
+  .reveal h1, .reveal h2, .reveal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 0.4em 0;
+  }
+
+  .reveal h1 { font-size: 2.6em; }
+  .reveal h2 { font-size: 1.7em; }
+  .reveal h3 { font-size: 1.3em; }
+
+  .reveal p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin: 0 0 0.5em 0;
+    color: var(--text-primary);
+  }
+
+  .reveal .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7em;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.4em;
+  }
+
+  .reveal .amber { color: var(--accent-amber); }
+  .reveal .green { color: var(--accent-green); }
+  .reveal .muted { color: var(--text-muted); }
+  .reveal .italic { font-style: italic; }
+
+  .reveal .large-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35em;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  .reveal .huge-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.8em;
+    font-weight: 700;
+    color: var(--accent-amber);
+    line-height: 1;
+    margin-bottom: 0.1em;
+  }
+
+  .reveal .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25em;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  .reveal .act-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2em;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .reveal .act-number {
+    color: var(--accent-amber);
+    font-weight: 600;
+  }
+
+  .reveal .amber-line {
+    width: 50px;
+    height: 2px;
+    background: var(--accent-amber);
+    margin: 12px 0;
+    border: none;
+    flex-shrink: 0;
+  }
+
+  .reveal .amber-line.center {
+    margin: 12px auto;
+  }
+
+  /* Value flow diagram */
+  .value-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 20px 0;
+  }
+
+  .value-flow .level {
+    font-family: 'Cormorant Garamond', serif;
+    padding: 4px 20px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .value-flow .level-1 {
+    font-size: 1.3em;
+    color: var(--accent-amber);
+    font-weight: 600;
+  }
+
+  .value-flow .level-2 {
+    font-size: 1.05em;
+    color: var(--text-muted);
+  }
+
+  .value-flow .level-3 {
+    font-size: 0.85em;
+    color: #665e55;
+  }
+
+  .value-flow .arrow {
+    font-size: 1.1em;
+    color: var(--accent-amber);
+    opacity: 0.5;
+    line-height: 1;
+  }
+
+  /* Strike-through columns */
+  .broken-grid {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .broken-grid .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .broken-grid .struck {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3em;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: #c4953a80;
+    text-decoration-thickness: 2px;
+  }
+
+  .broken-grid .replacement {
+    font-size: 0.8em;
+    color: var(--accent-amber);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  /* Four pillars */
+  .pillars {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin: 20px 0;
+  }
+
+  .pillars .pillar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pillars .circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--accent-amber);
+  }
+
+  .pillars .pillar-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72em;
+    color: var(--text-primary);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  .pillars .connector {
+    display: flex;
+    align-items: center;
+    color: var(--accent-amber);
+    opacity: 0.3;
+    font-size: 1em;
+    padding-bottom: 24px;
+  }
+
+  /* Compounding bars */
+  .compound-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 16px 0;
+    max-width: 600px;
+  }
+
+  .compound-bars .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .compound-bars .bar-label {
+    font-size: 0.68em;
+    color: var(--text-muted);
+    width: 85px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .compound-bars .bar {
+    height: 14px;
+    background: linear-gradient(90deg, var(--accent-amber), #d4a84a);
+    border-radius: 2px;
+    opacity: 0.85;
+  }
+
+  /* Split layout */
+  .split {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+  }
+
+  .split .left, .split .right { flex: 1; }
+  .split .left { color: var(--text-muted); }
+  .split .right { color: var(--text-primary); }
+
+  /* Fingerprint list */
+  .fingerprint-list {
+    font-size: 0.88em;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+
+  /* Override reveal backgrounds */
+  .reveal .slide-background {
+    background-color: var(--bg-primary);
+  }
+
+  /* Print / PDF overrides */
+  @media print {
+    .reveal .slides section {
+      page-break-after: always;
+      page-break-inside: avoid;
+      min-height: 100vh;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 1 — Title -->
+<section class="centered">
+  <h1 style="font-size: 3.2em; font-weight: 400; letter-spacing: 0.08em;">ēdin</h1>
+  <hr class="amber-line center">
+  <p class="subtitle">a fertile plain</p>
+  <aside class="notes">Open with silence. Let them read it. Don't explain yet. Hold for 5 seconds.</aside>
+</section>
+
+<!-- SLIDE 2 — Etymology -->
+<section>
+  <hr class="amber-line">
+  <p class="large-text">
+    In the Sumerian language —<br>
+    one of the oldest written languages on Earth —
+  </p>
+  <p class="large-text" style="margin-top: 16px;">
+    the word <span class="amber italic">ēdin</span> means a fertile plain.
+  </p>
+  <p class="large-text muted" style="margin-top: 16px;">
+    Not wilderness. Not a city. A space between.
+  </p>
+  <aside class="notes">Speak slowly. "Not wilderness. Not a city." — pause between each. Let the in-between-ness land.</aside>
+</section>
+
+<!-- SLIDE 3 — The Hook -->
+<section class="centered">
+  <p class="large-text" style="font-size: 1.6em; line-height: 1.5;">
+    This is not a recruitment letter.<br>
+    <span class="amber" style="font-weight: 600;">You've already been chosen.</span>
+  </p>
+  <aside class="notes">Make eye contact. This is personal. Pause after "chosen." The explanation IS the rest of the talk.</aside>
+</section>
+
+<!-- SLIDE 4 — Act I Title -->
+<section class="centered alt-bg">
+  <p class="act-title"><span class="act-number">I</span> — The Broken Equation</p>
+  <aside class="notes">Brief pause. Voice drops slightly. More serious.</aside>
+</section>
+
+<!-- SLIDE 5 — Value Flows Upward -->
+<section class="centered">
+  <div class="value-flow">
+    <div class="level level-1">The ones who design the instruments</div>
+    <div class="arrow">↑</div>
+    <div class="level level-2">The ones who build</div>
+    <div class="arrow">↑</div>
+    <div class="level level-3">Everyone else</div>
+  </div>
+  <p style="text-align: center; margin-top: 20px; font-size: 1.1em;">Value flows <span class="amber">upward</span>.</p>
+  <aside class="notes">"The financial system operates on a simple principle. Value flows upward. The designers profit most. The builders get salaries. The billions affected? Whatever trickles down. We've all seen this. All of us know it's wrong."</aside>
+</section>
+
+<!-- SLIDE 6 — The Quiet Injustice -->
+<section class="centered">
+  <p class="huge-number">100,000,000+</p>
+  <p style="font-size: 1.05em; text-align: center;">developers contribute to open source.</p>
+  <p style="font-size: 1.2em; text-align: center; margin-top: 20px;" class="amber">Most receive nothing.</p>
+  <aside class="notes">"The people building the alternative — decentralized protocols, transparent ledgers — they work for almost nothing. Their code powers trillion-dollar ecosystems. Their reward is a GitHub star and burnout."</aside>
+</section>
+
+<!-- SLIDE 7 — Broken Mechanics -->
+<section class="centered">
+  <div class="broken-grid">
+    <div class="col">
+      <span class="struck">Popularity</span>
+      <span class="replacement">not quality</span>
+    </div>
+    <div class="col">
+      <span class="struck">Bounties</span>
+      <span class="replacement">not belonging</span>
+    </div>
+    <div class="col">
+      <span class="struck">Code only</span>
+      <span class="replacement">not craft</span>
+    </div>
+  </div>
+  <p class="muted" style="text-align: center; margin-top: 16px; font-size: 0.85em;">Good intentions. Broken mechanics.</p>
+  <aside class="notes">"Gitcoin, Coordinape, SourceCred — popularity contests instead of quality. Bounties instead of belonging. Code as the only contribution that counts."</aside>
+</section>
+
+<!-- SLIDE 8 — The Reframe -->
+<section class="centered">
+  <p class="large-text muted" style="font-size: 1.4em; margin-bottom: 20px;">What if the problem isn't generosity?</p>
+  <p class="large-text amber" style="font-size: 1.7em; font-weight: 600;">What if the problem is measurement?</p>
+  <aside class="notes">This is the pivot. Pause between the two questions. The second is the thesis. Let it hang.</aside>
+</section>
+
+<!-- SLIDE 9 — Act II Title -->
+<section class="centered alt-bg">
+  <p class="act-title"><span class="act-number">II</span> — What If Math Could Be Fair?</p>
+  <aside class="notes">Tone shift — frustration to possibility. Energy rises. Intellectual excitement enters.</aside>
+</section>
+
+<!-- SLIDE 10 — Scaling Laws -->
+<section>
+  <h2 style="font-size: 1.4em;">Scaling laws govern</h2>
+  <p class="muted" style="font-size: 0.95em; line-height: 2;">
+    City growth. Neural networks. Financial systems.
+  </p>
+  <hr class="amber-line" style="margin: 16px 0;">
+  <p style="font-size: 1.15em;">
+    Rose asked: can they govern <span class="amber">contribution</span>?
+  </p>
+  <aside class="notes">"Rose began with a mathematical insight: scaling laws could be applied as architecture. We asked: what if the same mathematics could measure contribution? Not lines of code. Not popularity. The quality of thinking, the impact of work, the compounding value of sustained commitment."</aside>
+</section>
+
+<!-- SLIDE 11 — That Question Became Edin -->
+<section class="centered">
+  <p class="muted" style="font-size: 0.95em; margin-bottom: 12px;">That question became</p>
+  <h1 style="font-size: 3.6em; font-weight: 400; letter-spacing: 0.08em;" class="amber">Edin</h1>
+  <aside class="notes">Name reveal. Brief. Powerful. Move immediately to next slide.</aside>
+</section>
+
+<!-- SLIDE 12 — Four Equal Domains -->
+<section class="centered">
+  <div class="pillars">
+    <div class="pillar">
+      <div class="circle">T</div>
+      <span class="pillar-label">Technology</span>
+    </div>
+    <div class="connector">—</div>
+    <div class="pillar">
+      <div class="circle">F</div>
+      <span class="pillar-label">Fintech</span>
+    </div>
+    <div class="connector">—</div>
+    <div class="pillar">
+      <div class="circle">I</div>
+      <span class="pillar-label">Impact</span>
+    </div>
+    <div class="connector">—</div>
+    <div class="pillar">
+      <div class="circle">G</div>
+      <span class="pillar-label">Governance</span>
+    </div>
+  </div>
+  <p style="text-align: center; margin-top: 20px; font-size: 1em;">
+    Same rigor. Same visibility. <span class="amber">Same rewards.</span>
+  </p>
+  <aside class="notes">"Four equal domains. A financial engineer's analysis on the same wall as a developer's pull request. Same rigor. Same rewards. Four pillars. Equal by architecture."</aside>
+</section>
+
+<!-- SLIDE 13 — Compounding Rewards -->
+<section>
+  <h3 style="margin-bottom: 16px;">Seven horizons. <span class="amber">Compounding loyalty.</span></h3>
+  <div class="compound-bars">
+    <div class="bar-row"><span class="bar-label">Session</span><div class="bar" style="width: 30px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Daily</span><div class="bar" style="width: 55px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Weekly</span><div class="bar" style="width: 95px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Monthly</span><div class="bar" style="width: 155px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Quarterly</span><div class="bar" style="width: 235px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Semi-annual</span><div class="bar" style="width: 340px;"></div></div>
+    <div class="bar-row"><span class="bar-label">Yearly</span><div class="bar" style="width: 470px;"></div></div>
+  </div>
+  <p class="muted" style="margin-top: 14px; font-size: 0.85em;">The mathematics of loyalty made real.</p>
+  <aside class="notes">"Rewards compound. Not linearly — exponentially. Seven temporal horizons. The longer you stay, the more disproportionately you earn. A scaling law applied to loyalty."</aside>
+</section>
+
+<!-- SLIDE 14 — Act III Title -->
+<section class="centered alt-bg">
+  <p class="act-title"><span class="act-number">III</span> — Why You</p>
+  <aside class="notes">Most personal section. Lower voice. Slow down. Speaking directly to each person.</aside>
+</section>
+
+<!-- SLIDE 15 — Curation -->
+<section>
+  <div class="split">
+    <div class="left">
+      <p style="font-size: 1.05em; line-height: 1.65;">
+        We could have opened<br>
+        the doors to everyone.<br><br>
+        That would have been<br>
+        the easy path.<br><br>
+        <span style="color: #665e55;">And the fatal one.</span>
+      </p>
+    </div>
+    <div class="right">
+      <p style="font-size: 1.05em; line-height: 1.65;">
+        We chose differently.<br><br>
+        <span class="amber" style="font-size: 1.15em; font-weight: 500;">Curated.</span><br><br>
+        Not by prestige —<br>
+        by commitment and craft.
+      </p>
+    </div>
+  </div>
+  <aside class="notes">"Every open-access platform drowns in noise. Quality degrades. The best people leave. So we chose differently. Curated. Not by prestige — by commitment and craft."</aside>
+</section>
+
+<!-- SLIDE 16 — You Belong -->
+<section class="centered">
+  <p class="quote-text">
+    You are here because someone looked at<br>
+    what you've built, how you think,<br>
+    and what you stand for —
+  </p>
+  <p class="quote-text amber" style="margin-top: 14px; font-weight: 600;">
+    and said: this person belongs.
+  </p>
+  <aside class="notes">"You are not here because you answered a posting. You are here because the work ahead demands people who refuse to compromise." — Emotional peak. Speak almost as recitation.</aside>
+</section>
+
+<!-- SLIDE 17 — Act IV Title -->
+<section class="centered alt-bg">
+  <p class="act-title"><span class="act-number">IV</span> — The Garden</p>
+  <aside class="notes">Now we move from "you" to "us." The metaphor that ties everything together.</aside>
+</section>
+
+<!-- SLIDE 18 — Garden vs Factory -->
+<section class="centered">
+  <h2 style="font-size: 1.65em; font-weight: 400; margin-bottom: 24px;">A garden is not a factory.</h2>
+  <p style="font-size: 0.95em; line-height: 2; text-align: center;" class="muted">
+    It doesn't optimize for output.<br>
+    It cultivates conditions for <span class="green">growth</span>.<br>
+    It selects what to <span class="green">plant</span>.<br>
+    It tends what <span class="green">grows</span>.<br>
+    It trusts the <span class="green">soil</span>.
+  </p>
+  <aside class="notes">"We are planting something here. A community where the world's best minds can do their deepest work and be recognized for it. Where staying matters more than arriving."</aside>
+</section>
+
+<!-- SLIDE 19 — The Foundation Pour -->
+<section class="centered">
+  <h2 style="font-size: 1.7em; font-weight: 600;">Your fingerprints will be<br><span class="amber">on everything.</span></h2>
+  <hr class="amber-line center">
+  <div class="fingerprint-list" style="text-align: center;">
+    The evaluation criteria. The governance.<br>
+    The culture. The standards.
+  </div>
+  <p style="text-align: center; margin-top: 24px; font-size: 1em;">
+    This is not version 2.0.<br>
+    This is the <span class="amber">foundation pour</span>.
+  </p>
+  <aside class="notes">"We are building inside the IOUR Foundation — a Belgian non-profit — because this work should not belong to shareholders. We are building on Rose because its mathematical foundations can reshape how value moves. And we are starting now. With you."</aside>
+</section>
+
+<!-- SLIDE 20 — Welcome to Edin -->
+<section class="centered">
+  <p class="large-text muted" style="font-size: 1.2em; line-height: 1.8;">
+    The ground is fertile.<br>
+    The work is real.<br>
+    And the people beside you<br>
+    are the ones you've been looking for.
+  </p>
+  <p style="margin-top: 40px; font-size: 2.2em; font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 0.05em;" class="amber">
+    Welcome to Edin.
+  </p>
+  <aside class="notes">Say the first three lines slowly. Pause. "Welcome to Edin." — and stop. Don't add anything. Let the silence hold. After 5-10 seconds, nod and say "Thank you."</aside>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    center: true,
+    controls: true,
+    controlsTutorial: false,
+    progress: true,
+    slideNumber: false,
+    transition: 'fade',
+    transitionSpeed: 'slow',
+    backgroundTransition: 'fade',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 1.5,
+    showNotes: false,
+    pdfSeparateFragments: false
+  });
+</script>
+
+</body>
+</html>
