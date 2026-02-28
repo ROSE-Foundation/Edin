@@ -110,6 +110,9 @@
   .showcase-nav::-webkit-scrollbar { display: none; }
 
   .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     font-family: var(--font-serif);
     font-size: 1.125rem;
     font-weight: 700;
@@ -117,6 +120,11 @@
     white-space: nowrap;
     margin-right: var(--space-lg);
     letter-spacing: 0.02em;
+  }
+
+  .nav-brand img {
+    height: 28px;
+    width: auto;
   }
 
   .nav-brand span { color: var(--brand-accent); }
@@ -194,6 +202,12 @@
     color: var(--surface-base);
     padding: var(--space-4xl) var(--space-xl);
     text-align: center;
+  }
+
+  .hero-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: var(--space-xl);
   }
 
   .hero-overline {
@@ -564,6 +578,9 @@
   }
 
   .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 700;
@@ -571,6 +588,11 @@
     padding-bottom: var(--space-lg);
     margin-bottom: var(--space-lg);
     border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-brand img {
+    height: 32px;
+    width: auto;
   }
 
   .sidebar-brand span { color: var(--brand-accent); }
@@ -981,10 +1003,18 @@
   }
 
   .portal-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--brand-primary);
+  }
+
+  .portal-logo img {
+    height: 32px;
+    width: auto;
   }
 
   .portal-logo span { color: var(--brand-accent); }
@@ -1551,7 +1581,7 @@
 
 <!-- NAVIGATION -->
 <nav class="showcase-nav">
-  <div class="nav-brand">Edin <span>Design</span></div>
+  <div class="nav-brand"><img src="../../docs/edin_logo.png" alt="Edin"> <span>Design</span></div>
   <button class="nav-item active" onclick="scrollToSection('hero')">Overview</button>
   <button class="nav-item" onclick="scrollToSection('dir1')">Article</button>
   <button class="nav-item" onclick="scrollToSection('dir2')">Evaluation</button>
@@ -1565,6 +1595,7 @@
 
 <!-- HERO -->
 <section class="hero-section" id="hero">
+  <img src="../../docs/edin_logo.png" alt="Edin" class="hero-logo">
   <div class="hero-overline">Design Direction Showcase</div>
   <h1 class="hero-title">Edin — <em>The Fertile Plain</em></h1>
   <p class="hero-description">
@@ -1704,7 +1735,7 @@
   </div>
   <div class="dashboard-mockup">
     <aside class="dashboard-sidebar">
-      <div class="sidebar-brand">E<span>din</span></div>
+      <div class="sidebar-brand"><img src="../../docs/edin_logo.png" alt="Edin"></div>
       <nav class="sidebar-nav">
         <div class="sidebar-item active"><span class="icon">&#127968;</span> Home</div>
         <div class="sidebar-item"><span class="icon">&#128202;</span> Evaluations <div class="notification-dot"></div></div>
@@ -1840,7 +1871,7 @@
   <div class="portal-mockup">
     <nav class="portal-nav">
       <div class="portal-nav-left">
-        <div class="portal-logo">E<span>din</span></div>
+        <div class="portal-logo"><img src="../../docs/edin_logo.png" alt="Edin"></div>
         <div class="portal-nav-links">
           <span class="portal-nav-link active">Publication</span>
           <span class="portal-nav-link">Contributors</span>
