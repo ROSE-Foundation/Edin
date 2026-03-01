@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand Palette */
+  --color-brand-primary: #2d3b45;
+  --color-brand-secondary: #6b7b8d;
+  --color-brand-accent: #c4956a;
+  --color-brand-accent-subtle: #e8d5c0;
+
+  /* Surface Palette */
+  --color-surface-base: #fafaf7;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #f2f0eb;
+  --color-surface-border: #e8e6e1;
+  --color-surface-border-input: #d8d4ce;
+
+  /* Domain Accents */
+  --color-domain-technology: #3a7d7e;
+  --color-domain-fintech: #c49a3c;
+  --color-domain-impact: #b06b6b;
+  --color-domain-governance: #7b6b8a;
+
+  /* Semantic Colors */
+  --color-semantic-success: #5a8a6b;
+  --color-semantic-warning: #c49a3c;
+  --color-semantic-info: #5a7a8a;
+  --color-semantic-error: #a85a5a;
+
+  /* Typography */
+  --font-serif: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+
+  /* Spacing Scale (8px base) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Transitions */
+  --transition-fast: 200ms ease-out;
+  --transition-normal: 300ms ease-out;
+}
+
+/* Base Styles */
+body {
+  background-color: var(--color-surface-base);
+  color: var(--color-brand-primary);
+  font-family: var(--font-sans);
+}
+
+/* Skeleton loader animation */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.skeleton {
+  animation: skeleton-pulse 2s ease-in-out infinite;
+  background-color: var(--color-surface-sunken);
+  border-radius: var(--radius-md);
+}

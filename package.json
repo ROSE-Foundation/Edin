@@ -1,0 +1,32 @@
+{
+  "name": "edin",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.2",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write \"{apps,packages,e2e}/**/*.{ts,tsx,js,jsx,json,md}\" \".github/**/*.{yml,yaml,md}\" package.json pnpm-workspace.yaml turbo.json docker-compose.yml commitlint.config.mjs .prettierrc",
+    "format:check": "prettier --check \"{apps,packages,e2e}/**/*.{ts,tsx,js,jsx,json,md}\" \".github/**/*.{yml,yaml,md}\" package.json pnpm-workspace.yaml turbo.json docker-compose.yml commitlint.config.mjs .prettierrc",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "turbo": "^2.8.0",
+    "prettier": "^3.5.0",
+    "husky": "^9.1.0",
+    "@commitlint/cli": "^20.4.0",
+    "@commitlint/config-conventional": "^20.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "esbuild",
+      "@nestjs/core",
+      "protobufjs",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}

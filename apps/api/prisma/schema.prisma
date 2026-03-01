@@ -1,0 +1,12 @@
+// Edin Platform — Prisma Schema
+// Full database schema will be created in Story 1.2
+
+generator client {
+  provider = "prisma-client"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
