@@ -4,8 +4,15 @@ export const appConfigSchema = z.object({
   NODE_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
   API_PORT: z.coerce.number().default(3001),
   API_HOST: z.string().default('0.0.0.0'),
+  FRONTEND_URL: z.string().url().default('http://localhost:3000'),
   DATABASE_URL: z.string().url(),
   REDIS_URL: z.string().url(),
+  GITHUB_CLIENT_ID: z.string().min(1),
+  GITHUB_CLIENT_SECRET: z.string().min(1),
+  GITHUB_CALLBACK_URL: z.string().url(),
+  JWT_SECRET: z.string().min(32),
+  JWT_EXPIRATION: z.string().default('15m'),
+  REFRESH_TOKEN_EXPIRATION: z.string().default('30d'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   OTEL_SERVICE_NAME: z.string().default('edin-api'),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.string().url().optional(),
@@ -13,8 +20,8 @@ export const appConfigSchema = z.object({
 
 export type AppConfig = z.infer<typeof appConfigSchema>;
 
-export function validateConfig(): AppConfig {
-  const result = appConfigSchema.safeParse(process.env);
+export function validateConfig(env: Record<string, string | undefined> = process.env): AppConfig {
+  const result = appConfigSchema.safeParse(env);
 
   if (!result.success) {
     const errors = result.error.issues

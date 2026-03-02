@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Libre_Baskerville, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Providers } from './providers';
 
 const libreBaskerville = Libre_Baskerville({
   variable: '--font-libre-baskerville',
@@ -37,7 +38,7 @@ export default function RootLayout({
       <body
         className={`${libreBaskerville.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

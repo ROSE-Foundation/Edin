@@ -4,6 +4,7 @@ import { VersioningType } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module.js';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter.js';
 import { CorrelationIdInterceptor } from './common/interceptors/correlation-id.interceptor.js';
@@ -21,8 +22,9 @@ async function bootstrap() {
   // Pino logger
   app.useLogger(app.get(Logger));
 
-  // Security
+  // Security & middleware
   app.use(helmet());
+  app.use(cookieParser());
   app.enableCors({
     origin: process.env.NODE_ENV === 'production' ? false : true,
     credentials: true,

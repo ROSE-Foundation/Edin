@@ -25,3 +25,15 @@ export type {
   ApiErrorBody,
   ApiErrorResponse,
 } from './types/api-response.types.js';
+
+export {
+  authTokenResponseSchema,
+  refreshTokenRequestSchema,
+  githubCallbackQuerySchema,
+} from './schemas/auth.schema.js';
+
+export type {
+  AuthTokenResponse,
+  RefreshTokenRequest,
+  GithubCallbackQuery,
+} from './types/auth.types.js';
