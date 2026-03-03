@@ -18,6 +18,11 @@ export class ProfileController {
     return this.contributorService.getProfile(userId);
   }
 
+  @Get('founding')
+  async getFoundingContributors() {
+    return this.contributorService.getFoundingContributors();
+  }
+
   @Get(':id')
   async getPublicProfile(@Param('id') id: string) {
     if (!UUID_REGEX.test(id)) {

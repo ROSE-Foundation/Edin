@@ -11,19 +11,38 @@ export class ContributorService {
 
   constructor(private readonly prisma: PrismaService) {}
 
+  private readonly publicProfileSelect = {
+    id: true,
+    name: true,
+    avatarUrl: true,
+    bio: true,
+    domain: true,
+    skillAreas: true,
+    role: true,
+    createdAt: true,
+  } as const;
+
+  async getFoundingContributors() {
+    const contributors = await this.prisma.contributor.findMany({
+      where: {
+        role: 'FOUNDING_CONTRIBUTOR',
+        isActive: true,
+      },
+      select: this.publicProfileSelect,
+      orderBy: { createdAt: 'asc' },
+    });
+
+    this.logger.log('Founding contributors queried', {
+      count: contributors.length,
+    });
+
+    return contributors;
+  }
+
   async getPublicProfile(contributorId: string) {
     const contributor = await this.prisma.contributor.findUnique({
       where: { id: contributorId },
-      select: {
-        id: true,
-        name: true,
-        avatarUrl: true,
-        bio: true,
-        domain: true,
-        skillAreas: true,
-        role: true,
-        createdAt: true,
-      },
+      select: this.publicProfileSelect,
     });
 
     if (!contributor) {

@@ -8,6 +8,7 @@ import { DomainException } from '../../common/exceptions/domain.exception.js';
 const mockContributorService = {
   getProfile: vi.fn(),
   getPublicProfile: vi.fn(),
+  getFoundingContributors: vi.fn(),
   updateProfile: vi.fn(),
 };
 
@@ -53,6 +54,47 @@ describe('ProfileController', () => {
 
       expect(result).toEqual(mockContributor);
       expect(mockContributorService.getProfile).toHaveBeenCalledWith('user-uuid-1');
+    });
+  });
+
+  describe('GET founding', () => {
+    const mockFoundingContributors = [
+      {
+        id: 'founding-uuid-1',
+        name: 'Founder One',
+        avatarUrl: 'https://avatars.githubusercontent.com/u/111',
+        bio: 'First founder',
+        domain: 'Technology',
+        skillAreas: ['TypeScript'],
+        role: 'FOUNDING_CONTRIBUTOR',
+        createdAt: new Date('2025-01-01'),
+      },
+    ];
+
+    it('returns founding contributors data array', async () => {
+      mockContributorService.getFoundingContributors.mockResolvedValueOnce(
+        mockFoundingContributors,
+      );
+
+      const result = await controller.getFoundingContributors();
+
+      expect(result).toEqual(mockFoundingContributors);
+      expect(mockContributorService.getFoundingContributors).toHaveBeenCalled();
+    });
+
+    it('returns empty array when no founding contributors exist', async () => {
+      mockContributorService.getFoundingContributors.mockResolvedValueOnce([]);
+
+      const result = await controller.getFoundingContributors();
+
+      expect(result).toEqual([]);
+    });
+
+    it('does not apply auth guards on GET founding route', () => {
+      const method = ProfileController.prototype.getFoundingContributors;
+      const guards = Reflect.getMetadata(GUARDS_METADATA, method);
+
+      expect(guards).toBeUndefined();
     });
   });
 

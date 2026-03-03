@@ -7,6 +7,7 @@ import { DomainException } from '../../common/exceptions/domain.exception.js';
 const mockPrisma = {
   contributor: {
     findUnique: vi.fn(),
+    findMany: vi.fn(),
     update: vi.fn(),
   },
   auditLog: {
@@ -284,6 +285,116 @@ describe('ContributorService', () => {
       expect(caughtError).toBeInstanceOf(DomainException);
       expect(caughtError!.errorCode).toBe('CONTRIBUTOR_NOT_FOUND');
       expect(caughtError!.getStatus()).toBe(404);
+    });
+  });
+
+  describe('getFoundingContributors', () => {
+    const publicSelect = {
+      id: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      domain: true,
+      skillAreas: true,
+      role: true,
+      createdAt: true,
+    };
+
+    const foundingContributor1 = {
+      id: 'founding-uuid-1',
+      name: 'Founder One',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/111',
+      bio: 'First founding contributor',
+      domain: 'Technology',
+      skillAreas: ['TypeScript'],
+      role: 'FOUNDING_CONTRIBUTOR',
+      createdAt: new Date('2025-01-01'),
+    };
+
+    const foundingContributor2 = {
+      id: 'founding-uuid-2',
+      name: 'Founder Two',
+      avatarUrl: null,
+      bio: 'Second founding contributor',
+      domain: 'Fintech',
+      skillAreas: ['Python', 'ML'],
+      role: 'FOUNDING_CONTRIBUTOR',
+      createdAt: new Date('2025-02-01'),
+    };
+
+    it('returns only FOUNDING_CONTRIBUTOR role contributors', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        foundingContributor1,
+        foundingContributor2,
+      ]);
+
+      const result = await service.getFoundingContributors();
+
+      expect(result).toHaveLength(2);
+      expect(result[0].role).toBe('FOUNDING_CONTRIBUTOR');
+      expect(result[1].role).toBe('FOUNDING_CONTRIBUTOR');
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith({
+        where: {
+          role: 'FOUNDING_CONTRIBUTOR',
+          isActive: true,
+        },
+        select: publicSelect,
+        orderBy: { createdAt: 'asc' },
+      });
+    });
+
+    it('returns empty array when no founding contributors exist', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+
+      const result = await service.getFoundingContributors();
+
+      expect(result).toEqual([]);
+      expect(result).toHaveLength(0);
+    });
+
+    it('excludes inactive contributors', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([foundingContributor1]);
+
+      await service.getFoundingContributors();
+
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            isActive: true,
+          }),
+        }),
+      );
+    });
+
+    it('returns only public fields (no email, githubId, isActive, updatedAt)', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([foundingContributor1]);
+
+      const result = await service.getFoundingContributors();
+
+      expect(result[0]).not.toHaveProperty('email');
+      expect(result[0]).not.toHaveProperty('githubId');
+      expect(result[0]).not.toHaveProperty('isActive');
+      expect(result[0]).not.toHaveProperty('updatedAt');
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          select: publicSelect,
+        }),
+      );
+    });
+
+    it('orders contributors by createdAt ASC', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        foundingContributor1,
+        foundingContributor2,
+      ]);
+
+      await service.getFoundingContributors();
+
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: { createdAt: 'asc' },
+        }),
+      );
     });
   });
 
