@@ -9,6 +9,7 @@ const mockContributorService = {
   getProfile: vi.fn(),
   getPublicProfile: vi.fn(),
   getFoundingContributors: vi.fn(),
+  getContributorRoster: vi.fn(),
   updateProfile: vi.fn(),
 };
 
@@ -152,6 +153,113 @@ describe('ProfileController', () => {
 
     it('does not apply auth guards on GET :id public route', () => {
       const method = ProfileController.prototype.getPublicProfile;
+      const guards = Reflect.getMetadata(GUARDS_METADATA, method);
+
+      expect(guards).toBeUndefined();
+    });
+  });
+
+  describe('GET (roster)', () => {
+    const mockReqRoster = { correlationId: 'corr-roster-1' } as any;
+    const mockRosterResult = {
+      items: [
+        {
+          id: 'roster-uuid-1',
+          name: 'Alice Tech',
+          avatarUrl: 'https://avatars.githubusercontent.com/u/201',
+          bio: 'Backend developer',
+          domain: 'Technology',
+          skillAreas: ['TypeScript'],
+          role: 'CONTRIBUTOR',
+          createdAt: new Date('2025-06-01'),
+        },
+      ],
+      cursor: null,
+      hasMore: false,
+      total: 1,
+    };
+
+    it('returns paginated roster data with success envelope', async () => {
+      mockContributorService.getContributorRoster.mockResolvedValueOnce(mockRosterResult);
+
+      const result = await controller.getContributorRoster({}, mockReqRoster);
+
+      expect(result.data).toEqual(mockRosterResult.items);
+      expect(result.meta.pagination).toEqual({
+        cursor: null,
+        hasMore: false,
+        total: 1,
+      });
+      expect(result.meta.correlationId).toBe('corr-roster-1');
+    });
+
+    it('passes parsed query params to service', async () => {
+      mockContributorService.getContributorRoster.mockResolvedValueOnce(mockRosterResult);
+
+      await controller.getContributorRoster(
+        { domain: 'Technology', search: 'alice', limit: '10' },
+        mockReqRoster,
+      );
+
+      expect(mockContributorService.getContributorRoster).toHaveBeenCalledWith({
+        domain: 'Technology',
+        search: 'alice',
+        limit: 10,
+      });
+    });
+
+    it('returns empty results', async () => {
+      mockContributorService.getContributorRoster.mockResolvedValueOnce({
+        items: [],
+        cursor: null,
+        hasMore: false,
+        total: 0,
+      });
+
+      const result = await controller.getContributorRoster({}, mockReqRoster);
+
+      expect(result.data).toEqual([]);
+      expect(result.meta.pagination!.total).toBe(0);
+    });
+
+    it('throws VALIDATION_ERROR for invalid domain param', async () => {
+      let caughtError: DomainException | undefined;
+      try {
+        await controller.getContributorRoster({ domain: 'InvalidDomain' }, mockReqRoster);
+      } catch (e) {
+        caughtError = e as DomainException;
+      }
+
+      expect(caughtError).toBeInstanceOf(DomainException);
+      expect(caughtError!.errorCode).toBe('VALIDATION_ERROR');
+      expect(caughtError!.getStatus()).toBe(400);
+    });
+
+    it('throws VALIDATION_ERROR when limit exceeds 100', async () => {
+      let caughtError: DomainException | undefined;
+      try {
+        await controller.getContributorRoster({ limit: '101' }, mockReqRoster);
+      } catch (e) {
+        caughtError = e as DomainException;
+      }
+
+      expect(caughtError).toBeInstanceOf(DomainException);
+      expect(caughtError!.errorCode).toBe('VALIDATION_ERROR');
+      expect(caughtError!.getStatus()).toBe(400);
+    });
+
+    it('passes opaque cursor through to service', async () => {
+      mockContributorService.getContributorRoster.mockResolvedValueOnce(mockRosterResult);
+
+      await controller.getContributorRoster({ cursor: 'opaque-cursor-token' }, mockReqRoster);
+
+      expect(mockContributorService.getContributorRoster).toHaveBeenCalledWith(
+        expect.objectContaining({ cursor: 'opaque-cursor-token' }),
+      );
+    });
+
+    it('does not apply auth guards on GET roster route', () => {
+      const method = ProfileController.prototype.getContributorRoster;
       const guards = Reflect.getMetadata(GUARDS_METADATA, method);
 
       expect(guards).toBeUndefined();

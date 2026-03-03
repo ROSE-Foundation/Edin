@@ -22,6 +22,98 @@ export class ContributorService {
     createdAt: true,
   } as const;
 
+  private decodeRosterCursor(cursor: string): { id: string; createdAt: Date } | null {
+    try {
+      const decoded = Buffer.from(cursor, 'base64url').toString('utf8');
+      const parsed = JSON.parse(decoded) as { id?: string; createdAt?: string };
+
+      if (!parsed.id || !parsed.createdAt) {
+        return null;
+      }
+
+      const createdAt = new Date(parsed.createdAt);
+      if (Number.isNaN(createdAt.getTime())) {
+        return null;
+      }
+
+      return { id: parsed.id, createdAt };
+    } catch {
+      return null;
+    }
+  }
+
+  private encodeRosterCursor(item: { id: string; createdAt: Date }): string {
+    return Buffer.from(
+      JSON.stringify({ id: item.id, createdAt: item.createdAt.toISOString() }),
+      'utf8',
+    ).toString('base64url');
+  }
+
+  async getContributorRoster(params: {
+    domain?: string;
+    search?: string;
+    cursor?: string;
+    limit?: number;
+  }) {
+    const limit = Math.min(params.limit ?? 20, 100);
+
+    const where: Record<string, unknown> = { isActive: true };
+    if (params.cursor) {
+      const decodedCursor = this.decodeRosterCursor(params.cursor);
+      if (!decodedCursor) {
+        throw new DomainException(
+          ERROR_CODES.VALIDATION_ERROR,
+          'Invalid cursor format',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      where.OR = [
+        { createdAt: { gt: decodedCursor.createdAt } },
+        {
+          createdAt: decodedCursor.createdAt,
+          id: { gt: decodedCursor.id },
+        },
+      ];
+    }
+
+    if (params.domain) {
+      where.domain = params.domain;
+    }
+    if (params.search) {
+      where.name = { contains: params.search, mode: 'insensitive' };
+    }
+
+    const [items, total] = await Promise.all([
+      this.prisma.contributor.findMany({
+        where,
+        select: this.publicProfileSelect,
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+        take: limit + 1,
+      }),
+      this.prisma.contributor.count({ where }),
+    ]);
+
+    const hasMore = items.length > limit;
+    const resultItems = hasMore ? items.slice(0, limit) : items;
+
+    const nextCursor =
+      hasMore && resultItems.length > 0
+        ? this.encodeRosterCursor(resultItems[resultItems.length - 1])
+        : null;
+
+    this.logger.log('Contributor roster queried', {
+      count: resultItems.length,
+      total,
+      hasMore,
+      domain: params.domain ?? 'all',
+      hasSearch: Boolean(params.search),
+      searchLength: params.search?.length ?? 0,
+    });
+
+    return { items: resultItems, cursor: nextCursor, hasMore, total };
+  }
+
   async getFoundingContributors() {
     const contributors = await this.prisma.contributor.findMany({
       where: {

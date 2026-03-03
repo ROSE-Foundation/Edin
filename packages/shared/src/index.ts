@@ -4,6 +4,9 @@ export type { Role } from './constants/roles.js';
 export { DOMAINS } from './constants/domains.js';
 export type { Domain } from './constants/domains.js';
 
+export { DOMAIN_MANIFESTOS } from './constants/manifestos.js';
+export type { DomainManifesto } from './types/manifesto.types.js';
+
 export { ERROR_CODES } from './constants/error-codes.js';
 export type { ErrorCode } from './constants/error-codes.js';
 
@@ -37,6 +40,9 @@ export {
   refreshTokenRequestSchema,
   githubCallbackQuerySchema,
 } from './schemas/auth.schema.js';
+
+export { rosterQuerySchema } from './schemas/roster.schema.js';
+export type { RosterQueryParams } from './schemas/roster.schema.js';
 
 export type {
   AuthTokenResponse,

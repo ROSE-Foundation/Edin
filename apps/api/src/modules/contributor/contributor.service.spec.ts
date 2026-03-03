@@ -9,6 +9,7 @@ const mockPrisma = {
     findUnique: vi.fn(),
     findMany: vi.fn(),
     update: vi.fn(),
+    count: vi.fn(),
   },
   auditLog: {
     create: vi.fn(),
@@ -601,6 +602,213 @@ describe('ContributorService', () => {
       expect(result).toEqual(mockContributor);
       expect(mockPrisma.contributor.update).not.toHaveBeenCalled();
       expect(mockPrisma.auditLog.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getContributorRoster', () => {
+    const publicSelect = {
+      id: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      domain: true,
+      skillAreas: true,
+      role: true,
+      createdAt: true,
+    };
+
+    const rosterContributor1 = {
+      id: 'roster-uuid-1',
+      name: 'Alice Tech',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/201',
+      bio: 'Backend developer',
+      domain: 'Technology',
+      skillAreas: ['TypeScript', 'NestJS'],
+      role: 'CONTRIBUTOR',
+      createdAt: new Date('2025-06-01'),
+    };
+
+    const rosterContributor2 = {
+      id: 'roster-uuid-2',
+      name: 'Bob Finance',
+      avatarUrl: null,
+      bio: 'Fintech specialist',
+      domain: 'Fintech',
+      skillAreas: ['Python'],
+      role: 'CONTRIBUTOR',
+      createdAt: new Date('2025-06-15'),
+    };
+
+    const rosterContributor3 = {
+      id: 'roster-uuid-3',
+      name: 'Charlie Impact',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/203',
+      bio: 'Sustainability researcher',
+      domain: 'Impact',
+      skillAreas: ['Research'],
+      role: 'FOUNDING_CONTRIBUTOR',
+      createdAt: new Date('2025-07-01'),
+    };
+
+    it('returns paginated results with default limit', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        rosterContributor1,
+        rosterContributor2,
+        rosterContributor3,
+      ]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(3);
+
+      const result = await service.getContributorRoster({});
+
+      expect(result.items).toHaveLength(3);
+      expect(result.hasMore).toBe(false);
+      expect(result.cursor).toBeNull();
+      expect(result.total).toBe(3);
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { isActive: true },
+          select: publicSelect,
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: 21,
+        }),
+      );
+    });
+
+    it('filters by domain correctly', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([rosterContributor1]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(1);
+
+      const result = await service.getContributorRoster({ domain: 'Technology' });
+
+      expect(result.items).toHaveLength(1);
+      expect(result.items[0].domain).toBe('Technology');
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { isActive: true, domain: 'Technology' },
+        }),
+      );
+    });
+
+    it('searches by name case-insensitively', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([rosterContributor1]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(1);
+
+      const result = await service.getContributorRoster({ search: 'alice' });
+
+      expect(result.items).toHaveLength(1);
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: {
+            isActive: true,
+            name: { contains: 'alice', mode: 'insensitive' },
+          },
+        }),
+      );
+    });
+
+    it('returns empty results for no matches', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(0);
+
+      const result = await service.getContributorRoster({ search: 'nonexistent' });
+
+      expect(result.items).toHaveLength(0);
+      expect(result.hasMore).toBe(false);
+      expect(result.cursor).toBeNull();
+      expect(result.total).toBe(0);
+    });
+
+    it('respects limit parameter', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        rosterContributor1,
+        rosterContributor2,
+      ]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(3);
+
+      const result = await service.getContributorRoster({ limit: 1 });
+
+      // findMany called with take: 2 (limit + 1)
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ take: 2 }),
+      );
+      // hasMore is true because findMany returned 2 items (more than limit of 1)
+      expect(result.hasMore).toBe(true);
+      expect(result.items).toHaveLength(1);
+      expect(result.cursor).toEqual(expect.any(String));
+    });
+
+    it('cursor pagination works across pages', async () => {
+      const cursor = Buffer.from(
+        JSON.stringify({ id: 'roster-uuid-1', createdAt: '2025-06-01T00:00:00.000Z' }),
+        'utf8',
+      ).toString('base64url');
+
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        rosterContributor2,
+        rosterContributor3,
+      ]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(3);
+
+      const result = await service.getContributorRoster({ cursor, limit: 2 });
+
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            OR: [
+              { createdAt: { gt: new Date('2025-06-01T00:00:00.000Z') } },
+              {
+                createdAt: new Date('2025-06-01T00:00:00.000Z'),
+                id: { gt: 'roster-uuid-1' },
+              },
+            ],
+          }),
+          take: 3,
+        }),
+      );
+      expect(result.items).toHaveLength(2);
+      expect(result.hasMore).toBe(false);
+    });
+
+    it('throws VALIDATION_ERROR for malformed cursor', async () => {
+      let caughtError: DomainException | undefined;
+      try {
+        await service.getContributorRoster({ cursor: 'invalid-cursor' });
+      } catch (e) {
+        caughtError = e as DomainException;
+      }
+
+      expect(caughtError).toBeInstanceOf(DomainException);
+      expect(caughtError!.errorCode).toBe('VALIDATION_ERROR');
+      expect(caughtError!.getStatus()).toBe(400);
+      expect(mockPrisma.contributor.findMany).not.toHaveBeenCalled();
+    });
+
+    it('returns only public fields (no email, githubId)', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([rosterContributor1]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(1);
+
+      const result = await service.getContributorRoster({});
+
+      expect(result.items[0]).not.toHaveProperty('email');
+      expect(result.items[0]).not.toHaveProperty('githubId');
+      expect(result.items[0]).not.toHaveProperty('isActive');
+      expect(result.items[0]).not.toHaveProperty('updatedAt');
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          select: publicSelect,
+        }),
+      );
+    });
+
+    it('caps limit at 100 when higher value provided', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(0);
+
+      await service.getContributorRoster({ limit: 200 });
+
+      expect(mockPrisma.contributor.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ take: 101 }),
+      );
     });
   });
 });
