@@ -6,10 +6,13 @@ import { ERROR_CODES } from '@edin/shared';
 import { AuthService } from './auth.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard.js';
+import { AbilityGuard } from '../../common/guards/ability.guard.js';
+import { CheckAbility } from '../../common/decorators/check-ability.decorator.js';
 import {
   CurrentUser,
   type CurrentUserPayload,
 } from '../../common/decorators/current-user.decorator.js';
+import { Action } from './casl/action.enum.js';
 
 @Controller('auth')
 export class AuthController {
@@ -61,7 +64,8 @@ export class AuthController {
   }
 
   @Get('me')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Read, 'Contributor'))
   getMe(@CurrentUser() user: CurrentUserPayload, @Req() req: Request) {
     return {
       data: user,

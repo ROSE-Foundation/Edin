@@ -6,6 +6,8 @@ import { AuthService } from './auth.service.js';
 import { AuthController } from './auth.controller.js';
 import { GithubStrategy } from './strategies/github.strategy.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
+import { CaslModule } from './casl/casl.module.js';
+import { AbilityGuard } from '../../common/guards/ability.guard.js';
 
 @Module({
   imports: [
@@ -23,9 +25,10 @@ import { JwtStrategy } from './strategies/jwt.strategy.js';
         },
       }),
     }),
+    CaslModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, GithubStrategy, JwtStrategy],
-  exports: [AuthService, JwtModule],
+  providers: [AuthService, GithubStrategy, JwtStrategy, AbilityGuard],
+  exports: [AuthService, JwtModule, CaslModule],
 })
 export class AuthModule {}

@@ -1,0 +1,17 @@
+export type AppSubjects =
+  | 'Contributor'
+  | 'AuditLog'
+  | 'Article'
+  | 'WorkingGroup'
+  | 'Application'
+  | 'Evaluation'
+  | 'PeerFeedback'
+  | 'Task'
+  | 'HealthMetrics'
+  | 'PlatformSettings'
+  | 'PublicShowcase'
+  | 'ContributorRoster'
+  | 'DomainManifesto'
+  | 'PublicMetrics'
+  | 'MicroTask'
+  | 'EditorialFeedback';

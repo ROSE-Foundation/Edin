@@ -37,3 +37,6 @@ export type {
   RefreshTokenRequest,
   GithubCallbackQuery,
 } from './types/auth.types.js';
+
+export { Action } from './types/rbac.types.js';
+export type { PermissionCheck } from './types/rbac.types.js';

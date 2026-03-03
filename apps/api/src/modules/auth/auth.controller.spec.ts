@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { HttpStatus } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
+import { CaslAbilityFactory } from './casl/ability.factory.js';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -57,6 +59,8 @@ describe('AuthController', () => {
             }),
           },
         },
+        CaslAbilityFactory,
+        Reflector,
       ],
     }).compile();
 
