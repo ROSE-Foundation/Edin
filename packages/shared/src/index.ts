@@ -63,3 +63,14 @@ export type {
 } from './types/metrics.types.js';
 
 export { REWARD_METHODOLOGY } from './constants/reward-methodology.js';
+
+export type {
+  DecentralizationMilestone,
+  GovernanceKeyMetric,
+  PhaseStatus,
+  GovernancePhase,
+  GovernanceGlossaryTerm,
+  ProgressiveDecentralizationRoadmap,
+} from './types/governance.types.js';
+
+export { PROGRESSIVE_DECENTRALIZATION_ROADMAP } from './constants/governance-roadmap.js';
