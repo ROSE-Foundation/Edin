@@ -74,3 +74,14 @@ export type {
 } from './types/governance.types.js';
 
 export { PROGRESSIVE_DECENTRALIZATION_ROADMAP } from './constants/governance-roadmap.js';
+
+export { createApplicationSchema } from './schemas/admission.schema.js';
+export type { CreateApplicationDto } from './schemas/admission.schema.js';
+
+export type {
+  ApplicationStatus,
+  Application,
+  MicroTask,
+  ConsentRecord,
+  CreateApplicationInput,
+} from './types/admission.types.js';

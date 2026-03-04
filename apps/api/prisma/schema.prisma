@@ -34,6 +34,15 @@ enum ContributorDomain {
   @@schema("core")
 }
 
+enum ApplicationStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  DECLINED
+
+  @@schema("core")
+}
+
 // ─── Core Schema ────────────────────────────────────────────────────────────
 
 model Contributor {
@@ -50,9 +59,49 @@ model Contributor {
   createdAt  DateTime          @default(now()) @map("created_at")
   updatedAt  DateTime          @updatedAt @map("updated_at")
 
-  auditLogs  AuditLog[]
+  auditLogs    AuditLog[]
+  applications Application[]
 
   @@map("contributors")
+  @@schema("core")
+}
+
+model Application {
+  id                     String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  applicantName          String            @map("applicant_name")
+  applicantEmail         String            @map("applicant_email")
+  domain                 ContributorDomain
+  statementOfInterest    String            @map("statement_of_interest") @db.VarChar(300)
+  microTaskDomain        ContributorDomain @map("micro_task_domain")
+  microTaskResponse      String            @map("micro_task_response")
+  microTaskSubmissionUrl String?           @map("micro_task_submission_url")
+  gdprConsentVersion     String            @map("gdpr_consent_version")
+  gdprConsentedAt        DateTime          @map("gdpr_consented_at")
+  status                 ApplicationStatus @default(PENDING)
+  contributorId          String?           @map("contributor_id") @db.Uuid
+  createdAt              DateTime          @default(now()) @map("created_at")
+  updatedAt              DateTime          @updatedAt @map("updated_at")
+
+  contributor            Contributor?      @relation(fields: [contributorId], references: [id])
+
+  @@map("applications")
+  @@unique([applicantEmail], map: "applications_applicant_email_key")
+  @@schema("core")
+}
+
+model MicroTask {
+  id                  String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  domain              ContributorDomain @unique
+  title               String
+  description         String
+  expectedDeliverable String            @map("expected_deliverable")
+  estimatedEffort     String            @map("estimated_effort")
+  submissionFormat    String            @map("submission_format")
+  isActive            Boolean           @default(true) @map("is_active")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+
+  @@map("micro_tasks")
   @@schema("core")
 }
 
@@ -71,5 +120,20 @@ model AuditLog {
   actor         Contributor? @relation(fields: [actorId], references: [id])
 
   @@map("audit_logs")
+  @@schema("audit")
+}
+
+model ConsentRecord {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  entityType     String   @map("entity_type")
+  entityId       String   @map("entity_id")
+  consentType    String   @map("consent_type")
+  consentVersion String   @map("consent_version")
+  accepted       Boolean
+  acceptedAt     DateTime @map("accepted_at")
+  ipAddress      String?  @map("ip_address")
+  userAgent      String?  @map("user_agent")
+
+  @@map("consent_records")
   @@schema("audit")
 }

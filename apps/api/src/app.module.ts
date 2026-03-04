@@ -4,12 +4,14 @@ import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { randomUUID } from 'crypto';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { RedisModule } from './common/redis/redis.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { ContributorModule } from './modules/contributor/contributor.module.js';
 import { ShowcaseModule } from './modules/showcase/showcase.module.js';
+import { AdmissionModule } from './modules/admission/admission.module.js';
 import { validateConfig } from './config/app.config.js';
 
 @Module({
@@ -53,12 +55,14 @@ import { validateConfig } from './config/app.config.js';
         limit: 100,
       },
     ]),
+    EventEmitterModule.forRoot(),
     PrismaModule,
     RedisModule,
     HealthModule,
     AuthModule,
     ContributorModule,
     ShowcaseModule,
+    AdmissionModule,
   ],
 })
 export class AppModule {}
