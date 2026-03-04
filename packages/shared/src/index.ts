@@ -52,3 +52,14 @@ export type {
 
 export { Action } from './types/rbac.types.js';
 export type { PermissionCheck } from './types/rbac.types.js';
+
+export type {
+  PlatformMetrics,
+  DomainDistribution,
+  RewardMethodology,
+  ScalingDataPoint,
+  FormulaComponent,
+  GlossaryTerm,
+} from './types/metrics.types.js';
+
+export { REWARD_METHODOLOGY } from './constants/reward-methodology.js';

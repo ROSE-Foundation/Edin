@@ -9,6 +9,7 @@ import { RedisModule } from './common/redis/redis.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { ContributorModule } from './modules/contributor/contributor.module.js';
+import { ShowcaseModule } from './modules/showcase/showcase.module.js';
 import { validateConfig } from './config/app.config.js';
 
 @Module({
@@ -57,6 +58,7 @@ import { validateConfig } from './config/app.config.js';
     HealthModule,
     AuthModule,
     ContributorModule,
+    ShowcaseModule,
   ],
 })
 export class AppModule {}
