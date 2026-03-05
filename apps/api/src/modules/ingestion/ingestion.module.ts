@@ -39,6 +39,13 @@ import type { AppConfig } from '../../config/app.config.js';
         removeOnFail: false,
       },
     }),
+    BullModule.registerQueue({
+      name: 'github-ingestion-dlq',
+      defaultJobOptions: {
+        removeOnComplete: true,
+        removeOnFail: false,
+      },
+    }),
   ],
   controllers: [IngestionController],
   providers: [IngestionService, GitHubApiService, WebhookProcessor],

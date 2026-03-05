@@ -70,6 +70,37 @@ enum RepositoryStatus {
   @@schema("core")
 }
 
+enum ContributionSource {
+  GITHUB
+
+  @@schema("core")
+}
+
+enum ContributionType {
+  COMMIT
+  PULL_REQUEST
+  CODE_REVIEW
+
+  @@schema("core")
+}
+
+enum ContributionStatus {
+  INGESTED
+  ATTRIBUTED
+  EVALUATED
+
+  @@schema("core")
+}
+
+enum WebhookDeliveryStatus {
+  RECEIVED
+  PROCESSING
+  COMPLETED
+  FAILED
+
+  @@schema("core")
+}
+
 // ─── Core Schema ────────────────────────────────────────────────────────────
 
 model Contributor {
@@ -96,6 +127,7 @@ model Contributor {
   buddyMentees           BuddyAssignment[] @relation("BuddyMentor")
   onboardingMilestones   OnboardingMilestone[]
   monitoredRepositories  MonitoredRepository[]
+  contributions          Contribution[]
 
   @@map("contributors")
   @@schema("core")
@@ -206,10 +238,54 @@ model MonitoredRepository {
   createdAt      DateTime         @default(now()) @map("created_at")
   updatedAt      DateTime         @updatedAt @map("updated_at")
 
-  addedBy        Contributor      @relation(fields: [addedById], references: [id])
+  addedBy            Contributor         @relation(fields: [addedById], references: [id])
+  contributions      Contribution[]
+  webhookDeliveries  WebhookDelivery[]
 
   @@unique([owner, repo], map: "monitored_repositories_owner_repo_key")
   @@map("monitored_repositories")
+  @@schema("core")
+}
+
+model Contribution {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId    String?            @map("contributor_id") @db.Uuid
+  repositoryId     String             @map("repository_id") @db.Uuid
+  source           ContributionSource @default(GITHUB)
+  sourceRef        String             @map("source_ref")
+  contributionType ContributionType   @map("contribution_type")
+  title            String
+  description      String?            @db.Text
+  rawData          Json               @map("raw_data")
+  normalizedAt     DateTime           @default(now()) @map("normalized_at")
+  status           ContributionStatus @default(INGESTED)
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+
+  contributor      Contributor?        @relation(fields: [contributorId], references: [id])
+  repository       MonitoredRepository @relation(fields: [repositoryId], references: [id])
+
+  @@unique([source, repositoryId, sourceRef], map: "contributions_source_repo_ref_key")
+  @@index([contributorId, createdAt(sort: Desc)], map: "contributions_contributor_created_idx")
+  @@index([repositoryId, contributionType], map: "contributions_repo_type_idx")
+  @@map("contributions")
+  @@schema("core")
+}
+
+model WebhookDelivery {
+  id            String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  deliveryId    String                @unique @map("delivery_id")
+  repositoryId  String                @map("repository_id") @db.Uuid
+  eventType     String                @map("event_type")
+  status        WebhookDeliveryStatus @default(RECEIVED)
+  payload       Json?
+  processedAt   DateTime?             @map("processed_at")
+  createdAt     DateTime              @default(now()) @map("created_at")
+
+  repository    MonitoredRepository   @relation(fields: [repositoryId], references: [id])
+
+  @@index([repositoryId], map: "webhook_deliveries_repo_idx")
+  @@map("webhook_deliveries")
   @@schema("core")
 }
 

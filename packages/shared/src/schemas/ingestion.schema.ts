@@ -36,3 +36,36 @@ export const listRepositoriesQuerySchema = z.object({
 });
 
 export type ListRepositoriesQueryDto = z.infer<typeof listRepositoriesQuerySchema>;
+
+// Contribution schemas
+
+export const contributionSourceEnum = z.enum(['GITHUB']);
+
+export const contributionTypeEnum = z.enum(['COMMIT', 'PULL_REQUEST', 'CODE_REVIEW']);
+
+export const contributionStatusEnum = z.enum(['INGESTED', 'ATTRIBUTED', 'EVALUATED']);
+
+export const webhookDeliveryStatusEnum = z.enum(['RECEIVED', 'PROCESSING', 'COMPLETED', 'FAILED']);
+
+export const contributionResponseSchema = z.object({
+  id: z.string().uuid(),
+  contributorId: z.string().uuid().nullable(),
+  repositoryId: z.string().uuid(),
+  source: contributionSourceEnum,
+  sourceRef: z.string(),
+  contributionType: contributionTypeEnum,
+  title: z.string(),
+  description: z.string().nullable(),
+  rawData: z.record(z.unknown()),
+  normalizedAt: z.string(),
+  status: contributionStatusEnum,
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const webhookPayloadSchema = z.object({
+  eventType: z.enum(['push', 'pull_request', 'pull_request_review']),
+  repositoryFullName: z.string(),
+  payload: z.record(z.unknown()),
+  deliveryId: z.string(),
+});

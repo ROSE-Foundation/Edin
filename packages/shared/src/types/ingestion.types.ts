@@ -31,3 +31,48 @@ export interface WebhookEvent {
   payload: Record<string, unknown>;
   deliveryId: string;
 }
+
+// Contribution types
+
+export type ContributionSource = 'GITHUB';
+
+export type ContributionType = 'COMMIT' | 'PULL_REQUEST' | 'CODE_REVIEW';
+
+export type ContributionStatus = 'INGESTED' | 'ATTRIBUTED' | 'EVALUATED';
+
+export type WebhookDeliveryStatus = 'RECEIVED' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+
+export interface Contribution {
+  id: string;
+  contributorId: string | null;
+  repositoryId: string;
+  source: ContributionSource;
+  sourceRef: string;
+  contributionType: ContributionType;
+  title: string;
+  description: string | null;
+  rawData: Record<string, unknown>;
+  normalizedAt: string;
+  status: ContributionStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WebhookDelivery {
+  id: string;
+  deliveryId: string;
+  repositoryId: string;
+  eventType: string;
+  status: WebhookDeliveryStatus;
+  payload: Record<string, unknown> | null;
+  processedAt: string | null;
+  createdAt: string;
+}
+
+export interface ContributionIngestedEvent {
+  contributionId: string;
+  contributionType: ContributionType;
+  contributorId: string | null;
+  repositoryId: string;
+  correlationId: string;
+}

@@ -179,6 +179,15 @@ describe('IngestionController', () => {
       ).rejects.toBeInstanceOf(DomainException);
     });
 
+    it('should reject malformed JSON payloads gracefully', async () => {
+      await expect(
+        controller.receiveWebhook('sha256=valid', 'push', 'delivery-1', {
+          rawBody: Buffer.from('{"repository":'),
+          correlationId: 'test',
+        } as any),
+      ).rejects.toBeInstanceOf(DomainException);
+    });
+
     it('should dispatch valid webhook event', async () => {
       const payload = JSON.stringify({ repository: { full_name: 'org/repo' }, commits: [] });
       mockIngestionService.validateWebhookSignature.mockResolvedValue(true);

@@ -145,6 +145,12 @@ export {
   repositoryStatusEnum,
   repositoryResponseSchema,
   listRepositoriesQuerySchema,
+  contributionSourceEnum,
+  contributionTypeEnum,
+  contributionStatusEnum,
+  webhookDeliveryStatusEnum,
+  contributionResponseSchema,
+  webhookPayloadSchema,
 } from './schemas/ingestion.schema.js';
 export type { AddRepositoryDto, ListRepositoriesQueryDto } from './schemas/ingestion.schema.js';
 
@@ -155,4 +161,11 @@ export type {
   ListRepositoriesQuery,
   WebhookEventType,
   WebhookEvent,
+  ContributionSource,
+  ContributionType,
+  ContributionStatus,
+  WebhookDeliveryStatus,
+  Contribution,
+  WebhookDelivery as WebhookDeliveryType,
+  ContributionIngestedEvent,
 } from './types/ingestion.types.js';

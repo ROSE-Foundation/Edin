@@ -63,7 +63,21 @@ export class IngestionController {
       );
     }
 
-    const body = JSON.parse(rawBody.toString()) as Record<string, unknown>;
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(rawBody.toString()) as Record<string, unknown>;
+    } catch {
+      this.logger.warn('Malformed webhook payload received', {
+        eventType,
+        deliveryId,
+        correlationId: req.correlationId,
+      });
+      throw new DomainException(
+        ERROR_CODES.WEBHOOK_VALIDATION_FAILED,
+        'Malformed webhook payload',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const repository = body.repository as Record<string, unknown> | undefined;
     const repositoryFullName = repository?.full_name as string | undefined;
 
