@@ -84,6 +84,10 @@ export {
   createMicroTaskSchema,
   updateMicroTaskSchema,
   listMicroTasksQuerySchema,
+  assignBuddySchema,
+  overrideBuddySchema,
+  buddyOptInSchema,
+  listBuddyAssignmentsQuerySchema,
 } from './schemas/admission.schema.js';
 export type {
   CreateApplicationDto,
@@ -94,6 +98,10 @@ export type {
   CreateMicroTaskInput,
   UpdateMicroTaskInput,
   ListMicroTasksQuery,
+  AssignBuddyDto,
+  OverrideBuddyDto,
+  BuddyOptInDto,
+  ListBuddyAssignmentsQueryDto,
 } from './schemas/admission.schema.js';
 
 export type {
@@ -111,4 +119,11 @@ export type {
   CreateMicroTaskInput as CreateMicroTaskInputType,
   UpdateMicroTaskInput as UpdateMicroTaskInputType,
   ListMicroTasksQueryInput,
+  BuddyAssignment,
+  BuddyProfile,
+  FirstTaskRecommendation,
+  AssignBuddyInput,
+  OverrideBuddyInput,
+  BuddyOptInInput,
+  ListBuddyAssignmentsQueryInput,
 } from './types/admission.types.js';

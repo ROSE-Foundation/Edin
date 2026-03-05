@@ -67,10 +67,14 @@ model Contributor {
   createdAt  DateTime          @default(now()) @map("created_at")
   updatedAt  DateTime          @updatedAt @map("updated_at")
 
+  buddyOptIn Boolean           @default(false) @map("buddy_opt_in")
+
   auditLogs              AuditLog[]
   applications           Application[]    @relation("ApplicationContributor")
   reviewedApplications   Application[]    @relation("ApplicationReviewer")
   applicationReviews     ApplicationReview[] @relation("ReviewAuthor")
+  buddyAssignments       BuddyAssignment[] @relation("BuddyMentee")
+  buddyMentees           BuddyAssignment[] @relation("BuddyMentor")
 
   @@map("contributors")
   @@schema("core")
@@ -135,6 +139,22 @@ model MicroTask {
   updatedAt           DateTime          @updatedAt @map("updated_at")
 
   @@map("micro_tasks")
+  @@schema("core")
+}
+
+model BuddyAssignment {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId  String            @map("contributor_id") @db.Uuid
+  buddyId        String            @map("buddy_id") @db.Uuid
+  assignedAt     DateTime          @default(now()) @map("assigned_at")
+  expiresAt      DateTime          @map("expires_at")
+  isActive       Boolean           @default(true) @map("is_active")
+  notes          String?
+
+  contributor    Contributor       @relation("BuddyMentee", fields: [contributorId], references: [id])
+  buddy          Contributor       @relation("BuddyMentor", fields: [buddyId], references: [id])
+
+  @@map("buddy_assignments")
   @@schema("core")
 }
 

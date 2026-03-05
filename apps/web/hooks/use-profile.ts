@@ -14,6 +14,8 @@ interface ContributorProfile {
   skillAreas: string[];
   role: string;
   isActive: boolean;
+  buddyOptIn: boolean;
+  ignitionStartedAt?: string | null;
   createdAt: string;
   updatedAt: string;
 }

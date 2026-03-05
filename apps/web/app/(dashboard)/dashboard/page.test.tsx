@@ -25,6 +25,19 @@ vi.mock('../../../hooks/use-profile', () => ({
   })),
 }));
 
+vi.mock('../../../hooks/use-buddy-assignment', () => ({
+  useBuddyAssignment: vi.fn(() => ({
+    buddyAssignment: null,
+    isLoading: false,
+    error: null,
+  })),
+  useFirstTaskRecommendation: vi.fn(() => ({
+    task: null,
+    isLoading: false,
+    error: null,
+  })),
+}));
+
 describe('DashboardPage', () => {
   it('renders placeholder sections with correct empty state messages', () => {
     render(<DashboardPage />);

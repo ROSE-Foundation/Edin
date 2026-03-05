@@ -81,6 +81,8 @@ export class CaslAbilityFactory {
     can(Action.Update, 'Task');
     can(Action.Create, 'Article');
     can(Action.Create, 'ApplicationReview');
+    can(Action.Read, 'BuddyAssignment');
+    can(Action.Update, 'BuddyAssignment');
   }
 
   private addEditorPermissions(

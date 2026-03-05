@@ -2,6 +2,8 @@
 
 import { useProfile } from '../../../../hooks/use-profile';
 import { ProfileForm } from '../../../../components/features/contributor-profile/profile-form';
+import { BuddyOptInToggle } from '../../../../components/features/onboarding/buddy-opt-in-toggle';
+import { ToastProvider } from '../../../../components/ui/toast';
 
 function ProfileSkeleton() {
   return (
@@ -48,15 +50,23 @@ export default function ProfilePage() {
           {isLoading || !profile ? (
             <ProfileSkeleton />
           ) : (
-            <ProfileForm
-              defaultValues={{
-                name: profile.name,
-                bio: profile.bio,
-                domain: profile.domain,
-                avatarUrl: profile.avatarUrl,
-                skillAreas: profile.skillAreas,
-              }}
-            />
+            <ToastProvider>
+              <ProfileForm
+                defaultValues={{
+                  name: profile.name,
+                  bio: profile.bio,
+                  domain: profile.domain,
+                  avatarUrl: profile.avatarUrl,
+                  skillAreas: profile.skillAreas,
+                }}
+              />
+              {/* Buddy opt-in toggle — visible for contributors+ */}
+              {profile.role !== 'PUBLIC' && profile.role !== 'APPLICANT' && (
+                <div className="mt-[var(--spacing-xl)]">
+                  <BuddyOptInToggle initialOptIn={profile.buddyOptIn} />
+                </div>
+              )}
+            </ToastProvider>
           )}
         </div>
       </div>

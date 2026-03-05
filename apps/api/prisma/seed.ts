@@ -99,6 +99,65 @@ async function main() {
     }
   }
 
+  // Seed buddy opt-in contributors
+  const buddyContributor1 = await prisma.contributor.upsert({
+    where: { githubId: 3 },
+    update: { buddyOptIn: true },
+    create: {
+      githubId: 3,
+      email: 'buddy1@edin.local',
+      name: 'Alice Mentor',
+      bio: 'Experienced full-stack developer passionate about helping newcomers.',
+      domain: 'Technology',
+      role: 'CONTRIBUTOR',
+      isActive: true,
+      buddyOptIn: true,
+    },
+  });
+  console.log(`Upserted buddy contributor 1: ${buddyContributor1.id}`);
+
+  const buddyContributor2 = await prisma.contributor.upsert({
+    where: { githubId: 4 },
+    update: { buddyOptIn: true },
+    create: {
+      githubId: 4,
+      email: 'buddy2@edin.local',
+      name: 'Bob Guide',
+      bio: 'DeFi researcher and fintech enthusiast. Happy to guide new contributors.',
+      domain: 'Fintech',
+      role: 'CONTRIBUTOR',
+      isActive: true,
+      buddyOptIn: true,
+    },
+  });
+  console.log(`Upserted buddy contributor 2: ${buddyContributor2.id}`);
+
+  // Mark existing test contributor as buddy opt-in
+  await prisma.contributor.update({
+    where: { id: contributor.id },
+    data: { buddyOptIn: true },
+  });
+  console.log(`Updated test contributor with buddyOptIn: ${contributor.id}`);
+
+  // Create a sample buddy assignment (contributor2 is mentored by contributor)
+  const existingAssignment = await prisma.buddyAssignment.findFirst({
+    where: { contributorId: buddyContributor2.id, buddyId: contributor.id },
+  });
+  if (!existingAssignment) {
+    const assignment = await prisma.buddyAssignment.create({
+      data: {
+        contributorId: buddyContributor2.id,
+        buddyId: contributor.id,
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        isActive: true,
+        notes: 'Sample buddy assignment for development testing',
+      },
+    });
+    console.log(`Created sample buddy assignment: ${assignment.id}`);
+  } else {
+    console.log(`Sample buddy assignment already exists: ${existingAssignment.id}`);
+  }
+
   console.log('Seeding complete.');
 }
 

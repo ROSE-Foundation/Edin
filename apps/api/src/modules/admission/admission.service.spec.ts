@@ -32,6 +32,14 @@ const mockPrisma = {
     findMany: vi.fn(),
     update: vi.fn(),
   },
+  buddyAssignment: {
+    create: vi.fn(),
+    findFirst: vi.fn(),
+    findMany: vi.fn(),
+    findUnique: vi.fn(),
+    update: vi.fn(),
+    count: vi.fn(),
+  },
   consentRecord: {
     create: vi.fn(),
   },
@@ -926,6 +934,359 @@ describe('AdmissionService', () => {
       await expect(service.getMicroTaskById('nonexistent', 'corr-nf')).rejects.toThrow(
         DomainException,
       );
+    });
+  });
+
+  // ─── Buddy assignment tests (Story 3-4) ──────────────────────────────
+
+  const mockContributor = {
+    id: 'contrib-uuid-1',
+    domain: 'Technology',
+    role: 'CONTRIBUTOR',
+    name: 'Test User',
+    bio: 'A test user',
+    avatarUrl: null,
+    buddyOptIn: false,
+    isActive: true,
+  };
+
+  const mockBuddy = {
+    id: 'buddy-uuid-1',
+    name: 'Alice Mentor',
+    bio: 'Experienced developer',
+    avatarUrl: 'https://example.com/alice.jpg',
+    domain: 'Technology',
+    buddyOptIn: true,
+    isActive: true,
+  };
+
+  const mockBuddyAssignment = {
+    id: 'assignment-uuid-1',
+    contributorId: 'contrib-uuid-1',
+    buddyId: 'buddy-uuid-1',
+    assignedAt: new Date(),
+    expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    isActive: true,
+    notes: null,
+    buddy: {
+      id: 'buddy-uuid-1',
+      name: 'Alice Mentor',
+      bio: 'Experienced developer',
+      avatarUrl: 'https://example.com/alice.jpg',
+      domain: 'Technology',
+    },
+  };
+
+  describe('assignBuddy', () => {
+    it('assigns a buddy from the same domain', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(null);
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([mockBuddy]);
+      mockPrisma.buddyAssignment.create.mockResolvedValueOnce(mockBuddyAssignment);
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      const result = await service.assignBuddy('contrib-uuid-1', 'corr-1');
+
+      expect(result).toEqual(mockBuddyAssignment);
+      expect(mockPrisma.$transaction).toHaveBeenCalled();
+      expect(mockEventEmitter.emit).toHaveBeenCalledWith(
+        'admission.buddy.assigned',
+        expect.objectContaining({
+          contributorId: 'contrib-uuid-1',
+          buddyId: 'buddy-uuid-1',
+          isAutomatic: true,
+        }),
+      );
+    });
+
+    it('returns null when no eligible buddies', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(null);
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+
+      const result = await service.assignBuddy('contrib-uuid-1', 'corr-1');
+
+      expect(result).toBeNull();
+    });
+
+    it('throws BUDDY_ALREADY_ASSIGNED when contributor already has a buddy', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(mockBuddyAssignment);
+
+      await expect(service.assignBuddy('contrib-uuid-1', 'corr-1')).rejects.toThrow(
+        DomainException,
+      );
+    });
+
+    it('throws CONTRIBUTOR_NOT_FOUND when contributor does not exist', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.assignBuddy('nonexistent', 'corr-1')).rejects.toThrow(DomainException);
+    });
+  });
+
+  describe('overrideBuddyAssignment', () => {
+    it('overrides buddy assignment and creates audit log', async () => {
+      const existingAssignment = {
+        id: 'assignment-uuid-1',
+        contributorId: 'contrib-uuid-1',
+        buddyId: 'buddy-uuid-1',
+        isActive: true,
+      };
+      const newBuddy = { id: 'new-buddy-uuid', isActive: true };
+      const newAssignment = {
+        ...mockBuddyAssignment,
+        id: 'assignment-uuid-2',
+        buddyId: 'new-buddy-uuid',
+      };
+
+      mockPrisma.buddyAssignment.findUnique.mockResolvedValueOnce(existingAssignment);
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(newBuddy);
+      mockPrisma.buddyAssignment.update.mockResolvedValueOnce({});
+      mockPrisma.buddyAssignment.create.mockResolvedValueOnce(newAssignment);
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      const result = await service.overrideBuddyAssignment(
+        'assignment-uuid-1',
+        { newBuddyId: 'new-buddy-uuid' },
+        'admin-uuid',
+        'corr-1',
+      );
+
+      expect(result).toEqual(newAssignment);
+      expect(mockEventEmitter.emit).toHaveBeenCalledWith(
+        'admission.buddy.overridden',
+        expect.objectContaining({
+          previousBuddyId: 'buddy-uuid-1',
+          newBuddyId: 'new-buddy-uuid',
+        }),
+      );
+    });
+
+    it('throws BUDDY_NOT_FOUND when assignment does not exist', async () => {
+      mockPrisma.buddyAssignment.findUnique.mockResolvedValueOnce(null);
+
+      await expect(
+        service.overrideBuddyAssignment(
+          'nonexistent',
+          { newBuddyId: 'buddy-uuid' },
+          'admin-uuid',
+          'corr-1',
+        ),
+      ).rejects.toThrow(DomainException);
+    });
+
+    it('throws BUDDY_NOT_FOUND when new buddy does not exist', async () => {
+      mockPrisma.buddyAssignment.findUnique.mockResolvedValueOnce({
+        id: 'assignment-uuid-1',
+        contributorId: 'contrib-uuid-1',
+        buddyId: 'buddy-uuid-1',
+      });
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(null);
+
+      await expect(
+        service.overrideBuddyAssignment(
+          'assignment-uuid-1',
+          { newBuddyId: 'nonexistent' },
+          'admin-uuid',
+          'corr-1',
+        ),
+      ).rejects.toThrow(DomainException);
+    });
+  });
+
+  describe('getBuddyAssignment', () => {
+    it('returns active buddy assignment with buddy profile', async () => {
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(mockBuddyAssignment);
+
+      const result = await service.getBuddyAssignment('contrib-uuid-1');
+
+      expect(result).toBeTruthy();
+      expect(result!.buddy.name).toBe('Alice Mentor');
+      expect(result!.isExpired).toBe(false);
+    });
+
+    it('returns null when no active buddy assignment', async () => {
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(null);
+
+      const result = await service.getBuddyAssignment('contrib-uuid-1');
+
+      expect(result).toBeNull();
+    });
+
+    it('marks expired assignment as isExpired', async () => {
+      const expiredAssignment = {
+        ...mockBuddyAssignment,
+        expiresAt: new Date(Date.now() - 1000),
+      };
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(expiredAssignment);
+
+      const result = await service.getBuddyAssignment('contrib-uuid-1');
+
+      expect(result!.isExpired).toBe(true);
+    });
+  });
+
+  describe('updateBuddyOptIn', () => {
+    it('updates buddy opt-in and creates audit log', async () => {
+      const updatedContributor = { id: 'contrib-uuid-1', buddyOptIn: true };
+      mockPrisma.contributor.update.mockResolvedValueOnce(updatedContributor);
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      const result = await service.updateBuddyOptIn('contrib-uuid-1', true, 'corr-1');
+
+      expect(result.buddyOptIn).toBe(true);
+      expect(mockPrisma.$transaction).toHaveBeenCalled();
+    });
+  });
+
+  describe('getEligibleBuddies', () => {
+    it('returns domain-matching buddies first', async () => {
+      const techBuddy = { ...mockBuddy, domain: 'Technology' };
+      const fintechBuddy = { ...mockBuddy, id: 'buddy-2', domain: 'Fintech' };
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([techBuddy, fintechBuddy]);
+
+      const result = await service.getEligibleBuddies('Technology');
+
+      // Domain match first, but order within groups is shuffled
+      expect(result).toHaveLength(2);
+      expect(result.some((b) => b.domain === 'Technology')).toBe(true);
+    });
+
+    it('returns empty array when no eligible buddies', async () => {
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+
+      const result = await service.getEligibleBuddies('Technology');
+
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe('getFirstTaskRecommendation', () => {
+    it('returns task recommendation matching contributor domain', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        domain: 'Technology',
+        skillAreas: ['TypeScript'],
+      });
+      mockPrisma.microTask.findMany.mockResolvedValueOnce([mockMicroTask]);
+
+      const result = await service.getFirstTaskRecommendation('contrib-uuid-1');
+
+      expect(result).toBeTruthy();
+      expect(result!.taskTitle).toBe('Build a REST API endpoint');
+      expect(result!.domain).toBe('Technology');
+      expect(result!.claimable).toBe(false);
+    });
+
+    it('returns null when contributor has no domain', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({ domain: null, skillAreas: [] });
+
+      const result = await service.getFirstTaskRecommendation('contrib-uuid-1');
+
+      expect(result).toBeNull();
+    });
+
+    it('returns null when no active micro-task for domain', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        domain: 'Technology',
+        skillAreas: ['TypeScript'],
+      });
+      mockPrisma.microTask.findMany.mockResolvedValueOnce([]);
+
+      const result = await service.getFirstTaskRecommendation('contrib-uuid-1');
+
+      expect(result).toBeNull();
+    });
+
+    it('matches task effort to inferred skill level', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        domain: 'Technology',
+        skillAreas: ['TypeScript', 'NestJS', 'Prisma', 'React'],
+      });
+      mockPrisma.microTask.findMany.mockResolvedValueOnce([
+        { ...mockMicroTask, title: 'Small task', estimatedEffort: '1-2 hours' },
+        { ...mockMicroTask, title: 'Medium task', estimatedEffort: '4-6 hours' },
+        { ...mockMicroTask, title: 'Large task', estimatedEffort: '8-10 hours' },
+      ]);
+
+      const result = await service.getFirstTaskRecommendation('contrib-uuid-1');
+
+      expect(result?.taskTitle).toBe('Medium task');
+    });
+  });
+
+  describe('handleApplicationApproved', () => {
+    it('auto-assigns buddy on application approval', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        contributorId: 'contrib-uuid-1',
+      });
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(null);
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([mockBuddy]);
+      mockPrisma.buddyAssignment.create.mockResolvedValueOnce(mockBuddyAssignment);
+      mockPrisma.auditLog.create.mockResolvedValue({});
+
+      await service.handleApplicationApproved({
+        applicationId: 'app-uuid-1',
+        adminId: 'admin-uuid',
+        correlationId: 'corr-1',
+      });
+
+      expect(mockPrisma.buddyAssignment.create).toHaveBeenCalled();
+    });
+
+    it('gracefully handles no eligible buddies', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        contributorId: 'contrib-uuid-1',
+      });
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
+      mockPrisma.buddyAssignment.findFirst.mockResolvedValueOnce(null);
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([]);
+      mockPrisma.auditLog.create.mockResolvedValue({});
+
+      // Should not throw
+      await service.handleApplicationApproved({
+        applicationId: 'app-uuid-1',
+        adminId: 'admin-uuid',
+        correlationId: 'corr-1',
+      });
+
+      // Should log the skipped assignment
+      expect(mockPrisma.auditLog.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            action: 'admission.buddy.assignment.skipped',
+          }),
+        }),
+      );
+    });
+
+    it('handles missing contributor gracefully', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        contributorId: null,
+      });
+
+      // Should not throw
+      await service.handleApplicationApproved({
+        applicationId: 'app-uuid-1',
+        adminId: 'admin-uuid',
+        correlationId: 'corr-1',
+      });
+
+      expect(mockPrisma.buddyAssignment.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('listBuddyAssignments', () => {
+    it('lists assignments with pagination', async () => {
+      mockPrisma.buddyAssignment.findMany.mockResolvedValueOnce([mockBuddyAssignment]);
+      mockPrisma.buddyAssignment.count.mockResolvedValueOnce(1);
+
+      const result = await service.listBuddyAssignments({ limit: 20 }, 'corr-1');
+
+      expect(result.items).toHaveLength(1);
+      expect(result.pagination.total).toBe(1);
+      expect(result.pagination.hasMore).toBe(false);
     });
   });
 });

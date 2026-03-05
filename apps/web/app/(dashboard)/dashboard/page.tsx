@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useProfile } from '../../../hooks/use-profile';
+import { OnboardingWelcome } from '../../../components/features/onboarding/onboarding-welcome';
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
@@ -81,6 +82,13 @@ export default function DashboardPage() {
             >
               Edit Profile
             </Link>
+          </div>
+        )}
+
+        {/* Onboarding welcome — shown for contributors */}
+        {profile && profile.role === 'CONTRIBUTOR' && (
+          <div className="mt-[var(--spacing-lg)]">
+            <OnboardingWelcome />
           </div>
         )}
 

@@ -8,6 +8,10 @@ import type {
   createMicroTaskSchema,
   updateMicroTaskSchema,
   listMicroTasksQuerySchema,
+  assignBuddySchema,
+  overrideBuddySchema,
+  buddyOptInSchema,
+  listBuddyAssignmentsQuerySchema,
 } from '../schemas/admission.schema.js';
 
 export type ApplicationStatus = 'PENDING' | 'UNDER_REVIEW' | 'APPROVED' | 'DECLINED';
@@ -79,3 +83,36 @@ export type ListApplicationsQuery = z.infer<typeof listApplicationsQuerySchema>;
 export type CreateMicroTaskInput = z.infer<typeof createMicroTaskSchema>;
 export type UpdateMicroTaskInput = z.infer<typeof updateMicroTaskSchema>;
 export type ListMicroTasksQueryInput = z.infer<typeof listMicroTasksQuerySchema>;
+
+// --- Buddy assignment types (Story 3-4) ---
+
+export interface BuddyAssignment {
+  id: string;
+  contributorId: string;
+  buddyId: string;
+  assignedAt: string;
+  expiresAt: string;
+  isActive: boolean;
+  notes: string | null;
+}
+
+export interface BuddyProfile {
+  id: string;
+  name: string;
+  bio: string | null;
+  avatarUrl: string | null;
+  domain: string | null;
+}
+
+export interface FirstTaskRecommendation {
+  taskTitle: string;
+  taskDescription: string;
+  estimatedEffort: string;
+  domain: string;
+  claimable: boolean;
+}
+
+export type AssignBuddyInput = z.infer<typeof assignBuddySchema>;
+export type OverrideBuddyInput = z.infer<typeof overrideBuddySchema>;
+export type BuddyOptInInput = z.infer<typeof buddyOptInSchema>;
+export type ListBuddyAssignmentsQueryInput = z.infer<typeof listBuddyAssignmentsQuerySchema>;

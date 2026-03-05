@@ -29,6 +29,12 @@ const mockAdmissionService = {
   updateMicroTask: vi.fn(),
   deactivateMicroTask: vi.fn(),
   getMicroTaskById: vi.fn(),
+  getBuddyAssignment: vi.fn(),
+  getFirstTaskRecommendation: vi.fn(),
+  listBuddyAssignments: vi.fn(),
+  overrideBuddyAssignment: vi.fn(),
+  getEligibleBuddies: vi.fn(),
+  updateBuddyOptIn: vi.fn(),
 };
 
 describe('AdmissionController', () => {
@@ -659,6 +665,129 @@ describe('AdmissionController', () => {
         'admin-1',
         'corr-deact-mt',
       );
+    });
+  });
+
+  // ─── Buddy assignment controller tests (Story 3-4) ──────────────────
+
+  describe('GET /api/v1/admission/buddy-assignments/mine', () => {
+    it('returns buddy assignment for current user', async () => {
+      const mockAssignment = {
+        id: 'assign-uuid-1',
+        buddyId: 'buddy-uuid-1',
+        buddy: { id: 'buddy-uuid-1', name: 'Alice Mentor', domain: 'Technology' },
+        isExpired: false,
+      };
+      mockAdmissionService.getBuddyAssignment.mockResolvedValueOnce(mockAssignment);
+
+      const mockReq = { correlationId: 'corr-buddy' } as any;
+      const mockUser = { id: 'contrib-uuid-1', role: 'CONTRIBUTOR' } as any;
+
+      const result = await controller.getMyBuddyAssignment(mockUser, mockReq);
+
+      expect(result).toHaveProperty('data');
+      expect(mockAdmissionService.getBuddyAssignment).toHaveBeenCalledWith('contrib-uuid-1');
+    });
+
+    it('returns null when no buddy assigned', async () => {
+      mockAdmissionService.getBuddyAssignment.mockResolvedValueOnce(null);
+
+      const mockReq = { correlationId: 'corr-no-buddy' } as any;
+      const mockUser = { id: 'contrib-uuid-1', role: 'CONTRIBUTOR' } as any;
+
+      const result = await controller.getMyBuddyAssignment(mockUser, mockReq);
+
+      expect(result.data).toBeNull();
+    });
+  });
+
+  describe('GET /api/v1/admission/buddy-assignments/mine/first-task', () => {
+    it('returns first task recommendation', async () => {
+      const mockTask = {
+        taskTitle: 'Build a REST API endpoint',
+        taskDescription: 'Design and implement a REST API endpoint.',
+        estimatedEffort: '2-4 hours',
+        domain: 'Technology',
+        claimable: false,
+      };
+      mockAdmissionService.getFirstTaskRecommendation.mockResolvedValueOnce(mockTask);
+
+      const mockReq = { correlationId: 'corr-task' } as any;
+      const mockUser = { id: 'contrib-uuid-1', role: 'CONTRIBUTOR' } as any;
+
+      const result = await controller.getFirstTaskRecommendation(mockUser, mockReq);
+
+      expect(result.data).toEqual(mockTask);
+    });
+  });
+
+  describe('GET /api/v1/admission/buddy-assignments', () => {
+    it('lists all buddy assignments for admin', async () => {
+      mockAdmissionService.listBuddyAssignments.mockResolvedValueOnce({
+        items: [{ id: 'assign-1' }],
+        pagination: { cursor: null, hasMore: false, total: 1 },
+      });
+
+      const mockReq = { correlationId: 'corr-list-buddy' } as any;
+
+      const result = await controller.listBuddyAssignments({}, mockReq);
+
+      expect(result).toHaveProperty('data');
+      expect(result).toHaveProperty('meta.pagination');
+    });
+  });
+
+  describe('POST /api/v1/admission/buddy-assignments/:id/override', () => {
+    it('overrides buddy assignment for admin', async () => {
+      const validBuddyUuid = '00000000-0000-4000-a000-000000000001';
+      const newAssignment = { id: 'assign-new', buddyId: validBuddyUuid };
+      mockAdmissionService.overrideBuddyAssignment.mockResolvedValueOnce(newAssignment);
+
+      const mockReq = { correlationId: 'corr-override' } as any;
+      const mockUser = { id: 'admin-1', role: 'ADMIN' } as any;
+
+      const result = await controller.overrideBuddyAssignment(
+        'assign-uuid-1',
+        { newBuddyId: validBuddyUuid },
+        mockUser,
+        mockReq,
+      );
+
+      expect(result.data).toEqual(newAssignment);
+      expect(mockAdmissionService.overrideBuddyAssignment).toHaveBeenCalledWith(
+        'assign-uuid-1',
+        { newBuddyId: validBuddyUuid },
+        'admin-1',
+        'corr-override',
+      );
+    });
+
+    it('returns validation error for invalid body', async () => {
+      const mockReq = { correlationId: 'corr-invalid' } as any;
+      const mockUser = { id: 'admin-1', role: 'ADMIN' } as any;
+
+      await expect(
+        controller.overrideBuddyAssignment(
+          'assign-uuid-1',
+          { newBuddyId: 'not-a-uuid' },
+          mockUser,
+          mockReq,
+        ),
+      ).rejects.toThrow();
+    });
+  });
+
+  describe('GET /api/v1/admission/buddy-assignments/eligible', () => {
+    it('returns eligible buddies', async () => {
+      mockAdmissionService.getEligibleBuddies.mockResolvedValueOnce([
+        { id: 'buddy-1', name: 'Alice', domain: 'Technology' },
+      ]);
+
+      const mockReq = { correlationId: 'corr-eligible' } as any;
+
+      const result = await controller.listEligibleBuddies('Technology', mockReq);
+
+      expect(result.data).toHaveLength(1);
     });
   });
 });

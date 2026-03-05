@@ -30,6 +30,9 @@ import { listApplicationsQuerySchema } from './dto/list-applications-query.dto.j
 import { createMicroTaskSchema } from './dto/create-micro-task.dto.js';
 import { updateMicroTaskSchema } from './dto/update-micro-task.dto.js';
 import { listMicroTasksQuerySchema } from './dto/list-micro-tasks-query.dto.js';
+import { overrideBuddySchema } from './dto/override-buddy.dto.js';
+import { buddyOptInSchema } from './dto/buddy-opt-in.dto.js';
+import { listBuddyAssignmentsQuerySchema } from './dto/list-buddy-assignments-query.dto.js';
 import { createSuccessResponse } from '../../common/types/api-response.type.js';
 
 @Controller({ path: 'admission', version: '1' })
@@ -339,6 +342,130 @@ export class AdmissionController {
     @Req() req: Request,
   ) {
     const result = await this.admissionService.deactivateMicroTask(id, user.id, req.correlationId);
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  // ─── Buddy assignment endpoints (Story 3-4) ────────────────────────────
+
+  @Get('buddy-assignments/mine')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Read, 'BuddyAssignment'))
+  async getMyBuddyAssignment(@CurrentUser() user: CurrentUserPayload, @Req() req: Request) {
+    const result = await this.admissionService.getBuddyAssignment(user.id);
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  @Get('buddy-assignments/mine/first-task')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Read, 'BuddyAssignment'))
+  async getFirstTaskRecommendation(@CurrentUser() user: CurrentUserPayload, @Req() req: Request) {
+    const result = await this.admissionService.getFirstTaskRecommendation(user.id);
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  @Get('buddy-assignments')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Manage, 'BuddyAssignment'))
+  async listBuddyAssignments(@Query() query: unknown, @Req() req: Request) {
+    const parsed = listBuddyAssignmentsQuerySchema.safeParse(query);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid query parameters',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({
+          field: e.path.join('.'),
+          message: e.message,
+        })),
+      );
+    }
+
+    const result = await this.admissionService.listBuddyAssignments(parsed.data, req.correlationId);
+
+    return createSuccessResponse(result.items, req.correlationId || 'unknown', result.pagination);
+  }
+
+  @Post('buddy-assignments/:id/override')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Manage, 'BuddyAssignment'))
+  async overrideBuddyAssignment(
+    @Param('id') id: string,
+    @Body() body: unknown,
+    @CurrentUser() user: CurrentUserPayload,
+    @Req() req: Request,
+  ) {
+    const parsed = overrideBuddySchema.safeParse(body);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid buddy override data',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({
+          field: e.path.join('.'),
+          message: e.message,
+        })),
+      );
+    }
+
+    const result = await this.admissionService.overrideBuddyAssignment(
+      id,
+      parsed.data,
+      user.id,
+      req.correlationId,
+    );
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  @Get('buddy-assignments/eligible')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Manage, 'BuddyAssignment'))
+  async listEligibleBuddies(@Query('domain') domain: string | undefined, @Req() req: Request) {
+    const result = await this.admissionService.getEligibleBuddies(domain);
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+}
+
+// ─── Contributor buddy opt-in endpoint (Story 3-4) ──────────────────
+// This is on the contributors controller path, handled here to keep buddy logic together
+
+@Controller({ path: 'contributors', version: '1' })
+export class BuddyOptInController {
+  constructor(private readonly admissionService: AdmissionService) {}
+
+  @Patch('me/buddy-opt-in')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Update, 'BuddyAssignment'))
+  async updateBuddyOptIn(
+    @Body() body: unknown,
+    @CurrentUser() user: CurrentUserPayload,
+    @Req() req: Request,
+  ) {
+    const parsed = buddyOptInSchema.safeParse(body);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid buddy opt-in data',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({
+          field: e.path.join('.'),
+          message: e.message,
+        })),
+      );
+    }
+
+    const result = await this.admissionService.updateBuddyOptIn(
+      user.id,
+      parsed.data.optIn,
+      req.correlationId,
+    );
 
     return createSuccessResponse(result, req.correlationId || 'unknown');
   }

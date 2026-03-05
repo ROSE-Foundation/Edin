@@ -15,4 +15,5 @@ export type AppSubjects =
   | 'DomainManifesto'
   | 'PublicMetrics'
   | 'MicroTask'
+  | 'BuddyAssignment'
   | 'EditorialFeedback';

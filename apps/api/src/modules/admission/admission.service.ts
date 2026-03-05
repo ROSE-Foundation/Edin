@@ -1,5 +1,5 @@
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { ERROR_CODES } from '@edin/shared';
 import type {
   Prisma,
@@ -15,6 +15,8 @@ import type { ListApplicationsQueryDto } from './dto/list-applications-query.dto
 import type { CreateMicroTaskDto } from './dto/create-micro-task.dto.js';
 import type { UpdateMicroTaskDto } from './dto/update-micro-task.dto.js';
 import type { ListMicroTasksQueryDto } from './dto/list-micro-tasks-query.dto.js';
+import type { OverrideBuddyDto } from './dto/override-buddy.dto.js';
+import type { ListBuddyAssignmentsQueryDto } from './dto/list-buddy-assignments-query.dto.js';
 
 @Injectable()
 export class AdmissionService {
@@ -1087,6 +1089,530 @@ export class AdmissionService {
     }
 
     return microTask;
+  }
+
+  // ─── Buddy assignment methods (Story 3-4) ────────────────────────────
+
+  async assignBuddy(contributorId: string, correlationId?: string) {
+    this.logger.log('Assigning buddy to contributor', {
+      contributorId,
+      correlationId,
+    });
+
+    const contributor = await this.prisma.contributor.findUnique({
+      where: { id: contributorId },
+      select: { id: true, domain: true, role: true },
+    });
+
+    if (!contributor) {
+      throw new DomainException(
+        ERROR_CODES.CONTRIBUTOR_NOT_FOUND,
+        'Contributor not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    // Check if already has an active buddy
+    const existingAssignment = await this.prisma.buddyAssignment.findFirst({
+      where: { contributorId, isActive: true },
+    });
+
+    if (existingAssignment) {
+      throw new DomainException(
+        ERROR_CODES.BUDDY_ALREADY_ASSIGNED,
+        'Contributor already has an active buddy assignment',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    // Find eligible buddy
+    const eligibleBuddies = await this.getEligibleBuddies(
+      contributor.domain || undefined,
+      contributorId,
+    );
+
+    if (eligibleBuddies.length === 0) {
+      this.logger.warn('No eligible buddies found', {
+        contributorId,
+        domain: contributor.domain,
+        correlationId,
+      });
+      return null;
+    }
+
+    const selectedBuddy = eligibleBuddies[0];
+    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+    const result = await this.prisma.$transaction(async (tx) => {
+      const assignment = await tx.buddyAssignment.create({
+        data: {
+          contributorId,
+          buddyId: selectedBuddy.id,
+          expiresAt,
+          isActive: true,
+        },
+        include: {
+          buddy: {
+            select: { id: true, name: true, bio: true, avatarUrl: true, domain: true },
+          },
+        },
+      });
+
+      await tx.auditLog.create({
+        data: {
+          actorId: null,
+          action: 'admission.buddy.assigned',
+          entityType: 'BuddyAssignment',
+          entityId: assignment.id,
+          details: {
+            contributorId,
+            buddyId: selectedBuddy.id,
+            domain: contributor.domain,
+            isAutomatic: true,
+          },
+          correlationId,
+        },
+      });
+
+      return assignment;
+    });
+
+    this.eventEmitter.emit('admission.buddy.assigned', {
+      contributorId,
+      buddyId: selectedBuddy.id,
+      domain: contributor.domain,
+      isAutomatic: true,
+      correlationId,
+    });
+
+    this.logger.log('Buddy assigned successfully', {
+      assignmentId: result.id,
+      contributorId,
+      buddyId: selectedBuddy.id,
+      correlationId,
+    });
+
+    return result;
+  }
+
+  async overrideBuddyAssignment(
+    assignmentId: string,
+    dto: OverrideBuddyDto,
+    adminId: string,
+    correlationId?: string,
+  ) {
+    this.logger.log('Overriding buddy assignment', {
+      assignmentId,
+      newBuddyId: dto.newBuddyId,
+      adminId,
+      correlationId,
+    });
+
+    const existing = await this.prisma.buddyAssignment.findUnique({
+      where: { id: assignmentId },
+    });
+
+    if (!existing) {
+      throw new DomainException(
+        ERROR_CODES.BUDDY_NOT_FOUND,
+        'Buddy assignment not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const newBuddy = await this.prisma.contributor.findUnique({
+      where: { id: dto.newBuddyId },
+      select: { id: true, isActive: true },
+    });
+
+    if (!newBuddy || !newBuddy.isActive) {
+      throw new DomainException(
+        ERROR_CODES.BUDDY_NOT_FOUND,
+        'New buddy not found or inactive',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
+    const result = await this.prisma.$transaction(async (tx) => {
+      // Deactivate the old assignment
+      await tx.buddyAssignment.update({
+        where: { id: assignmentId },
+        data: { isActive: false },
+      });
+
+      // Create new assignment
+      const newAssignment = await tx.buddyAssignment.create({
+        data: {
+          contributorId: existing.contributorId,
+          buddyId: dto.newBuddyId,
+          expiresAt,
+          isActive: true,
+          notes: `Admin override by ${adminId}`,
+        },
+        include: {
+          buddy: {
+            select: { id: true, name: true, bio: true, avatarUrl: true, domain: true },
+          },
+        },
+      });
+
+      await tx.auditLog.create({
+        data: {
+          actorId: adminId,
+          action: 'admission.buddy.overridden',
+          entityType: 'BuddyAssignment',
+          entityId: newAssignment.id,
+          details: {
+            previousAssignmentId: assignmentId,
+            previousBuddyId: existing.buddyId,
+            newBuddyId: dto.newBuddyId,
+            contributorId: existing.contributorId,
+          },
+          correlationId,
+        },
+      });
+
+      return newAssignment;
+    });
+
+    this.eventEmitter.emit('admission.buddy.overridden', {
+      assignmentId: result.id,
+      previousBuddyId: existing.buddyId,
+      newBuddyId: dto.newBuddyId,
+      contributorId: existing.contributorId,
+      adminId,
+      correlationId,
+    });
+
+    this.logger.log('Buddy assignment overridden', {
+      newAssignmentId: result.id,
+      contributorId: existing.contributorId,
+      correlationId,
+    });
+
+    return result;
+  }
+
+  async getBuddyAssignment(contributorId: string) {
+    const assignment = await this.prisma.buddyAssignment.findFirst({
+      where: { contributorId, isActive: true },
+      include: {
+        buddy: {
+          select: { id: true, name: true, bio: true, avatarUrl: true, domain: true },
+        },
+      },
+    });
+
+    if (!assignment) {
+      return null;
+    }
+
+    // Check expiry — treat expired as "completed" not "expired"
+    const isExpired = new Date() > new Date(assignment.expiresAt);
+
+    return {
+      ...assignment,
+      isExpired,
+    };
+  }
+
+  async listBuddyAssignments(filters: ListBuddyAssignmentsQueryDto, correlationId?: string) {
+    this.logger.log('Listing buddy assignments', {
+      domain: filters.domain,
+      isActive: filters.isActive,
+      cursor: filters.cursor,
+      limit: filters.limit,
+      correlationId,
+    });
+
+    const where: Prisma.BuddyAssignmentWhereInput = {};
+    if (filters.isActive !== undefined) {
+      where.isActive = filters.isActive;
+    }
+    if (filters.domain) {
+      where.contributor = { domain: filters.domain as ContributorDomain };
+    }
+
+    const take = filters.limit + 1;
+
+    const findManyArgs: Prisma.BuddyAssignmentFindManyArgs = {
+      where,
+      take,
+      orderBy: { assignedAt: 'desc' },
+      include: {
+        contributor: {
+          select: { id: true, name: true, domain: true, avatarUrl: true },
+        },
+        buddy: {
+          select: { id: true, name: true, domain: true, avatarUrl: true },
+        },
+      },
+    };
+
+    if (filters.cursor) {
+      findManyArgs.cursor = { id: filters.cursor };
+      findManyArgs.skip = 1;
+    }
+
+    const assignments = await this.prisma.buddyAssignment.findMany(findManyArgs);
+
+    const hasMore = assignments.length > filters.limit;
+    const items = hasMore ? assignments.slice(0, filters.limit) : assignments;
+    const nextCursor = hasMore ? items[items.length - 1].id : null;
+
+    const total = await this.prisma.buddyAssignment.count({ where });
+
+    return {
+      items,
+      pagination: {
+        cursor: nextCursor,
+        hasMore,
+        total,
+      },
+    };
+  }
+
+  async updateBuddyOptIn(contributorId: string, optIn: boolean, correlationId?: string) {
+    this.logger.log('Updating buddy opt-in', {
+      contributorId,
+      optIn,
+      correlationId,
+    });
+
+    const result = await this.prisma.$transaction(async (tx) => {
+      const updated = await tx.contributor.update({
+        where: { id: contributorId },
+        data: { buddyOptIn: optIn },
+        select: { id: true, buddyOptIn: true },
+      });
+
+      await tx.auditLog.create({
+        data: {
+          actorId: contributorId,
+          action: 'admission.buddy.optin.changed',
+          entityType: 'Contributor',
+          entityId: contributorId,
+          details: { optIn },
+          correlationId,
+        },
+      });
+
+      return updated;
+    });
+
+    this.logger.log('Buddy opt-in updated', {
+      contributorId,
+      optIn,
+      correlationId,
+    });
+
+    return result;
+  }
+
+  async getEligibleBuddies(domain?: string, excludeContributorId?: string) {
+    const where: Prisma.ContributorWhereInput = {
+      buddyOptIn: true,
+      isActive: true,
+      role: {
+        in: ['CONTRIBUTOR', 'EDITOR', 'FOUNDING_CONTRIBUTOR', 'WORKING_GROUP_LEAD', 'ADMIN'],
+      },
+    };
+
+    if (excludeContributorId) {
+      where.id = { not: excludeContributorId };
+    }
+
+    const buddies = await this.prisma.contributor.findMany({
+      where,
+      select: {
+        id: true,
+        name: true,
+        bio: true,
+        avatarUrl: true,
+        domain: true,
+      },
+    });
+
+    // Sort: domain match first, then random within each group
+    if (domain) {
+      const domainMatch = buddies.filter((b) => b.domain === domain);
+      const otherDomain = buddies.filter((b) => b.domain !== domain);
+
+      // Shuffle each group
+      this.shuffleArray(domainMatch);
+      this.shuffleArray(otherDomain);
+
+      return [...domainMatch, ...otherDomain];
+    }
+
+    this.shuffleArray(buddies);
+    return buddies;
+  }
+
+  // ─── First task recommendation (Story 3-4) ──────────────────────────
+
+  async getFirstTaskRecommendation(contributorId: string) {
+    this.logger.log('Getting first task recommendation', { contributorId });
+
+    const contributor = await this.prisma.contributor.findUnique({
+      where: { id: contributorId },
+      select: { domain: true, skillAreas: true },
+    });
+
+    if (!contributor || !contributor.domain) {
+      return null;
+    }
+
+    const microTasks = await this.prisma.microTask.findMany({
+      where: {
+        domain: contributor.domain,
+        isActive: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (microTasks.length === 0) {
+      return null;
+    }
+
+    const skillAreasCount = contributor.skillAreas?.length ?? 0;
+    const targetHours = this.inferTargetEffortHours(skillAreasCount);
+
+    const selectedTask = microTasks.reduce((best, candidate) => {
+      const bestHours = this.parseEstimatedEffortHours(best.estimatedEffort);
+      const candidateHours = this.parseEstimatedEffortHours(candidate.estimatedEffort);
+
+      if (bestHours === null && candidateHours !== null) {
+        return candidate;
+      }
+      if (bestHours !== null && candidateHours === null) {
+        return best;
+      }
+      if (bestHours === null && candidateHours === null) {
+        return best;
+      }
+
+      return Math.abs(candidateHours - targetHours) < Math.abs(bestHours - targetHours)
+        ? candidate
+        : best;
+    });
+
+    return {
+      taskTitle: selectedTask.title,
+      taskDescription: selectedTask.description,
+      estimatedEffort: selectedTask.estimatedEffort,
+      domain: selectedTask.domain,
+      claimable: false, // Stub — Epic 5 will add real task claiming
+    };
+  }
+
+  // ─── Event listener for auto-assignment (Story 3-4) ──────────────────
+
+  @OnEvent('admission.application.approved')
+  async handleApplicationApproved(payload: {
+    applicationId: string;
+    adminId: string;
+    correlationId?: string;
+  }) {
+    this.logger.log('Handling application approval for buddy assignment', {
+      applicationId: payload.applicationId,
+      correlationId: payload.correlationId,
+    });
+
+    const application = await this.prisma.application.findUnique({
+      where: { id: payload.applicationId },
+      select: { contributorId: true },
+    });
+
+    if (!application?.contributorId) {
+      this.logger.warn('No contributor linked to approved application', {
+        applicationId: payload.applicationId,
+      });
+      return;
+    }
+
+    try {
+      const assignment = await this.assignBuddy(application.contributorId, payload.correlationId);
+
+      if (!assignment) {
+        this.logger.warn('No eligible buddies for auto-assignment, contributor can still onboard', {
+          contributorId: application.contributorId,
+          correlationId: payload.correlationId,
+        });
+
+        // Store notification intent in audit log
+        await this.prisma.auditLog.create({
+          data: {
+            actorId: null,
+            action: 'admission.buddy.assignment.skipped',
+            entityType: 'Application',
+            entityId: payload.applicationId,
+            details: {
+              contributorId: application.contributorId,
+              reason: 'no_eligible_buddies',
+            },
+            correlationId: payload.correlationId,
+          },
+        });
+      } else {
+        // Store buddy notification payload for future delivery
+        await this.prisma.auditLog.create({
+          data: {
+            actorId: null,
+            action: 'admission.buddy.notification.pending',
+            entityType: 'BuddyAssignment',
+            entityId: assignment.id,
+            details: {
+              buddyId: assignment.buddyId,
+              contributorId: application.contributorId,
+              message: 'You have been paired with a new contributor',
+            },
+            correlationId: payload.correlationId,
+          },
+        });
+      }
+    } catch (error) {
+      // Graceful degradation — don't fail the approval if buddy assignment fails
+      this.logger.error('Failed to auto-assign buddy', {
+        contributorId: application.contributorId,
+        error: error instanceof Error ? error.message : String(error),
+        correlationId: payload.correlationId,
+      });
+    }
+  }
+
+  private shuffleArray<T>(array: T[]): void {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  private inferTargetEffortHours(skillAreasCount: number): number {
+    if (skillAreasCount <= 1) {
+      return 3;
+    }
+    if (skillAreasCount <= 3) {
+      return 5;
+    }
+    return 7;
+  }
+
+  private parseEstimatedEffortHours(effort: string): number | null {
+    const matches = effort.match(/\d+/g);
+    if (!matches || matches.length === 0) {
+      return null;
+    }
+
+    const values = matches.map((value) => Number.parseInt(value, 10));
+    if (values.some(Number.isNaN)) {
+      return null;
+    }
+
+    const total = values.reduce((sum, value) => sum + value, 0);
+    return total / values.length;
   }
 
   private isUniqueConstraintViolation(error: unknown, constraintName?: string): boolean {

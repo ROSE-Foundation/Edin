@@ -141,3 +141,35 @@ export const listMicroTasksQuerySchema = z.object({
 });
 
 export type ListMicroTasksQuery = z.infer<typeof listMicroTasksQuerySchema>;
+
+// --- Buddy assignment schemas (Story 3-4) ---
+
+export const assignBuddySchema = z.object({
+  contributorId: z.string().uuid('Contributor ID must be a valid UUID'),
+});
+
+export type AssignBuddyDto = z.infer<typeof assignBuddySchema>;
+
+export const overrideBuddySchema = z.object({
+  newBuddyId: z.string().uuid('Buddy ID must be a valid UUID'),
+});
+
+export type OverrideBuddyDto = z.infer<typeof overrideBuddySchema>;
+
+export const buddyOptInSchema = z.object({
+  optIn: z.boolean(),
+});
+
+export type BuddyOptInDto = z.infer<typeof buddyOptInSchema>;
+
+export const listBuddyAssignmentsQuerySchema = z.object({
+  domain: z.enum(['Technology', 'Fintech', 'Impact', 'Governance']).optional(),
+  isActive: z
+    .enum(['true', 'false'])
+    .transform((val) => val === 'true')
+    .optional(),
+  cursor: z.string().uuid().optional(),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export type ListBuddyAssignmentsQueryDto = z.infer<typeof listBuddyAssignmentsQuerySchema>;
