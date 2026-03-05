@@ -6,6 +6,7 @@ import type {
   ContributorDomain,
   ApplicationStatus,
   ReviewRecommendation,
+  OnboardingMilestoneType,
 } from '../../../generated/prisma/client/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
@@ -1579,6 +1580,350 @@ export class AdmissionService {
         contributorId: application.contributorId,
         error: error instanceof Error ? error.message : String(error),
         correlationId: payload.correlationId,
+      });
+    }
+  }
+
+  // ─── Onboarding tracking (Story 3-5) ─────────────────────────────────
+
+  async recordMilestone(
+    contributorId: string,
+    milestoneType: OnboardingMilestoneType,
+    metadata?: Record<string, unknown>,
+    correlationId?: string,
+  ) {
+    this.logger.log('Recording onboarding milestone', {
+      contributorId,
+      milestoneType,
+      correlationId,
+    });
+
+    try {
+      const milestone = await this.prisma.$transaction(async (tx) => {
+        const record = await tx.onboardingMilestone.create({
+          data: {
+            contributorId,
+            milestoneType,
+            metadata: (metadata ?? undefined) as Prisma.InputJsonValue | undefined,
+          },
+        });
+
+        await tx.auditLog.create({
+          data: {
+            actorId: contributorId,
+            action: 'admission.onboarding.milestone.completed',
+            entityType: 'OnboardingMilestone',
+            entityId: record.id,
+            details: {
+              milestoneType,
+              metadata: (metadata ?? null) as Prisma.InputJsonValue | null,
+            } as Prisma.InputJsonValue,
+            correlationId,
+          },
+        });
+
+        return record;
+      });
+
+      this.logger.log('Onboarding milestone recorded', {
+        milestoneId: milestone.id,
+        contributorId,
+        milestoneType,
+        correlationId,
+      });
+
+      return milestone;
+    } catch (error) {
+      if (this.isUniqueConstraintViolation(error)) {
+        this.logger.log('Milestone already completed, skipping', {
+          contributorId,
+          milestoneType,
+          correlationId,
+        });
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  async getOnboardingStatus(contributorId: string, correlationId?: string) {
+    this.logger.log('Fetching onboarding status', {
+      contributorId,
+      correlationId,
+    });
+
+    const contributor = await this.prisma.contributor.findUnique({
+      where: { id: contributorId },
+      select: {
+        id: true,
+        name: true,
+        domain: true,
+        applications: {
+          where: { status: 'APPROVED' },
+          select: { ignitionStartedAt: true },
+          orderBy: { reviewedAt: 'desc' },
+          take: 1,
+        },
+        onboardingMilestones: {
+          orderBy: { completedAt: 'asc' },
+        },
+      },
+    });
+
+    if (!contributor) {
+      throw new DomainException(
+        ERROR_CODES.CONTRIBUTOR_NOT_FOUND,
+        'Contributor not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const ignitionStartedAt = contributor.applications[0]?.ignitionStartedAt ?? null;
+    const milestones = contributor.onboardingMilestones;
+
+    return {
+      contributorId: contributor.id,
+      contributorName: contributor.name,
+      contributorDomain: contributor.domain,
+      ignitionStartedAt: ignitionStartedAt?.toISOString() ?? null,
+      milestones: milestones.map((m) => ({
+        id: m.id,
+        contributorId: m.contributorId,
+        milestoneType: m.milestoneType,
+        completedAt: m.completedAt.toISOString(),
+        metadata: m.metadata as Record<string, unknown> | null,
+      })),
+      ...this.computeOnboardingFlags(ignitionStartedAt, milestones.length),
+    };
+  }
+
+  async listOnboardingStatuses(
+    query: { status?: string; cursor?: string; limit: number },
+    correlationId?: string,
+  ) {
+    this.logger.log('Listing onboarding statuses', {
+      ...query,
+      correlationId,
+    });
+
+    // Get all contributors who have approved applications (ignitionStartedAt set)
+    const where: Prisma.ContributorWhereInput = {
+      applications: {
+        some: {
+          status: 'APPROVED',
+          ignitionStartedAt: { not: null },
+        },
+      },
+    };
+
+    const cursorClause = query.cursor ? { id: query.cursor } : undefined;
+
+    const contributors = await this.prisma.contributor.findMany({
+      where,
+      cursor: cursorClause,
+      skip: cursorClause ? 1 : 0,
+      take: query.limit + 1,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        domain: true,
+        applications: {
+          where: { status: 'APPROVED' },
+          select: { ignitionStartedAt: true },
+          orderBy: { reviewedAt: 'desc' },
+          take: 1,
+        },
+        onboardingMilestones: {
+          orderBy: { completedAt: 'asc' },
+        },
+      },
+    });
+
+    const hasMore = contributors.length > query.limit;
+    const items = hasMore ? contributors.slice(0, query.limit) : contributors;
+
+    const statuses = items.map((contributor) => {
+      const ignitionStartedAt = contributor.applications[0]?.ignitionStartedAt ?? null;
+      const milestones = contributor.onboardingMilestones;
+
+      return {
+        contributorId: contributor.id,
+        contributorName: contributor.name,
+        contributorDomain: contributor.domain,
+        ignitionStartedAt: ignitionStartedAt?.toISOString() ?? null,
+        milestones: milestones.map((m) => ({
+          id: m.id,
+          contributorId: m.contributorId,
+          milestoneType: m.milestoneType,
+          completedAt: m.completedAt.toISOString(),
+          metadata: m.metadata as Record<string, unknown> | null,
+        })),
+        ...this.computeOnboardingFlags(ignitionStartedAt, milestones.length),
+      };
+    });
+
+    // Filter by status if specified
+    const filtered = query.status
+      ? statuses.filter((s) => {
+          switch (query.status) {
+            case 'at-risk':
+              return s.isAtRisk;
+            case 'in-progress':
+              return s.isWithin72Hours && !s.isComplete && !s.isAtRisk;
+            case 'completed':
+              return s.isComplete;
+            case 'expired':
+              return s.isExpired;
+            default:
+              return true;
+          }
+        })
+      : statuses;
+
+    const total = await this.prisma.contributor.count({ where });
+
+    return {
+      data: filtered,
+      pagination: {
+        cursor: items.length > 0 ? items[items.length - 1].id : null,
+        hasMore,
+        total,
+      },
+    };
+  }
+
+  private computeOnboardingFlags(ignitionStartedAt: Date | null, milestoneCount: number) {
+    if (!ignitionStartedAt) {
+      return {
+        isWithin72Hours: false,
+        isComplete: false,
+        isAtRisk: false,
+        isExpired: false,
+        hoursElapsed: null,
+      };
+    }
+
+    const now = new Date();
+    const hoursElapsed = (now.getTime() - ignitionStartedAt.getTime()) / (1000 * 60 * 60);
+    const isWithin72Hours = hoursElapsed <= 72;
+    const isComplete = milestoneCount >= 5;
+    const isAtRisk = isWithin72Hours && milestoneCount < 3 && hoursElapsed > 48;
+    const isExpired = !isWithin72Hours && !isComplete;
+
+    return {
+      isWithin72Hours,
+      isComplete,
+      isAtRisk,
+      isExpired,
+      hoursElapsed: Math.round(hoursElapsed * 10) / 10,
+    };
+  }
+
+  // ─── Onboarding event listeners (Story 3-5) ────────────────────────
+
+  @OnEvent('admission.application.approved')
+  async handleApprovedForOnboarding(payload: { applicationId: string; correlationId?: string }) {
+    this.logger.log('Recording ACCOUNT_ACTIVATED milestone on approval', {
+      applicationId: payload.applicationId,
+      correlationId: payload.correlationId,
+    });
+
+    const application = await this.prisma.application.findUnique({
+      where: { id: payload.applicationId },
+      select: { contributorId: true },
+    });
+
+    if (!application?.contributorId) {
+      return;
+    }
+
+    try {
+      await this.recordMilestone(
+        application.contributorId,
+        'ACCOUNT_ACTIVATED',
+        { applicationId: payload.applicationId },
+        payload.correlationId,
+      );
+    } catch (error) {
+      this.logger.error('Failed to record ACCOUNT_ACTIVATED milestone', {
+        contributorId: application.contributorId,
+        error: error instanceof Error ? error.message : String(error),
+        correlationId: payload.correlationId,
+      });
+    }
+  }
+
+  @OnEvent('admission.buddy.assigned')
+  async handleBuddyAssignedForOnboarding(payload: {
+    contributorId: string;
+    buddyId: string;
+    domain?: string | null;
+    isAutomatic?: boolean;
+    correlationId?: string;
+  }) {
+    this.logger.log('Recording BUDDY_ASSIGNED milestone', {
+      contributorId: payload.contributorId,
+      correlationId: payload.correlationId,
+    });
+
+    try {
+      await this.recordMilestone(
+        payload.contributorId,
+        'BUDDY_ASSIGNED',
+        { buddyId: payload.buddyId },
+        payload.correlationId,
+      );
+    } catch (error) {
+      this.logger.error('Failed to record BUDDY_ASSIGNED milestone', {
+        contributorId: payload.contributorId,
+        error: error instanceof Error ? error.message : String(error),
+        correlationId: payload.correlationId,
+      });
+    }
+  }
+
+  // Stub listeners for future epics
+  // TODO: Epic 5 — task management will emit 'task.claimed' event
+  @OnEvent('task.claimed')
+  async handleTaskClaimedForOnboarding(payload: {
+    contributorId: string;
+    taskId: string;
+    correlationId?: string;
+  }) {
+    try {
+      await this.recordMilestone(
+        payload.contributorId,
+        'FIRST_TASK_CLAIMED',
+        { taskId: payload.taskId },
+        payload.correlationId,
+      );
+    } catch (error) {
+      this.logger.error('Failed to record FIRST_TASK_CLAIMED milestone', {
+        contributorId: payload.contributorId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  // TODO: Epic 4 — GitHub contribution ingestion will emit 'contribution.submitted' event
+  @OnEvent('contribution.submitted')
+  async handleContributionSubmittedForOnboarding(payload: {
+    contributorId: string;
+    contributionId: string;
+    correlationId?: string;
+  }) {
+    try {
+      await this.recordMilestone(
+        payload.contributorId,
+        'FIRST_CONTRIBUTION_SUBMITTED',
+        { contributionId: payload.contributionId },
+        payload.correlationId,
+      );
+    } catch (error) {
+      this.logger.error('Failed to record FIRST_CONTRIBUTION_SUBMITTED milestone', {
+        contributorId: payload.contributorId,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   }

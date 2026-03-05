@@ -88,6 +88,10 @@ export {
   overrideBuddySchema,
   buddyOptInSchema,
   listBuddyAssignmentsQuerySchema,
+  onboardingMilestoneTypeEnum,
+  recordMilestoneSchema,
+  onboardingStatusSchema,
+  listOnboardingStatusQuerySchema,
 } from './schemas/admission.schema.js';
 export type {
   CreateApplicationDto,
@@ -102,6 +106,9 @@ export type {
   OverrideBuddyDto,
   BuddyOptInDto,
   ListBuddyAssignmentsQueryDto,
+  RecordMilestoneDto,
+  OnboardingStatusDto,
+  ListOnboardingStatusQueryDto,
 } from './schemas/admission.schema.js';
 
 export type {
@@ -126,4 +133,9 @@ export type {
   OverrideBuddyInput,
   BuddyOptInInput,
   ListBuddyAssignmentsQueryInput,
+  OnboardingMilestoneType,
+  OnboardingMilestone,
+  OnboardingStatus,
+  RecordMilestoneInput,
+  ListOnboardingStatusQueryInput,
 } from './types/admission.types.js';

@@ -16,4 +16,5 @@ export type AppSubjects =
   | 'PublicMetrics'
   | 'MicroTask'
   | 'BuddyAssignment'
+  | 'OnboardingMilestone'
   | 'EditorialFeedback';

@@ -12,6 +12,8 @@ import type {
   overrideBuddySchema,
   buddyOptInSchema,
   listBuddyAssignmentsQuerySchema,
+  recordMilestoneSchema,
+  listOnboardingStatusQuerySchema,
 } from '../schemas/admission.schema.js';
 
 export type ApplicationStatus = 'PENDING' | 'UNDER_REVIEW' | 'APPROVED' | 'DECLINED';
@@ -116,3 +118,36 @@ export type AssignBuddyInput = z.infer<typeof assignBuddySchema>;
 export type OverrideBuddyInput = z.infer<typeof overrideBuddySchema>;
 export type BuddyOptInInput = z.infer<typeof buddyOptInSchema>;
 export type ListBuddyAssignmentsQueryInput = z.infer<typeof listBuddyAssignmentsQuerySchema>;
+
+// --- Onboarding tracking types (Story 3-5) ---
+
+export type OnboardingMilestoneType =
+  | 'ACCOUNT_ACTIVATED'
+  | 'BUDDY_ASSIGNED'
+  | 'FIRST_TASK_VIEWED'
+  | 'FIRST_TASK_CLAIMED'
+  | 'FIRST_CONTRIBUTION_SUBMITTED';
+
+export interface OnboardingMilestone {
+  id: string;
+  contributorId: string;
+  milestoneType: OnboardingMilestoneType;
+  completedAt: string;
+  metadata: Record<string, unknown> | null;
+}
+
+export interface OnboardingStatus {
+  contributorId: string;
+  contributorName: string;
+  contributorDomain: string | null;
+  ignitionStartedAt: string | null;
+  milestones: OnboardingMilestone[];
+  isWithin72Hours: boolean;
+  isComplete: boolean;
+  isAtRisk: boolean;
+  isExpired: boolean;
+  hoursElapsed: number | null;
+}
+
+export type RecordMilestoneInput = z.infer<typeof recordMilestoneSchema>;
+export type ListOnboardingStatusQueryInput = z.infer<typeof listOnboardingStatusQuerySchema>;

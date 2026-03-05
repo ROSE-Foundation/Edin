@@ -139,6 +139,31 @@ async function main() {
   });
   console.log(`Updated test contributor with buddyOptIn: ${contributor.id}`);
 
+  // Seed sample onboarding milestones for buddy contributor 2
+  // (simulates a contributor partway through onboarding)
+  const existingMilestone = await prisma.onboardingMilestone.findFirst({
+    where: { contributorId: buddyContributor2.id },
+  });
+  if (!existingMilestone) {
+    await prisma.onboardingMilestone.create({
+      data: {
+        contributorId: buddyContributor2.id,
+        milestoneType: 'ACCOUNT_ACTIVATED',
+        completedAt: new Date(Date.now() - 48 * 60 * 60 * 1000), // 48 hours ago
+      },
+    });
+    await prisma.onboardingMilestone.create({
+      data: {
+        contributorId: buddyContributor2.id,
+        milestoneType: 'BUDDY_ASSIGNED',
+        completedAt: new Date(Date.now() - 47 * 60 * 60 * 1000), // 47 hours ago
+      },
+    });
+    console.log(`Created sample onboarding milestones for ${buddyContributor2.name}`);
+  } else {
+    console.log(`Onboarding milestones already exist for ${buddyContributor2.name}`);
+  }
+
   // Create a sample buddy assignment (contributor2 is mentored by contributor)
   const existingAssignment = await prisma.buddyAssignment.findFirst({
     where: { contributorId: buddyContributor2.id, buddyId: contributor.id },

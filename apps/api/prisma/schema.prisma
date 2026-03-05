@@ -51,6 +51,16 @@ enum ReviewRecommendation {
   @@schema("core")
 }
 
+enum OnboardingMilestoneType {
+  ACCOUNT_ACTIVATED
+  BUDDY_ASSIGNED
+  FIRST_TASK_VIEWED
+  FIRST_TASK_CLAIMED
+  FIRST_CONTRIBUTION_SUBMITTED
+
+  @@schema("core")
+}
+
 // ─── Core Schema ────────────────────────────────────────────────────────────
 
 model Contributor {
@@ -75,6 +85,7 @@ model Contributor {
   applicationReviews     ApplicationReview[] @relation("ReviewAuthor")
   buddyAssignments       BuddyAssignment[] @relation("BuddyMentee")
   buddyMentees           BuddyAssignment[] @relation("BuddyMentor")
+  onboardingMilestones   OnboardingMilestone[]
 
   @@map("contributors")
   @@schema("core")
@@ -155,6 +166,20 @@ model BuddyAssignment {
   buddy          Contributor       @relation("BuddyMentor", fields: [buddyId], references: [id])
 
   @@map("buddy_assignments")
+  @@schema("core")
+}
+
+model OnboardingMilestone {
+  id             String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId  String                   @map("contributor_id") @db.Uuid
+  milestoneType  OnboardingMilestoneType  @map("milestone_type")
+  completedAt    DateTime                 @default(now()) @map("completed_at")
+  metadata       Json?
+
+  contributor    Contributor              @relation(fields: [contributorId], references: [id])
+
+  @@unique([contributorId, milestoneType], map: "onboarding_milestones_contributor_type_key")
+  @@map("onboarding_milestones")
   @@schema("core")
 }
 

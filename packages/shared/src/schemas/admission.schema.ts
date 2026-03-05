@@ -173,3 +173,47 @@ export const listBuddyAssignmentsQuerySchema = z.object({
 });
 
 export type ListBuddyAssignmentsQueryDto = z.infer<typeof listBuddyAssignmentsQuerySchema>;
+
+// --- Onboarding tracking schemas (Story 3-5) ---
+
+export const onboardingMilestoneTypeEnum = z.enum([
+  'ACCOUNT_ACTIVATED',
+  'BUDDY_ASSIGNED',
+  'FIRST_TASK_VIEWED',
+  'FIRST_TASK_CLAIMED',
+  'FIRST_CONTRIBUTION_SUBMITTED',
+]);
+
+export const recordMilestoneSchema = z.object({
+  milestoneType: onboardingMilestoneTypeEnum,
+  metadata: z.record(z.unknown()).optional(),
+});
+
+export type RecordMilestoneDto = z.infer<typeof recordMilestoneSchema>;
+
+export const onboardingStatusSchema = z.object({
+  contributorId: z.string().uuid(),
+  ignitionStartedAt: z.string().nullable(),
+  milestones: z.array(
+    z.object({
+      milestoneType: onboardingMilestoneTypeEnum,
+      completedAt: z.string(),
+      metadata: z.record(z.unknown()).nullable(),
+    }),
+  ),
+  isWithin72Hours: z.boolean(),
+  isComplete: z.boolean(),
+  isAtRisk: z.boolean(),
+  isExpired: z.boolean(),
+  hoursElapsed: z.number().nullable(),
+});
+
+export type OnboardingStatusDto = z.infer<typeof onboardingStatusSchema>;
+
+export const listOnboardingStatusQuerySchema = z.object({
+  status: z.enum(['at-risk', 'in-progress', 'completed', 'expired']).optional(),
+  cursor: z.string().uuid().optional(),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export type ListOnboardingStatusQueryDto = z.infer<typeof listOnboardingStatusQuerySchema>;

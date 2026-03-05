@@ -33,6 +33,7 @@ import { listMicroTasksQuerySchema } from './dto/list-micro-tasks-query.dto.js';
 import { overrideBuddySchema } from './dto/override-buddy.dto.js';
 import { buddyOptInSchema } from './dto/buddy-opt-in.dto.js';
 import { listBuddyAssignmentsQuerySchema } from './dto/list-buddy-assignments-query.dto.js';
+import { listOnboardingStatusQuerySchema } from './dto/list-onboarding-status-query.dto.js';
 import { createSuccessResponse } from '../../common/types/api-response.type.js';
 
 @Controller({ path: 'admission', version: '1' })
@@ -363,6 +364,13 @@ export class AdmissionController {
   async getFirstTaskRecommendation(@CurrentUser() user: CurrentUserPayload, @Req() req: Request) {
     const result = await this.admissionService.getFirstTaskRecommendation(user.id);
 
+    // Record FIRST_TASK_VIEWED milestone (idempotent — skips if already recorded)
+    this.admissionService
+      .recordMilestone(user.id, 'FIRST_TASK_VIEWED', undefined, req.correlationId)
+      .catch(() => {
+        // Graceful degradation — don't fail the endpoint if milestone recording fails
+      });
+
     return createSuccessResponse(result, req.correlationId || 'unknown');
   }
 
@@ -429,6 +437,43 @@ export class AdmissionController {
     const result = await this.admissionService.getEligibleBuddies(domain);
 
     return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  // ─── Onboarding tracking endpoints (Story 3-5) ─────────────────────
+
+  @Get('onboarding/mine')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Read, 'OnboardingMilestone'))
+  async getMyOnboardingStatus(@CurrentUser() user: CurrentUserPayload, @Req() req: Request) {
+    const result = await this.admissionService.getOnboardingStatus(user.id, req.correlationId);
+
+    return createSuccessResponse(result, req.correlationId || 'unknown');
+  }
+
+  @Get('onboarding')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Manage, 'OnboardingMilestone'))
+  async listOnboardingStatuses(@Query() query: unknown, @Req() req: Request) {
+    const parsed = listOnboardingStatusQuerySchema.safeParse(query);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid query parameters',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({
+          field: e.path.join('.'),
+          message: e.message,
+        })),
+      );
+    }
+
+    const result = await this.admissionService.listOnboardingStatuses(
+      parsed.data,
+      req.correlationId,
+    );
+
+    return createSuccessResponse(result.data, req.correlationId || 'unknown', result.pagination);
   }
 }
 

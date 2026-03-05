@@ -65,7 +65,7 @@ development_status:
   3-2-application-review-and-admission-queue: done
   3-3-admin-micro-task-configuration: done
   3-4-buddy-assignment-and-first-task-recommendation: done
-  3-5-72-hour-ignition-onboarding-tracking: backlog
+  3-5-72-hour-ignition-onboarding-tracking: in-progress
   epic-3-retrospective: optional
 
   # Epic 4: GitHub Integration & Contribution Tracking

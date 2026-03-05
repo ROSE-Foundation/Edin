@@ -25,6 +25,14 @@ vi.mock('../../../hooks/use-profile', () => ({
   })),
 }));
 
+vi.mock('../../../hooks/use-onboarding-status', () => ({
+  useOnboardingStatus: vi.fn(() => ({
+    onboardingStatus: null,
+    isLoading: false,
+    error: null,
+  })),
+}));
+
 vi.mock('../../../hooks/use-buddy-assignment', () => ({
   useBuddyAssignment: vi.fn(() => ({
     buddyAssignment: null,

@@ -35,6 +35,9 @@ const mockAdmissionService = {
   overrideBuddyAssignment: vi.fn(),
   getEligibleBuddies: vi.fn(),
   updateBuddyOptIn: vi.fn(),
+  recordMilestone: vi.fn().mockResolvedValue(null),
+  getOnboardingStatus: vi.fn(),
+  listOnboardingStatuses: vi.fn(),
 };
 
 describe('AdmissionController', () => {
@@ -786,6 +789,74 @@ describe('AdmissionController', () => {
       const mockReq = { correlationId: 'corr-eligible' } as any;
 
       const result = await controller.listEligibleBuddies('Technology', mockReq);
+
+      expect(result.data).toHaveLength(1);
+    });
+  });
+
+  // ─── Onboarding endpoint tests (Story 3-5) ──────────────────────────
+
+  describe('GET /api/v1/admission/onboarding/mine', () => {
+    it('returns current user onboarding status', async () => {
+      const mockStatus = {
+        contributorId: 'user-uuid-1',
+        contributorName: 'Jane Doe',
+        contributorDomain: 'Technology',
+        ignitionStartedAt: new Date().toISOString(),
+        milestones: [
+          {
+            id: 'ms-1',
+            contributorId: 'user-uuid-1',
+            milestoneType: 'ACCOUNT_ACTIVATED',
+            completedAt: new Date().toISOString(),
+            metadata: null,
+          },
+        ],
+        isWithin72Hours: true,
+        isComplete: false,
+        isAtRisk: false,
+        isExpired: false,
+        hoursElapsed: 12.5,
+      };
+
+      mockAdmissionService.getOnboardingStatus.mockResolvedValueOnce(mockStatus);
+
+      const mockReq = { correlationId: 'corr-onboarding-mine' } as any;
+      const mockUser = { id: 'user-uuid-1', role: 'CONTRIBUTOR' } as any;
+
+      const result = await controller.getMyOnboardingStatus(mockUser, mockReq);
+
+      expect(result.data).toEqual(mockStatus);
+      expect(mockAdmissionService.getOnboardingStatus).toHaveBeenCalledWith(
+        'user-uuid-1',
+        'corr-onboarding-mine',
+      );
+    });
+  });
+
+  describe('GET /api/v1/admission/onboarding', () => {
+    it('returns onboarding statuses list for admin', async () => {
+      mockAdmissionService.listOnboardingStatuses.mockResolvedValueOnce({
+        data: [
+          {
+            contributorId: 'c-1',
+            contributorName: 'Jane',
+            contributorDomain: 'Technology',
+            ignitionStartedAt: new Date().toISOString(),
+            milestones: [],
+            isWithin72Hours: true,
+            isComplete: false,
+            isAtRisk: false,
+            isExpired: false,
+            hoursElapsed: 5,
+          },
+        ],
+        pagination: { cursor: null, hasMore: false, total: 1 },
+      });
+
+      const mockReq = { correlationId: 'corr-onboarding-list' } as any;
+
+      const result = await controller.listOnboardingStatuses({ limit: '20' }, mockReq);
 
       expect(result.data).toHaveLength(1);
     });

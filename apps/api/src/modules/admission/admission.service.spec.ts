@@ -31,6 +31,7 @@ const mockPrisma = {
     findUnique: vi.fn(),
     findMany: vi.fn(),
     update: vi.fn(),
+    count: vi.fn(),
   },
   buddyAssignment: {
     create: vi.fn(),
@@ -39,6 +40,11 @@ const mockPrisma = {
     findUnique: vi.fn(),
     update: vi.fn(),
     count: vi.fn(),
+  },
+  onboardingMilestone: {
+    create: vi.fn(),
+    findFirst: vi.fn(),
+    findMany: vi.fn(),
   },
   consentRecord: {
     create: vi.fn(),
@@ -1287,6 +1293,418 @@ describe('AdmissionService', () => {
       expect(result.items).toHaveLength(1);
       expect(result.pagination.total).toBe(1);
       expect(result.pagination.hasMore).toBe(false);
+    });
+  });
+
+  // ─── Onboarding tracking tests (Story 3-5) ──────────────────────────
+
+  describe('recordMilestone', () => {
+    it('records a milestone with audit log in transaction', async () => {
+      const mockMilestone = {
+        id: 'milestone-uuid-1',
+        contributorId: 'contributor-uuid-1',
+        milestoneType: 'ACCOUNT_ACTIVATED',
+        completedAt: new Date(),
+        metadata: null,
+      };
+
+      mockPrisma.onboardingMilestone.create.mockResolvedValueOnce(mockMilestone);
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      const result = await service.recordMilestone(
+        'contributor-uuid-1',
+        'ACCOUNT_ACTIVATED',
+        undefined,
+        'corr-1',
+      );
+
+      expect(result).toEqual(mockMilestone);
+      expect(mockPrisma.onboardingMilestone.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          contributorId: 'contributor-uuid-1',
+          milestoneType: 'ACCOUNT_ACTIVATED',
+        }),
+      });
+      expect(mockPrisma.auditLog.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          action: 'admission.onboarding.milestone.completed',
+          entityType: 'OnboardingMilestone',
+        }),
+      });
+    });
+
+    it('returns null for duplicate milestone (idempotent)', async () => {
+      const prismaError = new Error('Unique constraint violated') as any;
+      prismaError.code = 'P2002';
+      prismaError.meta = { target: ['contributor_id', 'milestone_type'] };
+      mockPrisma.onboardingMilestone.create.mockRejectedValueOnce(prismaError);
+
+      const result = await service.recordMilestone(
+        'contributor-uuid-1',
+        'ACCOUNT_ACTIVATED',
+        undefined,
+        'corr-1',
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('records milestone with metadata', async () => {
+      const metadata = { applicationId: 'app-uuid-1' };
+      const mockMilestone = {
+        id: 'milestone-uuid-2',
+        contributorId: 'contributor-uuid-1',
+        milestoneType: 'FIRST_TASK_VIEWED',
+        completedAt: new Date(),
+        metadata,
+      };
+
+      mockPrisma.onboardingMilestone.create.mockResolvedValueOnce(mockMilestone);
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      const result = await service.recordMilestone(
+        'contributor-uuid-1',
+        'FIRST_TASK_VIEWED',
+        metadata,
+        'corr-1',
+      );
+
+      expect(result).toEqual(mockMilestone);
+    });
+  });
+
+  describe('getOnboardingStatus', () => {
+    it('returns full onboarding status with computed flags', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 24 * 60 * 60 * 1000); // 24 hours ago
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: [
+          {
+            id: 'ms-1',
+            contributorId: 'contributor-uuid-1',
+            milestoneType: 'ACCOUNT_ACTIVATED',
+            completedAt: new Date(),
+            metadata: null,
+          },
+          {
+            id: 'ms-2',
+            contributorId: 'contributor-uuid-1',
+            milestoneType: 'BUDDY_ASSIGNED',
+            completedAt: new Date(),
+            metadata: null,
+          },
+        ],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.contributorId).toBe('contributor-uuid-1');
+      expect(result.contributorName).toBe('Jane Doe');
+      expect(result.contributorDomain).toBe('Technology');
+      expect(result.isWithin72Hours).toBe(true);
+      expect(result.isComplete).toBe(false);
+      expect(result.isAtRisk).toBe(false);
+      expect(result.isExpired).toBe(false);
+      expect(result.milestones).toHaveLength(2);
+      expect(result.hoursElapsed).toBeGreaterThan(23);
+    });
+
+    it('throws CONTRIBUTOR_NOT_FOUND when contributor does not exist', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.getOnboardingStatus('non-existent', 'corr-1')).rejects.toThrow(
+        DomainException,
+      );
+    });
+
+    it('handles contributor without ignitionStartedAt', async () => {
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [],
+        onboardingMilestones: [],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.ignitionStartedAt).toBeNull();
+      expect(result.isWithin72Hours).toBe(false);
+      expect(result.isComplete).toBe(false);
+      expect(result.hoursElapsed).toBeNull();
+    });
+
+    it('computes isAtRisk when >48h elapsed and <3 milestones', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 50 * 60 * 60 * 1000); // 50 hours ago
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: [
+          {
+            id: 'ms-1',
+            contributorId: 'contributor-uuid-1',
+            milestoneType: 'ACCOUNT_ACTIVATED',
+            completedAt: new Date(),
+            metadata: null,
+          },
+        ],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.isAtRisk).toBe(true);
+      expect(result.isWithin72Hours).toBe(true);
+    });
+
+    it('computes isComplete when all 5 milestones done', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 20 * 60 * 60 * 1000); // 20 hours ago
+      const allMilestones = [
+        'ACCOUNT_ACTIVATED',
+        'BUDDY_ASSIGNED',
+        'FIRST_TASK_VIEWED',
+        'FIRST_TASK_CLAIMED',
+        'FIRST_CONTRIBUTION_SUBMITTED',
+      ].map((type, i) => ({
+        id: `ms-${i}`,
+        contributorId: 'contributor-uuid-1',
+        milestoneType: type,
+        completedAt: new Date(),
+        metadata: null,
+      }));
+
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: allMilestones,
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.isComplete).toBe(true);
+      expect(result.isAtRisk).toBe(false);
+    });
+
+    it('computes isExpired when 72h passed and incomplete', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 80 * 60 * 60 * 1000); // 80 hours ago
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: [
+          {
+            id: 'ms-1',
+            contributorId: 'contributor-uuid-1',
+            milestoneType: 'ACCOUNT_ACTIVATED',
+            completedAt: new Date(),
+            metadata: null,
+          },
+        ],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.isExpired).toBe(true);
+      expect(result.isWithin72Hours).toBe(false);
+      expect(result.isComplete).toBe(false);
+    });
+  });
+
+  describe('listOnboardingStatuses', () => {
+    it('lists onboarding statuses with pagination', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        {
+          id: 'contributor-uuid-1',
+          name: 'Jane Doe',
+          domain: 'Technology',
+          applications: [{ ignitionStartedAt }],
+          onboardingMilestones: [
+            {
+              id: 'ms-1',
+              contributorId: 'contributor-uuid-1',
+              milestoneType: 'ACCOUNT_ACTIVATED',
+              completedAt: new Date(),
+              metadata: null,
+            },
+          ],
+        },
+      ]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(1);
+
+      const result = await service.listOnboardingStatuses({ limit: 20 }, 'corr-1');
+
+      expect(result.data).toHaveLength(1);
+      expect(result.data[0].contributorId).toBe('contributor-uuid-1');
+      expect(result.pagination.total).toBe(1);
+      expect(result.pagination.hasMore).toBe(false);
+    });
+
+    it('filters by at-risk status', async () => {
+      const atRiskStart = new Date(Date.now() - 50 * 60 * 60 * 1000); // 50h ago
+      const healthyStart = new Date(Date.now() - 10 * 60 * 60 * 1000); // 10h ago
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([
+        {
+          id: 'at-risk-uuid',
+          name: 'At Risk',
+          domain: 'Technology',
+          applications: [{ ignitionStartedAt: atRiskStart }],
+          onboardingMilestones: [
+            {
+              id: 'ms-1',
+              contributorId: 'at-risk-uuid',
+              milestoneType: 'ACCOUNT_ACTIVATED',
+              completedAt: new Date(),
+              metadata: null,
+            },
+          ],
+        },
+        {
+          id: 'healthy-uuid',
+          name: 'Healthy',
+          domain: 'Fintech',
+          applications: [{ ignitionStartedAt: healthyStart }],
+          onboardingMilestones: [
+            {
+              id: 'ms-2',
+              contributorId: 'healthy-uuid',
+              milestoneType: 'ACCOUNT_ACTIVATED',
+              completedAt: new Date(),
+              metadata: null,
+            },
+            {
+              id: 'ms-3',
+              contributorId: 'healthy-uuid',
+              milestoneType: 'BUDDY_ASSIGNED',
+              completedAt: new Date(),
+              metadata: null,
+            },
+            {
+              id: 'ms-4',
+              contributorId: 'healthy-uuid',
+              milestoneType: 'FIRST_TASK_VIEWED',
+              completedAt: new Date(),
+              metadata: null,
+            },
+          ],
+        },
+      ]);
+      mockPrisma.contributor.count.mockResolvedValueOnce(2);
+
+      const result = await service.listOnboardingStatuses(
+        { status: 'at-risk', limit: 20 },
+        'corr-1',
+      );
+
+      expect(result.data).toHaveLength(1);
+      expect(result.data[0].contributorId).toBe('at-risk-uuid');
+    });
+  });
+
+  describe('handleApprovedForOnboarding', () => {
+    it('records ACCOUNT_ACTIVATED milestone on approval event', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        contributorId: 'contributor-uuid-1',
+      });
+      mockPrisma.onboardingMilestone.create.mockResolvedValueOnce({
+        id: 'ms-1',
+        contributorId: 'contributor-uuid-1',
+        milestoneType: 'ACCOUNT_ACTIVATED',
+        completedAt: new Date(),
+        metadata: null,
+      });
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      await service.handleApprovedForOnboarding({
+        applicationId: 'app-uuid-1',
+        correlationId: 'corr-1',
+      });
+
+      expect(mockPrisma.onboardingMilestone.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          contributorId: 'contributor-uuid-1',
+          milestoneType: 'ACCOUNT_ACTIVATED',
+        }),
+      });
+    });
+
+    it('skips milestone recording when no contributor linked', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        contributorId: null,
+      });
+
+      await service.handleApprovedForOnboarding({
+        applicationId: 'app-uuid-1',
+        correlationId: 'corr-1',
+      });
+
+      expect(mockPrisma.onboardingMilestone.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('handleBuddyAssignedForOnboarding', () => {
+    it('records BUDDY_ASSIGNED milestone on buddy assignment event', async () => {
+      mockPrisma.onboardingMilestone.create.mockResolvedValueOnce({
+        id: 'ms-1',
+        contributorId: 'contributor-uuid-1',
+        milestoneType: 'BUDDY_ASSIGNED',
+        completedAt: new Date(),
+        metadata: null,
+      });
+      mockPrisma.auditLog.create.mockResolvedValueOnce({});
+
+      await service.handleBuddyAssignedForOnboarding({
+        contributorId: 'contributor-uuid-1',
+        buddyId: 'buddy-uuid-1',
+        correlationId: 'corr-1',
+      });
+
+      expect(mockPrisma.onboardingMilestone.create).toHaveBeenCalledWith({
+        data: expect.objectContaining({
+          contributorId: 'contributor-uuid-1',
+          milestoneType: 'BUDDY_ASSIGNED',
+        }),
+      });
+    });
+  });
+
+  describe('72-hour boundary conditions', () => {
+    it('returns isWithin72Hours=true at exactly 72 hours', async () => {
+      const ignitionStartedAt = new Date(Date.now() - 72 * 60 * 60 * 1000); // exactly 72h ago
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: [],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.isWithin72Hours).toBe(true);
+    });
+
+    it('returns isExpired=true at 72h+1min', async () => {
+      const ignitionStartedAt = new Date(Date.now() - (72 * 60 + 1) * 60 * 1000); // 72h 1min ago
+      mockPrisma.contributor.findUnique.mockResolvedValueOnce({
+        id: 'contributor-uuid-1',
+        name: 'Jane Doe',
+        domain: 'Technology',
+        applications: [{ ignitionStartedAt }],
+        onboardingMilestones: [],
+      });
+
+      const result = await service.getOnboardingStatus('contributor-uuid-1', 'corr-1');
+
+      expect(result.isExpired).toBe(true);
+      expect(result.isWithin72Hours).toBe(false);
     });
   });
 });
