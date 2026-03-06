@@ -96,7 +96,62 @@ export interface ContributionAttributedEvent {
 }
 
 export interface ContributionSseEvent {
-  type: 'contribution.new';
+  type:
+    | 'contribution.new'
+    | 'contribution.collaboration.detected'
+    | 'contribution.collaboration.confirmed'
+    | 'contribution.attribution.overridden';
   contributionId: string;
   contributionType: ContributionType;
+}
+
+// Collaboration types (Story 4-4)
+
+export type CollaborationRole = 'PRIMARY_AUTHOR' | 'CO_AUTHOR' | 'COMMITTER' | 'ISSUE_ASSIGNEE';
+
+export type CollaborationStatus = 'DETECTED' | 'CONFIRMED' | 'DISPUTED' | 'OVERRIDDEN';
+
+export interface ContributionCollaboration {
+  id: string;
+  contributionId: string;
+  contributorId: string;
+  contributorName: string;
+  contributorAvatarUrl: string | null;
+  role: CollaborationRole;
+  splitPercentage: number;
+  status: CollaborationStatus;
+  detectionSource: string;
+  confirmedAt: string | null;
+}
+
+export interface ContributionWithCollaborations extends ContributionWithRepository {
+  collaborations: ContributionCollaboration[];
+}
+
+export interface CollaborationDetectedEvent {
+  contributionId: string;
+  collaborators: Array<{ contributorId: string; role: CollaborationRole }>;
+  correlationId: string;
+}
+
+export interface CollaborationConfirmedEvent {
+  collaborationId: string;
+  contributionId: string;
+  contributorId: string;
+  correlationId: string;
+}
+
+export interface CollaborationDisputedEvent {
+  collaborationId: string;
+  contributionId: string;
+  contributorId: string;
+  comment: string;
+  correlationId: string;
+}
+
+export interface AttributionOverriddenEvent {
+  contributionId: string;
+  overriddenById: string;
+  attributions: Array<{ contributorId: string; splitPercentage: number }>;
+  correlationId: string;
 }

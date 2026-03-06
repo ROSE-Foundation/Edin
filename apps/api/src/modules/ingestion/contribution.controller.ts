@@ -74,7 +74,17 @@ export class ContributionController {
     }
 
     const where = {
-      contributorId: contributor.id,
+      OR: [
+        { contributorId: contributor.id },
+        {
+          collaborations: {
+            some: {
+              contributorId: contributor.id,
+              isCurrent: true,
+            },
+          },
+        },
+      ],
       ...(type && { contributionType: type }),
       ...(cursor && {
         createdAt: {
@@ -97,10 +107,31 @@ export class ContributionController {
           repository: {
             select: { fullName: true },
           },
+          collaborations: {
+            where: { isCurrent: true },
+            include: {
+              contributor: {
+                select: { id: true, name: true, avatarUrl: true },
+              },
+            },
+          },
         },
       }),
       this.prisma.contribution.count({
-        where: { contributorId: contributor.id, ...(type && { contributionType: type }) },
+        where: {
+          OR: [
+            { contributorId: contributor.id },
+            {
+              collaborations: {
+                some: {
+                  contributorId: contributor.id,
+                  isCurrent: true,
+                },
+              },
+            },
+          ],
+          ...(type && { contributionType: type }),
+        },
       }),
     ]);
 
@@ -123,6 +154,18 @@ export class ContributionController {
       status: item.status,
       createdAt: item.createdAt.toISOString(),
       updatedAt: item.updatedAt.toISOString(),
+      collaborations: item.collaborations.map((c) => ({
+        id: c.id,
+        contributionId: c.contributionId,
+        contributorId: c.contributorId,
+        contributorName: c.contributor.name,
+        contributorAvatarUrl: c.contributor.avatarUrl,
+        role: c.role,
+        splitPercentage: c.splitPercentage,
+        status: c.status,
+        detectionSource: c.detectionSource,
+        confirmedAt: c.confirmedAt?.toISOString() ?? null,
+      })),
     }));
 
     this.logger.debug('Listed contributions for contributor', {
@@ -172,10 +215,24 @@ export class ContributionController {
         repository: {
           select: { fullName: true },
         },
+        collaborations: {
+          where: { isCurrent: true },
+          include: {
+            contributor: {
+              select: { id: true, name: true, avatarUrl: true },
+            },
+          },
+        },
       },
     });
 
-    if (!contribution || contribution.contributorId !== contributor.id) {
+    const hasAccess =
+      contribution?.contributorId === contributor.id ||
+      contribution?.collaborations.some(
+        (collaboration) => collaboration.contributorId === contributor.id,
+      );
+
+    if (!contribution || !hasAccess) {
       throw new DomainException(
         ERROR_CODES.NOT_FOUND,
         'Contribution not found',
@@ -198,6 +255,18 @@ export class ContributionController {
       status: contribution.status,
       createdAt: contribution.createdAt.toISOString(),
       updatedAt: contribution.updatedAt.toISOString(),
+      collaborations: contribution.collaborations.map((c) => ({
+        id: c.id,
+        contributionId: c.contributionId,
+        contributorId: c.contributorId,
+        contributorName: c.contributor.name,
+        contributorAvatarUrl: c.contributor.avatarUrl,
+        role: c.role,
+        splitPercentage: c.splitPercentage,
+        status: c.status,
+        detectionSource: c.detectionSource,
+        confirmedAt: c.confirmedAt?.toISOString() ?? null,
+      })),
     };
 
     return createSuccessResponse(data, req.correlationId || 'unknown');

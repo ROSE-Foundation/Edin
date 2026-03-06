@@ -1,10 +1,10 @@
 'use client';
 
-import type { ContributionWithRepository } from '@edin/shared';
+import type { ContributionWithCollaborations } from '@edin/shared';
 import { ContributionListItem } from './contribution-list-item';
 
 interface ContributionListProps {
-  contributions: ContributionWithRepository[];
+  contributions: ContributionWithCollaborations[];
   isLoading: boolean;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;

@@ -101,3 +101,65 @@ export const contributionDetailResponseSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
 });
+
+// Collaboration schemas (Story 4-4)
+
+export const collaborationRoleEnum = z.enum([
+  'PRIMARY_AUTHOR',
+  'CO_AUTHOR',
+  'COMMITTER',
+  'ISSUE_ASSIGNEE',
+]);
+
+export const collaborationStatusEnum = z.enum(['DETECTED', 'CONFIRMED', 'DISPUTED', 'OVERRIDDEN']);
+
+export const collaborationResponseSchema = z.object({
+  id: z.string().uuid(),
+  contributionId: z.string().uuid(),
+  contributorId: z.string().uuid(),
+  contributorName: z.string(),
+  contributorAvatarUrl: z.string().nullable(),
+  role: collaborationRoleEnum,
+  splitPercentage: z.number(),
+  status: collaborationStatusEnum,
+  detectionSource: z.string(),
+  confirmedAt: z.string().nullable(),
+});
+
+export const contributionWithCollaborationsResponseSchema = contributionDetailResponseSchema.extend(
+  {
+    collaborations: z.array(collaborationResponseSchema),
+  },
+);
+
+export const confirmCollaborationSchema = z.object({
+  confirmed: z.boolean(),
+});
+
+export type ConfirmCollaborationDto = z.infer<typeof confirmCollaborationSchema>;
+
+export const disputeCollaborationSchema = z.object({
+  comment: z.string().min(10, 'Comment must be at least 10 characters'),
+});
+
+export type DisputeCollaborationDto = z.infer<typeof disputeCollaborationSchema>;
+
+export const overrideAttributionSchema = z.object({
+  attributions: z
+    .array(
+      z.object({
+        contributorId: z.string().uuid(),
+        splitPercentage: z.number().min(0).max(100),
+        reason: z.string().optional(),
+      }),
+    )
+    .refine(
+      (attributions) => {
+        const sum = attributions.reduce((acc, a) => acc + a.splitPercentage, 0);
+        return Math.abs(sum - 100) < 0.01;
+      },
+      { message: 'Attribution splits must sum to 100' },
+    ),
+});
+
+export type OverrideAttributionDto = z.infer<typeof overrideAttributionSchema>;

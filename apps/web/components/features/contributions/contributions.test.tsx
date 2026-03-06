@@ -2,9 +2,17 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ContributionList } from './contribution-list';
 import { ContributionListItem } from './contribution-list-item';
-import type { ContributionWithRepository } from '@edin/shared';
+import type { ContributionWithCollaborations } from '@edin/shared';
 
-const mockContribution: ContributionWithRepository = {
+vi.mock('../../../hooks/use-profile', () => ({
+  useProfile: () => ({
+    profile: { id: 'user-1' },
+    isLoading: false,
+    error: null,
+  }),
+}));
+
+const mockContribution: ContributionWithCollaborations = {
   id: 'contrib-1',
   contributorId: 'user-1',
   repositoryId: 'repo-1',
@@ -19,9 +27,10 @@ const mockContribution: ContributionWithRepository = {
   status: 'ATTRIBUTED',
   createdAt: '2026-03-05T10:00:00Z',
   updatedAt: '2026-03-05T10:00:00Z',
+  collaborations: [],
 };
 
-const mockPr: ContributionWithRepository = {
+const mockPr: ContributionWithCollaborations = {
   ...mockContribution,
   id: 'contrib-2',
   contributionType: 'PULL_REQUEST',
@@ -29,7 +38,7 @@ const mockPr: ContributionWithRepository = {
   status: 'EVALUATED',
 };
 
-const mockReview: ContributionWithRepository = {
+const mockReview: ContributionWithCollaborations = {
   ...mockContribution,
   id: 'contrib-3',
   contributionType: 'CODE_REVIEW',
@@ -124,6 +133,86 @@ describe('ContributionList', () => {
     render(<ContributionList {...defaultProps} hasNextPage={true} isFetchingNextPage={true} />);
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('shows collaboration indicator when multiple collaborators exist', () => {
+    const contributionWithCollabs: ContributionWithCollaborations = {
+      ...mockContribution,
+      collaborations: [
+        {
+          id: 'collab-1',
+          contributionId: 'contrib-1',
+          contributorId: 'user-1',
+          contributorName: 'You',
+          contributorAvatarUrl: null,
+          role: 'PRIMARY_AUTHOR',
+          splitPercentage: 50,
+          status: 'DETECTED',
+          detectionSource: 'PR_COMMITTER',
+          confirmedAt: null,
+        },
+        {
+          id: 'collab-2',
+          contributionId: 'contrib-1',
+          contributorId: 'user-2',
+          contributorName: 'Lena',
+          contributorAvatarUrl: null,
+          role: 'CO_AUTHOR',
+          splitPercentage: 50,
+          status: 'DETECTED',
+          detectionSource: 'CO_AUTHOR_TRAILER',
+          confirmedAt: null,
+        },
+      ],
+    };
+    const onSelect = vi.fn();
+    render(<ContributionListItem contribution={contributionWithCollabs} onSelect={onSelect} />);
+
+    expect(screen.getByText('50% with Lena')).toBeInTheDocument();
+  });
+
+  it('shows collaboration indicator for secondary collaborators using the signed-in profile', () => {
+    const contributionWithCollabs: ContributionWithCollaborations = {
+      ...mockContribution,
+      contributorId: 'user-2',
+      collaborations: [
+        {
+          id: 'collab-1',
+          contributionId: 'contrib-1',
+          contributorId: 'user-2',
+          contributorName: 'Lena',
+          contributorAvatarUrl: null,
+          role: 'PRIMARY_AUTHOR',
+          splitPercentage: 50,
+          status: 'DETECTED',
+          detectionSource: 'PR_COMMITTER',
+          confirmedAt: null,
+        },
+        {
+          id: 'collab-2',
+          contributionId: 'contrib-1',
+          contributorId: 'user-1',
+          contributorName: 'You',
+          contributorAvatarUrl: null,
+          role: 'CO_AUTHOR',
+          splitPercentage: 50,
+          status: 'DETECTED',
+          detectionSource: 'CO_AUTHOR_TRAILER',
+          confirmedAt: null,
+        },
+      ],
+    };
+
+    render(<ContributionListItem contribution={contributionWithCollabs} onSelect={vi.fn()} />);
+
+    expect(screen.getByText('50% with Lena')).toBeInTheDocument();
+  });
+
+  it('does not show collaboration indicator for single author', () => {
+    const onSelect = vi.fn();
+    render(<ContributionListItem contribution={mockContribution} onSelect={onSelect} />);
+
+    expect(screen.queryByLabelText(/Collaboration/)).not.toBeInTheDocument();
   });
 
   it('renders all contribution types with equal visual prominence', () => {

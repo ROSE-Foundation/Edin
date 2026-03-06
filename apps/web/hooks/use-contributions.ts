@@ -2,10 +2,10 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { apiClient } from '../lib/api-client';
-import type { ContributionWithRepository, PaginationMeta } from '@edin/shared';
+import type { ContributionWithCollaborations, PaginationMeta } from '@edin/shared';
 
 interface ContributionListResponse {
-  data: ContributionWithRepository[];
+  data: ContributionWithCollaborations[];
   meta: { timestamp: string; correlationId: string; pagination: PaginationMeta };
 }
 

@@ -11,6 +11,9 @@ import { ContributionAttributionService } from './services/contribution-attribut
 import { ContributionController } from './contribution.controller.js';
 import { ContributionSseController } from './contribution-sse.controller.js';
 import { ContributionSseService } from './contribution-sse.service.js';
+import { CollaborationDetectionService } from './services/collaboration-detection.service.js';
+import { CollaborationController } from './collaboration.controller.js';
+import { AdminContributionController } from './admin-contribution.controller.js';
 import type { AppConfig } from '../../config/app.config.js';
 
 @Module({
@@ -51,13 +54,20 @@ import type { AppConfig } from '../../config/app.config.js';
       },
     }),
   ],
-  controllers: [IngestionController, ContributionController, ContributionSseController],
+  controllers: [
+    IngestionController,
+    ContributionController,
+    ContributionSseController,
+    CollaborationController,
+    AdminContributionController,
+  ],
   providers: [
     IngestionService,
     GitHubApiService,
     WebhookProcessor,
     ContributionAttributionService,
     ContributionSseService,
+    CollaborationDetectionService,
   ],
   exports: [IngestionService],
 })

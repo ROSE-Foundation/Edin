@@ -1,6 +1,7 @@
 'use client';
 
-import type { ContributionWithRepository } from '@edin/shared';
+import type { ContributionWithCollaborations, ContributionCollaborationType } from '@edin/shared';
+import { useProfile } from '../../../hooks/use-profile';
 
 const TYPE_ICONS: Record<string, { icon: string; label: string }> = {
   COMMIT: { icon: '⊙', label: 'Commit' },
@@ -44,17 +45,40 @@ function formatRelativeTime(dateString: string): string {
   return new Date(dateString).toLocaleDateString();
 }
 
+function getCollaborationLabel(
+  collaborations: ContributionCollaborationType[] | undefined,
+  contributorId: string | null,
+): string | null {
+  if (!collaborations || collaborations.length <= 1) return null;
+
+  const own = collaborations.find((c) => c.contributorId === contributorId);
+  if (!own) return null;
+
+  const others = collaborations
+    .filter((c) => c.contributorId !== contributorId)
+    .map((c) => c.contributorName);
+
+  if (others.length === 0) return null;
+
+  return `${Math.round(own.splitPercentage)}% with ${others.join(', ')}`;
+}
+
 interface ContributionListItemProps {
-  contribution: ContributionWithRepository;
+  contribution: ContributionWithCollaborations;
   onSelect: (id: string) => void;
 }
 
 export function ContributionListItem({ contribution, onSelect }: ContributionListItemProps) {
+  const { profile } = useProfile();
   const typeInfo = TYPE_ICONS[contribution.contributionType] ?? {
     icon: '○',
     label: contribution.contributionType,
   };
   const statusDisplay = getStatusDisplay(contribution.status);
+  const collaborationLabel = getCollaborationLabel(
+    contribution.collaborations,
+    profile?.id ?? contribution.contributorId,
+  );
 
   return (
     <button
@@ -88,6 +112,14 @@ export function ContributionListItem({ contribution, onSelect }: ContributionLis
             {formatRelativeTime(contribution.normalizedAt)}
           </time>
         </div>
+        {collaborationLabel && (
+          <p
+            className="mt-[2px] font-sans text-[12px] text-brand-secondary/70"
+            aria-label={`Collaboration: ${collaborationLabel}`}
+          >
+            {collaborationLabel}
+          </p>
+        )}
       </div>
 
       <span

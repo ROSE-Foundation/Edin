@@ -7,6 +7,13 @@ interface CreateWebhookResult {
   webhookId: number;
 }
 
+interface PullRequestCommit {
+  authorGithubId: number | null;
+  authorUsername: string | null;
+  authorEmail: string | null;
+  message: string;
+}
+
 @Injectable()
 export class GitHubApiService {
   private readonly logger = new Logger(GitHubApiService.name);
@@ -140,6 +147,77 @@ export class GitHubApiService {
     }
   }
 
+  async getIssue(
+    owner: string,
+    repo: string,
+    issueNumber: number,
+  ): Promise<{ assignees: Array<{ githubId: number; username: string }> } | null> {
+    try {
+      const response = await this.octokit.issues.get({
+        owner,
+        repo,
+        issue_number: issueNumber,
+      });
+
+      const assignees = (response.data.assignees ?? []).map((a) => ({
+        githubId: a.id,
+        username: a.login,
+      }));
+
+      return { assignees };
+    } catch (error: unknown) {
+      if (this.isRateLimited(error)) {
+        throw new GitHubRateLimitError('GitHub API rate limit exceeded');
+      }
+      this.logger.warn('Failed to fetch issue', {
+        owner,
+        repo,
+        issueNumber,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return null;
+    }
+  }
+
+  async getPullRequestCommits(
+    owner: string,
+    repo: string,
+    pullRequestNumber: number,
+    correlationId?: string,
+  ): Promise<PullRequestCommit[]> {
+    try {
+      const response = await this.octokit.pulls.listCommits({
+        owner,
+        repo,
+        pull_number: pullRequestNumber,
+        per_page: 100,
+      });
+
+      return response.data.map((commit) => ({
+        authorGithubId: commit.author?.id ?? null,
+        authorUsername: commit.author?.login ?? null,
+        authorEmail: commit.commit.author?.email ?? null,
+        message: commit.commit.message,
+      }));
+    } catch (error: unknown) {
+      if (this.isRateLimited(error)) {
+        throw new GitHubRateLimitError('GitHub API rate limit exceeded');
+      }
+
+      this.logger.warn('Failed to fetch pull request commits', {
+        owner,
+        repo,
+        pullRequestNumber,
+        error: error instanceof Error ? error.message : String(error),
+        correlationId,
+      });
+
+      throw new GitHubApiError(
+        error instanceof Error ? error.message : 'Failed to fetch pull request commits',
+      );
+    }
+  }
+
   private isRateLimited(error: unknown): boolean {
     if (error && typeof error === 'object' && 'status' in error) {
       return (error as { status: number }).status === 429;
@@ -156,6 +234,8 @@ export class GitHubApiError extends Error {
 }
 
 export class GitHubRateLimitError extends Error {
+  readonly status = 429;
+
   constructor(message: string) {
     super(message);
     this.name = 'GitHubRateLimitError';

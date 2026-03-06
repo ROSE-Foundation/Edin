@@ -34,8 +34,25 @@ export function useContributionSse() {
         setIsReconnecting(false);
       };
 
-      es.onmessage = () => {
-        queryClient.invalidateQueries({ queryKey: ['contributions', 'me'] });
+      es.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data) as { type?: string; contributionId?: string };
+          queryClient.invalidateQueries({ queryKey: ['contributions', 'me'] });
+
+          if (
+            data.type === 'contribution.collaboration.detected' ||
+            data.type === 'contribution.collaboration.confirmed' ||
+            data.type === 'contribution.attribution.overridden'
+          ) {
+            if (data.contributionId) {
+              queryClient.invalidateQueries({
+                queryKey: ['contributions', 'me', data.contributionId],
+              });
+            }
+          }
+        } catch {
+          queryClient.invalidateQueries({ queryKey: ['contributions', 'me'] });
+        }
       };
 
       es.onerror = () => {

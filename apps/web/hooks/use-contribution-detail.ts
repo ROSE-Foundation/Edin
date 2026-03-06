@@ -2,10 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '../lib/api-client';
-import type { ContributionWithRepository } from '@edin/shared';
+import type { ContributionWithCollaborations } from '@edin/shared';
 
 interface ContributionDetailResponse {
-  data: ContributionWithRepository;
+  data: ContributionWithCollaborations;
   meta: { timestamp: string; correlationId: string };
 }
 

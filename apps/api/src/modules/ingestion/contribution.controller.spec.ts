@@ -40,6 +40,7 @@ describe('ContributionController', () => {
     createdAt: new Date('2026-03-05T10:00:00Z'),
     updatedAt: new Date('2026-03-05T10:00:00Z'),
     repository: { fullName: 'owner/repo' },
+    collaborations: [],
   };
 
   beforeEach(async () => {
@@ -111,7 +112,57 @@ describe('ContributionController', () => {
       expect(prisma.contribution.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: expect.objectContaining({
+            OR: expect.any(Array),
             contributionType: 'COMMIT',
+          }),
+        }),
+      );
+    });
+
+    it('should include contributions where the user is a collaborator', async () => {
+      prisma.contributor.findUnique.mockResolvedValue({ id: 'contributor-uuid-1' });
+      prisma.contribution.findMany.mockResolvedValue([
+        {
+          ...mockContribution,
+          contributorId: 'someone-else',
+          collaborations: [
+            {
+              id: 'collab-1',
+              contributionId: 'contrib-uuid-1',
+              contributorId: 'contributor-uuid-1',
+              contributor: { id: 'contributor-uuid-1', name: 'Test User', avatarUrl: null },
+              role: 'CO_AUTHOR',
+              splitPercentage: 50,
+              status: 'DETECTED',
+              detectionSource: 'CO_AUTHOR_TRAILER',
+              confirmedAt: null,
+            },
+          ],
+        },
+      ]);
+      prisma.contribution.count.mockResolvedValue(1);
+
+      const result = await controller.listMyContributions(
+        { limit: '20' },
+        mockUser,
+        mockReq as never,
+      );
+
+      expect(result.data).toHaveLength(1);
+      expect(prisma.contribution.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            OR: expect.arrayContaining([
+              expect.objectContaining({ contributorId: 'contributor-uuid-1' }),
+              expect.objectContaining({
+                collaborations: {
+                  some: {
+                    contributorId: 'contributor-uuid-1',
+                    isCurrent: true,
+                  },
+                },
+              }),
+            ]),
           }),
         }),
       );
@@ -173,6 +224,36 @@ describe('ContributionController', () => {
       await expect(
         controller.getMyContribution('nonexistent', mockUser, mockReq as never),
       ).rejects.toThrow(DomainException);
+    });
+
+    it('should allow access when the contributor is a collaborator', async () => {
+      prisma.contributor.findUnique.mockResolvedValue({ id: 'contributor-uuid-1' });
+      prisma.contribution.findUnique.mockResolvedValue({
+        ...mockContribution,
+        contributorId: 'different-contributor',
+        collaborations: [
+          {
+            id: 'collab-1',
+            contributionId: 'contrib-uuid-1',
+            contributorId: 'contributor-uuid-1',
+            contributor: { id: 'contributor-uuid-1', name: 'Test User', avatarUrl: null },
+            role: 'CO_AUTHOR',
+            splitPercentage: 50,
+            status: 'DETECTED',
+            detectionSource: 'CO_AUTHOR_TRAILER',
+            confirmedAt: null,
+          },
+        ],
+      });
+
+      const result = await controller.getMyContribution(
+        'contrib-uuid-1',
+        mockUser,
+        mockReq as never,
+      );
+
+      expect(result.data.id).toBe('contrib-uuid-1');
+      expect(result.data.collaborations).toHaveLength(1);
     });
   });
 });

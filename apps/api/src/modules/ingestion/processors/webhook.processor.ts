@@ -4,12 +4,18 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import type { Job, Queue } from 'bullmq';
 import type { ContributionType } from '../../../../generated/prisma/client/enums.js';
 import { PrismaService } from '../../../prisma/prisma.service.js';
+import { GitHubApiService } from '../github-api.service.js';
 
 export interface WebhookJobData {
   eventType: string;
   repositoryFullName: string;
   payload: Record<string, unknown>;
   deliveryId: string;
+}
+
+interface CoAuthorInfo {
+  name: string;
+  email: string;
 }
 
 interface ExtractedCommit {
@@ -24,6 +30,14 @@ interface ExtractedCommit {
   filesModified: string[];
   additions: number;
   deletions: number;
+  coAuthors: CoAuthorInfo[];
+}
+
+interface CommitAuthorInfo {
+  githubId: number | null;
+  username: string | null;
+  email?: string;
+  message?: string;
 }
 
 interface ExtractedPullRequest {
@@ -38,6 +52,8 @@ interface ExtractedPullRequest {
   headRef: string;
   baseRef: string;
   linkedIssues: string[];
+  coAuthors: CoAuthorInfo[];
+  commitAuthors: CommitAuthorInfo[];
 }
 
 interface ExtractedReview {
@@ -69,6 +85,7 @@ export class WebhookProcessor extends WorkerHost {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly githubApiService: GitHubApiService,
     @InjectQueue('github-ingestion-dlq')
     private readonly githubIngestionDlqQueue: Queue,
   ) {
@@ -304,6 +321,7 @@ export class WebhookProcessor extends WorkerHost {
               },
               additions: extracted.additions,
               deletions: extracted.deletions,
+              coAuthors: extracted.coAuthors,
             },
           },
         });
@@ -333,6 +351,14 @@ export class WebhookProcessor extends WorkerHost {
 
     try {
       const extracted = this.extractPullRequest(pr);
+      const repositoryInfo = payload.repository as Record<string, unknown> | undefined;
+      const repositoryFullName = (repositoryInfo?.full_name as string) || '';
+      const prCommits = await this.fetchPullRequestCommits(
+        repositoryFullName,
+        extracted.number,
+        deliveryId,
+      );
+      const enrichedExtracted = this.enrichPullRequestWithCommits(extracted, prCommits);
       const contributorId = await this.resolveContributor(extracted.authorGithubId, deliveryId);
 
       // Task 4.3: Map PR to Contribution
@@ -341,11 +367,26 @@ export class WebhookProcessor extends WorkerHost {
           contributorId,
           repositoryId,
           source: 'GITHUB',
-          sourceRef: String(extracted.number),
+          sourceRef: String(enrichedExtracted.number),
           contributionType: 'PULL_REQUEST',
-          title: extracted.title.substring(0, 255),
-          description: extracted.body,
-          rawData: pr,
+          title: enrichedExtracted.title.substring(0, 255),
+          description: enrichedExtracted.body,
+          rawData: {
+            ...pr,
+            extracted: {
+              number: enrichedExtracted.number,
+              title: enrichedExtracted.title,
+              body: enrichedExtracted.body,
+              authorGithubId: enrichedExtracted.authorGithubId,
+              state: enrichedExtracted.state,
+              requestedReviewers: enrichedExtracted.requestedReviewers,
+              merged: enrichedExtracted.merged,
+              linkedIssues: enrichedExtracted.linkedIssues,
+              coAuthors: enrichedExtracted.coAuthors,
+              commitAuthors: enrichedExtracted.commitAuthors,
+              commits: prCommits,
+            },
+          },
         },
       ];
     } catch (error) {
@@ -402,19 +443,24 @@ export class WebhookProcessor extends WorkerHost {
   ): ExtractedCommit {
     const author = commit.author as Record<string, unknown> | undefined;
     const sender = pushPayload.sender as Record<string, unknown> | undefined;
+    const message = (commit.message as string) || '';
+
+    // Parse Co-authored-by trailers
+    const coAuthors = this.parseCoAuthorTrailers(message);
 
     return {
       sha: (commit.id as string) || '',
       authorGithubId: sender?.id != null ? Number(sender.id) : null,
       authorUsername: (sender?.login as string) || null,
       authorEmail: (author?.email as string) || null,
-      message: (commit.message as string) || '',
+      message,
       timestamp: (commit.timestamp as string) || new Date().toISOString(),
       filesAdded: (commit.added as string[]) || [],
       filesRemoved: (commit.removed as string[]) || [],
       filesModified: (commit.modified as string[]) || [],
       additions: Array.isArray(commit.added) ? commit.added.length : 0,
       deletions: Array.isArray(commit.removed) ? commit.removed.length : 0,
+      coAuthors,
     };
   }
 
@@ -434,6 +480,9 @@ export class WebhookProcessor extends WorkerHost {
       linkedIssues.push(match[1]);
     }
 
+    // Parse Co-authored-by trailers from PR body
+    const coAuthors = this.parseCoAuthorTrailers(body);
+
     return {
       number: (pr.number as number) || 0,
       title: (pr.title as string) || '',
@@ -446,6 +495,70 @@ export class WebhookProcessor extends WorkerHost {
       headRef: (head?.ref as string) || '',
       baseRef: (base?.ref as string) || '',
       linkedIssues,
+      coAuthors,
+      commitAuthors: [],
+    };
+  }
+
+  private async fetchPullRequestCommits(
+    repositoryFullName: string,
+    pullRequestNumber: number,
+    deliveryId: string,
+  ): Promise<CommitAuthorInfo[]> {
+    if (!repositoryFullName || pullRequestNumber <= 0) {
+      return [];
+    }
+
+    const [owner, repo] = repositoryFullName.split('/');
+    if (!owner || !repo) {
+      return [];
+    }
+
+    const commits = await this.githubApiService.getPullRequestCommits(
+      owner,
+      repo,
+      pullRequestNumber,
+      deliveryId,
+    );
+
+    return commits.map((commit) => ({
+      githubId: commit.authorGithubId,
+      username: commit.authorUsername,
+      email: commit.authorEmail ?? undefined,
+      message: commit.message,
+    }));
+  }
+
+  private enrichPullRequestWithCommits(
+    extracted: ExtractedPullRequest,
+    commits: CommitAuthorInfo[],
+  ): ExtractedPullRequest {
+    const commitAuthors: CommitAuthorInfo[] = [];
+    const seenGithubIds = new Set<number>();
+    const coAuthors = [...extracted.coAuthors];
+    const seenCoAuthorEmails = new Set(coAuthors.map((coAuthor) => coAuthor.email.toLowerCase()));
+
+    for (const commit of commits) {
+      if (commit.githubId != null && !seenGithubIds.has(commit.githubId)) {
+        seenGithubIds.add(commit.githubId);
+        commitAuthors.push(commit);
+      } else if (commit.githubId == null && (commit.username || commit.email)) {
+        commitAuthors.push(commit);
+      }
+
+      for (const coAuthor of this.parseCoAuthorTrailers(commit.message ?? '')) {
+        const email = coAuthor.email.toLowerCase();
+        if (!seenCoAuthorEmails.has(email)) {
+          seenCoAuthorEmails.add(email);
+          coAuthors.push(coAuthor);
+        }
+      }
+    }
+
+    return {
+      ...extracted,
+      coAuthors,
+      commitAuthors,
     };
   }
 
@@ -586,6 +699,23 @@ export class WebhookProcessor extends WorkerHost {
       }
     }
     return null;
+  }
+
+  private parseCoAuthorTrailers(text: string): CoAuthorInfo[] {
+    const coAuthors: CoAuthorInfo[] = [];
+    const regex = /Co-authored-by:\s*(.+?)\s*<(.+?)>/gi;
+    let match: RegExpExecArray | null;
+    const seenEmails = new Set<string>();
+
+    while ((match = regex.exec(text)) !== null) {
+      const email = match[2].toLowerCase();
+      if (!seenEmails.has(email)) {
+        seenEmails.add(email);
+        coAuthors.push({ name: match[1].trim(), email });
+      }
+    }
+
+    return coAuthors;
   }
 
   private eventName(type: ContributionType): string {

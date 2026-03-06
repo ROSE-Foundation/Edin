@@ -93,6 +93,24 @@ enum ContributionStatus {
   @@schema("core")
 }
 
+enum CollaborationRole {
+  PRIMARY_AUTHOR
+  CO_AUTHOR
+  COMMITTER
+  ISSUE_ASSIGNEE
+
+  @@schema("core")
+}
+
+enum CollaborationStatus {
+  DETECTED
+  CONFIRMED
+  DISPUTED
+  OVERRIDDEN
+
+  @@schema("core")
+}
+
 enum WebhookDeliveryStatus {
   RECEIVED
   PROCESSING
@@ -129,7 +147,9 @@ model Contributor {
   buddyMentees           BuddyAssignment[] @relation("BuddyMentor")
   onboardingMilestones   OnboardingMilestone[]
   monitoredRepositories  MonitoredRepository[]
-  contributions          Contribution[]
+  contributions              Contribution[]
+  collaborations             ContributionCollaboration[]
+  collaborationOverrides     ContributionCollaboration[] @relation("CollaborationOverriddenBy")
 
   @@map("contributors")
   @@schema("core")
@@ -266,11 +286,41 @@ model Contribution {
 
   contributor      Contributor?        @relation(fields: [contributorId], references: [id])
   repository       MonitoredRepository @relation(fields: [repositoryId], references: [id])
+  collaborations   ContributionCollaboration[]
 
   @@unique([source, repositoryId, sourceRef], map: "contributions_source_repo_ref_key")
   @@index([contributorId, createdAt(sort: Desc)], map: "contributions_contributor_created_idx")
   @@index([repositoryId, contributionType], map: "contributions_repo_type_idx")
   @@map("contributions")
+  @@schema("core")
+}
+
+model ContributionCollaboration {
+  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributionId    String              @map("contribution_id") @db.Uuid
+  contributorId     String              @map("contributor_id") @db.Uuid
+  isCurrent         Boolean             @default(true) @map("is_current")
+  role              CollaborationRole
+  splitPercentage   Float               @default(100.0) @map("split_percentage")
+  status            CollaborationStatus @default(DETECTED)
+  detectionSource   String              @map("detection_source")
+  confirmedAt       DateTime?           @map("confirmed_at")
+  disputeComment    String?             @map("dispute_comment")
+  overriddenById    String?             @map("overridden_by_id") @db.Uuid
+  overrideReason    String?             @map("override_reason")
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+
+  contribution      Contribution        @relation(fields: [contributionId], references: [id])
+  contributor       Contributor         @relation(fields: [contributorId], references: [id])
+  overriddenBy      Contributor?        @relation("CollaborationOverriddenBy", fields: [overriddenById], references: [id])
+
+  @@unique([contributionId, contributorId, isCurrent], map: "contribution_collaborations_current_key")
+  @@index([contributionId], map: "idx_contribution_collaborations_contribution")
+  @@index([contributorId], map: "idx_contribution_collaborations_contributor")
+  @@index([contributionId, isCurrent], map: "idx_contribution_collaborations_current")
+  @@index([status], map: "idx_contribution_collaborations_status")
+  @@map("contribution_collaborations")
   @@schema("core")
 }
 

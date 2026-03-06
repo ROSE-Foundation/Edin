@@ -73,7 +73,7 @@ development_status:
   4-1-github-repository-connection-and-webhook-configuration: in-progress
   4-2-contribution-ingestion-pipeline: done
   4-3-contribution-attribution-and-dashboard-display: review
-  4-4-multi-contributor-collaboration-detection: backlog
+  4-4-multi-contributor-collaboration-detection: done
   epic-4-retrospective: optional
 
   # Epic 5: Community Structure, Tasks & Activity Feed

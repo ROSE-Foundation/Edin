@@ -153,11 +153,21 @@ export {
   webhookPayloadSchema,
   contributionListQuerySchema,
   contributionDetailResponseSchema,
+  collaborationRoleEnum,
+  collaborationStatusEnum,
+  collaborationResponseSchema,
+  contributionWithCollaborationsResponseSchema,
+  confirmCollaborationSchema,
+  disputeCollaborationSchema,
+  overrideAttributionSchema,
 } from './schemas/ingestion.schema.js';
 export type {
   AddRepositoryDto,
   ListRepositoriesQueryDto,
   ContributionListQueryDto,
+  ConfirmCollaborationDto,
+  DisputeCollaborationDto,
+  OverrideAttributionDto,
 } from './schemas/ingestion.schema.js';
 
 export type {
@@ -178,4 +188,12 @@ export type {
   ContributionWithRepository,
   ContributionAttributedEvent,
   ContributionSseEvent,
+  CollaborationRole,
+  CollaborationStatus as CollaborationStatusType,
+  ContributionCollaboration as ContributionCollaborationType,
+  ContributionWithCollaborations,
+  CollaborationDetectedEvent,
+  CollaborationConfirmedEvent,
+  CollaborationDisputedEvent,
+  AttributionOverriddenEvent,
 } from './types/ingestion.types.js';

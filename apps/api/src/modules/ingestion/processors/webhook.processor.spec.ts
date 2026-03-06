@@ -4,6 +4,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { getQueueToken } from '@nestjs/bullmq';
 import { WebhookProcessor } from './webhook.processor.js';
 import { PrismaService } from '../../../prisma/prisma.service.js';
+import { GitHubApiService } from '../github-api.service.js';
 import type { Job } from 'bullmq';
 import type { WebhookJobData } from './webhook.processor.js';
 
@@ -30,6 +31,7 @@ const mockPrisma = {
 
 const mockEventEmitter = { emit: vi.fn() };
 const mockDlqQueue = { add: vi.fn() };
+const mockGitHubApiService = { getPullRequestCommits: vi.fn() };
 
 const mockRepository = {
   id: 'repo-uuid-1',
@@ -79,6 +81,7 @@ describe('WebhookProcessor', () => {
         WebhookProcessor,
         { provide: PrismaService, useValue: mockPrisma },
         { provide: EventEmitter2, useValue: mockEventEmitter },
+        { provide: GitHubApiService, useValue: mockGitHubApiService },
         { provide: getQueueToken('github-ingestion-dlq'), useValue: mockDlqQueue },
       ],
     }).compile();
@@ -220,6 +223,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
       mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
       mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockGitHubApiService.getPullRequestCommits.mockResolvedValue([]);
       mockPrisma.contributor.findUnique.mockResolvedValue(mockContributor);
       mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-pr-1' });
       mockPrisma.auditLog.create.mockResolvedValue({});
@@ -257,6 +261,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
       mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
       mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockGitHubApiService.getPullRequestCommits.mockResolvedValue([]);
 
       const job = createMockJob({
         eventType: 'pull_request',
@@ -687,6 +692,154 @@ describe('WebhookProcessor', () => {
 
       const upsertCall = mockPrisma.contribution.upsert.mock.calls[0][0];
       expect(upsertCall.create.contributorId).toBeNull();
+    });
+  });
+
+  // ─── Co-author extraction (Story 4-4) ──────────────────────────────
+
+  describe('co-author extraction', () => {
+    it('should extract Co-authored-by trailers from commit messages', async () => {
+      mockPrisma.monitoredRepository.findUnique.mockResolvedValue(mockRepository);
+      mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
+      mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
+      mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockPrisma.contributor.findUnique.mockResolvedValue(mockContributor);
+      mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-coauthor' });
+      mockPrisma.auditLog.create.mockResolvedValue({});
+
+      const job = createMockJob({
+        eventType: 'push',
+        repositoryFullName: 'edin-org/edin-core',
+        payload: {
+          sender: { id: 12345, login: 'testuser' },
+          commits: [
+            {
+              id: 'sha-coauthor',
+              author: { email: 'test@example.com' },
+              message:
+                'feat: add feature\n\nCo-authored-by: Lena <lena@example.com>\nCo-authored-by: Marco <marco@example.com>',
+              timestamp: '2026-03-05T10:00:00Z',
+              added: [],
+              removed: [],
+              modified: [],
+            },
+          ],
+          repository: { full_name: 'edin-org/edin-core' },
+        },
+        deliveryId: 'delivery-coauthor',
+      });
+
+      await processor.process(job);
+
+      const upsertCall = mockPrisma.contribution.upsert.mock.calls[0][0];
+      const rawData = upsertCall.create.rawData;
+      expect(rawData.extracted.coAuthors).toEqual([
+        { name: 'Lena', email: 'lena@example.com' },
+        { name: 'Marco', email: 'marco@example.com' },
+      ]);
+    });
+
+    it('should extract coAuthors and commitAuthors in PR extracted data', async () => {
+      mockPrisma.monitoredRepository.findUnique.mockResolvedValue(mockRepository);
+      mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
+      mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
+      mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockGitHubApiService.getPullRequestCommits.mockResolvedValue([
+        {
+          authorGithubId: 54321,
+          authorUsername: 'lena-dev',
+          authorEmail: 'lena@example.com',
+          message: 'feat: pair\n\nCo-authored-by: Marco <marco@example.com>',
+        },
+      ]);
+      mockPrisma.contributor.findUnique.mockResolvedValue(mockContributor);
+      mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-pr-coauthor' });
+      mockPrisma.auditLog.create.mockResolvedValue({});
+
+      const job = createMockJob({
+        eventType: 'pull_request',
+        repositoryFullName: 'edin-org/edin-core',
+        payload: {
+          action: 'opened',
+          pull_request: {
+            number: 99,
+            title: 'Multi-author PR',
+            body: 'Work together\n\nCo-authored-by: Lena <lena@example.com>',
+            user: { id: 12345 },
+            state: 'open',
+            requested_reviewers: [],
+            merged: false,
+            merge_commit_sha: null,
+            head: { ref: 'feature/collab' },
+            base: { ref: 'main' },
+          },
+          repository: { full_name: 'edin-org/edin-core' },
+        },
+        deliveryId: 'delivery-pr-coauthor',
+      });
+
+      await processor.process(job);
+
+      const upsertCall = mockPrisma.contribution.upsert.mock.calls[0][0];
+      const rawData = upsertCall.create.rawData;
+      expect(rawData.extracted).toBeDefined();
+      expect(rawData.extracted.coAuthors).toEqual([
+        { name: 'Lena', email: 'lena@example.com' },
+        { name: 'Marco', email: 'marco@example.com' },
+      ]);
+      expect(rawData.extracted.commitAuthors).toEqual([
+        {
+          githubId: 54321,
+          username: 'lena-dev',
+          email: 'lena@example.com',
+          message: 'feat: pair\n\nCo-authored-by: Marco <marco@example.com>',
+        },
+      ]);
+      expect(rawData.extracted.commits).toEqual([
+        {
+          githubId: 54321,
+          username: 'lena-dev',
+          email: 'lena@example.com',
+          message: 'feat: pair\n\nCo-authored-by: Marco <marco@example.com>',
+        },
+      ]);
+      expect(rawData.extracted.linkedIssues).toBeDefined();
+    });
+
+    it('should handle commits without Co-authored-by trailers gracefully', async () => {
+      mockPrisma.monitoredRepository.findUnique.mockResolvedValue(mockRepository);
+      mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
+      mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
+      mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockPrisma.contributor.findUnique.mockResolvedValue(mockContributor);
+      mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-no-coauthor' });
+      mockPrisma.auditLog.create.mockResolvedValue({});
+
+      const job = createMockJob({
+        eventType: 'push',
+        repositoryFullName: 'edin-org/edin-core',
+        payload: {
+          sender: { id: 12345 },
+          commits: [
+            {
+              id: 'sha-plain',
+              author: { email: 'test@example.com' },
+              message: 'simple commit without co-authors',
+              timestamp: '2026-03-05T10:00:00Z',
+              added: [],
+              removed: [],
+              modified: [],
+            },
+          ],
+          repository: { full_name: 'edin-org/edin-core' },
+        },
+        deliveryId: 'delivery-no-coauthor',
+      });
+
+      await processor.process(job);
+
+      const upsertCall = mockPrisma.contribution.upsert.mock.calls[0][0];
+      expect(upsertCall.create.rawData.extracted.coAuthors).toEqual([]);
     });
   });
 

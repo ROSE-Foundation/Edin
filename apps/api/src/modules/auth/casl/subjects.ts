@@ -19,4 +19,5 @@ export type AppSubjects =
   | 'OnboardingMilestone'
   | 'EditorialFeedback'
   | 'MonitoredRepository'
-  | 'Contribution';
+  | 'Contribution'
+  | 'ContributionCollaboration';
