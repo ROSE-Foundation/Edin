@@ -224,6 +224,51 @@ async function main() {
     console.log(`Sample monitored repository already exists: ${existingRepo2.fullName}`);
   }
 
+  // Seed the four fixed working groups
+  const workingGroups = [
+    {
+      name: 'Technology',
+      description:
+        'Building the technical infrastructure that powers Edin — from core platform development to DevOps, security, and scalable architecture.',
+      domain: 'Technology' as const,
+      accentColor: '#3A7D7E', // deep teal
+    },
+    {
+      name: 'Fintech & Financial Engineering',
+      description:
+        'Designing financial models, tokenomics, and payment systems that ensure fair and transparent contributor rewards.',
+      domain: 'Fintech' as const,
+      accentColor: '#C49A3C', // warm amber
+    },
+    {
+      name: 'Impact & Sustainability',
+      description:
+        'Measuring and maximizing the social and environmental impact of the platform and its community of contributors.',
+      domain: 'Impact' as const,
+      accentColor: '#B06B6B', // terra rose
+    },
+    {
+      name: 'Governance',
+      description:
+        'Shaping the rules, processes, and decision-making frameworks that guide the progressive decentralization of Edin.',
+      domain: 'Governance' as const,
+      accentColor: '#7B6B8A', // slate violet
+    },
+  ];
+
+  for (const wg of workingGroups) {
+    const existing = await prisma.workingGroup.findFirst({
+      where: { domain: wg.domain },
+    });
+
+    if (!existing) {
+      const created = await prisma.workingGroup.create({ data: wg });
+      console.log(`Created working group "${wg.name}": ${created.id}`);
+    } else {
+      console.log(`Working group "${wg.name}" already exists: ${existing.id}`);
+    }
+  }
+
   console.log('Seeding complete.');
 }
 

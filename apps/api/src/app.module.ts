@@ -13,6 +13,7 @@ import { ContributorModule } from './modules/contributor/contributor.module.js';
 import { ShowcaseModule } from './modules/showcase/showcase.module.js';
 import { AdmissionModule } from './modules/admission/admission.module.js';
 import { IngestionModule } from './modules/ingestion/ingestion.module.js';
+import { WorkingGroupModule } from './modules/working-group/working-group.module.js';
 import { validateConfig } from './config/app.config.js';
 
 @Module({
@@ -65,6 +66,7 @@ import { validateConfig } from './config/app.config.js';
     ShowcaseModule,
     AdmissionModule,
     IngestionModule,
+    WorkingGroupModule,
   ],
 })
 export class AppModule {}

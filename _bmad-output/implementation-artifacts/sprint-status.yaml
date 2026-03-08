@@ -77,8 +77,8 @@ development_status:
   epic-4-retrospective: optional
 
   # Epic 5: Community Structure, Tasks & Activity Feed
-  epic-5: backlog
-  5-1-working-groups-and-domain-membership: backlog
+  epic-5: in-progress
+  5-1-working-groups-and-domain-membership: review
   5-2-contribution-menu-and-task-management: backlog
   5-3-working-group-lead-management: backlog
   5-4-activity-feed-with-real-time-updates: backlog

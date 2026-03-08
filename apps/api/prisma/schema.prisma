@@ -150,6 +150,7 @@ model Contributor {
   contributions              Contribution[]
   collaborations             ContributionCollaboration[]
   collaborationOverrides     ContributionCollaboration[] @relation("CollaborationOverriddenBy")
+  workingGroupMemberships    WorkingGroupMember[]
 
   @@map("contributors")
   @@schema("core")
@@ -338,6 +339,38 @@ model WebhookDelivery {
 
   @@index([repositoryId], map: "webhook_deliveries_repo_idx")
   @@map("webhook_deliveries")
+  @@schema("core")
+}
+
+model WorkingGroup {
+  id           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String            @unique
+  description  String
+  domain       ContributorDomain @unique
+  accentColor  String            @map("accent_color")
+  memberCount  Int               @default(0) @map("member_count")
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+
+  members      WorkingGroupMember[]
+
+  @@map("working_groups")
+  @@schema("core")
+}
+
+model WorkingGroupMember {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workingGroupId  String       @map("working_group_id") @db.Uuid
+  contributorId   String       @map("contributor_id") @db.Uuid
+  joinedAt        DateTime     @default(now()) @map("joined_at")
+
+  workingGroup    WorkingGroup @relation(fields: [workingGroupId], references: [id])
+  contributor     Contributor  @relation(fields: [contributorId], references: [id])
+
+  @@unique([workingGroupId, contributorId], map: "working_group_members_group_contributor_key")
+  @@index([contributorId], map: "idx_working_group_members_contributor_id")
+  @@index([workingGroupId], map: "idx_working_group_members_working_group_id")
+  @@map("working_group_members")
   @@schema("core")
 }
 

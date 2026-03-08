@@ -1,8 +1,8 @@
 export { ROLES, ROLE_HIERARCHY } from './constants/roles.js';
 export type { Role } from './constants/roles.js';
 
-export { DOMAINS } from './constants/domains.js';
-export type { Domain } from './constants/domains.js';
+export { DOMAINS, DOMAIN_DETAILS } from './constants/domains.js';
+export type { Domain, DomainDetail } from './constants/domains.js';
 
 export { DOMAIN_MANIFESTOS } from './constants/manifestos.js';
 export type { DomainManifesto } from './types/manifesto.types.js';
@@ -169,6 +169,27 @@ export type {
   DisputeCollaborationDto,
   OverrideAttributionDto,
 } from './schemas/ingestion.schema.js';
+
+export {
+  workingGroupIdParamSchema,
+  workingGroupSchema,
+  workingGroupMemberSchema,
+  joinWorkingGroupSchema,
+} from './schemas/working-group.schema.js';
+export type {
+  WorkingGroupIdParamDto,
+  WorkingGroupDto,
+  WorkingGroupMemberDto,
+  JoinWorkingGroupDto,
+} from './schemas/working-group.schema.js';
+
+export type {
+  WorkingGroup,
+  WorkingGroupMember,
+  WorkingGroupDetail,
+  WorkingGroupMemberJoinedEvent,
+  WorkingGroupMemberLeftEvent,
+} from './types/working-group.types.js';
 
 export type {
   RepositoryStatus,

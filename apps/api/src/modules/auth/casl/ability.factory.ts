@@ -77,6 +77,7 @@ export class CaslAbilityFactory {
     can(Action.Read, 'PeerFeedback');
     can(Action.Read, 'WorkingGroup');
     can(Action.Create, 'WorkingGroup');
+    can(Action.Delete, 'WorkingGroup');
     can(Action.Read, 'Task');
     can(Action.Update, 'Task');
     can(Action.Create, 'Article');
