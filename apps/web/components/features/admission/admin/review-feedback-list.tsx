@@ -39,7 +39,8 @@ function formatRelativeDate(dateString: string): string {
 
 export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
   const submittedReviews = reviews.filter(
-    (r) => !!r.feedback && r.feedback.trim().length > 0 && !!r.recommendation,
+    (r): r is Review & { feedback: string; recommendation: string } =>
+      !!r.feedback && r.feedback.trim().length > 0 && !!r.recommendation,
   );
 
   if (submittedReviews.length === 0) {
