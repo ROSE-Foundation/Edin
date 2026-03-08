@@ -9,6 +9,15 @@ const hasDatabase = Boolean(process.env.DATABASE_URL && process.env.DATABASE_URL
 
 describe.runIf(hasDatabase)('WebhookProcessor integration', () => {
   const eventEmitter = { emit: vi.fn() };
+  const githubApiService = {
+    getCommitFiles: vi.fn().mockResolvedValue({
+      filesAdded: [],
+      filesRemoved: [],
+      filesModified: [],
+      additions: 0,
+      deletions: 0,
+    }),
+  };
   const dlqQueue = { add: vi.fn() };
   let prisma: PrismaClient;
 
@@ -26,6 +35,7 @@ describe.runIf(hasDatabase)('WebhookProcessor integration', () => {
     const processor = new WebhookProcessor(
       prisma as never,
       eventEmitter as never,
+      githubApiService as never,
       dlqQueue as never,
     );
     const suffix = Date.now().toString();

@@ -16,6 +16,15 @@ vi.mock('../../hooks/use-auth', () => ({
   }),
 }));
 
+vi.mock('../../hooks/use-notifications', () => ({
+  useUnreadCounts: () => ({ counts: {}, isPending: false, error: null }),
+  useMarkAllNotificationsRead: () => ({ mutate: vi.fn(), isPending: false }),
+}));
+
+vi.mock('../../hooks/use-notification-sse', () => ({
+  useNotificationSse: () => ({ isConnected: false, isReconnecting: false }),
+}));
+
 describe('DashboardLayout', () => {
   beforeEach(() => {
     replace.mockReset();

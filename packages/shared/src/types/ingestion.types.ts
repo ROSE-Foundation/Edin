@@ -45,6 +45,7 @@ export type WebhookDeliveryStatus = 'RECEIVED' | 'PROCESSING' | 'COMPLETED' | 'F
 export interface Contribution {
   id: string;
   contributorId: string | null;
+  taskId: string | null;
   repositoryId: string;
   source: ContributionSource;
   sourceRef: string;

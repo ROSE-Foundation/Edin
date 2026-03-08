@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { BullModule } from '@nestjs/bullmq';
 import type { IncomingMessage, ServerResponse } from 'http';
 import { randomUUID } from 'crypto';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -14,7 +15,11 @@ import { ShowcaseModule } from './modules/showcase/showcase.module.js';
 import { AdmissionModule } from './modules/admission/admission.module.js';
 import { IngestionModule } from './modules/ingestion/ingestion.module.js';
 import { WorkingGroupModule } from './modules/working-group/working-group.module.js';
+import { TaskModule } from './modules/task/task.module.js';
+import { ActivityModule } from './modules/activity/activity.module.js';
+import { NotificationModule } from './modules/notification/notification.module.js';
 import { validateConfig } from './config/app.config.js';
+import type { AppConfig } from './config/app.config.js';
 
 @Module({
   imports: [
@@ -58,6 +63,20 @@ import { validateConfig } from './config/app.config.js';
       },
     ]),
     EventEmitterModule.forRoot(),
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService<AppConfig, true>) => {
+        const redisUrl = new URL(configService.get('REDIS_URL', { infer: true }));
+        return {
+          connection: {
+            host: redisUrl.hostname,
+            port: Number(redisUrl.port) || 6379,
+            ...(redisUrl.password && { password: decodeURIComponent(redisUrl.password) }),
+          },
+        };
+      },
+    }),
     PrismaModule,
     RedisModule,
     HealthModule,
@@ -67,6 +86,9 @@ import { validateConfig } from './config/app.config.js';
     AdmissionModule,
     IngestionModule,
     WorkingGroupModule,
+    TaskModule,
+    ActivityModule,
+    NotificationModule,
   ],
 })
 export class AppModule {}

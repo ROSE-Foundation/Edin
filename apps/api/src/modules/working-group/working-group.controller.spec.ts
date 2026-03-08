@@ -40,20 +40,32 @@ describe('WorkingGroupController', () => {
   let service: {
     findAll: ReturnType<typeof vi.fn>;
     findById: ReturnType<typeof vi.fn>;
+    assertLeadAccess: ReturnType<typeof vi.fn>;
     joinGroup: ReturnType<typeof vi.fn>;
     leaveGroup: ReturnType<typeof vi.fn>;
     getGroupContributions: ReturnType<typeof vi.fn>;
     getActiveTasksForDomain: ReturnType<typeof vi.fn>;
+    createAnnouncement: ReturnType<typeof vi.fn>;
+    getAnnouncements: ReturnType<typeof vi.fn>;
+    deleteAnnouncement: ReturnType<typeof vi.fn>;
+    getLeadDashboard: ReturnType<typeof vi.fn>;
+    assignLead: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(async () => {
     service = {
       findAll: vi.fn(),
       findById: vi.fn(),
+      assertLeadAccess: vi.fn(),
       joinGroup: vi.fn(),
       leaveGroup: vi.fn(),
       getGroupContributions: vi.fn(),
       getActiveTasksForDomain: vi.fn(),
+      createAnnouncement: vi.fn(),
+      getAnnouncements: vi.fn(),
+      deleteAnnouncement: vi.fn(),
+      getLeadDashboard: vi.fn(),
+      assignLead: vi.fn(),
     };
 
     const module = await Test.createTestingModule({
@@ -106,16 +118,18 @@ describe('WorkingGroupController', () => {
   });
 
   describe('findById', () => {
-    it('returns working group detail with members and contributions', async () => {
+    it('returns working group detail with members, announcements, and contributions', async () => {
       service.findById.mockResolvedValue({
         ...mockWorkingGroup,
         isMember: true,
+        leadContributor: null,
         members: [
           {
             id: 'member-1',
             workingGroupId: 'wg-1',
             contributorId: 'user-1',
             joinedAt: new Date('2026-01-15'),
+            recentContributionCount: 2,
             contributor: {
               id: 'user-1',
               name: 'Test',
@@ -123,6 +137,16 @@ describe('WorkingGroupController', () => {
               domain: 'Technology',
               role: 'CONTRIBUTOR',
             },
+          },
+        ],
+        announcements: [
+          {
+            id: 'ann-1',
+            workingGroupId: 'wg-1',
+            authorId: 'user-1',
+            content: 'Welcome!',
+            createdAt: new Date('2026-03-01'),
+            author: { id: 'user-1', name: 'Test', avatarUrl: null },
           },
         ],
       });
@@ -142,6 +166,9 @@ describe('WorkingGroupController', () => {
       expect(result.data.id).toBe('wg-1');
       expect(result.data.isMember).toBe(true);
       expect(result.data.members).toHaveLength(1);
+      expect(result.data.announcements).toHaveLength(1);
+      expect(result.data.announcements[0].content).toBe('Welcome!');
+      expect(result.data.leadContributor).toBeNull();
       expect(result.data.recentContributions).toHaveLength(0);
       expect(result.data.activeTasks).toHaveLength(1);
       expect(service.getActiveTasksForDomain).toHaveBeenCalledWith('Technology');
@@ -217,6 +244,147 @@ describe('WorkingGroupController', () => {
       await expect(controller.leaveGroup('wg-1', mockUser, mockReq)).rejects.toMatchObject({
         status: 404,
       });
+    });
+  });
+
+  describe('createAnnouncement', () => {
+    it('creates announcement and returns 200 with data', async () => {
+      service.createAnnouncement.mockResolvedValue({
+        id: 'ann-1',
+        workingGroupId: 'wg-1',
+        authorId: 'user-1',
+        content: 'Hello!',
+        createdAt: new Date('2026-03-08'),
+        author: { id: 'user-1', name: 'Test', avatarUrl: null },
+      });
+
+      const result = await controller.createAnnouncement(
+        'wg-1',
+        { content: 'Hello!' },
+        mockUser,
+        mockReq,
+      );
+
+      expect(service.assertLeadAccess).toHaveBeenCalledWith('wg-1', 'user-1', 'CONTRIBUTOR');
+      expect(result.data.id).toBe('ann-1');
+      expect(result.data.content).toBe('Hello!');
+      expect(result.meta.correlationId).toBe('corr-1');
+    });
+
+    it('throws validation error for empty content', async () => {
+      await expect(
+        controller.createAnnouncement('wg-1', { content: '' }, mockUser, mockReq),
+      ).rejects.toThrow(DomainException);
+    });
+
+    it('throws validation error for content over 500 characters', async () => {
+      await expect(
+        controller.createAnnouncement('wg-1', { content: 'a'.repeat(501) }, mockUser, mockReq),
+      ).rejects.toThrow(DomainException);
+    });
+  });
+
+  describe('getAnnouncements', () => {
+    it('returns announcements list', async () => {
+      service.getAnnouncements.mockResolvedValue([
+        {
+          id: 'ann-1',
+          workingGroupId: 'wg-1',
+          authorId: 'user-1',
+          content: 'Test',
+          createdAt: new Date('2026-03-08'),
+          author: { id: 'user-1', name: 'Test', avatarUrl: null },
+        },
+      ]);
+
+      const result = await controller.getAnnouncements('wg-1', undefined, mockReq);
+
+      expect(result.data).toHaveLength(1);
+      expect(result.data[0].content).toBe('Test');
+    });
+  });
+
+  describe('deleteAnnouncement', () => {
+    it('calls service deleteAnnouncement', async () => {
+      service.deleteAnnouncement.mockResolvedValue(undefined);
+
+      await controller.deleteAnnouncement('wg-1', 'ann-1', mockUser, mockReq);
+
+      expect(service.assertLeadAccess).toHaveBeenCalledWith('wg-1', 'user-1', 'CONTRIBUTOR');
+      expect(service.deleteAnnouncement).toHaveBeenCalledWith('ann-1', 'user-1', 'corr-1');
+    });
+
+    it('propagates ANNOUNCEMENT_NOT_FOUND exception (404)', async () => {
+      service.deleteAnnouncement.mockRejectedValue(
+        new DomainException(ERROR_CODES.ANNOUNCEMENT_NOT_FOUND, 'Not found', HttpStatus.NOT_FOUND),
+      );
+
+      await expect(
+        controller.deleteAnnouncement('wg-1', 'nonexistent', mockUser, mockReq),
+      ).rejects.toMatchObject({ status: 404 });
+    });
+  });
+
+  describe('getLeadDashboard', () => {
+    it('returns dashboard data', async () => {
+      service.getLeadDashboard.mockResolvedValue({
+        ...mockWorkingGroup,
+        leadContributor: null,
+        members: [],
+        announcements: [],
+        tasks: [],
+        recentContributions: [],
+        healthIndicators: { activeMembers: 0, contributionVelocity: 0, totalContributions: 0 },
+      });
+
+      const result = await controller.getLeadDashboard('wg-1', mockUser, mockReq);
+
+      expect(service.assertLeadAccess).toHaveBeenCalledWith('wg-1', 'user-1', 'CONTRIBUTOR');
+      expect(result.data.id).toBe('wg-1');
+      expect(result.data.healthIndicators).toBeDefined();
+    });
+
+    it('propagates WORKING_GROUP_NOT_FOUND (404)', async () => {
+      service.getLeadDashboard.mockRejectedValue(
+        new DomainException(ERROR_CODES.WORKING_GROUP_NOT_FOUND, 'Not found', HttpStatus.NOT_FOUND),
+      );
+
+      await expect(
+        controller.getLeadDashboard('nonexistent', mockUser, mockReq),
+      ).rejects.toMatchObject({ status: 404 });
+    });
+  });
+
+  describe('assignLead', () => {
+    const mockAdminUser = { ...mockUser, role: 'ADMIN' };
+
+    it('assigns lead for admin user', async () => {
+      service.assignLead.mockResolvedValue({
+        ...mockWorkingGroup,
+        leadContributorId: 'lead-1',
+        leadContributor: { id: 'lead-1', name: 'Lead', avatarUrl: null },
+      });
+
+      const result = await controller.assignLead(
+        'wg-1',
+        { contributorId: 'lead-1' },
+        mockAdminUser,
+        mockReq,
+      );
+
+      expect(result.data.leadContributor?.id).toBe('lead-1');
+    });
+
+    it('throws FORBIDDEN for non-admin user', async () => {
+      await expect(
+        controller.assignLead('wg-1', { contributorId: 'lead-1' }, mockUser, mockReq),
+      ).rejects.toMatchObject({ status: 403 });
+    });
+
+    it('throws VALIDATION_ERROR when contributorId is missing', async () => {
+      await expect(
+        controller.assignLead('wg-1', { contributorId: '' }, mockAdminUser, mockReq),
+      ).rejects.toThrow(DomainException);
     });
   });
 

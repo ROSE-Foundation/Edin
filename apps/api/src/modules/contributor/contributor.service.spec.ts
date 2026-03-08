@@ -594,7 +594,9 @@ describe('ContributorService', () => {
       const result = await service.updateProfile('contributor-uuid-1', {
         name: mockContributor.name,
         bio: mockContributor.bio ?? undefined,
-        domain: mockContributor.domain ?? undefined,
+        domain:
+          (mockContributor.domain as 'Technology' | 'Fintech' | 'Impact' | 'Governance' | null) ??
+          undefined,
         avatarUrl: mockContributor.avatarUrl ?? undefined,
         skillAreas: [...mockContributor.skillAreas],
       });

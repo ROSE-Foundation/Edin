@@ -79,10 +79,10 @@ development_status:
   # Epic 5: Community Structure, Tasks & Activity Feed
   epic-5: in-progress
   5-1-working-groups-and-domain-membership: review
-  5-2-contribution-menu-and-task-management: backlog
-  5-3-working-group-lead-management: backlog
-  5-4-activity-feed-with-real-time-updates: backlog
-  5-5-contributor-notifications: backlog
+  5-2-contribution-menu-and-task-management: done
+  5-3-working-group-lead-management: done
+  5-4-activity-feed-with-real-time-updates: done
+  5-5-contributor-notifications: done
   epic-5-retrospective: optional
 
   # Epic 6: Peer Feedback System

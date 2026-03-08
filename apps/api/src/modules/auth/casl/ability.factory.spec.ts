@@ -140,12 +140,16 @@ describe('CaslAbilityFactory', () => {
 
     it('can update own profile', () => {
       const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
-      expect(ability.can(Action.Update, subject('Contributor', { id: 'own-id' }))).toBe(true);
+      expect(ability.can(Action.Update, subject('Contributor', { id: 'own-id' }) as never)).toBe(
+        true,
+      );
     });
 
     it('cannot update other profile', () => {
       const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
-      expect(ability.can(Action.Update, subject('Contributor', { id: 'other-id' }))).toBe(false);
+      expect(ability.can(Action.Update, subject('Contributor', { id: 'other-id' }) as never)).toBe(
+        false,
+      );
     });
 
     it('can read evaluations', () => {
@@ -193,6 +197,34 @@ describe('CaslAbilityFactory', () => {
     it('cannot access health metrics', () => {
       const ability = factory.createForUser(makeUser('CONTRIBUTOR'));
       expect(ability.can(Action.Read, 'HealthMetrics')).toBe(false);
+    });
+
+    it('can read own notifications', () => {
+      const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
+      expect(
+        ability.can(Action.Read, subject('Notification', { contributorId: 'own-id' }) as never),
+      ).toBe(true);
+    });
+
+    it('can update own notifications', () => {
+      const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
+      expect(
+        ability.can(Action.Update, subject('Notification', { contributorId: 'own-id' }) as never),
+      ).toBe(true);
+    });
+
+    it('cannot read other user notifications', () => {
+      const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
+      expect(
+        ability.can(Action.Read, subject('Notification', { contributorId: 'other-id' }) as never),
+      ).toBe(false);
+    });
+
+    it('cannot update other user notifications', () => {
+      const ability = factory.createForUser(makeUser('CONTRIBUTOR', 'own-id'));
+      expect(
+        ability.can(Action.Update, subject('Notification', { contributorId: 'other-id' }) as never),
+      ).toBe(false);
     });
   });
 
@@ -247,7 +279,9 @@ describe('CaslAbilityFactory', () => {
 
     it('can update own profile', () => {
       const ability = factory.createForUser(makeUser('FOUNDING_CONTRIBUTOR', 'founder-id'));
-      expect(ability.can(Action.Update, subject('Contributor', { id: 'founder-id' }))).toBe(true);
+      expect(
+        ability.can(Action.Update, subject('Contributor', { id: 'founder-id' }) as never),
+      ).toBe(true);
     });
 
     it('cannot update articles (not editor)', () => {

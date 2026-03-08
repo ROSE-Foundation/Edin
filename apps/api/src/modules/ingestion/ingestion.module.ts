@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from '../../prisma/prisma.module.js';
 import { CaslModule } from '../auth/casl/casl.module.js';
 import { IngestionController } from './ingestion.controller.js';
@@ -14,26 +13,11 @@ import { ContributionSseService } from './contribution-sse.service.js';
 import { CollaborationDetectionService } from './services/collaboration-detection.service.js';
 import { CollaborationController } from './collaboration.controller.js';
 import { AdminContributionController } from './admin-contribution.controller.js';
-import type { AppConfig } from '../../config/app.config.js';
 
 @Module({
   imports: [
     PrismaModule,
     CaslModule,
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService<AppConfig, true>) => {
-        const redisUrl = new URL(configService.get('REDIS_URL', { infer: true }));
-        return {
-          connection: {
-            host: redisUrl.hostname,
-            port: Number(redisUrl.port) || 6379,
-            ...(redisUrl.password && { password: decodeURIComponent(redisUrl.password) }),
-          },
-        };
-      },
-    }),
     BullModule.registerQueue({
       name: 'github-ingestion',
       defaultJobOptions: {

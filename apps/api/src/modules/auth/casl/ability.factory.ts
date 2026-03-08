@@ -88,6 +88,9 @@ export class CaslAbilityFactory {
     can(Action.Read, 'Contribution');
     can(Action.Read, 'ContributionCollaboration');
     can(Action.Update, 'ContributionCollaboration');
+    can(Action.Read, 'Activity');
+    can(Action.Read, 'Notification', { contributorId: user.id });
+    can(Action.Update, 'Notification', { contributorId: user.id });
   }
 
   private addEditorPermissions(

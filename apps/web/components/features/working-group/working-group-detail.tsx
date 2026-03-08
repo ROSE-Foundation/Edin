@@ -1,9 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import type { WorkingGroupMember } from '@edin/shared';
+import { useState } from 'react';
+import type { WorkingGroupMember, AnnouncementDto } from '@edin/shared';
 import { MemberList } from './member-list';
+import { AnnouncementBanner } from './announcement-banner';
+import { WgLeadDashboard } from './wg-lead-dashboard';
 import { useLeaveWorkingGroup } from '../../../hooks/use-working-groups';
+import { useLeadDashboard } from '../../../hooks/use-working-group-lead';
+import {
+  useTasks,
+  useClaimTask,
+  useCreateTask,
+  useUpdateTask,
+  useRetireTask,
+} from '../../../hooks/use-tasks';
+import { useAuth } from '../../../hooks/use-auth';
+import { useToast } from '../../ui/toast';
+import { TaskCard } from '../task/task-card';
+import { CreateTaskForm } from '../task/create-task-form';
 
 const DOMAIN_TINT: Record<string, string> = {
   Technology: 'bg-[#3A7D7E]/3',
@@ -37,7 +52,9 @@ interface WorkingGroupDetailProps {
     accentColor: string;
     memberCount: number;
     isMember: boolean;
+    leadContributor?: { id: string; name: string; avatarUrl: string | null } | null;
     members: WorkingGroupMember[];
+    announcements?: AnnouncementDto[];
     recentContributions: Contribution[];
     activeTasks: Array<{
       id: string;
@@ -57,9 +74,74 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps) {
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const leaveMutation = useLeaveWorkingGroup();
+  const { tasks: domainTasks, isPending: isTasksPending } = useTasks({ domain: group.domain });
+  const claimMutation = useClaimTask();
+  const createTaskMutation = useCreateTask();
+  const updateTaskMutation = useUpdateTask();
+  const retireTaskMutation = useRetireTask();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const tint = DOMAIN_TINT[group.domain] ?? '';
   const badge = DOMAIN_BADGE[group.domain] ?? '';
+  const canManageTasks = user?.role === 'ADMIN' || user?.role === 'WORKING_GROUP_LEAD';
+  const isGroupLead = group.leadContributor?.id === user?.id;
+  const editingTask = domainTasks.find((task) => task.id === editingTaskId) ?? null;
+  const { dashboard } = useLeadDashboard(isGroupLead ? group.id : '');
+  const latestAnnouncement = group.announcements?.[0] ?? null;
+
+  const handleTaskCreate = (data: {
+    title: string;
+    description: string;
+    domain: string;
+    difficulty: string;
+    estimatedEffort: string;
+  }) => {
+    createTaskMutation.mutate(
+      { ...data, domain: group.domain },
+      {
+        onSuccess: () => toast({ title: 'Task created.' }),
+        onError: (error) => toast({ title: error.message, variant: 'error' }),
+      },
+    );
+  };
+
+  const handleTaskUpdate = (data: {
+    title: string;
+    description: string;
+    domain: string;
+    difficulty: string;
+    estimatedEffort: string;
+  }) => {
+    if (!editingTask) return;
+
+    updateTaskMutation.mutate(
+      {
+        taskId: editingTask.id,
+        data: { ...data, domain: group.domain },
+      },
+      {
+        onSuccess: () => {
+          toast({ title: 'Task updated.' });
+          setEditingTaskId(null);
+        },
+        onError: (error) => toast({ title: error.message, variant: 'error' }),
+      },
+    );
+  };
+
+  const handleTaskRetire = (taskId: string) => {
+    retireTaskMutation.mutate(taskId, {
+      onSuccess: () => {
+        toast({ title: 'Task retired.' });
+        if (editingTaskId === taskId) {
+          setEditingTaskId(null);
+        }
+      },
+      onError: (error) => toast({ title: error.message, variant: 'error' }),
+    });
+  };
 
   return (
     <div className={`min-h-screen ${tint}`}>
@@ -104,6 +186,13 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
         <p className="mt-[var(--spacing-md)] font-serif text-[16px] leading-[1.65] text-brand-secondary">
           {group.description}
         </p>
+
+        {/* Announcement Banner */}
+        {latestAnnouncement && (
+          <div className="mt-[var(--spacing-lg)]">
+            <AnnouncementBanner announcement={latestAnnouncement} accentColor={group.accentColor} />
+          </div>
+        )}
 
         {/* Members Section */}
         <section className="mt-[var(--spacing-2xl)]">
@@ -158,40 +247,115 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
         <section className="mt-[var(--spacing-2xl)]">
           <h2 className="font-sans text-[18px] font-medium text-brand-primary">Active Tasks</h2>
           <div className="mt-[var(--spacing-md)]">
-            {group.activeTasks.length === 0 ? (
+            {canManageTasks ? (
+              <div className="mb-[var(--spacing-lg)]">
+                <CreateTaskForm
+                  onSubmit={editingTask ? handleTaskUpdate : handleTaskCreate}
+                  isPending={createTaskMutation.isPending || updateTaskMutation.isPending}
+                  initialValues={
+                    editingTask
+                      ? {
+                          title: editingTask.title,
+                          description: editingTask.description,
+                          domain: editingTask.domain,
+                          difficulty: editingTask.difficulty,
+                          estimatedEffort: editingTask.estimatedEffort,
+                        }
+                      : {
+                          title: '',
+                          description: '',
+                          domain: group.domain,
+                          difficulty: 'BEGINNER',
+                          estimatedEffort: '',
+                        }
+                  }
+                  submitLabel={editingTask ? 'Save Changes' : 'Create Task'}
+                  heading={editingTask ? 'Edit Domain Task' : 'Create Domain Task'}
+                  onCancel={editingTask ? () => setEditingTaskId(null) : undefined}
+                />
+              </div>
+            ) : null}
+
+            {isTasksPending ? (
+              <div className="space-y-[var(--spacing-sm)]">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+                  >
+                    <div className="skeleton h-[18px] w-[200px]" />
+                    <div className="mt-[var(--spacing-xs)] skeleton h-[16px] w-full" />
+                    <div className="mt-[var(--spacing-sm)] flex gap-[var(--spacing-sm)]">
+                      <div className="skeleton h-[22px] w-[80px] rounded-full" />
+                      <div className="skeleton h-[22px] w-[80px] rounded-full" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : domainTasks.length === 0 ? (
               <p className="font-serif text-[14px] text-brand-secondary">
                 No active tasks are tagged for this domain yet.
               </p>
             ) : (
               <div className="space-y-[var(--spacing-sm)]" role="list" aria-label="Active tasks">
-                {group.activeTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    role="listitem"
-                    className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
-                  >
-                    <div className="flex flex-col gap-[var(--spacing-xs)] sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <p className="font-sans text-[14px] font-medium text-brand-primary">
-                          {task.title}
-                        </p>
-                        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-[1.65] text-brand-secondary">
-                          {task.description}
-                        </p>
+                {domainTasks.map((task) => (
+                  <div key={task.id} className="space-y-[var(--spacing-xs)]">
+                    {canManageTasks ? (
+                      <div className="flex justify-end gap-[var(--spacing-xs)]">
+                        <button
+                          type="button"
+                          onClick={() => setEditingTaskId(task.id)}
+                          className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-border px-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken"
+                        >
+                          Edit
+                        </button>
+                        {task.status !== 'RETIRED' ? (
+                          <button
+                            type="button"
+                            onClick={() => handleTaskRetire(task.id)}
+                            disabled={retireTaskMutation.isPending}
+                            className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-border px-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-50"
+                          >
+                            Retire
+                          </button>
+                        ) : null}
                       </div>
-                      <span className="font-sans text-[12px] text-brand-secondary">
-                        {task.estimatedEffort}
-                      </span>
-                    </div>
-                    <p className="mt-[var(--spacing-sm)] font-sans text-[12px] text-brand-secondary">
-                      Submission: {task.submissionFormat}
-                    </p>
+                    ) : null}
+                    <TaskCard
+                      task={task}
+                      onClaim={(taskId) => claimMutation.mutate(taskId)}
+                      isClaimPending={claimMutation.isPending}
+                    />
                   </div>
                 ))}
               </div>
             )}
           </div>
         </section>
+
+        {/* WG Lead Dashboard (shown only for the assigned lead) */}
+        {isGroupLead && dashboard && (
+          <section className="mt-[var(--spacing-2xl)]">
+            <h2 className="font-sans text-[18px] font-medium text-brand-primary">Lead Dashboard</h2>
+            <div className="mt-[var(--spacing-md)]">
+              <WgLeadDashboard
+                workingGroupId={group.id}
+                domain={group.domain}
+                healthIndicators={dashboard.healthIndicators}
+                announcements={dashboard.announcements}
+                members={dashboard.members}
+                tasks={dashboard.tasks.map((t) => ({
+                  id: t.id,
+                  title: t.title,
+                  status: t.status,
+                  sortOrder: t.sortOrder,
+                }))}
+                currentUserId={user?.id ?? ''}
+                isAdmin={user?.role === 'ADMIN'}
+              />
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

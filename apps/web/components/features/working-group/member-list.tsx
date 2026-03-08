@@ -69,6 +69,11 @@ export function MemberList({ members, isLoading }: MemberListProps) {
             </p>
             <p className="font-sans text-[12px] text-brand-secondary">
               Joined {new Date(member.joinedAt).toLocaleDateString()}
+              {typeof member.recentContributionCount === 'number'
+                ? ` · ${member.recentContributionCount} recent ${
+                    member.recentContributionCount === 1 ? 'contribution' : 'contributions'
+                  }`
+                : ''}
             </p>
           </div>
         </div>

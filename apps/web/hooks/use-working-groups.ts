@@ -86,11 +86,9 @@ export function useJoinWorkingGroup() {
 
       return { previousGroups };
     },
-    onError: (
-      _err,
-      _workingGroupId,
-      context: { previousGroups?: WorkingGroupsResponse } | undefined,
-    ) => {
+    onError: (_err, _workingGroupId, onMutateResult) => {
+      const context = onMutateResult as { previousGroups?: WorkingGroupsResponse } | undefined;
+
       if (context?.previousGroups) {
         queryClient.setQueryData(['working-groups'], context.previousGroups);
       }
@@ -127,11 +125,9 @@ export function useLeaveWorkingGroup() {
 
       return { previousGroups };
     },
-    onError: (
-      _err,
-      _workingGroupId,
-      context: { previousGroups?: WorkingGroupsResponse } | undefined,
-    ) => {
+    onError: (_err, _workingGroupId, onMutateResult) => {
+      const context = onMutateResult as { previousGroups?: WorkingGroupsResponse } | undefined;
+
       if (context?.previousGroups) {
         queryClient.setQueryData(['working-groups'], context.previousGroups);
       }

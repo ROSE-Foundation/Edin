@@ -1,28 +1,70 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/use-auth';
+import { useUnreadCounts, useMarkAllNotificationsRead } from '../../hooks/use-notifications';
+import { useNotificationSse } from '../../hooks/use-notification-sse';
 import { ToastProvider } from '../../components/ui/toast';
+import type { NotificationCategory } from '@edin/shared';
 
 const DASHBOARD_NAV_ITEMS = [
   { href: '/dashboard', label: 'Overview' },
   { href: '/dashboard/contributions', label: 'Contributions' },
+  { href: '/dashboard/tasks', label: 'Tasks' },
+  { href: '/dashboard/activity', label: 'Activity' },
   { href: '/dashboard/working-groups', label: 'Working Groups' },
   { href: '/dashboard/profile', label: 'Profile' },
 ];
+
+const HREF_TO_CATEGORY: Record<string, NotificationCategory> = {
+  '/dashboard/working-groups': 'working-groups',
+  '/dashboard/tasks': 'tasks',
+};
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { isAuthenticated, isLoading } = useAuth();
+  const { counts } = useUnreadCounts();
+  const markAllRead = useMarkAllNotificationsRead();
+  const clearDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // SSE connection for real-time notification delivery
+  useNotificationSse();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.replace('/');
     }
   }, [isAuthenticated, isLoading, router]);
+
+  // Auto-clear notifications when navigating to a category section
+  useEffect(() => {
+    if (clearDebounceRef.current) {
+      clearTimeout(clearDebounceRef.current);
+    }
+
+    const matchedCategory = Object.entries(HREF_TO_CATEGORY).find(([href]) =>
+      pathname.startsWith(href),
+    );
+
+    if (matchedCategory) {
+      const [, category] = matchedCategory;
+      if ((counts[category] ?? 0) > 0) {
+        clearDebounceRef.current = setTimeout(() => {
+          markAllRead.mutate(category);
+        }, 500);
+      }
+    }
+
+    return () => {
+      if (clearDebounceRef.current) {
+        clearTimeout(clearDebounceRef.current);
+      }
+    };
+  }, [pathname, counts, markAllRead]);
 
   if (isLoading || !isAuthenticated) {
     return null;
@@ -49,11 +91,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     ? pathname === item.href
                     : pathname.startsWith(item.href);
 
+                // Find if any notification category maps to this nav item
+                const category = HREF_TO_CATEGORY[item.href];
+                const hasUnread = category ? (counts[category] ?? 0) > 0 : false;
+
                 return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className={`flex min-h-[44px] items-center rounded-[var(--radius-md)] px-[var(--spacing-md)] font-sans text-[15px] transition-colors duration-[var(--transition-fast)] ${
+                      className={`relative flex min-h-[44px] items-center rounded-[var(--radius-md)] px-[var(--spacing-md)] font-sans text-[15px] transition-colors duration-[var(--transition-fast)] ${
                         isActive
                           ? 'bg-brand-accent-subtle text-brand-primary'
                           : 'text-surface-raised/85 hover:bg-surface-raised/10 hover:text-surface-raised'
@@ -61,6 +107,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       aria-current={isActive ? 'page' : undefined}
                     >
                       {item.label}
+                      {hasUnread && (
+                        <span
+                          className="animate-pulse-once ml-auto h-[8px] w-[8px] rounded-full bg-brand-accent"
+                          aria-label="New notifications"
+                        />
+                      )}
                     </Link>
                   </li>
                 );

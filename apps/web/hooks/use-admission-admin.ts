@@ -101,6 +101,19 @@ export function useAdmissionQueue({ domain, status }: UseAdmissionQueueOptions =
   };
 }
 
+export function useDomainApplications(domain?: string) {
+  const { applications, isLoading, error } = useAdmissionQueue({
+    domain,
+    status: 'PENDING',
+  });
+
+  return {
+    applications,
+    isLoading,
+    error,
+  };
+}
+
 export function useApplicationDetail(applicationId: string | null) {
   const { data, isLoading, error } = useQuery<{ data: ApplicationFull }>({
     queryKey: ['admission', 'application', applicationId],

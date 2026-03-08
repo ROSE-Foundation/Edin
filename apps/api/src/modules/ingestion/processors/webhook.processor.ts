@@ -77,6 +77,8 @@ interface NormalizedContribution {
 }
 
 const STALE_PROCESSING_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutes
+const UUID_PATTERN =
+  /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/gi;
 
 @Processor('github-ingestion')
 export class WebhookProcessor extends WorkerHost {
@@ -610,10 +612,17 @@ export class WebhookProcessor extends WorkerHost {
     contributions: NormalizedContribution[],
     deliveryId: string,
   ): Promise<Array<NormalizedContribution & { id: string }>> {
+    const completedTaskEvents: Array<{
+      taskId: string;
+      previousStatus: 'CLAIMED' | 'IN_PROGRESS';
+      contributorId: string;
+    }> = [];
+
     const persistedContributions = await this.prisma.$transaction(async (tx) => {
       const persistedContributions: Array<NormalizedContribution & { id: string }> = [];
 
       for (const contribution of contributions) {
+        const linkedTaskId = await this.findLinkedTaskId(tx, contribution);
         const persistedContribution = await tx.contribution.upsert({
           where: {
             source_repositoryId_sourceRef: {
@@ -630,6 +639,7 @@ export class WebhookProcessor extends WorkerHost {
             contributionType: contribution.contributionType,
             title: contribution.title,
             description: contribution.description,
+            taskId: linkedTaskId,
             rawData: contribution.rawData as object,
             status: 'INGESTED',
           },
@@ -637,10 +647,35 @@ export class WebhookProcessor extends WorkerHost {
             contributorId: contribution.contributorId,
             title: contribution.title,
             description: contribution.description,
+            taskId: linkedTaskId,
             rawData: contribution.rawData as object,
             normalizedAt: new Date(),
           },
         });
+
+        if (linkedTaskId && contribution.contributorId) {
+          const task = await tx.task.findUnique({
+            where: { id: linkedTaskId },
+            select: { id: true, status: true, claimedById: true },
+          });
+
+          if (
+            task &&
+            task.claimedById === contribution.contributorId &&
+            (task.status === 'CLAIMED' || task.status === 'IN_PROGRESS')
+          ) {
+            await tx.task.update({
+              where: { id: task.id },
+              data: { status: 'COMPLETED', completedAt: new Date() },
+            });
+
+            completedTaskEvents.push({
+              taskId: task.id,
+              previousStatus: task.status,
+              contributorId: contribution.contributorId,
+            });
+          }
+        }
 
         persistedContributions.push({
           ...contribution,
@@ -674,7 +709,53 @@ export class WebhookProcessor extends WorkerHost {
       deliveryId,
     });
 
+    for (const event of completedTaskEvents) {
+      this.eventEmitter.emit('task.status-changed', {
+        eventType: 'task.status-changed',
+        timestamp: new Date().toISOString(),
+        correlationId: deliveryId,
+        actorId: event.contributorId,
+        payload: {
+          taskId: event.taskId,
+          previousStatus: event.previousStatus,
+          newStatus: 'COMPLETED',
+          contributorId: event.contributorId,
+        },
+      });
+    }
+
     return persistedContributions;
+  }
+
+  private async findLinkedTaskId(
+    tx: Pick<PrismaService, 'task'>,
+    contribution: NormalizedContribution,
+  ): Promise<string | null> {
+    const searchableParts = [
+      contribution.title,
+      contribution.description ?? '',
+      contribution.sourceRef,
+      JSON.stringify(contribution.rawData),
+    ];
+    const candidateIds = new Set<string>();
+
+    for (const part of searchableParts) {
+      const matches = part.match(UUID_PATTERN) ?? [];
+      for (const match of matches) {
+        candidateIds.add(match);
+      }
+    }
+
+    if (candidateIds.size === 0) {
+      return null;
+    }
+
+    const linkedTask = await tx.task.findFirst({
+      where: { id: { in: [...candidateIds] } },
+      select: { id: true },
+    });
+
+    return linkedTask?.id ?? null;
   }
 
   // Task 6: Rate limit detection

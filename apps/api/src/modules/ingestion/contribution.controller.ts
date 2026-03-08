@@ -142,6 +142,7 @@ export class ContributionController {
     const data = results.map((item) => ({
       id: item.id,
       contributorId: item.contributorId,
+      taskId: item.taskId,
       repositoryId: item.repositoryId,
       repositoryName: item.repository.fullName,
       source: item.source,
@@ -243,6 +244,7 @@ export class ContributionController {
     const data = {
       id: contribution.id,
       contributorId: contribution.contributorId,
+      taskId: contribution.taskId,
       repositoryId: contribution.repositoryId,
       repositoryName: contribution.repository.fullName,
       source: contribution.source,

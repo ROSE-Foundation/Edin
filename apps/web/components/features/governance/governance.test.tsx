@@ -153,8 +153,8 @@ describe('GovernancePage metadata', () => {
     expect(metadata.title).toBe('Progressive Decentralization Roadmap — Edin');
     expect(metadata.description).toContain('progressively transfers governance authority');
     expect(metadata.openGraph?.title).toBe('Progressive Decentralization Roadmap — Edin');
-    expect(metadata.openGraph?.type).toBe('website');
-    expect(metadata.twitter?.card).toBe('summary_large_image');
+    expect((metadata.openGraph as { type?: string } | undefined)?.type).toBe('website');
+    expect((metadata.twitter as { card?: string } | undefined)?.card).toBe('summary_large_image');
     expect(metadata.twitter?.title).toBe('Progressive Decentralization Roadmap — Edin');
   });
 });

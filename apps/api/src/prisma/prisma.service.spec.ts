@@ -46,10 +46,8 @@ describe('PrismaService', () => {
 
   it('should connect and log on module init', async () => {
     const connectSpy = vi.spyOn(service, '$connect').mockResolvedValue(undefined);
-    const logSpy = vi.spyOn(
-      (service as { logger: { log: (message: string) => void } }).logger,
-      'log',
-    );
+    const logger = service as unknown as { logger: { log: (message: string) => void } };
+    const logSpy = vi.spyOn(logger.logger, 'log');
 
     await service.onModuleInit();
 
@@ -60,10 +58,8 @@ describe('PrismaService', () => {
 
   it('should disconnect and log on module destroy', async () => {
     const disconnectSpy = vi.spyOn(service, '$disconnect').mockResolvedValue(undefined);
-    const logSpy = vi.spyOn(
-      (service as { logger: { log: (message: string) => void } }).logger,
-      'log',
-    );
+    const logger = service as unknown as { logger: { log: (message: string) => void } };
+    const logSpy = vi.spyOn(logger.logger, 'log');
 
     await service.onModuleDestroy();
 

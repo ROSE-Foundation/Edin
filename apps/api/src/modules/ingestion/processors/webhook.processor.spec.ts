@@ -23,6 +23,11 @@ const mockPrisma = {
   contribution: {
     upsert: vi.fn(),
   },
+  task: {
+    findFirst: vi.fn(),
+    findUnique: vi.fn(),
+    update: vi.fn(),
+  },
   auditLog: {
     create: vi.fn(),
   },
@@ -127,6 +132,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.contribution.upsert
         .mockResolvedValueOnce({ id: 'contribution-1' })
         .mockResolvedValueOnce({ id: 'contribution-2' });
+      mockPrisma.task.findFirst.mockResolvedValue(null);
       mockPrisma.auditLog.create.mockResolvedValue({});
 
       const job = createMockJob({
@@ -178,6 +184,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.webhookDelivery.findUnique.mockResolvedValue(null);
       mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
       mockPrisma.webhookDelivery.update.mockResolvedValue({});
+      mockPrisma.task.findFirst.mockResolvedValue(null);
 
       const job = createMockJob({
         eventType: 'push',
@@ -226,6 +233,7 @@ describe('WebhookProcessor', () => {
       mockGitHubApiService.getPullRequestCommits.mockResolvedValue([]);
       mockPrisma.contributor.findUnique.mockResolvedValue(mockContributor);
       mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-pr-1' });
+      mockPrisma.task.findFirst.mockResolvedValue(null);
       mockPrisma.auditLog.create.mockResolvedValue({});
 
       const job = createMockJob({
@@ -262,6 +270,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.webhookDelivery.upsert.mockResolvedValue({});
       mockPrisma.webhookDelivery.update.mockResolvedValue({});
       mockGitHubApiService.getPullRequestCommits.mockResolvedValue([]);
+      mockPrisma.task.findFirst.mockResolvedValue(null);
 
       const job = createMockJob({
         eventType: 'pull_request',
@@ -302,6 +311,7 @@ describe('WebhookProcessor', () => {
       mockPrisma.webhookDelivery.update.mockResolvedValue({});
       mockPrisma.contributor.findUnique.mockResolvedValue({ id: 'reviewer-uuid' });
       mockPrisma.contribution.upsert.mockResolvedValue({ id: 'contribution-review-1' });
+      mockPrisma.task.findFirst.mockResolvedValue(null);
       mockPrisma.auditLog.create.mockResolvedValue({});
 
       const job = createMockJob({

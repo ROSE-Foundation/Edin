@@ -240,7 +240,7 @@ function ReviewDetailDialog({
                       Your review has been submitted.
                     </p>
                     <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
-                      Recommendation: {review.recommendation.replace(/_/g, ' ')}
+                      Recommendation: {(review.recommendation ?? 'PENDING').replace(/_/g, ' ')}
                     </p>
                   </div>
                 ) : (

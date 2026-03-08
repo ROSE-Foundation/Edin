@@ -20,4 +20,6 @@ export type AppSubjects =
   | 'EditorialFeedback'
   | 'MonitoredRepository'
   | 'Contribution'
-  | 'ContributionCollaboration';
+  | 'ContributionCollaboration'
+  | 'Activity'
+  | 'Notification';

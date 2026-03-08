@@ -1,0 +1,459 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ActivityItem } from './activity-item';
+import { ActivityFeed } from './activity-feed';
+import type { ActivityEvent } from '@edin/shared';
+
+// Mock the hooks
+const mockUseActivityFeed = vi.fn();
+const mockUseActivitySse = vi.fn();
+
+vi.mock('../../../hooks/use-activity-feed', () => ({
+  useActivityFeed: (...args: unknown[]) => mockUseActivityFeed(...args),
+  useActivitySse: (...args: unknown[]) => mockUseActivitySse(...args),
+}));
+
+const mockActivity: ActivityEvent = {
+  id: 'event-1',
+  eventType: 'CONTRIBUTION_NEW',
+  title: 'New Commit: Fix authentication flow',
+  description: 'Fixed OAuth redirect issue in the login module',
+  contributorId: 'user-1',
+  contributorName: 'Alice',
+  contributorAvatarUrl: null,
+  domain: 'Technology',
+  contributionType: 'COMMIT',
+  entityId: 'entity-1',
+  metadata: null,
+  createdAt: new Date(Date.now() - 120000).toISOString(), // 2 minutes ago
+};
+
+const mockPrActivity: ActivityEvent = {
+  ...mockActivity,
+  id: 'event-2',
+  title: 'PR Merged: Add activity feed',
+  contributionType: 'PULL_REQUEST',
+  domain: 'Fintech',
+  contributorName: 'Bob',
+  createdAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+};
+
+const mockMemberJoinedActivity: ActivityEvent = {
+  ...mockActivity,
+  id: 'event-3',
+  eventType: 'MEMBER_JOINED',
+  title: 'Charlie joined Governance',
+  contributionType: null,
+  domain: 'Governance',
+  contributorName: 'Charlie',
+  description: null,
+  createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+};
+
+const mockAnnouncementActivity: ActivityEvent = {
+  ...mockActivity,
+  id: 'event-4',
+  eventType: 'ANNOUNCEMENT_CREATED',
+  title: 'New announcement in Impact',
+  contributionType: null,
+  domain: 'Impact',
+  contributorName: 'Lead',
+  description: 'Welcome to the team!',
+  createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+};
+
+describe('ActivityItem', () => {
+  it('renders activity with title, contributor name, and domain', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('New Commit: Fix authentication flow')).toBeInTheDocument();
+    expect(screen.getByText('by Alice')).toBeInTheDocument();
+    expect(screen.getByText('Technology')).toBeInTheDocument();
+  });
+
+  it('renders description when present', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('Fixed OAuth redirect issue in the login module')).toBeInTheDocument();
+  });
+
+  it('does not render description when absent', () => {
+    render(<ActivityItem activity={mockMemberJoinedActivity} />);
+
+    // Title should be present but no description element
+    expect(screen.getByText('Charlie joined Governance')).toBeInTheDocument();
+    expect(screen.queryByText('Fixed OAuth redirect')).not.toBeInTheDocument();
+  });
+
+  it('renders contribution type label for commits', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('Commit')).toBeInTheDocument();
+  });
+
+  it('renders contribution type label for PRs', () => {
+    render(<ActivityItem activity={mockPrActivity} />);
+
+    expect(screen.getByText('PR')).toBeInTheDocument();
+  });
+
+  it('does not render contribution type for non-contribution events', () => {
+    render(<ActivityItem activity={mockMemberJoinedActivity} />);
+
+    expect(screen.queryByText('Commit')).not.toBeInTheDocument();
+    expect(screen.queryByText('PR')).not.toBeInTheDocument();
+  });
+
+  it('renders domain accent color dot', () => {
+    const { container } = render(<ActivityItem activity={mockActivity} />);
+
+    const dot = container.querySelector('[style*="background-color"]');
+    expect(dot).toHaveStyle({ backgroundColor: '#3A7D7E' }); // Technology color
+  });
+
+  it('renders Fintech accent color for Fintech domain', () => {
+    const { container } = render(<ActivityItem activity={mockPrActivity} />);
+
+    const dot = container.querySelector('[style*="background-color"]');
+    expect(dot).toHaveStyle({ backgroundColor: '#C49A3C' }); // Fintech color
+  });
+
+  it('renders relative timestamp', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('2m ago')).toBeInTheDocument();
+  });
+
+  it('renders event type label', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('New Contribution')).toBeInTheDocument();
+  });
+
+  it('renders MEMBER_JOINED event type label', () => {
+    render(<ActivityItem activity={mockMemberJoinedActivity} />);
+
+    expect(screen.getByText('New Member')).toBeInTheDocument();
+  });
+
+  it('renders avatar fallback with initials when no avatar URL', () => {
+    render(<ActivityItem activity={mockActivity} />);
+
+    expect(screen.getByText('A')).toBeInTheDocument(); // Alice initials
+  });
+
+  it('renders all items with equal card dimensions (listitem role)', () => {
+    const { container } = render(
+      <div>
+        <ActivityItem activity={mockActivity} />
+        <ActivityItem activity={mockPrActivity} />
+        <ActivityItem activity={mockMemberJoinedActivity} />
+      </div>,
+    );
+
+    const items = container.querySelectorAll('[data-testid="activity-item"]');
+    expect(items).toHaveLength(3);
+    items.forEach((item) => {
+      expect(item.className).toContain('rounded-[12px]');
+      expect(item.className).toContain('p-[var(--spacing-lg)]');
+    });
+  });
+
+  it('has relative positioning for absolute new-indicator', () => {
+    const { container } = render(<ActivityItem activity={mockActivity} />);
+
+    const item = container.querySelector('[data-testid="activity-item"]');
+    expect(item?.className).toContain('relative');
+  });
+
+  it('includes hover styles for card interaction', () => {
+    const { container } = render(<ActivityItem activity={mockActivity} />);
+
+    const item = container.querySelector('[data-testid="activity-item"]');
+    expect(item?.className).toContain('hover:-translate-y-[2px]');
+    expect(item?.className).toContain('hover:shadow-md');
+  });
+
+  it('respects reduced motion preference', () => {
+    const { container } = render(<ActivityItem activity={mockActivity} />);
+
+    const item = container.querySelector('[data-testid="activity-item"]');
+    expect(item?.className).toContain('motion-reduce:transform-none');
+    expect(item?.className).toContain('motion-reduce:transition-none');
+  });
+});
+
+describe('ActivityFeed', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renders skeleton loaders during initial load', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: true,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: false,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.getByLabelText('Loading activity feed')).toBeInTheDocument();
+  });
+
+  it('renders activity items when loaded', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [mockActivity, mockPrActivity, mockMemberJoinedActivity],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.getByText('New Commit: Fix authentication flow')).toBeInTheDocument();
+    expect(screen.getByText('PR Merged: Add activity feed')).toBeInTheDocument();
+    expect(screen.getByText('Charlie joined Governance')).toBeInTheDocument();
+  });
+
+  it('renders empty state when no activities', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(
+      screen.getByText(
+        'No activity to display yet. Contributions will appear here as they happen.',
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('shows error message on feed error', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: false,
+      error: new Error('Network error'),
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: false,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(
+      screen.getByText('Unable to load activity feed. Please try again later.'),
+    ).toBeInTheDocument();
+  });
+
+  it('shows reconnecting indicator when SSE is reconnecting', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [mockActivity],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: false,
+      isReconnecting: true,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.getByText('Reconnecting...')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('does not show reconnecting indicator when connected', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [mockActivity],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.queryByText('Reconnecting...')).not.toBeInTheDocument();
+  });
+
+  it('renders domain filter buttons', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.getByText('All')).toBeInTheDocument();
+    expect(screen.getByText('Technology')).toBeInTheDocument();
+    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Impact')).toBeInTheDocument();
+    expect(screen.getByText('Governance')).toBeInTheDocument();
+  });
+
+  it('filters by domain when domain button is clicked', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    fireEvent.click(screen.getByText('Fintech'));
+
+    // The hook should be called with the domain filter
+    expect(mockUseActivityFeed).toHaveBeenCalledWith({ domain: 'Fintech' });
+  });
+
+  it('clears domain filter when All button is clicked', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    fireEvent.click(screen.getByText('Fintech'));
+    fireEvent.click(screen.getByText('All'));
+
+    // Last call should be with empty filters
+    const lastCall = mockUseActivityFeed.mock.calls[mockUseActivityFeed.mock.calls.length - 1];
+    expect(lastCall[0]).toEqual({});
+  });
+
+  it('renders items with correct domain accent colors across all domains', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [
+        mockActivity,
+        mockPrActivity,
+        mockMemberJoinedActivity,
+        mockAnnouncementActivity,
+      ],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    const items = screen.getAllByTestId('activity-item');
+    expect(items).toHaveLength(4);
+  });
+
+  it('applies fade-in animation to new SSE items', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [mockActivity, mockPrActivity],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(['event-1']),
+    });
+
+    render(<ActivityFeed />);
+
+    const items = screen.getAllByTestId('activity-item');
+    expect(items[0].className).toContain('animate-fade-in');
+    expect(items[1].className).not.toContain('animate-fade-in');
+  });
+
+  it('has accessible feed list role', () => {
+    mockUseActivityFeed.mockReturnValue({
+      activities: [mockActivity],
+      isPending: false,
+      error: null,
+      fetchNextPage: vi.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    });
+    mockUseActivitySse.mockReturnValue({
+      isConnected: true,
+      isReconnecting: false,
+      newItemIds: new Set(),
+    });
+
+    render(<ActivityFeed />);
+
+    expect(screen.getByRole('list', { name: 'Activity feed' })).toBeInTheDocument();
+  });
+});

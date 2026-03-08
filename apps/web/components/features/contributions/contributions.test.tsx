@@ -15,6 +15,7 @@ vi.mock('../../../hooks/use-profile', () => ({
 const mockContribution: ContributionWithCollaborations = {
   id: 'contrib-1',
   contributorId: 'user-1',
+  taskId: null,
   repositoryId: 'repo-1',
   repositoryName: 'org/my-repo',
   source: 'GITHUB',

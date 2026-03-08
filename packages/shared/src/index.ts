@@ -187,9 +187,93 @@ export type {
   WorkingGroup,
   WorkingGroupMember,
   WorkingGroupDetail,
+  DomainHealthIndicators,
   WorkingGroupMemberJoinedEvent,
   WorkingGroupMemberLeftEvent,
+  WorkingGroupLeadAssignedEvent,
 } from './types/working-group.types.js';
+
+export {
+  taskSchema,
+  createTaskSchema,
+  updateTaskSchema,
+  claimTaskSchema,
+  updateTaskStatusSchema,
+  listTasksQuerySchema,
+  reorderTasksSchema,
+} from './schemas/task.schema.js';
+export type {
+  TaskSchemaDto,
+  CreateTaskSchemaDto,
+  UpdateTaskSchemaDto,
+  ClaimTaskSchemaDto,
+  UpdateTaskStatusSchemaDto,
+  ListTasksQuerySchemaDto,
+  ReorderTasksSchemaDto,
+} from './schemas/task.schema.js';
+
+export type {
+  TaskStatus,
+  TaskDifficulty,
+  TaskDto,
+  CreateTaskDto,
+  UpdateTaskDto,
+  ReorderTasksDto,
+  TaskListResponse,
+  TaskDetailResponse,
+  TaskClaimedEvent,
+  TaskStatusChangedEvent,
+  TaskCreatedEvent,
+  TaskRetiredEvent,
+  TasksReorderedEvent,
+} from './types/task.types.js';
+
+export { announcementSchema, createAnnouncementSchema } from './schemas/announcement.schema.js';
+export type {
+  AnnouncementSchemaDto,
+  CreateAnnouncementSchemaDto,
+} from './schemas/announcement.schema.js';
+
+export type {
+  AnnouncementDto,
+  CreateAnnouncementDto,
+  AnnouncementCreatedEvent,
+  AnnouncementDeletedEvent,
+} from './types/announcement.types.js';
+
+export { activityEventSchema, activityFeedQuerySchema } from './schemas/activity.schema.js';
+export type {
+  ActivityEventSchemaDto,
+  ActivityFeedQuerySchemaDto,
+} from './schemas/activity.schema.js';
+
+export type {
+  ActivityEventType,
+  ActivityEvent,
+  ActivityFeedQuery,
+  ActivityFeedResponse,
+  ActivitySseEvent,
+} from './types/activity.types.js';
+
+export {
+  notificationSchema,
+  notificationQuerySchema,
+  unreadCountResponseSchema,
+} from './schemas/notification.schema.js';
+export type {
+  NotificationSchemaDto,
+  NotificationQuerySchemaDto,
+  UnreadCountResponseSchemaDto,
+} from './schemas/notification.schema.js';
+
+export type {
+  NotificationType,
+  NotificationCategory,
+  NotificationDto,
+  NotificationListResponse,
+  UnreadCountResponse,
+  NotificationSseEvent,
+} from './types/notification.types.js';
 
 export type {
   RepositoryStatus,
