@@ -46,3 +46,101 @@ export interface ArticleSubmittedEvent {
   timestamp: string;
   correlationId: string;
 }
+
+// ─── Editorial Types ────────────────────────────────────────────────────────
+
+export const EDITORIAL_DECISIONS = ['APPROVE', 'REQUEST_REVISIONS', 'REJECT'] as const;
+export type EditorialDecision = (typeof EDITORIAL_DECISIONS)[number];
+
+export interface RevisionRequestItem {
+  id: string;
+  description: string;
+  resolved: boolean;
+}
+
+export interface InlineCommentDto {
+  id: string;
+  content: string;
+  highlightStart: number;
+  highlightEnd: number;
+  articleVersion: number;
+  resolved: boolean;
+  createdAt: string;
+}
+
+export interface EditorialFeedbackDto {
+  id: string;
+  articleId: string;
+  editorId: string;
+  decision: EditorialDecision;
+  overallAssessment: string;
+  revisionRequests: RevisionRequestItem[];
+  inlineComments: InlineCommentDto[];
+  articleVersion: number;
+  createdAt: string;
+}
+
+export interface ArticleVersionDto {
+  versionNumber: number;
+  body?: string;
+  createdAt: string;
+}
+
+export interface EditorialViewDto {
+  article: ArticleDto;
+  feedbackHistory: EditorialFeedbackDto[];
+  versions: ArticleVersionDto[];
+}
+
+export interface EditorProfileDto {
+  id: string;
+  displayName: string;
+  profileImageUrl: string | null;
+}
+
+export interface AuthorRevisionViewDto {
+  article: ArticleDto;
+  latestFeedback: EditorialFeedbackDto | null;
+  feedbackHistory: EditorialFeedbackDto[];
+  editorProfile: EditorProfileDto | null;
+}
+
+export interface EditorAssignedEvent {
+  articleId: string;
+  authorId: string;
+  editorId: string;
+  domain: string;
+  title: string;
+  timestamp: string;
+  correlationId: string;
+}
+
+export interface ArticleRevisionRequestedEvent {
+  articleId: string;
+  authorId: string;
+  editorId: string;
+  domain: string;
+  title: string;
+  timestamp: string;
+  correlationId: string;
+}
+
+export interface ArticleApprovedEvent {
+  articleId: string;
+  authorId: string;
+  editorId: string;
+  domain: string;
+  title: string;
+  timestamp: string;
+  correlationId: string;
+}
+
+export interface ArticlePublishedEvent {
+  articleId: string;
+  authorId: string;
+  editorId: string;
+  domain: string;
+  title: string;
+  timestamp: string;
+  correlationId: string;
+}

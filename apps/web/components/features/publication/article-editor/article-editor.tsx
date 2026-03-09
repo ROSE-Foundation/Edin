@@ -18,9 +18,17 @@ const AUTO_SAVE_INTERVAL = 30_000; // 30 seconds
 
 interface ArticleEditorProps {
   initialArticle?: ArticleDto | null;
+  resubmitMode?: boolean;
+  onResubmit?: (body: string) => Promise<void>;
+  isResubmitting?: boolean;
 }
 
-export function ArticleEditor({ initialArticle }: ArticleEditorProps) {
+export function ArticleEditor({
+  initialArticle,
+  resubmitMode,
+  onResubmit,
+  isResubmitting,
+}: ArticleEditorProps) {
   const router = useRouter();
   const [articleId, setArticleId] = useState<string | undefined>(initialArticle?.id);
   const [title, setTitle] = useState(initialArticle?.title ?? '');
@@ -244,13 +252,26 @@ export function ArticleEditor({ initialArticle }: ArticleEditorProps) {
         >
           Back to Drafts
         </button>
-        <button
-          onClick={handleSubmit}
-          disabled={submitArticle.isPending}
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
-        >
-          {submitArticle.isPending ? 'Submitting...' : 'Submit for Review'}
-        </button>
+        {resubmitMode && onResubmit ? (
+          <button
+            onClick={async () => {
+              if (isDirtyRef.current) await save();
+              await onResubmit(body);
+            }}
+            disabled={isResubmitting}
+            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+          >
+            {isResubmitting ? 'Resubmitting...' : 'Resubmit for Review'}
+          </button>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            disabled={submitArticle.isPending}
+            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+          >
+            {submitArticle.isPending ? 'Submitting...' : 'Submit for Review'}
+          </button>
+        )}
       </div>
     </div>
   );

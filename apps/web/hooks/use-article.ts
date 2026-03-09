@@ -9,6 +9,11 @@ import type {
   UpdateArticleDto,
   ApiSuccessResponse,
   PaginationMeta,
+  EditorialViewDto,
+  EditorialFeedbackDto,
+  AuthorRevisionViewDto,
+  ArticleVersionDto,
+  EditorialFeedbackInput,
 } from '@edin/shared';
 
 // ─── Queries ──────────────────────────────────────────────────────────────────
@@ -117,4 +122,151 @@ export function useDeleteArticle() {
       queryClient.invalidateQueries({ queryKey: ['articles', 'drafts'] });
     },
   });
+}
+
+// ─── Editorial Queries ───────────────────────────────────────────────────────
+
+export function useEditorialView(articleId: string | undefined) {
+  const { data, isLoading, error } = useQuery<EditorialViewDto>({
+    queryKey: ['articles', articleId, 'editorial'],
+    enabled: !!articleId,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<EditorialViewDto>>(
+        `/api/v1/articles/${articleId}/editorial`,
+      );
+      return response.data;
+    },
+  });
+
+  return { editorialView: data ?? null, isLoading, error };
+}
+
+export function useAuthorRevisionView(articleId: string | undefined) {
+  const { data, isLoading, error } = useQuery<AuthorRevisionViewDto>({
+    queryKey: ['articles', articleId, 'revisions'],
+    enabled: !!articleId,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<AuthorRevisionViewDto>>(
+        `/api/v1/articles/${articleId}/revisions`,
+      );
+      return response.data;
+    },
+  });
+
+  return { revisionView: data ?? null, isLoading, error };
+}
+
+export function useArticleVersions(articleId: string | undefined) {
+  const { data, isLoading, error } = useQuery<ArticleVersionDto[]>({
+    queryKey: ['articles', articleId, 'versions'],
+    enabled: !!articleId,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<ArticleVersionDto[]>>(
+        `/api/v1/articles/${articleId}/versions`,
+      );
+      return response.data;
+    },
+  });
+
+  return { versions: data ?? [], isLoading, error };
+}
+
+export function useArticleVersion(articleId: string | undefined, version: number | null) {
+  const { data, isLoading, error } = useQuery<ArticleVersionDto>({
+    queryKey: ['articles', articleId, 'versions', version],
+    enabled: !!articleId && version !== null,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<ArticleVersionDto>>(
+        `/api/v1/articles/${articleId}/versions/${version}`,
+      );
+      return response.data;
+    },
+  });
+
+  return { versionData: data ?? null, isLoading, error };
+}
+
+// ─── Editorial Mutations ─────────────────────────────────────────────────────
+
+export function useSubmitFeedback() {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    EditorialFeedbackDto,
+    Error,
+    { articleId: string; data: EditorialFeedbackInput }
+  >({
+    mutationFn: async ({ articleId, data }) => {
+      const response = await apiClient<ApiSuccessResponse<EditorialFeedbackDto>>(
+        `/api/v1/articles/${articleId}/feedback`,
+        { method: 'POST', body: JSON.stringify(data) },
+      );
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['articles', variables.articleId] });
+    },
+  });
+}
+
+export function useResubmitArticle() {
+  const queryClient = useQueryClient();
+
+  return useMutation<ArticleDto, Error, { articleId: string; body: string }>({
+    mutationFn: async ({ articleId, body }) => {
+      const response = await apiClient<ApiSuccessResponse<ArticleDto>>(
+        `/api/v1/articles/${articleId}/resubmit`,
+        { method: 'POST', body: JSON.stringify({ body }) },
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+    },
+  });
+}
+
+export function usePublishArticle() {
+  const queryClient = useQueryClient();
+
+  return useMutation<ArticleDto, Error, string>({
+    mutationFn: async (articleId) => {
+      const response = await apiClient<ApiSuccessResponse<ArticleDto>>(
+        `/api/v1/articles/${articleId}/publish`,
+        { method: 'POST' },
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+    },
+  });
+}
+
+// ─── All Articles Query ──────────────────────────────────────────────────────
+
+interface ArticlesPageResponse {
+  data: ArticleListItemDto[];
+  meta: { timestamp: string; correlationId: string; pagination: PaginationMeta };
+}
+
+export function useAllArticles(status?: string) {
+  const { data, isPending, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery<ArticlesPageResponse>({
+      queryKey: ['articles', 'list', status],
+      queryFn: async ({ pageParam }) => {
+        const params = new URLSearchParams({ limit: '20' });
+        if (status) params.set('status', status);
+        if (pageParam) params.set('cursor', pageParam as string);
+
+        return apiClient<ArticlesPageResponse>(`/api/v1/articles?${params.toString()}`);
+      },
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage.meta.pagination.hasMore ? lastPage.meta.pagination.cursor : undefined,
+    });
+
+  const articles = data?.pages.flatMap((page) => page.data) ?? [];
+
+  return { articles, isPending, error, fetchNextPage, hasNextPage, isFetchingNextPage };
 }

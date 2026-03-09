@@ -399,6 +399,11 @@ export {
   createArticleSchema,
   updateArticleSchema,
   submitArticleSchema,
+  editorialFeedbackSchema,
+  resubmitArticleSchema,
+  inlineCommentInputSchema,
+  editorialDecisionEnum,
+  EDITORIAL_DECISIONS as EDITORIAL_DECISION_VALUES,
   articleDomainEnum,
   ARTICLE_DOMAINS,
 } from './schemas/article.schema.js';
@@ -406,14 +411,58 @@ export type {
   CreateArticleDto,
   UpdateArticleDto,
   SubmitArticleValidation,
+  EditorialFeedbackInput,
+  InlineCommentInput,
+  ResubmitArticleInput,
 } from './schemas/article.schema.js';
 
-export { ARTICLE_STATUSES } from './types/article.types.js';
+export {
+  editorApplicationSchema,
+  reviewEditorApplicationSchema,
+  updateEligibilityCriteriaSchema,
+  revokeEditorSchema,
+  editorApplicationStatusEnum,
+  editorApplicationDecisionEnum,
+  EDITOR_APPLICATION_STATUSES,
+  EDITOR_APPLICATION_DECISIONS,
+} from './schemas/editor.schema.js';
+export type {
+  EditorApplicationInput,
+  ReviewEditorApplicationInput,
+  UpdateEligibilityCriteriaInput,
+  RevokeEditorInput,
+} from './schemas/editor.schema.js';
+
+export type {
+  EditorApplicationStatus,
+  EditorApplicationDto,
+  EditorEligibilityCriteriaDto,
+  EligibilityCheckDto,
+  EditorDashboardDto,
+  ActiveEditorDto,
+  EditorApplicationSubmittedEvent,
+  EditorApplicationReviewedEvent,
+  EditorRoleRevokedEvent,
+} from './types/editor.types.js';
+
+export { ARTICLE_STATUSES, EDITORIAL_DECISIONS } from './types/article.types.js';
 export type {
   ArticleStatus,
   ArticleDto,
   ArticleListItemDto,
   ArticleSubmittedEvent,
+  EditorialDecision,
+  RevisionRequestItem,
+  InlineCommentDto,
+  EditorialFeedbackDto,
+  ArticleVersionDto,
+  EditorialViewDto,
+  EditorProfileDto,
+  AuthorRevisionViewDto,
+  EditorAssignedEvent,
+  ArticleRevisionRequestedEvent,
+  ArticleApprovedEvent,
+  ArticlePublishedEvent,
 } from './types/article.types.js';
 
 export type {

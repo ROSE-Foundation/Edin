@@ -173,6 +173,7 @@ enum NotificationType {
   TASK_ASSIGNED
   ARTICLE_FEEDBACK
   ARTICLE_PUBLISHED
+  EDITOR_APPLICATION_SUBMITTED
 
   @@schema("core")
 }
@@ -245,9 +246,15 @@ model Contributor {
   evaluations                Evaluation[]
   evaluationReviewsAsContributor EvaluationReview[] @relation("EvaluationReviewContributor")
   evaluationReviewsAsReviewer    EvaluationReview[] @relation("EvaluationReviewReviewer")
-  articles               Article[]         @relation("ArticleAuthor")
-  editedArticles         Article[]         @relation("ArticleEditor")
-  articleVersions        ArticleVersion[]  @relation("ArticleVersionCreator")
+  articles               Article[]            @relation("ArticleAuthor")
+  editedArticles         Article[]            @relation("ArticleEditor")
+  articleVersions        ArticleVersion[]     @relation("ArticleVersionCreator")
+  editorialFeedback      EditorialFeedback[]  @relation("EditorialFeedbackEditor")
+  editorialInlineComments InlineComment[]     @relation("InlineCommentEditor")
+  editorApplications     EditorApplication[]  @relation("EditorApplicationContributor")
+  reviewedEditorApps     EditorApplication[]  @relation("EditorApplicationReviewedBy")
+  revokedEditorApps      EditorApplication[]  @relation("EditorApplicationRevokedBy")
+  updatedEditorCriteria  EditorEligibilityCriteria[] @relation("EditorCriteriaUpdatedBy")
 
   @@map("contributors")
   @@schema("core")
@@ -651,6 +658,23 @@ enum ArticleStatus {
   @@schema("publication")
 }
 
+enum EditorialDecision {
+  APPROVE
+  REQUEST_REVISIONS
+  REJECT
+
+  @@schema("publication")
+}
+
+enum EditorApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVOKED
+
+  @@schema("publication")
+}
+
 model Article {
   id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   authorId    String            @map("author_id") @db.Uuid
@@ -667,11 +691,14 @@ model Article {
   submittedAt DateTime?         @map("submitted_at")
   publishedAt DateTime?         @map("published_at")
 
-  author   Contributor      @relation("ArticleAuthor", fields: [authorId], references: [id])
-  editor   Contributor?     @relation("ArticleEditor", fields: [editorId], references: [id])
-  versions ArticleVersion[]
+  author         Contributor         @relation("ArticleAuthor", fields: [authorId], references: [id])
+  editor         Contributor?        @relation("ArticleEditor", fields: [editorId], references: [id])
+  versions       ArticleVersion[]
+  feedback       EditorialFeedback[]
+  inlineComments InlineComment[]
 
   @@index([authorId, status], map: "idx_articles_author_id_status")
+  @@index([editorId, status], map: "idx_articles_editor_id_status")
   @@index([domain, status], map: "idx_articles_domain_status")
   @@map("articles")
   @@schema("publication")
@@ -690,6 +717,88 @@ model ArticleVersion {
 
   @@index([articleId, versionNumber], map: "idx_article_versions_article_version")
   @@map("article_versions")
+  @@schema("publication")
+}
+
+model EditorialFeedback {
+  id                String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  articleId         String            @map("article_id") @db.Uuid
+  editorId          String            @map("editor_id") @db.Uuid
+  decision          EditorialDecision
+  overallAssessment String            @map("overall_assessment") @db.Text
+  revisionRequests  Json?             @map("revision_requests")
+  articleVersion    Int               @map("article_version")
+  createdAt         DateTime          @default(now()) @map("created_at")
+
+  article        Article         @relation(fields: [articleId], references: [id])
+  editor         Contributor     @relation("EditorialFeedbackEditor", fields: [editorId], references: [id])
+  inlineComments InlineComment[]
+
+  @@index([articleId], map: "idx_editorial_feedback_article_id")
+  @@map("editorial_feedback")
+  @@schema("publication")
+}
+
+model InlineComment {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  feedbackId     String   @map("feedback_id") @db.Uuid
+  articleId      String   @map("article_id") @db.Uuid
+  editorId       String   @map("editor_id") @db.Uuid
+  content        String   @db.Text
+  highlightStart Int      @map("highlight_start")
+  highlightEnd   Int      @map("highlight_end")
+  articleVersion Int      @map("article_version")
+  resolved       Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  feedback EditorialFeedback @relation(fields: [feedbackId], references: [id])
+  article  Article           @relation(fields: [articleId], references: [id])
+  editor   Contributor       @relation("InlineCommentEditor", fields: [editorId], references: [id])
+
+  @@index([articleId, articleVersion], map: "idx_inline_comments_article_id_version")
+  @@map("inline_comments")
+  @@schema("publication")
+}
+
+model EditorApplication {
+  id                   String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId        String                  @map("contributor_id") @db.Uuid
+  domain               ContributorDomain
+  status               EditorApplicationStatus @default(PENDING)
+  applicationStatement String                  @map("application_statement") @db.VarChar(300)
+  reviewedById         String?                 @map("reviewed_by_id") @db.Uuid
+  reviewedAt           DateTime?               @map("reviewed_at")
+  reviewNotes          String?                 @map("review_notes") @db.Text
+  revokedAt            DateTime?               @map("revoked_at")
+  revokedById          String?                 @map("revoked_by_id") @db.Uuid
+  revokeReason         String?                 @map("revoke_reason") @db.Text
+  createdAt            DateTime                @default(now()) @map("created_at")
+  updatedAt            DateTime                @updatedAt @map("updated_at")
+
+  contributor Contributor  @relation("EditorApplicationContributor", fields: [contributorId], references: [id])
+  reviewedBy  Contributor? @relation("EditorApplicationReviewedBy", fields: [reviewedById], references: [id])
+  revokedBy   Contributor? @relation("EditorApplicationRevokedBy", fields: [revokedById], references: [id])
+
+  @@unique([contributorId, domain], map: "editor_applications_contributor_domain_key")
+  @@index([status], map: "idx_editor_application_status")
+  @@index([contributorId], map: "idx_editor_application_contributor_id")
+  @@map("editor_applications")
+  @@schema("publication")
+}
+
+model EditorEligibilityCriteria {
+  id                       String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  domain                   ContributorDomain @unique
+  minContributionCount     Int               @default(10) @map("min_contribution_count")
+  minGovernanceWeight      Decimal           @default(0) @map("min_governance_weight") @db.Decimal(5, 2)
+  maxConcurrentAssignments Int               @default(5) @map("max_concurrent_assignments")
+  updatedAt                DateTime          @updatedAt @map("updated_at")
+  updatedById              String?           @map("updated_by_id") @db.Uuid
+
+  updatedBy Contributor? @relation("EditorCriteriaUpdatedBy", fields: [updatedById], references: [id])
+
+  @@map("editor_eligibility_criteria")
   @@schema("publication")
 }
 

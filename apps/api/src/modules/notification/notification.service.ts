@@ -11,6 +11,13 @@ import type {
   EvaluationCompletedEvent,
   EvaluationReviewFlaggedEvent,
   EvaluationReviewResolvedEvent,
+  EditorAssignedEvent,
+  ArticleRevisionRequestedEvent,
+  ArticleApprovedEvent,
+  ArticlePublishedEvent,
+  EditorApplicationSubmittedEvent,
+  EditorApplicationReviewedEvent,
+  EditorRoleRevokedEvent,
 } from '@edin/shared';
 
 export interface NotificationJobData {
@@ -446,6 +453,260 @@ export class NotificationService {
       this.logger.error('Failed to process evaluation review resolved notification', {
         module: 'notification',
         reviewId: event.payload.reviewId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.editor.assigned')
+  async handleEditorAssigned(event: EditorAssignedEvent): Promise<void> {
+    try {
+      await this.enqueueNotification({
+        contributorId: event.editorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: 'New article assigned for review',
+        description: `Article "${event.title}" needs your editorial review`,
+        entityId: event.articleId,
+        category: 'articles',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process editor assigned notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.article.revision-requested')
+  async handleArticleRevisionRequested(event: ArticleRevisionRequestedEvent): Promise<void> {
+    try {
+      await this.enqueueNotification({
+        contributorId: event.authorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: 'Editorial feedback available',
+        description: `Your article "${event.title}" has received editorial feedback`,
+        entityId: event.articleId,
+        category: 'articles',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process article revision requested notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.article.approved')
+  async handleArticleApproved(event: ArticleApprovedEvent): Promise<void> {
+    try {
+      await this.enqueueNotification({
+        contributorId: event.authorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: 'Your article has been approved',
+        description: `Article "${event.title}" has been approved for publication`,
+        entityId: event.articleId,
+        category: 'articles',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process article approved notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.article.published')
+  async handleArticlePublished(event: ArticlePublishedEvent): Promise<void> {
+    try {
+      // Notify author
+      await this.enqueueNotification({
+        contributorId: event.authorId,
+        type: 'ARTICLE_PUBLISHED',
+        title: 'Your article is now live',
+        description: `Article "${event.title}" has been published on the platform`,
+        entityId: event.articleId,
+        category: 'articles',
+        correlationId: event.correlationId,
+      });
+
+      // Notify editor if exists
+      if (event.editorId) {
+        await this.enqueueNotification({
+          contributorId: event.editorId,
+          type: 'ARTICLE_PUBLISHED',
+          title: 'An article you edited is now live',
+          description: `Article "${event.title}" has been published`,
+          entityId: event.articleId,
+          category: 'articles',
+          correlationId: event.correlationId,
+        });
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process article published notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.article.rejected')
+  async handleArticleRejected(event: ArticleApprovedEvent): Promise<void> {
+    try {
+      await this.enqueueNotification({
+        contributorId: event.authorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: 'Your article has been rejected',
+        description: `Article "${event.title}" did not meet editorial standards`,
+        entityId: event.articleId,
+        category: 'articles',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process article rejected notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.editor.unavailable')
+  async handleEditorUnavailable(event: {
+    articleId: string;
+    authorId: string;
+    domain: string;
+    title: string;
+    correlationId: string;
+  }): Promise<void> {
+    try {
+      const admins = await this.prisma.contributor.findMany({
+        where: { role: 'ADMIN', isActive: true },
+        select: { id: true },
+      });
+
+      if (admins.length === 0) return;
+
+      const jobs = admins.map((admin) => ({
+        name: 'send-notification',
+        data: {
+          contributorId: admin.id,
+          type: 'ARTICLE_FEEDBACK' as PrismaNotificationType,
+          title: 'No editor available for submitted article',
+          description: `Article "${event.title}" (${event.domain}) needs an editor — none available`,
+          entityId: event.articleId,
+          category: 'articles',
+          correlationId: event.correlationId,
+        } satisfies NotificationJobData,
+        opts: { removeOnComplete: true, removeOnFail: false },
+      }));
+
+      await this.notificationQueue.addBulk(jobs);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process editor unavailable notification', {
+        module: 'notification',
+        articleId: event.articleId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.editor.application-submitted')
+  async handleEditorApplicationSubmitted(event: EditorApplicationSubmittedEvent): Promise<void> {
+    try {
+      const admins = await this.prisma.contributor.findMany({
+        where: { role: 'ADMIN', isActive: true },
+        select: { id: true },
+      });
+
+      if (admins.length === 0) return;
+
+      const jobs = admins.map((admin) => ({
+        name: 'send-notification',
+        data: {
+          contributorId: admin.id,
+          type: 'EDITOR_APPLICATION_SUBMITTED' as PrismaNotificationType,
+          title: 'New editor application received',
+          description: `${event.contributorName} applied to be an editor for ${event.domain}`,
+          entityId: event.applicationId,
+          category: 'editorial',
+          correlationId: event.correlationId,
+        } satisfies NotificationJobData,
+        opts: { removeOnComplete: true, removeOnFail: false },
+      }));
+
+      await this.notificationQueue.addBulk(jobs);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process editor application submitted notification', {
+        module: 'notification',
+        applicationId: event.applicationId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.editor.application-reviewed')
+  async handleEditorApplicationReviewed(event: EditorApplicationReviewedEvent): Promise<void> {
+    try {
+      const decisionText = event.decision === 'APPROVED' ? 'approved' : 'rejected';
+      await this.enqueueNotification({
+        contributorId: event.contributorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: `Your editor application has been ${decisionText}`,
+        description: `Your application to be an editor for ${event.domain} has been ${decisionText}`,
+        entityId: event.applicationId,
+        category: 'editorial',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process editor application reviewed notification', {
+        module: 'notification',
+        applicationId: event.applicationId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('publication.editor.role-revoked')
+  async handleEditorRoleRevoked(event: EditorRoleRevokedEvent): Promise<void> {
+    try {
+      await this.enqueueNotification({
+        contributorId: event.contributorId,
+        type: 'ARTICLE_FEEDBACK',
+        title: 'Your editor status has been revoked',
+        description: `Your editor status for ${event.domain} has been revoked: ${event.reason}`,
+        entityId: event.contributorId,
+        category: 'editorial',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process editor role revoked notification', {
+        module: 'notification',
+        contributorId: event.contributorId,
         correlationId: event.correlationId,
         error: message,
       });

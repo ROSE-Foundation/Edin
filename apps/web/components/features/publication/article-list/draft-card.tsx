@@ -3,9 +3,16 @@
 import Link from 'next/link';
 import type { ArticleListItemDto } from '@edin/shared';
 import { DOMAIN_COLORS } from '../domain-colors';
+import { StatusBadge } from '../editorial-workflow/article-lifecycle';
 
 interface DraftCardProps {
   article: ArticleListItemDto;
+}
+
+function getCardLink(article: ArticleListItemDto): string {
+  // All author-facing statuses link to edit page
+  // Editors access review page separately (not through the article list)
+  return `/dashboard/publication/${article.id}/edit`;
 }
 
 export function DraftCard({ article }: DraftCardProps) {
@@ -15,10 +22,11 @@ export function DraftCard({ article }: DraftCardProps) {
     day: 'numeric',
     year: 'numeric',
   });
+  const isRevisionRequested = article.status === 'REVISION_REQUESTED';
 
   return (
     <Link
-      href={`/dashboard/publication/${article.id}/edit`}
+      href={getCardLink(article)}
       className="group block rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] transition-shadow hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-[var(--spacing-md)]">
@@ -41,9 +49,12 @@ export function DraftCard({ article }: DraftCardProps) {
       </div>
       <div className="mt-[var(--spacing-md)] flex items-center gap-[var(--spacing-md)] font-sans text-[12px] text-brand-secondary">
         <span>Last edited {updatedDate}</span>
-        <span className="rounded-[4px] bg-surface-sunken px-[var(--spacing-xs)] py-[1px] text-[11px] uppercase">
-          {article.status}
-        </span>
+        <StatusBadge status={article.status} domain={article.domain} />
+        {isRevisionRequested && (
+          <span className="rounded-[4px] bg-[#FAEAE4] px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-[#C17C60]">
+            Feedback available
+          </span>
+        )}
       </div>
     </Link>
   );

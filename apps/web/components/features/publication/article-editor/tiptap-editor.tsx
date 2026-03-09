@@ -16,9 +16,15 @@ interface TiptapEditorProps {
   content: string;
   onChange: (content: string) => void;
   placeholder?: string;
+  editable?: boolean;
 }
 
-export function TiptapEditor({ content, onChange, placeholder }: TiptapEditorProps) {
+export function TiptapEditor({
+  content,
+  onChange,
+  placeholder,
+  editable = true,
+}: TiptapEditorProps) {
   const [slashMenuOpen, setSlashMenuOpen] = useState(false);
   const [slashMenuPos, setSlashMenuPos] = useState({ top: 0, left: 0 });
   const editorWrapperRef = useRef<HTMLDivElement>(null);
@@ -36,9 +42,10 @@ export function TiptapEditor({ content, onChange, placeholder }: TiptapEditorPro
       }),
       CodeBlockLowlight.configure({ lowlight }),
     ],
+    editable,
     content: parseContent(content),
     onUpdate: ({ editor: ed }) => {
-      onChange(JSON.stringify(ed.getJSON()));
+      if (editable) onChange(JSON.stringify(ed.getJSON()));
     },
     editorProps: {
       attributes: {
