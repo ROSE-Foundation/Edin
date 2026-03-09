@@ -326,6 +326,33 @@ export {
   RUBRIC_QUESTIONS,
 } from './constants/feedback-rubric.js';
 
+export {
+  DEFAULT_CODE_WEIGHTS,
+  FORMULA_VERSION,
+  MAX_EVALUATION_FILES,
+  MAX_PATCH_LENGTH,
+  EVALUATION_CACHE_TTL,
+} from './constants/evaluation.js';
+
+export { evaluationStatusEnum, evaluationQuerySchema } from './schemas/evaluation.schema.js';
+export type { EvaluationQuerySchemaDto } from './schemas/evaluation.schema.js';
+
+export type {
+  EvaluationStatus,
+  EvaluationModelStatus,
+  EvaluationDimensionKey,
+  EvaluationDimensionScoreDto,
+  EvaluationDimensionScoresDto,
+  EvaluationDto,
+  EvaluationWithContributionDto,
+  EvaluationModelDto,
+  EvaluationDispatchJobDto,
+  EvaluationCompletedEvent,
+  EvaluationFailedEvent,
+  EvaluationScoringWeights,
+  EvaluationProvenanceDto,
+} from './types/evaluation.types.js';
+
 export type {
   RepositoryStatus,
   MonitoredRepository as MonitoredRepositoryType,

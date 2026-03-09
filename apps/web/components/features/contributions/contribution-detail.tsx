@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { useContributionDetail } from '../../../hooks/use-contribution-detail';
 import { useConfirmCollaboration, useDisputeCollaboration } from '../../../hooks/use-collaboration';
+import { useEvaluationStatus } from '../../../hooks/use-evaluations';
 import { useProfile } from '../../../hooks/use-profile';
+import { EvaluationStatusBadge } from '../evaluation/evaluation-status-badge';
 import type { ContributionCollaborationType } from '@edin/shared';
 
 const TYPE_LABELS: Record<string, string> = {
@@ -135,6 +137,7 @@ function CollaborationActions({ collaboration }: { collaboration: ContributionCo
 export function ContributionDetail({ contributionId, onClose }: ContributionDetailProps) {
   const { contribution, isLoading } = useContributionDetail(contributionId);
   const { profile } = useProfile();
+  const { status: evaluationStatus } = useEvaluationStatus(contributionId);
 
   if (isLoading) {
     return (
@@ -184,11 +187,17 @@ export function ContributionDetail({ contributionId, onClose }: ContributionDeta
         </button>
       </div>
 
-      {/* Status indicator - calm style per UX spec */}
-      <div className="mt-[var(--spacing-md)] inline-flex items-center rounded-full border border-surface-border bg-surface-sunken px-[var(--spacing-sm)] py-[2px]">
-        <span className="font-sans text-[13px] text-brand-secondary">
-          {contribution.status === 'EVALUATED' ? 'Evaluated' : 'Awaiting evaluation'}
-        </span>
+      {/* Evaluation status — calm style per UX spec */}
+      <div className="mt-[var(--spacing-md)]">
+        {evaluationStatus ? (
+          <EvaluationStatusBadge status={evaluationStatus} />
+        ) : (
+          <div className="inline-flex items-center rounded-full border border-surface-border bg-surface-sunken px-[var(--spacing-sm)] py-[2px]">
+            <span className="font-sans text-[13px] text-brand-secondary">
+              {contribution.status === 'EVALUATED' ? 'Evaluated' : 'Awaiting evaluation'}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Details grid */}

@@ -1,0 +1,117 @@
+import { Controller, Get, Param, Query, UseGuards, Logger, HttpStatus } from '@nestjs/common';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard.js';
+import { CurrentUser } from '../../common/decorators/current-user.decorator.js';
+import type { CurrentUserPayload } from '../../common/decorators/current-user.decorator.js';
+import { createSuccessResponse } from '../../common/types/api-response.type.js';
+import { DomainException } from '../../common/exceptions/domain.exception.js';
+import { ERROR_CODES, evaluationQuerySchema } from '@edin/shared';
+import { EvaluationService } from './evaluation.service.js';
+import { randomUUID } from 'crypto';
+
+@Controller({ path: 'evaluations', version: '1' })
+@UseGuards(JwtAuthGuard)
+export class EvaluationController {
+  private readonly logger = new Logger(EvaluationController.name);
+
+  constructor(private readonly evaluationService: EvaluationService) {}
+
+  @Get()
+  async getMyEvaluations(
+    @CurrentUser() user: CurrentUserPayload,
+    @Query() query: Record<string, unknown>,
+  ) {
+    const correlationId = randomUUID();
+    const parsed = evaluationQuerySchema.safeParse(query);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid query parameters',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({
+          field: e.path.join('.'),
+          message: e.message,
+        })),
+      );
+    }
+
+    const result = await this.evaluationService.getEvaluationsForContributor(user.id, parsed.data);
+
+    this.logger.debug('Listed evaluations', {
+      module: 'evaluation',
+      userId: user.id,
+      correlationId,
+    });
+
+    return createSuccessResponse(result.items, correlationId, result.pagination);
+  }
+
+  @Get('contribution/:contributionId')
+  async getEvaluationByContribution(
+    @CurrentUser() user: CurrentUserPayload,
+    @Param('contributionId') contributionId: string,
+  ) {
+    const correlationId = randomUUID();
+    const result = await this.evaluationService.getEvaluationByContribution(contributionId);
+
+    if (!result) {
+      throw new DomainException(
+        ERROR_CODES.EVALUATION_NOT_FOUND,
+        'No evaluation found for this contribution',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (result.contributorId !== user.id && user.role !== 'ADMIN') {
+      throw new DomainException(
+        ERROR_CODES.FORBIDDEN,
+        'You can only view your own evaluations',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    return createSuccessResponse(result, correlationId);
+  }
+
+  @Get('contribution/:contributionId/status')
+  async getEvaluationStatus(
+    @CurrentUser() user: CurrentUserPayload,
+    @Param('contributionId') contributionId: string,
+  ) {
+    const correlationId = randomUUID();
+    const result = await this.evaluationService.getEvaluationStatus(contributionId);
+
+    if (result && result.contributorId !== user.id && user.role !== 'ADMIN') {
+      throw new DomainException(
+        ERROR_CODES.FORBIDDEN,
+        'You can only view your own evaluations',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    return createSuccessResponse({ status: result?.status ?? null }, correlationId);
+  }
+
+  @Get(':id')
+  async getEvaluation(@CurrentUser() user: CurrentUserPayload, @Param('id') id: string) {
+    const correlationId = randomUUID();
+    const result = await this.evaluationService.getEvaluation(id);
+
+    if (result.contributorId !== user.id && user.role !== 'ADMIN') {
+      throw new DomainException(
+        ERROR_CODES.FORBIDDEN,
+        'You can only view your own evaluations',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    this.logger.debug('Retrieved evaluation', {
+      module: 'evaluation',
+      evaluationId: id,
+      userId: user.id,
+      correlationId,
+    });
+
+    return createSuccessResponse(result, correlationId);
+  }
+}

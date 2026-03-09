@@ -15,6 +15,7 @@
     "test:cov": "vitest run --coverage"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
     "@casl/ability": "^6.8.0",
     "@casl/prisma": "^1.6.1",
     "@edin/shared": "workspace:*",

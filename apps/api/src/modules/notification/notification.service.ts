@@ -8,6 +8,7 @@ import type {
   FeedbackAssignmentEvent,
   FeedbackSubmittedEvent,
   FeedbackReassignedEvent,
+  EvaluationCompletedEvent,
 } from '@edin/shared';
 
 export interface NotificationJobData {
@@ -316,6 +317,36 @@ export class NotificationService {
       this.logger.error('Failed to process feedback review submitted notification', {
         module: 'notification',
         peerFeedbackId: event.payload.peerFeedbackId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('evaluation.score.completed')
+  async handleEvaluationCompleted(event: EvaluationCompletedEvent): Promise<void> {
+    try {
+      const typeLabel =
+        event.payload.contributionType === 'COMMIT'
+          ? 'commit'
+          : event.payload.contributionType === 'PULL_REQUEST'
+            ? 'pull request'
+            : 'code review';
+
+      await this.enqueueNotification({
+        contributorId: event.payload.contributorId,
+        type: 'EVALUATION_COMPLETED',
+        title: 'Your contribution has been evaluated',
+        description: `${typeLabel}: ${event.payload.contributionTitle} — Score: ${event.payload.compositeScore}`,
+        entityId: event.payload.evaluationId,
+        category: 'evaluation',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process evaluation completed notification', {
+        module: 'notification',
+        evaluationId: event.payload.evaluationId,
         correlationId: event.correlationId,
         error: message,
       });

@@ -7,6 +7,7 @@ import type {
   FeedbackAssignmentEvent,
   FeedbackSubmittedEvent,
   FeedbackReassignedEvent,
+  EvaluationCompletedEvent,
 } from '@edin/shared';
 import type {
   ContributionType as PrismaContributionType,
@@ -413,6 +414,34 @@ export class ActivityService {
       this.logger.error('Failed to create feedback reassigned activity event', {
         module: 'activity',
         peerFeedbackId: event.payload.peerFeedbackId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('evaluation.score.completed')
+  async handleEvaluationCompleted(event: EvaluationCompletedEvent): Promise<void> {
+    try {
+      await this.createActivityEvent({
+        eventType: 'EVALUATION_COMPLETED',
+        title: `Your contribution '${event.payload.contributionTitle}' has been evaluated`,
+        contributorId: event.payload.contributorId,
+        domain: (event.payload.domain as ContributorDomain) ?? ('Technology' as ContributorDomain),
+        entityId: event.payload.evaluationId,
+        metadata: {
+          evaluationId: event.payload.evaluationId,
+          contributionId: event.payload.contributionId,
+          contributionType: event.payload.contributionType,
+          compositeScore: event.payload.compositeScore,
+          domain: event.payload.domain,
+        },
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to create evaluation completed activity event', {
+        module: 'activity',
+        evaluationId: event.payload.evaluationId,
         correlationId: event.correlationId,
         error: message,
       });

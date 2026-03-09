@@ -1,0 +1,101 @@
+export type EvaluationStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED';
+
+export type EvaluationModelStatus = 'ACTIVE' | 'DEPRECATED' | 'RETIRED';
+
+export type EvaluationDimensionKey =
+  | 'complexity'
+  | 'maintainability'
+  | 'testCoverage'
+  | 'standardsAdherence';
+
+export interface EvaluationDimensionScoreDto {
+  score: number;
+  explanation: string;
+}
+
+export type EvaluationDimensionScoresDto = Record<
+  EvaluationDimensionKey,
+  EvaluationDimensionScoreDto
+>;
+
+export interface EvaluationDto {
+  id: string;
+  contributionId: string;
+  contributorId: string;
+  modelId: string | null;
+  status: EvaluationStatus;
+  compositeScore: number | null;
+  dimensionScores: EvaluationDimensionScoresDto | null;
+  narrative: string | null;
+  formulaVersion: string | null;
+  startedAt: string | null;
+  completedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EvaluationWithContributionDto extends EvaluationDto {
+  contribution: {
+    id: string;
+    title: string;
+    contributionType: string;
+    sourceRef: string;
+  };
+}
+
+export interface EvaluationModelDto {
+  id: string;
+  name: string;
+  version: string;
+  provider: string;
+  status: EvaluationModelStatus;
+  createdAt: string;
+}
+
+export interface EvaluationDispatchJobDto {
+  contributionId: string;
+  contributionType: string;
+  contributorId: string;
+  correlationId: string;
+}
+
+export interface EvaluationCompletedEvent {
+  eventType: 'evaluation.score.completed';
+  timestamp: string;
+  correlationId: string;
+  actorId: string;
+  payload: {
+    evaluationId: string;
+    contributionId: string;
+    contributorId: string;
+    contributionTitle: string;
+    contributionType: string;
+    compositeScore: number;
+    domain: string | null;
+  };
+}
+
+export interface EvaluationFailedEvent {
+  eventType: 'evaluation.score.failed';
+  timestamp: string;
+  correlationId: string;
+  actorId: string;
+  payload: {
+    evaluationId: string;
+    contributionId: string;
+    contributorId: string;
+    reason: string;
+  };
+}
+
+export type EvaluationScoringWeights = Record<EvaluationDimensionKey, number>;
+
+export interface EvaluationProvenanceDto {
+  formulaVersion: string;
+  weights: EvaluationScoringWeights;
+  taskComplexityMultiplier: number;
+  domainNormalizationFactor: number;
+  modelPromptVersion: string;
+  inputTokenCount?: number;
+  outputTokenCount?: number;
+}

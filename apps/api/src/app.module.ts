@@ -19,6 +19,7 @@ import { TaskModule } from './modules/task/task.module.js';
 import { ActivityModule } from './modules/activity/activity.module.js';
 import { NotificationModule } from './modules/notification/notification.module.js';
 import { FeedbackModule } from './modules/feedback/feedback.module.js';
+import { EvaluationModule } from './modules/evaluation/evaluation.module.js';
 import { validateConfig } from './config/app.config.js';
 import type { AppConfig } from './config/app.config.js';
 
@@ -91,6 +92,7 @@ import type { AppConfig } from './config/app.config.js';
     ActivityModule,
     NotificationModule,
     FeedbackModule,
+    EvaluationModule,
   ],
 })
 export class AppModule {}
