@@ -147,6 +147,7 @@ enum ActivityEventType {
   TASK_COMPLETED
   FEEDBACK_ASSIGNED
   FEEDBACK_SUBMITTED
+  FEEDBACK_REASSIGNED
 
   @@schema("core")
 }
@@ -211,6 +212,7 @@ model Contributor {
   activityEvents             ActivityEvent[]
   notifications              Notification[]
   peerFeedbacksGiven         PeerFeedback[]      @relation("ReviewerFeedbacks")
+  platformSettings           PlatformSetting[]
 
   @@map("contributors")
   @@schema("core")
@@ -550,6 +552,19 @@ model PeerFeedback {
   @@index([contributionId], map: "idx_peer_feedback_contribution")
   @@index([status, assignedAt], map: "idx_peer_feedback_status_assigned")
   @@map("peer_feedbacks")
+  @@schema("core")
+}
+
+model PlatformSetting {
+  key       String   @id
+  value     Json
+  updatedBy String?  @map("updated_by") @db.Uuid
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  updater   Contributor? @relation(fields: [updatedBy], references: [id])
+
+  @@map("platform_settings")
   @@schema("core")
 }
 

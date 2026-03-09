@@ -111,3 +111,63 @@ export interface ReceivedFeedbackDto {
     domain: string | null;
   };
 }
+
+export interface FeedbackMetricsDto {
+  pendingCount: number;
+  avgTurnaroundHours: number;
+  completionRate: number;
+  overdueCount: number;
+  rubricCoverageRate: number;
+  totalAssigned: number;
+  totalCompleted: number;
+}
+
+export interface OverdueReviewDto {
+  id: string;
+  reviewerId: string;
+  reviewerName: string;
+  reviewerAvatarUrl: string | null;
+  contributionId: string;
+  contributionTitle: string;
+  contributionType: string;
+  domain: string;
+  assignedAt: string;
+  hoursElapsed: number;
+}
+
+export interface ReassignFeedbackDto {
+  newReviewerId: string;
+  reason: string;
+}
+
+export interface FeedbackReassignedEvent {
+  eventType: 'feedback.review.reassigned';
+  timestamp: string;
+  correlationId: string;
+  actorId: string;
+  payload: {
+    peerFeedbackId: string;
+    oldReviewerId: string;
+    newReviewerId: string;
+    newPeerFeedbackId: string;
+    contributionId: string;
+    contributionTitle: string;
+    contributionType: string;
+    domain: string;
+    reason: string;
+  };
+}
+
+export interface EligibleReviewerDto {
+  id: string;
+  name: string;
+  avatarUrl: string | null;
+  domain: string;
+  pendingReviewCount: number;
+}
+
+export interface PlatformSettingDto {
+  key: string;
+  value: unknown;
+  updatedAt: string;
+}

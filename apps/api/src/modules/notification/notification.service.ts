@@ -4,7 +4,11 @@ import { OnEvent } from '@nestjs/event-emitter';
 import type { Queue } from 'bullmq';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import type { NotificationType as PrismaNotificationType } from '../../../generated/prisma/client/enums.js';
-import type { FeedbackAssignmentEvent, FeedbackSubmittedEvent } from '@edin/shared';
+import type {
+  FeedbackAssignmentEvent,
+  FeedbackSubmittedEvent,
+  FeedbackReassignedEvent,
+} from '@edin/shared';
 
 export interface NotificationJobData {
   contributorId: string;
@@ -310,6 +314,36 @@ export class NotificationService {
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       this.logger.error('Failed to process feedback review submitted notification', {
+        module: 'notification',
+        peerFeedbackId: event.payload.peerFeedbackId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('feedback.review.reassigned')
+  async handleFeedbackReviewReassigned(event: FeedbackReassignedEvent): Promise<void> {
+    try {
+      const typeLabel =
+        event.payload.contributionType === 'COMMIT'
+          ? 'commit'
+          : event.payload.contributionType === 'PULL_REQUEST'
+            ? 'pull request'
+            : 'code review';
+
+      await this.enqueueNotification({
+        contributorId: event.payload.newReviewerId,
+        type: 'PEER_FEEDBACK_AVAILABLE',
+        title: "You've been assigned to review a contribution",
+        description: `Review ${typeLabel}: ${event.payload.contributionTitle}`,
+        entityId: event.payload.newPeerFeedbackId,
+        category: 'feedback',
+        correlationId: event.correlationId,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to process feedback review reassigned notification', {
         module: 'notification',
         peerFeedbackId: event.payload.peerFeedbackId,
         correlationId: event.correlationId,

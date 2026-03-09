@@ -9,6 +9,7 @@ const activityEventTypeEnum = z.enum([
   'TASK_COMPLETED',
   'FEEDBACK_ASSIGNED',
   'FEEDBACK_SUBMITTED',
+  'FEEDBACK_REASSIGNED',
 ]);
 const contributionTypeEnum = z.enum(['COMMIT', 'PULL_REQUEST', 'CODE_REVIEW']);
 

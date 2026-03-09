@@ -73,3 +73,21 @@ export type FeedbackAssignmentSchemaDto = z.infer<typeof feedbackAssignmentSchem
 export type RubricResponseSchemaDto = z.infer<typeof rubricResponseSchema>;
 export type FeedbackSubmissionSchemaDto = z.infer<typeof feedbackSubmissionSchema>;
 export type FeedbackDetailSchemaDto = z.infer<typeof feedbackDetailSchema>;
+
+export const reassignFeedbackSchema = z.object({
+  newReviewerId: z.string().uuid(),
+  reason: z.string().min(10).max(500),
+});
+
+export const feedbackMonitoringQuerySchema = z.object({
+  cursor: z.string().optional(),
+  limit: z.coerce.number().int().min(1).max(50).default(20),
+});
+
+export const slaUpdateSchema = z.object({
+  hours: z.coerce.number().int().min(1).max(720),
+});
+
+export type ReassignFeedbackSchemaDto = z.infer<typeof reassignFeedbackSchema>;
+export type FeedbackMonitoringQuerySchemaDto = z.infer<typeof feedbackMonitoringQuerySchema>;
+export type SlaUpdateSchemaDto = z.infer<typeof slaUpdateSchema>;

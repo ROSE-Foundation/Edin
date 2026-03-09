@@ -3,6 +3,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { PrismaModule } from '../../prisma/prisma.module.js';
 import { CaslModule } from '../auth/casl/casl.module.js';
 import { RedisModule } from '../../common/redis/redis.module.js';
+import { SettingsModule } from '../settings/settings.module.js';
 import { FeedbackController } from './feedback.controller.js';
 import { FeedbackAdminController } from './feedback-admin.controller.js';
 import { FeedbackService } from './feedback.service.js';
@@ -13,6 +14,7 @@ import { FeedbackAssignmentProcessor } from './feedback-assignment.processor.js'
     PrismaModule,
     CaslModule,
     RedisModule,
+    SettingsModule,
     BullModule.registerQueue({
       name: 'feedback-assignment',
       defaultJobOptions: {

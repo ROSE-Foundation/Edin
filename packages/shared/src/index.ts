@@ -283,6 +283,9 @@ export {
   rubricResponseSchema,
   feedbackSubmissionSchema,
   feedbackDetailSchema,
+  reassignFeedbackSchema,
+  feedbackMonitoringQuerySchema,
+  slaUpdateSchema,
 } from './schemas/feedback.schema.js';
 export type {
   PeerFeedbackSchemaDto,
@@ -291,6 +294,9 @@ export type {
   RubricResponseSchemaDto,
   FeedbackSubmissionSchemaDto,
   FeedbackDetailSchemaDto,
+  ReassignFeedbackSchemaDto,
+  FeedbackMonitoringQuerySchemaDto,
+  SlaUpdateSchemaDto,
 } from './schemas/feedback.schema.js';
 
 export type {
@@ -304,6 +310,12 @@ export type {
   FeedbackDetailDto,
   FeedbackSubmittedEvent,
   ReceivedFeedbackDto,
+  FeedbackMetricsDto,
+  OverdueReviewDto,
+  ReassignFeedbackDto,
+  FeedbackReassignedEvent,
+  EligibleReviewerDto,
+  PlatformSettingDto,
 } from './types/feedback.types.js';
 
 export {

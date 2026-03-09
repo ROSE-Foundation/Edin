@@ -6,6 +6,7 @@ import type {
   ActivityEventType,
   FeedbackAssignmentEvent,
   FeedbackSubmittedEvent,
+  FeedbackReassignedEvent,
 } from '@edin/shared';
 import type {
   ContributionType as PrismaContributionType,
@@ -381,6 +382,35 @@ export class ActivityService {
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       this.logger.error('Failed to create feedback submitted activity event', {
+        module: 'activity',
+        peerFeedbackId: event.payload.peerFeedbackId,
+        correlationId: event.correlationId,
+        error: message,
+      });
+    }
+  }
+
+  @OnEvent('feedback.review.reassigned')
+  async handleFeedbackReassigned(event: FeedbackReassignedEvent): Promise<void> {
+    try {
+      await this.createActivityEvent({
+        eventType: 'FEEDBACK_REASSIGNED',
+        title: `Peer review reassigned for ${event.payload.contributionTitle}`,
+        contributorId: event.payload.newReviewerId,
+        domain: (event.payload.domain as ContributorDomain) ?? ('Technology' as ContributorDomain),
+        entityId: event.payload.newPeerFeedbackId,
+        metadata: {
+          peerFeedbackId: event.payload.peerFeedbackId,
+          contributionId: event.payload.contributionId,
+          contributionType: event.payload.contributionType,
+          oldReviewerId: event.payload.oldReviewerId,
+          newReviewerId: event.payload.newReviewerId,
+          reason: event.payload.reason,
+        },
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.logger.error('Failed to create feedback reassigned activity event', {
         module: 'activity',
         peerFeedbackId: event.payload.peerFeedbackId,
         correlationId: event.correlationId,

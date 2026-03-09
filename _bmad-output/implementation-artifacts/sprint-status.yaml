@@ -70,7 +70,7 @@ development_status:
 
   # Epic 4: GitHub Integration & Contribution Tracking
   epic-4: in-progress
-  4-1-github-repository-connection-and-webhook-configuration: in-progress
+  4-1-github-repository-connection-and-webhook-configuration: done
   4-2-contribution-ingestion-pipeline: done
   4-3-contribution-attribution-and-dashboard-display: review
   4-4-multi-contributor-collaboration-detection: done
@@ -86,10 +86,10 @@ development_status:
   epic-5-retrospective: optional
 
   # Epic 6: Peer Feedback System
-  epic-6: in-progress
+  epic-6: done
   6-1-peer-reviewer-assignment: done
   6-2-structured-feedback-rubric-and-submission: done
-  6-3-feedback-monitoring-and-tracking: backlog
+  6-3-feedback-monitoring-and-tracking: done
   epic-6-retrospective: optional
 
   # Epic 7: AI Evaluation Engine
