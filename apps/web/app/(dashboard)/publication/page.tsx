@@ -7,6 +7,8 @@ import { useAllArticles } from '../../../hooks/use-article';
 import { useEditorDashboard, useClaimArticle } from '../../../hooks/use-editor-eligibility';
 import { DraftCard } from '../../../components/features/publication/article-list/draft-card';
 import { EditorDashboardSection } from '../../../components/features/publication/editor-eligibility/editor-dashboard-section';
+import { EditorRewardSummary } from '../../../components/features/publication/metrics/editor-reward-summary';
+import { useEditorRewardSummary } from '../../../hooks/use-article';
 
 const TABS = [
   { id: 'all', label: 'All', status: undefined },
@@ -25,6 +27,7 @@ export default function PublicationPage() {
     useAllArticles(selectedTab.status);
   const { dashboard } = useEditorDashboard(isEditor);
   const claimArticle = useClaimArticle();
+  const { summary: editorRewardSummary } = useEditorRewardSummary();
 
   return (
     <div className="mx-auto max-w-[960px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
@@ -48,13 +51,20 @@ export default function PublicationPage() {
 
       {/* Editor Dashboard (shown when user has editor data) */}
       {dashboard && (
-        <EditorDashboardSection
-          activeAssignments={dashboard.activeAssignments}
-          completedReviews={dashboard.completedReviews}
-          availableArticles={dashboard.availableArticles}
-          onClaim={(articleId) => claimArticle.mutate(articleId)}
-          isClaiming={claimArticle.isPending}
-        />
+        <>
+          <EditorDashboardSection
+            activeAssignments={dashboard.activeAssignments}
+            completedReviews={dashboard.completedReviews}
+            availableArticles={dashboard.availableArticles}
+            onClaim={(articleId) => claimArticle.mutate(articleId)}
+            isClaiming={claimArticle.isPending}
+          />
+          {editorRewardSummary && (
+            <div className="mb-[var(--spacing-xl)]">
+              <EditorRewardSummary summary={editorRewardSummary} />
+            </div>
+          )}
+        </>
       )}
 
       {/* Status filter tabs */}

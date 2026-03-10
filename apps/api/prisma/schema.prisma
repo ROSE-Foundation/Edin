@@ -255,6 +255,8 @@ model Contributor {
   reviewedEditorApps     EditorApplication[]  @relation("EditorApplicationReviewedBy")
   revokedEditorApps      EditorApplication[]  @relation("EditorApplicationRevokedBy")
   updatedEditorCriteria  EditorEligibilityCriteria[] @relation("EditorCriteriaUpdatedBy")
+  authorRewardAllocations  ArticleRewardAllocation[] @relation("AuthorRewardAllocations")
+  editorRewardAllocations  ArticleRewardAllocation[] @relation("EditorRewardAllocations")
 
   @@map("contributors")
   @@schema("core")
@@ -691,11 +693,13 @@ model Article {
   submittedAt DateTime?         @map("submitted_at")
   publishedAt DateTime?         @map("published_at")
 
-  author         Contributor         @relation("ArticleAuthor", fields: [authorId], references: [id])
-  editor         Contributor?        @relation("ArticleEditor", fields: [editorId], references: [id])
-  versions       ArticleVersion[]
-  feedback       EditorialFeedback[]
-  inlineComments InlineComment[]
+  author             Contributor              @relation("ArticleAuthor", fields: [authorId], references: [id])
+  editor             Contributor?             @relation("ArticleEditor", fields: [editorId], references: [id])
+  versions           ArticleVersion[]
+  feedback           EditorialFeedback[]
+  inlineComments     InlineComment[]
+  views              ArticleView[]
+  rewardAllocation   ArticleRewardAllocation?
 
   @@index([authorId, status], map: "idx_articles_author_id_status")
   @@index([editorId, status], map: "idx_articles_editor_id_status")
@@ -800,6 +804,46 @@ model EditorEligibilityCriteria {
   updatedBy Contributor? @relation("EditorCriteriaUpdatedBy", fields: [updatedById], references: [id])
 
   @@map("editor_eligibility_criteria")
+  @@schema("publication")
+}
+
+model ArticleView {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  articleId          String   @map("article_id") @db.Uuid
+  viewedAt           DateTime @default(now()) @map("viewed_at")
+  referralSource     String?  @map("referral_source")
+  timeOnPageSeconds  Int?     @map("time_on_page_seconds")
+  scrollDepthPercent Int?     @map("scroll_depth_percent")
+  visitorHash        String   @map("visitor_hash") @db.VarChar(16)
+
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@index([articleId, viewedAt(sort: Desc)], map: "idx_article_views_article_viewed_at")
+  @@index([articleId, visitorHash], map: "idx_article_views_dedup")
+  @@map("article_views")
+  @@schema("publication")
+}
+
+model ArticleRewardAllocation {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  articleId          String   @unique @map("article_id") @db.Uuid
+  evaluationId       String?  @map("evaluation_id") @db.Uuid
+  compositeScore     Decimal? @map("composite_score") @db.Decimal(5, 2)
+  authorId           String   @map("author_id") @db.Uuid
+  editorId           String?  @map("editor_id") @db.Uuid
+  authorSharePercent Int      @default(80) @map("author_share_percent")
+  editorSharePercent Int      @default(20) @map("editor_share_percent")
+  allocatedAt        DateTime @default(now()) @map("allocated_at")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  article Article      @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  author  Contributor  @relation("AuthorRewardAllocations", fields: [authorId], references: [id])
+  editor  Contributor? @relation("EditorRewardAllocations", fields: [editorId], references: [id])
+
+  @@index([authorId], map: "idx_article_reward_author")
+  @@index([editorId], map: "idx_article_reward_editor")
+  @@map("article_reward_allocations")
   @@schema("publication")
 }
 

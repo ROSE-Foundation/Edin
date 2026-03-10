@@ -471,6 +471,12 @@ export type {
   PublicArticleDetailDto,
   ArticleFilterParams,
   SitemapArticleDto,
+  ReferralSourceDto,
+  DailyViewsDto,
+  ArticleMetricsDto,
+  ArticleRewardAllocationDto,
+  AuthorRewardSummaryDto,
+  EditorRewardSummaryDto,
 } from './types/article.types.js';
 
 export type {

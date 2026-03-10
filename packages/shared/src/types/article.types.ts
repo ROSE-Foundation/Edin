@@ -192,3 +192,53 @@ export interface SitemapArticleDto {
   publishedAt: string;
   updatedAt: string;
 }
+
+// ─── Publication Metrics Types ──────────────────────────────────────────────
+
+export interface ReferralSourceDto {
+  source: string;
+  count: number;
+}
+
+export interface DailyViewsDto {
+  date: string;
+  views: number;
+}
+
+export interface ArticleMetricsDto {
+  totalViews: number;
+  uniqueViews: number;
+  avgTimeOnPageSeconds: number | null;
+  avgScrollDepthPercent: number | null;
+  referralSources: ReferralSourceDto[];
+  viewsOverTime: DailyViewsDto[];
+  isEmbargoed: boolean;
+  embargoEndsAt: string | null;
+}
+
+export interface ArticleRewardAllocationDto {
+  articleId: string;
+  articleTitle: string;
+  compositeScore: number | null;
+  authorId: string;
+  authorName: string;
+  editorId: string | null;
+  editorName: string | null;
+  authorSharePercent: number;
+  editorSharePercent: number;
+  allocatedAt: string;
+}
+
+export interface AuthorRewardSummaryDto {
+  totalArticles: number;
+  totalEvaluatedArticles: number;
+  allocations: ArticleRewardAllocationDto[];
+  averageScore: number | null;
+}
+
+export interface EditorRewardSummaryDto {
+  totalReviewed: number;
+  totalPublished: number;
+  allocations: ArticleRewardAllocationDto[];
+  averageScore: number | null;
+}

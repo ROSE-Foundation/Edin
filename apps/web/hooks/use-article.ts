@@ -16,6 +16,10 @@ import type {
   EditorialFeedbackInput,
   PublicArticleListItemDto,
   PublicArticleDetailDto,
+  ArticleMetricsDto,
+  ArticleRewardAllocationDto,
+  AuthorRewardSummaryDto,
+  EditorRewardSummaryDto,
 } from '@edin/shared';
 
 // ─── Queries ──────────────────────────────────────────────────────────────────
@@ -329,6 +333,66 @@ export function usePublicArticles(filters?: {
   const articles = data?.pages.flatMap((page) => page.data) ?? [];
 
   return { articles, isPending, error, fetchNextPage, hasNextPage, isFetchingNextPage };
+}
+
+// ─── Article Metrics & Reward Queries ────────────────────────────────────────
+
+export function useArticleMetrics(articleId: string | undefined) {
+  const { data, isLoading, error } = useQuery<ArticleMetricsDto>({
+    queryKey: ['articles', articleId, 'metrics'],
+    enabled: !!articleId,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<ArticleMetricsDto>>(
+        `/api/v1/articles/${articleId}/metrics`,
+      );
+      return response.data;
+    },
+  });
+
+  return { metrics: data ?? null, isLoading, error };
+}
+
+export function useArticleRewardAllocation(articleId: string | undefined) {
+  const { data, isLoading, error } = useQuery<ArticleRewardAllocationDto | null>({
+    queryKey: ['articles', articleId, 'reward-allocation'],
+    enabled: !!articleId,
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<ArticleRewardAllocationDto | null>>(
+        `/api/v1/articles/${articleId}/reward-allocation`,
+      );
+      return response.data;
+    },
+  });
+
+  return { allocation: data ?? null, isLoading, error };
+}
+
+export function useAuthorRewardSummary() {
+  const { data, isLoading, error } = useQuery<AuthorRewardSummaryDto>({
+    queryKey: ['articles', 'my', 'reward-summary'],
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<AuthorRewardSummaryDto>>(
+        '/api/v1/articles/my/reward-summary',
+      );
+      return response.data;
+    },
+  });
+
+  return { summary: data ?? null, isLoading, error };
+}
+
+export function useEditorRewardSummary() {
+  const { data, isLoading, error } = useQuery<EditorRewardSummaryDto>({
+    queryKey: ['articles', 'editorial', 'reward-summary'],
+    queryFn: async () => {
+      const response = await apiClient<ApiSuccessResponse<EditorRewardSummaryDto>>(
+        '/api/v1/articles/editorial/reward-summary',
+      );
+      return response.data;
+    },
+  });
+
+  return { summary: data ?? null, isLoading, error };
 }
 
 export function usePublicArticle(slug: string | undefined) {

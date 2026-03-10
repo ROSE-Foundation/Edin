@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { PublicArticleDetailDto } from '@edin/shared';
 import { ArticleReadingView } from '../../../../components/features/publication/article-reading/article-reading-view';
+import { ViewTracker } from '../../../../components/features/publication/article-reading/view-tracker';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -87,6 +88,7 @@ export default async function ArticleReadingPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
+      <ViewTracker articleId={article.id} />
       <ArticleReadingView article={article} />
     </>
   );

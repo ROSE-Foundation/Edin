@@ -55,6 +55,15 @@ export function DraftCard({ article }: DraftCardProps) {
             Feedback available
           </span>
         )}
+        {article.status === 'PUBLISHED' && (
+          <Link
+            href={`/dashboard/publication/${article.id}/metrics`}
+            onClick={(e) => e.stopPropagation()}
+            className="rounded-[4px] px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-brand-accent hover:underline"
+          >
+            View Metrics
+          </Link>
+        )}
       </div>
     </Link>
   );
