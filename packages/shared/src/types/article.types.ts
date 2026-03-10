@@ -193,6 +193,101 @@ export interface SitemapArticleDto {
   updatedAt: string;
 }
 
+// ─── Moderation Types ───────────────────────────────────────────────────────
+
+export const MODERATION_STATUSES = [
+  'PENDING',
+  'CLEAN',
+  'FLAGGED',
+  'DISMISSED',
+  'CORRECTIONS_REQUESTED',
+  'REJECTED',
+] as const;
+export type ModerationStatus = (typeof MODERATION_STATUSES)[number];
+
+export const MODERATION_FLAG_TYPES = ['PLAGIARISM', 'AI_CONTENT', 'BOTH'] as const;
+export type ModerationFlagType = (typeof MODERATION_FLAG_TYPES)[number];
+
+export const MODERATION_ADMIN_ACTIONS = [
+  'DISMISS',
+  'REQUEST_CORRECTIONS',
+  'REJECT',
+  'UNPUBLISH',
+] as const;
+export type ModerationAdminAction = (typeof MODERATION_ADMIN_ACTIONS)[number];
+
+export interface FlaggedPassage {
+  start: number;
+  end: number;
+  text: string;
+  source?: string;
+  similarity?: number;
+  type: 'PLAGIARISM' | 'AI_CONTENT';
+}
+
+export interface ModerationReportDto {
+  id: string;
+  articleId: string;
+  plagiarismScore: number;
+  aiContentScore: number;
+  flagType: ModerationFlagType | null;
+  isFlagged: boolean;
+  flaggedPassages: FlaggedPassage[] | null;
+  status: ModerationStatus;
+  adminId: string | null;
+  adminAction: ModerationAdminAction | null;
+  adminReason: string | null;
+  resolvedAt: string | null;
+  createdAt: string;
+}
+
+export interface FlaggedArticleDto {
+  articleId: string;
+  articleTitle: string;
+  articleSlug: string;
+  authorId: string;
+  authorName: string;
+  domain: string;
+  submittedAt: string | null;
+  moderationReport: ModerationReportDto;
+}
+
+export interface ModerationActionDto {
+  articleId: string;
+  action: ModerationAdminAction;
+  reason: string;
+}
+
+export interface ArticleModerationCompletedEvent {
+  articleId: string;
+  authorId: string;
+  isFlagged: boolean;
+  flagType: ModerationFlagType | null;
+  plagiarismScore: number;
+  aiContentScore: number;
+  timestamp: string;
+  correlationId: string;
+}
+
+export interface ArticleModerationClearedEvent {
+  articleId: string;
+  authorId: string;
+  domain: string;
+  title: string;
+  timestamp: string;
+  correlationId: string;
+}
+
+export interface ArticleModeratedEvent {
+  articleId: string;
+  authorId: string;
+  adminId: string;
+  action: ModerationAdminAction;
+  reason: string;
+  timestamp: string;
+  correlationId: string;
+}
+
 // ─── Publication Metrics Types ──────────────────────────────────────────────
 
 export interface ReferralSourceDto {

@@ -447,7 +447,13 @@ export type {
   EditorRoleRevokedEvent,
 } from './types/editor.types.js';
 
-export { ARTICLE_STATUSES, EDITORIAL_DECISIONS } from './types/article.types.js';
+export {
+  ARTICLE_STATUSES,
+  EDITORIAL_DECISIONS,
+  MODERATION_STATUSES,
+  MODERATION_FLAG_TYPES,
+  MODERATION_ADMIN_ACTIONS,
+} from './types/article.types.js';
 export type {
   ArticleStatus,
   ArticleDto,
@@ -471,6 +477,16 @@ export type {
   PublicArticleDetailDto,
   ArticleFilterParams,
   SitemapArticleDto,
+  ModerationStatus,
+  ModerationFlagType,
+  ModerationAdminAction,
+  FlaggedPassage,
+  ModerationReportDto,
+  FlaggedArticleDto,
+  ModerationActionDto,
+  ArticleModerationCompletedEvent,
+  ArticleModerationClearedEvent,
+  ArticleModeratedEvent,
   ReferralSourceDto,
   DailyViewsDto,
   ArticleMetricsDto,
@@ -478,6 +494,19 @@ export type {
   AuthorRewardSummaryDto,
   EditorRewardSummaryDto,
 } from './types/article.types.js';
+
+export type {
+  TemporalHorizon,
+  ScoreTrend,
+  ScoringFormulaVersionDto,
+  ContributionScoreDto,
+  ContributionScoreWithProvenanceDto,
+  TemporalScoreAggregateDto,
+  ContributorScoresSummaryDto,
+  CreateFormulaVersionInput,
+  RewardScoreCalculatedEvent,
+  RewardScoreAggregatedEvent,
+} from './types/scoring.types.js';
 
 export type {
   RepositoryStatus,

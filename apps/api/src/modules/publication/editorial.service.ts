@@ -4,7 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { ERROR_CODES } from '@edin/shared';
 import type {
-  ArticleSubmittedEvent,
+  ArticleModerationClearedEvent,
   EditorialFeedbackInput,
   EditorialViewDto,
   EditorialFeedbackDto,
@@ -27,13 +27,13 @@ export class EditorialService {
 
   // ─── Event Handler ──────────────────────────────────────────────────────────
 
-  @OnEvent('publication.article.submitted')
-  async handleArticleSubmitted(event: ArticleSubmittedEvent): Promise<void> {
+  @OnEvent('publication.article.moderation.cleared')
+  async handleModerationCleared(event: ArticleModerationClearedEvent): Promise<void> {
     try {
       await this.assignEditor(event.articleId, event.correlationId);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
-      this.logger.error('Failed to assign editor after article submission', {
+      this.logger.error('Failed to assign editor after moderation cleared', {
         module: 'publication',
         articleId: event.articleId,
         correlationId: event.correlationId,

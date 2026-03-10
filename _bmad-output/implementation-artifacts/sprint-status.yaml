@@ -108,12 +108,12 @@ development_status:
   8-3-editor-roles-and-eligibility: done
   8-4-public-article-reading-experience: done
   8-5-publication-metrics-and-reward-split: done
-  8-6-content-moderation-and-plagiarism-detection: backlog
+  8-6-content-moderation-and-plagiarism-detection: done
   epic-8-retrospective: optional
 
   # Epic 9: Reward System & Scoring
-  epic-9: backlog
-  9-1-advanced-contribution-scoring-and-multi-temporal-tracking: backlog
+  epic-9: in-progress
+  9-1-advanced-contribution-scoring-and-multi-temporal-tracking: done
   9-2-reward-trajectory-visualization: backlog
   9-3-reward-methodology-explanation: backlog
   epic-9-retrospective: optional

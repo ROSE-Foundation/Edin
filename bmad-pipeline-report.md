@@ -1,7 +1,7 @@
-# BMAD Pipeline Report: Story 8-5
+# BMAD Pipeline Report: Story 9-1
 
-**Story:** 8-5-publication-metrics-and-reward-split
-**Epic:** 8 - Publication Platform
+**Story:** 9-1-advanced-contribution-scoring-and-multi-temporal-tracking
+**Epic:** 9 - Reward System & Scoring
 **Pipeline:** bmad-cycle (create-story -> dev-story -> code-review)
 **Date:** 2026-03-10
 **Model:** Claude Opus 4.6
@@ -11,59 +11,58 @@
 ### Step 1: Create Story
 
 - **Status:** Completed
-- **Output:** `_bmad-output/implementation-artifacts/8-5-publication-metrics-and-reward-split.md`
-- 14 task groups (5 backend, 6 frontend, 2 testing, 1 dependency), 4 acceptance criteria
-- Full dev notes with 48h embargo logic, 80/20 reward split, garden-inspired UX language, sendBeacon tracking
+- **Output:** `_bmad-output/implementation-artifacts/9-1-advanced-contribution-scoring-and-multi-temporal-tracking.md`
+- 10 task groups, 4 acceptance criteria
+- Full dev notes with scoring formula, temporal aggregation, event flow, BullMQ patterns
 
 ### Step 2: Dev Story (Implementation)
 
 - **Status:** Completed
-- **Files created:** 15 new files, 9 modified files
-- **Backend:** ArticleMetricsService (view recording with 24h dedup, engagement updates with clamping, 48h embargo, aggregated metrics), ArticleRewardService (80/20 split, event-driven allocation on publish, author/editor summaries), ArticleMetricsController (6 endpoints: views, engagement, metrics, reward-allocation, my/reward-summary, editorial/reward-summary), Prisma schema (ArticleView + ArticleRewardAllocation models), migration SQL
-- **Frontend:** Metrics dashboard page, ArticleMetricsView (embargo state, reach, engagement, referral sources, growth chart), GrowthCurveChart (Recharts AreaChart with natural interpolation, data table toggle), RewardSplitBadge (compact/full modes), EditorRewardSummary (allocation list, summary stats), ViewTracker (sendBeacon engagement on unload)
-- **Shared:** 6 new DTO types (ArticleMetricsDto, ArticleRewardAllocationDto, AuthorRewardSummaryDto, EditorRewardSummaryDto, ReferralSourceDto, DailyViewsDto), 2 new error codes
-- **Hooks:** useArticleMetrics, useArticleRewardAllocation, useAuthorRewardSummary, useEditorRewardSummary
-- **Tests:** 24 backend tests + 21 frontend tests, all passing
-- **Regressions:** 0
+- **Files created:** 20 new files, 4 modified files
+- **Backend:** ScoringFormulaService (composite scoring with AI eval + peer feedback + complexity + domain norm, formula versioning with provenance, weight redistribution when no peer feedback), TemporalAggregationService (six horizons: SESSION/DAILY/WEEKLY/MONTHLY/QUARTERLY/YEARLY, idempotent upsert aggregation, trend detection with 5% threshold), TemporalAggregationProcessor (BullMQ WorkerHost, 3-attempt exponential backoff, DLQ handling), AggregationSchedulerService (cron job registration on module init), ScoreController (contributor score endpoints), ScoringAdminController (admin formula management with CASL guards), RewardModule (queue registration)
+- **Frontend:** Dashboard scores page with progressive disclosure, ScoresSummaryCard (latest score + monthly trend), TemporalHorizonsPanel (expandable six-horizon display), ScoreProvenanceDetail (formula version + component breakdown), FormulaEditor (weight configuration with validation), FormulaHistory (version history table), Admin scoring settings page
+- **Shared:** 11 new types (ScoringFormulaVersionDto, ContributionScoreDto, ContributionScoreWithProvenanceDto, TemporalScoreAggregateDto, ContributorScoresSummaryDto, CreateFormulaVersionInput, TemporalHorizon, ScoreTrend, RewardScoreCalculatedEvent, RewardScoreAggregatedEvent, EvaluationCompletedEvent reused), 5 error codes
+- **Hooks:** useMyScores, useActiveFormula, useFormulaHistory, useCreateFormulaVersion, useContributorScoresAdmin
+- **Database:** 3 new models (ScoringFormulaVersion, ContributionScore, TemporalScoreAggregate), 2 new enums (TemporalHorizon, ScoreTrend), migration with indexes and FK constraints
+- **Tests:** 27 new tests (10 scoring formula + 13 temporal aggregation + 4 processor)
 
 ### Step 3: Code Review
 
 - **Status:** Completed (Approved after fixes)
-- **Issues found:** 3 HIGH, 5 MEDIUM, 3 LOW
-- **Issues fixed:** 3 HIGH + 5 MEDIUM = 8 fixes applied
+- **Issues found:** 1 HIGH, 4 MEDIUM, 2 LOW
+- **Issues fixed:** 1 HIGH + 4 MEDIUM = 5 fixes applied
+- **Issues not fixed:** 2 LOW (acceptable as-is)
 
 #### Fixes Applied
 
-| #   | Severity | Issue                                                            | Fix                                                  |
-| --- | -------- | ---------------------------------------------------------------- | ---------------------------------------------------- |
-| H1  | HIGH     | Static routes (`my/`, `editorial/`) after dynamic `:id/*` routes | Reordered — static routes now declared first         |
-| H2  | HIGH     | `getRewardAllocation` lacked authorization check                 | Added author/editor/admin access control             |
-| H3  | HIGH     | Double beacon firing in ViewTracker (cleanup + beforeunload)     | Removed duplicate `sendEngagement()` from cleanup    |
-| M1  | MEDIUM   | `getUniqueViews` loaded all hashes into memory                   | Replaced with `$queryRaw COUNT(DISTINCT)`            |
-| M2  | MEDIUM   | `getDailyViews` loaded all timestamps into memory                | Replaced with `$queryRaw DATE() GROUP BY`            |
-| M3  | MEDIUM   | Shared `groupBy` mock incorrect — `uniqueViews` untested         | Fixed with separate `$queryRaw` mocks and assertions |
-| M4  | MEDIUM   | Redundant `compositeScore !== null ? compositeScore : null`      | Simplified to direct value                           |
-| M5  | MEDIUM   | `totalReviewed` counted non-reviewed article statuses            | Added status filter (APPROVED, PUBLISHED, ARCHIVED)  |
+| #   | Severity | Issue                                                                                          | Fix                                                                                                                                                           |
+| --- | -------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | HIGH     | Task 5.3 "scheduled jobs" marked [x] but no cron registration code existed                     | Created `aggregation-scheduler.service.ts` with `OnModuleInit` registering 5 cron jobs (daily, weekly, monthly, quarterly, yearly) via BullMQ repeatable jobs |
+| 2   | MEDIUM   | N+1 query in `getContributorAggregates` (6 sequential findFirst calls)                         | Replaced with single `findMany` query + in-memory deduplication per horizon                                                                                   |
+| 3   | MEDIUM   | Sequential processing in `aggregateAllContributors`                                            | Added batched `Promise.all` with batch size of 10 for bounded concurrency                                                                                     |
+| 4   | MEDIUM   | Sequential aggregate queries in `getDomainNormFactor`                                          | Wrapped domain and global aggregate queries in `Promise.all`                                                                                                  |
+| 5   | MEDIUM   | `ContributorScoresSummaryDto.latestSessionScore` typed as base DTO but receives provenance DTO | Updated type to `ContributionScoreWithProvenanceDto` to match actual data                                                                                     |
 
-#### LOW Items (not fixed, acceptable risk)
+#### Documented Limitations (not fixed, acceptable)
 
-- L1: `pnpm-lock.yaml` not in story File List (documentation gap)
-- L2: `referralSource` has no length validation (public endpoint, low risk)
-- L3: Migration timestamp `940000` technically invalid (works, no ordering impact)
+- Issue 6 (LOW): SESSION and DAILY horizons produce identical period bounds — by design per story spec
+- Issue 7 (LOW): `getDomainNormFactor` uses nested relation path — works correctly, minor optimization
 
 #### Tests After Fixes
 
-- Backend: 858/858 passed (0 regressions)
-- Frontend: 518/518 passed (0 regressions)
+- Backend: 907/907 passed (0 regressions)
+- TypeScript: 0 new errors in reward module
+- Total: 907 tests passing
 
 ## Final Status
 
 - **Story status:** done
-- **Sprint status:** 8-5-publication-metrics-and-reward-split -> done
-- **Epic status:** epic-8 -> in-progress (1 story remaining: 8-6)
+- **Sprint status:** 9-1-advanced-contribution-scoring-and-multi-temporal-tracking -> done
+- **Epic status:** epic-9 -> in-progress (2 more stories remaining: 9-2, 9-3)
 
 ## Auto-Approve Criteria
 
-- [x] Green tests (all 1,376 tests passing)
-- [x] Consistent with existing architecture (NestJS module pattern, TanStack Query hooks, Recharts client-side, Prisma models, event-driven allocation)
+- [x] Green tests (all 907 tests passing)
+- [x] Clean lint (no errors)
+- [x] Consistent with existing architecture (NestJS module pattern, BullMQ WorkerHost, EventEmitter2, TanStack Query hooks, CASL guards, Prisma models)
 - [x] No retries needed (all fixes applied successfully on first attempt)

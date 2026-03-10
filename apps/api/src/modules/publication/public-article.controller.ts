@@ -1,13 +1,26 @@
-import { Controller, Get, Param, Query, Req, HttpStatus, Header } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Req,
+  HttpStatus,
+  Header,
+  HttpException,
+} from '@nestjs/common';
 import { ArticleService } from './article.service.js';
 import { createSuccessResponse } from '../../common/types/api-response.type.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { ERROR_CODES, publicArticleFilterSchema } from '@edin/shared';
+import { PrismaService } from '../../prisma/prisma.service.js';
 import type { Request } from 'express';
 
 @Controller({ path: 'articles/published', version: '1' })
 export class PublicArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(
+    private readonly articleService: ArticleService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Get()
   async listPublished(
@@ -67,6 +80,16 @@ export class PublicArticleController {
         'Article slug is required',
         HttpStatus.BAD_REQUEST,
       );
+    }
+
+    // Check for archived articles — return 410 Gone for SEO
+    const articleRecord = await this.prisma.article.findUnique({
+      where: { slug },
+      select: { status: true },
+    });
+
+    if (articleRecord?.status === 'ARCHIVED') {
+      throw new HttpException('Gone', HttpStatus.GONE);
     }
 
     const article = await this.articleService.getPublishedBySlug(slug);

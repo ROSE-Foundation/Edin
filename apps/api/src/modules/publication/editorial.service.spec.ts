@@ -587,7 +587,7 @@ describe('EditorialService', () => {
     });
   });
 
-  describe('handleArticleSubmitted', () => {
+  describe('handleModerationCleared', () => {
     it('should call assignEditor when event is received', async () => {
       mockPrismaService.article.findUnique.mockResolvedValue(mockArticle);
       mockPrismaService.contributor.findMany.mockResolvedValueOnce([mockEditor]);
@@ -597,7 +597,7 @@ describe('EditorialService', () => {
         status: 'EDITORIAL_REVIEW',
       });
 
-      await service.handleArticleSubmitted({
+      await service.handleModerationCleared({
         articleId: 'article-uuid',
         authorId: 'author-uuid',
         domain: 'Technology',

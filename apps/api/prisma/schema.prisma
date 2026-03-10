@@ -257,6 +257,7 @@ model Contributor {
   updatedEditorCriteria  EditorEligibilityCriteria[] @relation("EditorCriteriaUpdatedBy")
   authorRewardAllocations  ArticleRewardAllocation[] @relation("AuthorRewardAllocations")
   editorRewardAllocations  ArticleRewardAllocation[] @relation("EditorRewardAllocations")
+  moderationActions        ModerationReport[]        @relation("ModerationAdmin")
 
   @@map("contributors")
   @@schema("core")
@@ -700,6 +701,7 @@ model Article {
   inlineComments     InlineComment[]
   views              ArticleView[]
   rewardAllocation   ArticleRewardAllocation?
+  moderationReports  ModerationReport[]
 
   @@index([authorId, status], map: "idx_articles_author_id_status")
   @@index([editorId, status], map: "idx_articles_editor_id_status")
@@ -847,6 +849,52 @@ model ArticleRewardAllocation {
   @@schema("publication")
 }
 
+model ModerationReport {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  articleId       String   @map("article_id") @db.Uuid
+  plagiarismScore Decimal  @default(0) @map("plagiarism_score") @db.Decimal(5, 2)
+  aiContentScore  Decimal  @default(0) @map("ai_content_score") @db.Decimal(5, 2)
+  flagType        String?  @map("flag_type") @db.VarChar(50)
+  isFlagged       Boolean  @default(false) @map("is_flagged")
+  flaggedPassages Json?    @map("flagged_passages")
+  status          String   @default("PENDING") @db.VarChar(30)
+  adminId         String?  @map("admin_id") @db.Uuid
+  adminAction     String?  @map("admin_action") @db.VarChar(50)
+  adminReason     String?  @map("admin_reason") @db.Text
+  resolvedAt      DateTime? @map("resolved_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  article Article      @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  admin   Contributor? @relation("ModerationAdmin", fields: [adminId], references: [id])
+
+  @@index([articleId], map: "idx_moderation_reports_article_id")
+  @@index([isFlagged, status], map: "idx_moderation_reports_flagged_status")
+  @@map("moderation_reports")
+  @@schema("publication")
+}
+
+// ─── Reward Scoring Enums ────────────────────────────────────────────────────
+
+enum TemporalHorizon {
+  SESSION
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+
+  @@schema("evaluation")
+}
+
+enum ScoreTrend {
+  RISING
+  STABLE
+  DECLINING
+
+  @@schema("evaluation")
+}
+
 // ─── Evaluation Schema ──────────────────────────────────────────────────────
 
 model EvaluationModel {
@@ -937,5 +985,63 @@ model EvaluationReview {
 
   @@index([status, flaggedAt], map: "idx_evaluation_reviews_status_flagged")
   @@map("evaluation_reviews")
+  @@schema("evaluation")
+}
+
+// ─── Reward Scoring Models ──────────────────────────────────────────────────
+
+model ScoringFormulaVersion {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  version            Int       @default(autoincrement())
+  aiEvalWeight       Decimal   @default(0.40) @map("ai_eval_weight") @db.Decimal(3, 2)
+  peerFeedbackWeight Decimal   @default(0.25) @map("peer_feedback_weight") @db.Decimal(3, 2)
+  complexityWeight   Decimal   @default(0.20) @map("complexity_weight") @db.Decimal(3, 2)
+  domainNormWeight   Decimal   @default(0.15) @map("domain_norm_weight") @db.Decimal(3, 2)
+  effectiveFrom      DateTime  @default(now()) @map("effective_from")
+  effectiveTo        DateTime? @map("effective_to")
+  createdBy          String    @map("created_by") @db.Uuid
+  metadata           Json?
+  createdAt          DateTime  @default(now()) @map("created_at")
+
+  scores ContributionScore[]
+
+  @@map("scoring_formula_versions")
+  @@schema("evaluation")
+}
+
+model ContributionScore {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributionId       String   @unique @map("contribution_id") @db.Uuid
+  contributorId        String   @map("contributor_id") @db.Uuid
+  compositeScore       Decimal  @map("composite_score") @db.Decimal(5, 2)
+  aiEvalScore          Decimal  @map("ai_eval_score") @db.Decimal(5, 2)
+  peerFeedbackScore    Decimal? @map("peer_feedback_score") @db.Decimal(5, 2)
+  complexityMultiplier Decimal  @default(1.00) @map("complexity_multiplier") @db.Decimal(5, 2)
+  domainNormFactor     Decimal  @default(1.00) @map("domain_norm_factor") @db.Decimal(5, 2)
+  formulaVersionId     String   @map("formula_version_id") @db.Uuid
+  rawInputs            Json?    @map("raw_inputs")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  formulaVersion ScoringFormulaVersion @relation(fields: [formulaVersionId], references: [id])
+
+  @@index([contributorId, createdAt(sort: Desc)], map: "idx_contribution_scores_contributor_created")
+  @@map("contribution_scores")
+  @@schema("evaluation")
+}
+
+model TemporalScoreAggregate {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId     String          @map("contributor_id") @db.Uuid
+  horizon           TemporalHorizon
+  periodStart       DateTime        @map("period_start")
+  periodEnd         DateTime        @map("period_end")
+  aggregatedScore   Decimal         @map("aggregated_score") @db.Decimal(5, 2)
+  contributionCount Int             @default(0) @map("contribution_count")
+  trend             ScoreTrend      @default(STABLE)
+  computedAt        DateTime        @default(now()) @map("computed_at")
+
+  @@unique([contributorId, horizon, periodStart], map: "temporal_score_aggregates_contributor_horizon_period_key")
+  @@index([contributorId, horizon, periodStart(sort: Desc)], map: "idx_temporal_aggregates_contributor_horizon_period")
+  @@map("temporal_score_aggregates")
   @@schema("evaluation")
 }

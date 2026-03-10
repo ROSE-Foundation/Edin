@@ -21,6 +21,7 @@ import { NotificationModule } from './modules/notification/notification.module.j
 import { FeedbackModule } from './modules/feedback/feedback.module.js';
 import { EvaluationModule } from './modules/evaluation/evaluation.module.js';
 import { PublicationModule } from './modules/publication/publication.module.js';
+import { RewardModule } from './modules/reward/reward.module.js';
 import { validateConfig } from './config/app.config.js';
 import type { AppConfig } from './config/app.config.js';
 
@@ -95,6 +96,7 @@ import type { AppConfig } from './config/app.config.js';
     FeedbackModule,
     EvaluationModule,
     PublicationModule,
+    RewardModule,
   ],
 })
 export class AppModule {}
