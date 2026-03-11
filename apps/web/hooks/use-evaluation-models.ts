@@ -1,11 +1,16 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../lib/api-client';
 import type { EvaluationModelVersionDto, EvaluationModelMetricsDto } from '@edin/shared';
 
 interface ModelListResponse {
   data: EvaluationModelVersionDto[];
+  meta: { timestamp: string; correlationId: string };
+}
+
+interface ModelCreateResponse {
+  data: EvaluationModelVersionDto;
   meta: { timestamp: string; correlationId: string };
 }
 
@@ -45,4 +50,23 @@ export function useEvaluationModelMetrics(modelId: string | null) {
     isLoading,
     error,
   };
+}
+
+export function useCreateEvaluationModel() {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    ModelCreateResponse,
+    Error,
+    { name: string; version: string; provider: string }
+  >({
+    mutationFn: (body) =>
+      apiClient<ModelCreateResponse>('/api/v1/admin/evaluations/models', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'evaluations', 'models'] });
+    },
+  });
 }

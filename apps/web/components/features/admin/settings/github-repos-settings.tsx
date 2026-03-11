@@ -61,9 +61,34 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
       <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary">
         Monitored Repositories
       </h3>
+      <div className="mb-[var(--spacing-md)] rounded-[var(--radius-md)] border border-blue-200 bg-blue-50 p-[var(--spacing-md)]">
+        <p className="text-[13px] font-medium text-blue-800">How to add a GitHub repository</p>
+        <ol className="mt-[var(--spacing-xs)] list-decimal pl-[var(--spacing-lg)] text-[12px] text-blue-700 space-y-[2px]">
+          <li>
+            Copy the full URL of the GitHub repository you want to monitor (e.g.{' '}
+            <span className="font-mono">https://github.com/owner/repo</span>).
+          </li>
+          <li>
+            Paste it into the &quot;Add Repository&quot; field below and click <strong>Add</strong>.
+          </li>
+          <li>
+            The repository will appear in the monitored list above with an <strong>Active</strong>{' '}
+            status.
+          </li>
+          <li>
+            Click the status badge on any repository to <strong>Pause</strong> or{' '}
+            <strong>Resume</strong> monitoring.
+          </li>
+        </ol>
+        <p className="mt-[var(--spacing-xs)] text-[12px] text-blue-600">
+          Only public GitHub repositories in the format{' '}
+          <span className="font-mono">https://github.com/owner/repo</span> are accepted. Ensure the
+          repository exists before adding it.
+        </p>
+      </div>
       {repos.length === 0 ? (
         <p className="text-[13px] text-brand-secondary">
-          No repositories configured. Repositories are added via the GitHub integration settings.
+          No repositories are currently being monitored. Use the form below to add one.
         </p>
       ) : (
         <ul className="space-y-[var(--spacing-sm)]">
