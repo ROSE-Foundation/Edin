@@ -3,6 +3,7 @@
 import type { PublicContributorProfile } from '@edin/shared';
 import type { PublicEvaluationAggregateDto } from '@edin/shared';
 import { HeroSection } from './hero-section';
+import { RoseSection } from './rose-section';
 import { HowItWorksSection } from './how-it-works-section';
 import { PillarsSection } from './pillars-section';
 import { DomainsSection } from './domains-section';
@@ -25,6 +26,7 @@ export function ShowcaseContent({
   return (
     <>
       <HeroSection />
+      <RoseSection />
       <HowItWorksSection />
       <PillarsSection />
       <EvaluationMetricsSection initialData={initialEvaluationMetrics} />

@@ -39,6 +39,10 @@ export function DomainsSection() {
           Unlike code-centric platforms, Edin values financial modeling, sustainability research,
           and governance design just as much as engineering.
         </p>
+        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+          Rose is built by contributors across four complementary domains. Every contribution,
+          regardless of domain, advances the Rose mission.
+        </p>
 
         <div className="mt-[var(--spacing-xl)] grid grid-cols-1 gap-[var(--spacing-md)] sm:grid-cols-2 lg:grid-cols-4">
           {DOMAINS.map((domain) => (
