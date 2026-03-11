@@ -60,7 +60,7 @@ function DetailRow({ entry }: { entry: AuditLogEntry }) {
             <span className="text-brand-primary">{entry.reason}</span>
           </div>
         )}
-        {entry.details && (
+        {entry.details != null && (
           <div>
             <span className="font-semibold text-brand-secondary">Details:</span>{' '}
             <span className="text-brand-primary">{JSON.stringify(entry.details)}</span>

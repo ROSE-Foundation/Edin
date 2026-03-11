@@ -10,7 +10,7 @@ RUN pnpm --filter @edin/shared build
 RUN cd apps/api && npx prisma generate
 RUN pnpm --filter api build
 # Create standalone deployment with flat node_modules (no symlinks)
-RUN pnpm --filter api deploy /app/deployed
+RUN pnpm --filter api deploy --legacy /app/deployed
 
 # ── Production ────────────────────────────────────────────────────
 FROM node:20-alpine AS runner
