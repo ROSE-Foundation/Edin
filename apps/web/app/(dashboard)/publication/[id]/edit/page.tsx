@@ -51,7 +51,7 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
           notification when the editor has reviewed your changes.
         </p>
         <button
-          onClick={() => router.push('/dashboard/publication')}
+          onClick={() => router.push('/publication')}
           className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
         >
           Back to Publication

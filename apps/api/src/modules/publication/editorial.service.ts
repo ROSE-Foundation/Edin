@@ -1,6 +1,7 @@
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import type { Prisma } from '../../../generated/prisma/client/client.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { ERROR_CODES } from '@edin/shared';
 import type {
@@ -302,7 +303,7 @@ export class EditorialService {
           overallAssessment: data.overallAssessment,
           revisionRequests:
             revisionRequests.length > 0
-              ? (JSON.parse(JSON.stringify(revisionRequests)) as Record<string, unknown>[])
+              ? (JSON.parse(JSON.stringify(revisionRequests)) as Prisma.InputJsonValue)
               : undefined,
           articleVersion: article.version,
         },

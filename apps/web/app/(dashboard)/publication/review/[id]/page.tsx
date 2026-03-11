@@ -45,7 +45,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
           {error?.message ?? 'Failed to load editorial view'}
         </p>
         <button
-          onClick={() => router.push('/dashboard/publication')}
+          onClick={() => router.push('/publication')}
           className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
         >
           Back to Publication
@@ -79,7 +79,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
           Your editorial feedback has been recorded. The author will be notified.
         </p>
         <button
-          onClick={() => router.push('/dashboard/publication')}
+          onClick={() => router.push('/publication')}
           className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
         >
           Back to Publication
@@ -94,7 +94,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
       <div className="mb-[var(--spacing-xl)]">
         <div className="mb-[var(--spacing-md)] flex items-center justify-between">
           <button
-            onClick={() => router.push('/dashboard/publication')}
+            onClick={() => router.push('/publication')}
             className="font-sans text-[14px] text-brand-secondary transition-colors hover:text-brand-primary"
           >
             &larr; Back to Publication

@@ -35,13 +35,13 @@ export default function PublicationPage() {
         <h1 className="font-serif text-[2rem] font-bold text-brand-primary">Publication</h1>
         <div className="flex gap-[var(--spacing-sm)]">
           <Link
-            href="/dashboard/publication/editor-application"
+            href="/publication/editor-application"
             className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
           >
             Editor Application
           </Link>
           <Link
-            href="/dashboard/publication/new"
+            href="/publication/new"
             className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
           >
             Write
@@ -114,7 +114,7 @@ export default function PublicationPage() {
           </p>
           {activeTab === 'all' || activeTab === 'drafts' ? (
             <Link
-              href="/dashboard/publication/new"
+              href="/publication/new"
               className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
             >
               Start Writing

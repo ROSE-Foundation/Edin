@@ -34,7 +34,7 @@ export function DraftList() {
       <div className="flex flex-col items-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
         <p className="font-sans text-[17px] text-brand-secondary">No drafts yet</p>
         <Link
-          href="/dashboard/publication/new"
+          href="/publication/new"
           className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
         >
           Start Writing

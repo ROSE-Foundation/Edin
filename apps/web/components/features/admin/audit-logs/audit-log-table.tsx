@@ -42,13 +42,13 @@ function DetailRow({ entry }: { entry: AuditLogEntry }) {
     <details className="mt-[var(--spacing-xs)]">
       <summary className="cursor-pointer text-xs text-brand-accent">View details</summary>
       <div className="mt-[var(--spacing-xs)] space-y-1 rounded-[var(--radius-sm)] bg-surface-base p-[var(--spacing-sm)] text-xs font-mono">
-        {entry.previousState && (
+        {entry.previousState != null && (
           <div>
             <span className="font-semibold text-brand-secondary">Previous:</span>{' '}
             <span className="text-brand-primary">{JSON.stringify(entry.previousState)}</span>
           </div>
         )}
-        {entry.newState && (
+        {entry.newState != null && (
           <div>
             <span className="font-semibold text-brand-secondary">New:</span>{' '}
             <span className="text-brand-primary">{JSON.stringify(entry.newState)}</span>

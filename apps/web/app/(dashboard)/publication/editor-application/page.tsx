@@ -39,7 +39,7 @@ export default function EditorApplicationPage() {
           </p>
         </div>
         <Link
-          href="/dashboard/publication"
+          href="/publication"
           className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
         >
           Back

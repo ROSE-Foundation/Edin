@@ -12,7 +12,7 @@ interface DraftCardProps {
 function getCardLink(article: ArticleListItemDto): string {
   // All author-facing statuses link to edit page
   // Editors access review page separately (not through the article list)
-  return `/dashboard/publication/${article.id}/edit`;
+  return `/publication/${article.id}/edit`;
 }
 
 export function DraftCard({ article }: DraftCardProps) {
@@ -57,7 +57,7 @@ export function DraftCard({ article }: DraftCardProps) {
         )}
         {article.status === 'PUBLISHED' && (
           <Link
-            href={`/dashboard/publication/${article.id}/metrics`}
+            href={`/publication/${article.id}/metrics`}
             onClick={(e) => e.stopPropagation()}
             className="rounded-[4px] px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-brand-accent hover:underline"
           >

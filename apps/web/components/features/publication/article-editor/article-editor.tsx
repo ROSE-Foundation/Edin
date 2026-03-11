@@ -67,7 +67,7 @@ export function ArticleEditor({
         });
         setArticleId(created.id);
         // Update URL to edit mode without full navigation
-        window.history.replaceState(null, '', `/dashboard/publication/${created.id}/edit`);
+        window.history.replaceState(null, '', `/publication/${created.id}/edit`);
       } else {
         // Subsequent saves — update
         await updateArticle.mutateAsync({
@@ -148,7 +148,7 @@ export function ArticleEditor({
           when an editor has been assigned.
         </p>
         <button
-          onClick={() => router.push('/dashboard/publication')}
+          onClick={() => router.push('/publication')}
           className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
         >
           Back to Publication
@@ -247,7 +247,7 @@ export function ArticleEditor({
       )}
       <div className="flex items-center justify-end gap-[var(--spacing-md)]">
         <button
-          onClick={() => router.push('/dashboard/publication')}
+          onClick={() => router.push('/publication')}
           className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
         >
           Back to Drafts

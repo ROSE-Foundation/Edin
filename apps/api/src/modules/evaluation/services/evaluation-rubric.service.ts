@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service.js';
+import type { Prisma } from '../../../../generated/prisma/client/client.js';
 import { AuditService } from '../../compliance/audit/audit.service.js';
 
 @Injectable()
@@ -75,7 +76,7 @@ export class EvaluationRubricService {
         data: {
           evaluationType: data.evaluationType,
           documentType: data.documentType ?? null,
-          parameters: JSON.parse(JSON.stringify(data.parameters)) as Record<string, unknown>,
+          parameters: JSON.parse(JSON.stringify(data.parameters)) as Prisma.InputJsonValue,
           version: data.version,
           isActive: true,
         },

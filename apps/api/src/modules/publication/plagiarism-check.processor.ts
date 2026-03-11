@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import type { Job, Queue } from 'bullmq';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import type { Prisma } from '../../../generated/prisma/client/client.js';
 import type { PlagiarismCheckJobData } from './moderation.service.js';
 import type { FlaggedPassage, ArticleModerationCompletedEvent } from '@edin/shared';
 
@@ -94,7 +95,7 @@ export class PlagiarismCheckProcessor extends WorkerHost {
           isFlagged,
           flaggedPassages:
             allPassages.length > 0
-              ? (JSON.parse(JSON.stringify(allPassages)) as Record<string, unknown>[])
+              ? (JSON.parse(JSON.stringify(allPassages)) as Prisma.InputJsonValue)
               : undefined,
           status: isFlagged ? 'FLAGGED' : 'CLEAN',
         },

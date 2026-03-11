@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
-  usePathname: () => '/dashboard/publication/new',
+  usePathname: () => '/publication/new',
 }));
 
 // Mock Tiptap editor (heavy dependency)
