@@ -9,12 +9,14 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { common, createLowlight } from 'lowlight';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SlashMenu } from './slash-menu';
+import { EditorToolbar } from './editor-toolbar';
 
 const lowlight = createLowlight(common);
 
 interface TiptapEditorProps {
   content: string;
   onChange: (content: string) => void;
+  onWordCountChange?: (counts: { words: number; characters: number }) => void;
   placeholder?: string;
   editable?: boolean;
 }
@@ -22,11 +24,13 @@ interface TiptapEditorProps {
 export function TiptapEditor({
   content,
   onChange,
+  onWordCountChange,
   placeholder,
   editable = true,
 }: TiptapEditorProps) {
   const [slashMenuOpen, setSlashMenuOpen] = useState(false);
   const [slashMenuPos, setSlashMenuPos] = useState({ top: 0, left: 0 });
+  const [, setToolbarTick] = useState(0);
   const editorWrapperRef = useRef<HTMLDivElement>(null);
 
   const editor = useEditor({
@@ -46,7 +50,24 @@ export function TiptapEditor({
     editable,
     content: parseContent(content),
     onUpdate: ({ editor: ed }) => {
-      if (editable) onChange(JSON.stringify(ed.getJSON()));
+      if (editable) {
+        onChange(JSON.stringify(ed.getJSON()));
+        if (onWordCountChange) {
+          const text = ed.state.doc.textContent;
+          const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+          onWordCountChange({ words, characters: text.length });
+        }
+      }
+    },
+    onCreate: ({ editor: ed }) => {
+      if (onWordCountChange) {
+        const text = ed.state.doc.textContent;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        onWordCountChange({ words, characters: text.length });
+      }
+    },
+    onSelectionUpdate: () => {
+      setToolbarTick((t) => t + 1);
     },
     editorProps: {
       attributes: {
@@ -98,9 +119,10 @@ export function TiptapEditor({
 
   return (
     <div className="tiptap-editor-wrapper" ref={editorWrapperRef}>
+      {editable && <EditorToolbar editor={editor} />}
       <EditorContent
         editor={editor}
-        className="min-h-[400px] font-serif text-[17px] leading-[1.65] text-brand-primary"
+        className="mt-[var(--spacing-md)] min-h-[400px] font-serif text-[17px] leading-[1.65] text-brand-primary"
       />
       <SlashMenu
         editor={editor}

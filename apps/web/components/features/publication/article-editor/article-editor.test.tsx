@@ -11,10 +11,24 @@ vi.mock('next/navigation', () => ({
 
 // Mock Tiptap editor (heavy dependency)
 vi.mock('./tiptap-editor', () => ({
-  TiptapEditor: ({ onChange }: { content: string; onChange: (v: string) => void }) => (
+  TiptapEditor: ({
+    onChange,
+    onWordCountChange,
+  }: {
+    content: string;
+    onChange: (v: string) => void;
+    onWordCountChange?: (counts: { words: number; characters: number }) => void;
+  }) => (
     <textarea
       data-testid="mock-editor"
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        onChange(e.target.value);
+        if (onWordCountChange) {
+          const text = e.target.value;
+          const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+          onWordCountChange({ words, characters: text.length });
+        }
+      }}
       aria-label="Article body"
     />
   ),
@@ -78,6 +92,23 @@ describe('ArticleEditor', () => {
     expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('Impact')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
+  });
+
+  it('renders Save Draft button', () => {
+    renderWithProviders(<ArticleEditor />);
+
+    expect(screen.getByText('Save Draft')).toBeInTheDocument();
+  });
+
+  it('displays word and character count when body changes', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ArticleEditor />);
+
+    const editor = screen.getByTestId('mock-editor');
+    await user.type(editor, 'Hello world test');
+
+    expect(screen.getByText('3 words')).toBeInTheDocument();
+    expect(screen.getByText('16 characters')).toBeInTheDocument();
   });
 
   it('pre-populates fields when initialArticle is provided', () => {

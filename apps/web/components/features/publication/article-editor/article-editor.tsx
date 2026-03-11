@@ -39,6 +39,9 @@ export function ArticleEditor({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const [wordCount, setWordCount] = useState({ words: 0, characters: 0 });
+  const [isDirty, setIsDirty] = useState(false);
+
   const isDirtyRef = useRef(false);
   const autoSaveTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -49,6 +52,7 @@ export function ArticleEditor({
   // Mark as dirty when any field changes
   const markDirty = useCallback(() => {
     isDirtyRef.current = true;
+    setIsDirty(true);
   }, []);
 
   // Save function — creates article on first save, updates on subsequent
@@ -78,6 +82,7 @@ export function ArticleEditor({
         });
       }
       isDirtyRef.current = false;
+      setIsDirty(false);
       setSaveStatus('saved');
     } catch {
       setSaveStatus('error');
@@ -164,9 +169,17 @@ export function ArticleEditor({
       className="mx-auto max-w-[800px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]"
       style={domainAccent ? { borderTop: `3px solid ${domainAccent}` } : undefined}
     >
-      {/* Save indicator */}
-      <div className="mb-[var(--spacing-lg)] flex items-center justify-end">
+      {/* Save indicator + Save Draft button */}
+      <div className="mb-[var(--spacing-lg)] flex items-center justify-end gap-[var(--spacing-md)]">
         <AutoSaveIndicator status={saveStatus} />
+        <button
+          type="button"
+          onClick={save}
+          disabled={saveStatus === 'saving' || !domain || !isDirty}
+          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary transition-colors hover:bg-surface-sunken hover:text-brand-primary disabled:opacity-50"
+        >
+          Save Draft
+        </button>
       </div>
 
       {/* Title */}
@@ -236,7 +249,12 @@ export function ArticleEditor({
             setBody(newBody);
             markDirty();
           }}
+          onWordCountChange={setWordCount}
         />
+        <div className="mt-[var(--spacing-sm)] flex items-center justify-end gap-[var(--spacing-md)] font-sans text-[12px] text-brand-secondary">
+          <span>{wordCount.words.toLocaleString()} words</span>
+          <span>{wordCount.characters.toLocaleString()} characters</span>
+        </div>
       </div>
 
       {/* Submit */}
