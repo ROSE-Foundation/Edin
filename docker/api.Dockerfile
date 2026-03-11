@@ -8,10 +8,12 @@ COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm --filter @edin/shared build
 RUN cd apps/api && npx prisma generate
-RUN pnpm --filter api build
-# Create standalone deployment with flat node_modules (no symlinks)
-# "files" field in package.json ensures dist/ and generated/ are included
-RUN pnpm --filter api deploy --legacy /app/deployed
+# Build API, deploy standalone, and copy build artifacts in one layer
+RUN pnpm --filter api build \
+    && pnpm --filter api deploy --legacy /app/deployed \
+    && cp -r apps/api/dist /app/deployed/dist \
+    && cp -r apps/api/generated /app/deployed/generated \
+    && ls /app/deployed/dist/main.js
 
 # ── Production ────────────────────────────────────────────────────
 FROM node:20-alpine AS runner
