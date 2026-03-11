@@ -54,6 +54,19 @@ export function PublicNav() {
                 >
                   Dashboard
                 </Link>
+                {user?.role === 'ADMIN' && (
+                  <Link
+                    href="/admin"
+                    className={`font-sans text-[14px] font-medium transition-colors duration-[var(--transition-fast)] ${
+                      pathname.startsWith('/admin')
+                        ? 'text-brand-accent'
+                        : 'text-brand-secondary hover:text-brand-primary'
+                    }`}
+                    aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
+                  >
+                    Admin
+                  </Link>
+                )}
                 <button
                   onClick={logout}
                   className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-base hover:text-brand-primary"

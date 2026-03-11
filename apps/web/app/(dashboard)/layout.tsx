@@ -32,7 +32,7 @@ const HREF_TO_CATEGORY: Record<string, NotificationCategory> = {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const { counts } = useUnreadCounts();
   const markAllRead = useMarkAllNotificationsRead();
   const clearDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -130,21 +130,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 );
               })}
             </ul>
-            {user?.role === 'ADMIN' && (
-              <div className="mt-[var(--spacing-md)] border-t border-surface-raised/20 pt-[var(--spacing-md)]">
-                <Link
-                  href="/admin"
-                  className={`flex min-h-[44px] items-center rounded-[var(--radius-md)] px-[var(--spacing-md)] font-sans text-[15px] transition-colors duration-[var(--transition-fast)] ${
-                    pathname.startsWith('/admin')
-                      ? 'bg-brand-accent-subtle text-brand-primary'
-                      : 'text-surface-raised/85 hover:bg-surface-raised/10 hover:text-surface-raised'
-                  }`}
-                  aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
-                >
-                  Admin
-                </Link>
-              </div>
-            )}
           </nav>
         </aside>
         <div className="min-w-0 flex-1">{children}</div>
