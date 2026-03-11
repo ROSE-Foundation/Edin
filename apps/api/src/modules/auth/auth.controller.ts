@@ -48,7 +48,7 @@ export class AuthController {
     res.cookie('edin_refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: 'strict',
+      sameSite: isProduction ? 'none' : 'strict',
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       path: '/',
     });
@@ -92,7 +92,7 @@ export class AuthController {
     res.cookie('edin_refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: 'strict',
+      sameSite: isProduction ? 'none' : 'strict',
       maxAge: 30 * 24 * 60 * 60 * 1000,
       path: '/',
     });
@@ -120,10 +120,11 @@ export class AuthController {
 
     await this.authService.logout(contributorId, correlationId);
 
+    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
     res.clearCookie('edin_refresh_token', {
       httpOnly: true,
-      secure: this.configService.get<string>('NODE_ENV') === 'production',
-      sameSite: 'strict',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'strict',
       path: '/',
     });
 
