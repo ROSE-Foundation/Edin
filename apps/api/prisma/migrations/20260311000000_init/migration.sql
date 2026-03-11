@@ -11,55 +11,55 @@ CREATE SCHEMA IF NOT EXISTS "evaluation";
 CREATE SCHEMA IF NOT EXISTS "publication";
 
 -- CreateEnum
-CREATE TYPE "ContributorRole" AS ENUM ('PUBLIC', 'APPLICANT', 'CONTRIBUTOR', 'EDITOR', 'FOUNDING_CONTRIBUTOR', 'WORKING_GROUP_LEAD', 'ADMIN');
+CREATE TYPE "core"."ContributorRole" AS ENUM ('PUBLIC', 'APPLICANT', 'CONTRIBUTOR', 'EDITOR', 'FOUNDING_CONTRIBUTOR', 'WORKING_GROUP_LEAD', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "ContributorDomain" AS ENUM ('Technology', 'Fintech', 'Impact', 'Governance');
+CREATE TYPE "core"."ContributorDomain" AS ENUM ('Technology', 'Fintech', 'Impact', 'Governance');
 
 -- CreateEnum
-CREATE TYPE "ApplicationStatus" AS ENUM ('PENDING', 'UNDER_REVIEW', 'APPROVED', 'DECLINED');
+CREATE TYPE "core"."ApplicationStatus" AS ENUM ('PENDING', 'UNDER_REVIEW', 'APPROVED', 'DECLINED');
 
 -- CreateEnum
-CREATE TYPE "ReviewRecommendation" AS ENUM ('APPROVE', 'REQUEST_MORE_INFO', 'DECLINE');
+CREATE TYPE "core"."ReviewRecommendation" AS ENUM ('APPROVE', 'REQUEST_MORE_INFO', 'DECLINE');
 
 -- CreateEnum
-CREATE TYPE "OnboardingMilestoneType" AS ENUM ('ACCOUNT_ACTIVATED', 'BUDDY_ASSIGNED', 'FIRST_TASK_VIEWED', 'FIRST_TASK_CLAIMED', 'FIRST_CONTRIBUTION_SUBMITTED');
+CREATE TYPE "core"."OnboardingMilestoneType" AS ENUM ('ACCOUNT_ACTIVATED', 'BUDDY_ASSIGNED', 'FIRST_TASK_VIEWED', 'FIRST_TASK_CLAIMED', 'FIRST_CONTRIBUTION_SUBMITTED');
 
 -- CreateEnum
-CREATE TYPE "RepositoryStatus" AS ENUM ('ACTIVE', 'PENDING', 'ERROR', 'REMOVING');
+CREATE TYPE "core"."RepositoryStatus" AS ENUM ('ACTIVE', 'PENDING', 'ERROR', 'REMOVING');
 
 -- CreateEnum
-CREATE TYPE "ContributionSource" AS ENUM ('GITHUB');
+CREATE TYPE "core"."ContributionSource" AS ENUM ('GITHUB');
 
 -- CreateEnum
-CREATE TYPE "ContributionType" AS ENUM ('COMMIT', 'PULL_REQUEST', 'CODE_REVIEW', 'DOCUMENTATION');
+CREATE TYPE "core"."ContributionType" AS ENUM ('COMMIT', 'PULL_REQUEST', 'CODE_REVIEW', 'DOCUMENTATION');
 
 -- CreateEnum
-CREATE TYPE "ContributionStatus" AS ENUM ('INGESTED', 'ATTRIBUTED', 'UNATTRIBUTED', 'EVALUATED');
+CREATE TYPE "core"."ContributionStatus" AS ENUM ('INGESTED', 'ATTRIBUTED', 'UNATTRIBUTED', 'EVALUATED');
 
 -- CreateEnum
-CREATE TYPE "CollaborationRole" AS ENUM ('PRIMARY_AUTHOR', 'CO_AUTHOR', 'COMMITTER', 'ISSUE_ASSIGNEE');
+CREATE TYPE "core"."CollaborationRole" AS ENUM ('PRIMARY_AUTHOR', 'CO_AUTHOR', 'COMMITTER', 'ISSUE_ASSIGNEE');
 
 -- CreateEnum
-CREATE TYPE "CollaborationStatus" AS ENUM ('DETECTED', 'CONFIRMED', 'DISPUTED', 'OVERRIDDEN');
+CREATE TYPE "core"."CollaborationStatus" AS ENUM ('DETECTED', 'CONFIRMED', 'DISPUTED', 'OVERRIDDEN');
 
 -- CreateEnum
-CREATE TYPE "WebhookDeliveryStatus" AS ENUM ('RECEIVED', 'PROCESSING', 'COMPLETED', 'FAILED');
+CREATE TYPE "core"."WebhookDeliveryStatus" AS ENUM ('RECEIVED', 'PROCESSING', 'COMPLETED', 'FAILED');
 
 -- CreateEnum
-CREATE TYPE "TaskStatus" AS ENUM ('AVAILABLE', 'CLAIMED', 'IN_PROGRESS', 'COMPLETED', 'EVALUATED', 'RETIRED');
+CREATE TYPE "core"."TaskStatus" AS ENUM ('AVAILABLE', 'CLAIMED', 'IN_PROGRESS', 'COMPLETED', 'EVALUATED', 'RETIRED');
 
 -- CreateEnum
-CREATE TYPE "TaskDifficulty" AS ENUM ('BEGINNER', 'INTERMEDIATE', 'ADVANCED');
+CREATE TYPE "core"."TaskDifficulty" AS ENUM ('BEGINNER', 'INTERMEDIATE', 'ADVANCED');
 
 -- CreateEnum
-CREATE TYPE "ActivityEventType" AS ENUM ('CONTRIBUTION_NEW', 'EVALUATION_COMPLETED', 'ANNOUNCEMENT_CREATED', 'MEMBER_JOINED', 'TASK_COMPLETED', 'FEEDBACK_ASSIGNED', 'FEEDBACK_SUBMITTED', 'FEEDBACK_REASSIGNED');
+CREATE TYPE "core"."ActivityEventType" AS ENUM ('CONTRIBUTION_NEW', 'EVALUATION_COMPLETED', 'ANNOUNCEMENT_CREATED', 'MEMBER_JOINED', 'TASK_COMPLETED', 'FEEDBACK_ASSIGNED', 'FEEDBACK_SUBMITTED', 'FEEDBACK_REASSIGNED');
 
 -- CreateEnum
-CREATE TYPE "FeedbackStatus" AS ENUM ('ASSIGNED', 'COMPLETED', 'REASSIGNED', 'UNASSIGNED');
+CREATE TYPE "core"."FeedbackStatus" AS ENUM ('ASSIGNED', 'COMPLETED', 'REASSIGNED', 'UNASSIGNED');
 
 -- CreateEnum
-CREATE TYPE "NotificationType" AS ENUM ('EVALUATION_COMPLETED', 'EVALUATION_REVIEW_FLAGGED', 'EVALUATION_REVIEW_RESOLVED', 'PEER_FEEDBACK_AVAILABLE', 'PEER_FEEDBACK_RECEIVED', 'ANNOUNCEMENT_POSTED', 'CONTRIBUTION_TO_DOMAIN', 'TASK_ASSIGNED', 'ARTICLE_FEEDBACK', 'ARTICLE_PUBLISHED', 'EDITOR_APPLICATION_SUBMITTED', 'ROLE_CHANGED');
+CREATE TYPE "core"."NotificationType" AS ENUM ('EVALUATION_COMPLETED', 'EVALUATION_REVIEW_FLAGGED', 'EVALUATION_REVIEW_RESOLVED', 'PEER_FEEDBACK_AVAILABLE', 'PEER_FEEDBACK_RECEIVED', 'ANNOUNCEMENT_POSTED', 'CONTRIBUTION_TO_DOMAIN', 'TASK_ASSIGNED', 'ARTICLE_FEEDBACK', 'ARTICLE_PUBLISHED', 'EDITOR_APPLICATION_SUBMITTED', 'ROLE_CHANGED');
 
 -- CreateEnum
 CREATE TYPE "evaluation"."EvaluationStatus" AS ENUM ('PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED');
@@ -86,7 +86,7 @@ CREATE TYPE "evaluation"."TemporalHorizon" AS ENUM ('SESSION', 'DAILY', 'WEEKLY'
 CREATE TYPE "evaluation"."ScoreTrend" AS ENUM ('RISING', 'STABLE', 'DECLINING');
 
 -- CreateTable
-CREATE TABLE "contributors" (
+CREATE TABLE "core"."contributors" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "github_id" INTEGER NOT NULL,
     "github_username" TEXT,
@@ -94,9 +94,9 @@ CREATE TABLE "contributors" (
     "name" TEXT NOT NULL,
     "bio" VARCHAR(500),
     "avatar_url" TEXT,
-    "domain" "ContributorDomain",
+    "domain" "core"."ContributorDomain",
     "skill_areas" TEXT[] DEFAULT ARRAY[]::TEXT[],
-    "role" "ContributorRole" NOT NULL DEFAULT 'PUBLIC',
+    "role" "core"."ContributorRole" NOT NULL DEFAULT 'PUBLIC',
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -107,18 +107,18 @@ CREATE TABLE "contributors" (
 );
 
 -- CreateTable
-CREATE TABLE "applications" (
+CREATE TABLE "core"."applications" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "applicant_name" TEXT NOT NULL,
     "applicant_email" TEXT NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "statement_of_interest" VARCHAR(300) NOT NULL,
-    "micro_task_domain" "ContributorDomain" NOT NULL,
+    "micro_task_domain" "core"."ContributorDomain" NOT NULL,
     "micro_task_response" TEXT NOT NULL,
     "micro_task_submission_url" TEXT,
     "gdpr_consent_version" TEXT NOT NULL,
     "gdpr_consented_at" TIMESTAMP(3) NOT NULL,
-    "status" "ApplicationStatus" NOT NULL DEFAULT 'PENDING',
+    "status" "core"."ApplicationStatus" NOT NULL DEFAULT 'PENDING',
     "contributor_id" UUID,
     "reviewed_by_id" UUID,
     "reviewed_at" TIMESTAMP(3),
@@ -131,11 +131,11 @@ CREATE TABLE "applications" (
 );
 
 -- CreateTable
-CREATE TABLE "application_reviews" (
+CREATE TABLE "core"."application_reviews" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "application_id" UUID NOT NULL,
     "reviewer_id" UUID NOT NULL,
-    "recommendation" "ReviewRecommendation",
+    "recommendation" "core"."ReviewRecommendation",
     "feedback" TEXT,
     "submitted_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -144,9 +144,9 @@ CREATE TABLE "application_reviews" (
 );
 
 -- CreateTable
-CREATE TABLE "micro_tasks" (
+CREATE TABLE "core"."micro_tasks" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "expected_deliverable" TEXT NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE "micro_tasks" (
 );
 
 -- CreateTable
-CREATE TABLE "buddy_assignments" (
+CREATE TABLE "core"."buddy_assignments" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contributor_id" UUID NOT NULL,
     "buddy_id" UUID NOT NULL,
@@ -174,10 +174,10 @@ CREATE TABLE "buddy_assignments" (
 );
 
 -- CreateTable
-CREATE TABLE "onboarding_milestones" (
+CREATE TABLE "core"."onboarding_milestones" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contributor_id" UUID NOT NULL,
-    "milestone_type" "OnboardingMilestoneType" NOT NULL,
+    "milestone_type" "core"."OnboardingMilestoneType" NOT NULL,
     "completed_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "metadata" JSONB,
 
@@ -185,14 +185,14 @@ CREATE TABLE "onboarding_milestones" (
 );
 
 -- CreateTable
-CREATE TABLE "monitored_repositories" (
+CREATE TABLE "core"."monitored_repositories" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "owner" TEXT NOT NULL,
     "repo" TEXT NOT NULL,
     "full_name" TEXT NOT NULL,
     "webhook_id" INTEGER,
     "webhook_secret" TEXT NOT NULL,
-    "status" "RepositoryStatus" NOT NULL DEFAULT 'PENDING',
+    "status" "core"."RepositoryStatus" NOT NULL DEFAULT 'PENDING',
     "status_message" TEXT,
     "added_by_id" UUID NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -202,19 +202,19 @@ CREATE TABLE "monitored_repositories" (
 );
 
 -- CreateTable
-CREATE TABLE "contributions" (
+CREATE TABLE "core"."contributions" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contributor_id" UUID,
     "task_id" UUID,
     "repository_id" UUID NOT NULL,
-    "source" "ContributionSource" NOT NULL DEFAULT 'GITHUB',
+    "source" "core"."ContributionSource" NOT NULL DEFAULT 'GITHUB',
     "source_ref" TEXT NOT NULL,
-    "contribution_type" "ContributionType" NOT NULL,
+    "contribution_type" "core"."ContributionType" NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "raw_data" JSONB NOT NULL,
     "normalized_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "status" "ContributionStatus" NOT NULL DEFAULT 'INGESTED',
+    "status" "core"."ContributionStatus" NOT NULL DEFAULT 'INGESTED',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -222,14 +222,14 @@ CREATE TABLE "contributions" (
 );
 
 -- CreateTable
-CREATE TABLE "contribution_collaborations" (
+CREATE TABLE "core"."contribution_collaborations" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contribution_id" UUID NOT NULL,
     "contributor_id" UUID NOT NULL,
     "is_current" BOOLEAN NOT NULL DEFAULT true,
-    "role" "CollaborationRole" NOT NULL,
+    "role" "core"."CollaborationRole" NOT NULL,
     "split_percentage" DOUBLE PRECISION NOT NULL DEFAULT 100.0,
-    "status" "CollaborationStatus" NOT NULL DEFAULT 'DETECTED',
+    "status" "core"."CollaborationStatus" NOT NULL DEFAULT 'DETECTED',
     "detection_source" TEXT NOT NULL,
     "confirmed_at" TIMESTAMP(3),
     "dispute_comment" TEXT,
@@ -242,12 +242,12 @@ CREATE TABLE "contribution_collaborations" (
 );
 
 -- CreateTable
-CREATE TABLE "webhook_deliveries" (
+CREATE TABLE "core"."webhook_deliveries" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "delivery_id" TEXT NOT NULL,
     "repository_id" UUID NOT NULL,
     "event_type" TEXT NOT NULL,
-    "status" "WebhookDeliveryStatus" NOT NULL DEFAULT 'RECEIVED',
+    "status" "core"."WebhookDeliveryStatus" NOT NULL DEFAULT 'RECEIVED',
     "payload" JSONB,
     "processed_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -256,11 +256,11 @@ CREATE TABLE "webhook_deliveries" (
 );
 
 -- CreateTable
-CREATE TABLE "working_groups" (
+CREATE TABLE "core"."working_groups" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "accent_color" TEXT NOT NULL,
     "member_count" INTEGER NOT NULL DEFAULT 0,
     "lead_contributor_id" UUID,
@@ -271,7 +271,7 @@ CREATE TABLE "working_groups" (
 );
 
 -- CreateTable
-CREATE TABLE "working_group_members" (
+CREATE TABLE "core"."working_group_members" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "working_group_id" UUID NOT NULL,
     "contributor_id" UUID NOT NULL,
@@ -281,7 +281,7 @@ CREATE TABLE "working_group_members" (
 );
 
 -- CreateTable
-CREATE TABLE "announcements" (
+CREATE TABLE "core"."announcements" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "working_group_id" UUID NOT NULL,
     "author_id" UUID NOT NULL,
@@ -292,14 +292,14 @@ CREATE TABLE "announcements" (
 );
 
 -- CreateTable
-CREATE TABLE "tasks" (
+CREATE TABLE "core"."tasks" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
-    "difficulty" "TaskDifficulty" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
+    "difficulty" "core"."TaskDifficulty" NOT NULL,
     "estimated_effort" TEXT NOT NULL,
-    "status" "TaskStatus" NOT NULL DEFAULT 'AVAILABLE',
+    "status" "core"."TaskStatus" NOT NULL DEFAULT 'AVAILABLE',
     "sort_order" INTEGER NOT NULL DEFAULT 0,
     "claimed_by_id" UUID,
     "claimed_at" TIMESTAMP(3),
@@ -312,14 +312,14 @@ CREATE TABLE "tasks" (
 );
 
 -- CreateTable
-CREATE TABLE "activity_events" (
+CREATE TABLE "core"."activity_events" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "event_type" "ActivityEventType" NOT NULL,
+    "event_type" "core"."ActivityEventType" NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "contributor_id" UUID NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
-    "contribution_type" "ContributionType",
+    "domain" "core"."ContributorDomain" NOT NULL,
+    "contribution_type" "core"."ContributionType",
     "entity_id" TEXT NOT NULL,
     "metadata" JSONB,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -328,10 +328,10 @@ CREATE TABLE "activity_events" (
 );
 
 -- CreateTable
-CREATE TABLE "notifications" (
+CREATE TABLE "core"."notifications" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contributor_id" UUID NOT NULL,
-    "type" "NotificationType" NOT NULL,
+    "type" "core"."NotificationType" NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "entity_id" TEXT NOT NULL,
@@ -344,11 +344,11 @@ CREATE TABLE "notifications" (
 );
 
 -- CreateTable
-CREATE TABLE "peer_feedbacks" (
+CREATE TABLE "core"."peer_feedbacks" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contribution_id" UUID NOT NULL,
     "reviewer_id" UUID NOT NULL,
-    "status" "FeedbackStatus" NOT NULL DEFAULT 'ASSIGNED',
+    "status" "core"."FeedbackStatus" NOT NULL DEFAULT 'ASSIGNED',
     "ratings" JSONB,
     "comments" TEXT,
     "assigned_by" UUID,
@@ -363,7 +363,7 @@ CREATE TABLE "peer_feedbacks" (
 );
 
 -- CreateTable
-CREATE TABLE "platform_settings" (
+CREATE TABLE "core"."platform_settings" (
     "key" TEXT NOT NULL,
     "value" JSONB NOT NULL,
     "updated_by" UUID,
@@ -465,7 +465,7 @@ CREATE TABLE "publication"."articles" (
     "slug" TEXT NOT NULL,
     "abstract" VARCHAR(300) NOT NULL,
     "body" TEXT NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "status" "publication"."ArticleStatus" NOT NULL DEFAULT 'DRAFT',
     "version" INTEGER NOT NULL DEFAULT 1,
     "editor_id" UUID,
@@ -524,7 +524,7 @@ CREATE TABLE "publication"."inline_comments" (
 CREATE TABLE "publication"."editor_applications" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "contributor_id" UUID NOT NULL,
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "status" "publication"."EditorApplicationStatus" NOT NULL DEFAULT 'PENDING',
     "application_statement" VARCHAR(300) NOT NULL,
     "reviewed_by_id" UUID,
@@ -542,7 +542,7 @@ CREATE TABLE "publication"."editor_applications" (
 -- CreateTable
 CREATE TABLE "publication"."editor_eligibility_criteria" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "domain" "ContributorDomain" NOT NULL,
+    "domain" "core"."ContributorDomain" NOT NULL,
     "min_contribution_count" INTEGER NOT NULL DEFAULT 10,
     "min_governance_weight" DECIMAL(5,2) NOT NULL DEFAULT 0,
     "max_concurrent_assignments" INTEGER NOT NULL DEFAULT 5,
@@ -723,121 +723,121 @@ CREATE TABLE "evaluation"."temporal_score_aggregates" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "contributors_github_id_key" ON "contributors"("github_id");
+CREATE UNIQUE INDEX "contributors_github_id_key" ON "core"."contributors"("github_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "contributors_github_username_key" ON "contributors"("github_username");
+CREATE UNIQUE INDEX "contributors_github_username_key" ON "core"."contributors"("github_username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "contributors_email_key" ON "contributors"("email");
+CREATE UNIQUE INDEX "contributors_email_key" ON "core"."contributors"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "applications_applicant_email_key" ON "applications"("applicant_email");
+CREATE UNIQUE INDEX "applications_applicant_email_key" ON "core"."applications"("applicant_email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "onboarding_milestones_contributor_type_key" ON "onboarding_milestones"("contributor_id", "milestone_type");
+CREATE UNIQUE INDEX "onboarding_milestones_contributor_type_key" ON "core"."onboarding_milestones"("contributor_id", "milestone_type");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "monitored_repositories_full_name_key" ON "monitored_repositories"("full_name");
+CREATE UNIQUE INDEX "monitored_repositories_full_name_key" ON "core"."monitored_repositories"("full_name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "monitored_repositories_owner_repo_key" ON "monitored_repositories"("owner", "repo");
+CREATE UNIQUE INDEX "monitored_repositories_owner_repo_key" ON "core"."monitored_repositories"("owner", "repo");
 
 -- CreateIndex
-CREATE INDEX "contributions_contributor_created_idx" ON "contributions"("contributor_id", "created_at" DESC);
+CREATE INDEX "contributions_contributor_created_idx" ON "core"."contributions"("contributor_id", "created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "contributions_task_id_idx" ON "contributions"("task_id");
+CREATE INDEX "contributions_task_id_idx" ON "core"."contributions"("task_id");
 
 -- CreateIndex
-CREATE INDEX "contributions_repo_type_idx" ON "contributions"("repository_id", "contribution_type");
+CREATE INDEX "contributions_repo_type_idx" ON "core"."contributions"("repository_id", "contribution_type");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "contributions_source_repo_ref_key" ON "contributions"("source", "repository_id", "source_ref");
+CREATE UNIQUE INDEX "contributions_source_repo_ref_key" ON "core"."contributions"("source", "repository_id", "source_ref");
 
 -- CreateIndex
-CREATE INDEX "idx_contribution_collaborations_contribution" ON "contribution_collaborations"("contribution_id");
+CREATE INDEX "idx_contribution_collaborations_contribution" ON "core"."contribution_collaborations"("contribution_id");
 
 -- CreateIndex
-CREATE INDEX "idx_contribution_collaborations_contributor" ON "contribution_collaborations"("contributor_id");
+CREATE INDEX "idx_contribution_collaborations_contributor" ON "core"."contribution_collaborations"("contributor_id");
 
 -- CreateIndex
-CREATE INDEX "idx_contribution_collaborations_current" ON "contribution_collaborations"("contribution_id", "is_current");
+CREATE INDEX "idx_contribution_collaborations_current" ON "core"."contribution_collaborations"("contribution_id", "is_current");
 
 -- CreateIndex
-CREATE INDEX "idx_contribution_collaborations_status" ON "contribution_collaborations"("status");
+CREATE INDEX "idx_contribution_collaborations_status" ON "core"."contribution_collaborations"("status");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "contribution_collaborations_current_key" ON "contribution_collaborations"("contribution_id", "contributor_id", "is_current");
+CREATE UNIQUE INDEX "contribution_collaborations_current_key" ON "core"."contribution_collaborations"("contribution_id", "contributor_id", "is_current");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "webhook_deliveries_delivery_id_key" ON "webhook_deliveries"("delivery_id");
+CREATE UNIQUE INDEX "webhook_deliveries_delivery_id_key" ON "core"."webhook_deliveries"("delivery_id");
 
 -- CreateIndex
-CREATE INDEX "webhook_deliveries_repo_idx" ON "webhook_deliveries"("repository_id");
+CREATE INDEX "webhook_deliveries_repo_idx" ON "core"."webhook_deliveries"("repository_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "working_groups_name_key" ON "working_groups"("name");
+CREATE UNIQUE INDEX "working_groups_name_key" ON "core"."working_groups"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "working_groups_domain_key" ON "working_groups"("domain");
+CREATE UNIQUE INDEX "working_groups_domain_key" ON "core"."working_groups"("domain");
 
 -- CreateIndex
-CREATE INDEX "idx_working_group_members_contributor_id" ON "working_group_members"("contributor_id");
+CREATE INDEX "idx_working_group_members_contributor_id" ON "core"."working_group_members"("contributor_id");
 
 -- CreateIndex
-CREATE INDEX "idx_working_group_members_working_group_id" ON "working_group_members"("working_group_id");
+CREATE INDEX "idx_working_group_members_working_group_id" ON "core"."working_group_members"("working_group_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "working_group_members_group_contributor_key" ON "working_group_members"("working_group_id", "contributor_id");
+CREATE UNIQUE INDEX "working_group_members_group_contributor_key" ON "core"."working_group_members"("working_group_id", "contributor_id");
 
 -- CreateIndex
-CREATE INDEX "idx_announcements_working_group_id_created_at" ON "announcements"("working_group_id", "created_at" DESC);
+CREATE INDEX "idx_announcements_working_group_id_created_at" ON "core"."announcements"("working_group_id", "created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_tasks_domain_status" ON "tasks"("domain", "status");
+CREATE INDEX "idx_tasks_domain_status" ON "core"."tasks"("domain", "status");
 
 -- CreateIndex
-CREATE INDEX "idx_tasks_domain_sort_order" ON "tasks"("domain", "sort_order");
+CREATE INDEX "idx_tasks_domain_sort_order" ON "core"."tasks"("domain", "sort_order");
 
 -- CreateIndex
-CREATE INDEX "idx_tasks_claimed_by_id" ON "tasks"("claimed_by_id");
+CREATE INDEX "idx_tasks_claimed_by_id" ON "core"."tasks"("claimed_by_id");
 
 -- CreateIndex
-CREATE INDEX "idx_tasks_status" ON "tasks"("status");
+CREATE INDEX "idx_tasks_status" ON "core"."tasks"("status");
 
 -- CreateIndex
-CREATE INDEX "idx_tasks_created_by_id" ON "tasks"("created_by_id");
+CREATE INDEX "idx_tasks_created_by_id" ON "core"."tasks"("created_by_id");
 
 -- CreateIndex
-CREATE INDEX "idx_activity_events_created_at" ON "activity_events"("created_at" DESC);
+CREATE INDEX "idx_activity_events_created_at" ON "core"."activity_events"("created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_activity_events_domain_created_at" ON "activity_events"("domain", "created_at" DESC);
+CREATE INDEX "idx_activity_events_domain_created_at" ON "core"."activity_events"("domain", "created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_activity_events_contributor_id" ON "activity_events"("contributor_id");
+CREATE INDEX "idx_activity_events_contributor_id" ON "core"."activity_events"("contributor_id");
 
 -- CreateIndex
-CREATE INDEX "idx_notifications_contributor_unread" ON "notifications"("contributor_id", "read", "created_at" DESC);
+CREATE INDEX "idx_notifications_contributor_unread" ON "core"."notifications"("contributor_id", "read", "created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_notifications_contributor_created" ON "notifications"("contributor_id", "created_at" DESC);
+CREATE INDEX "idx_notifications_contributor_created" ON "core"."notifications"("contributor_id", "created_at" DESC);
 
 -- CreateIndex
-CREATE INDEX "idx_notifications_contributor_category" ON "notifications"("contributor_id", "category", "read");
+CREATE INDEX "idx_notifications_contributor_category" ON "core"."notifications"("contributor_id", "category", "read");
 
 -- CreateIndex
-CREATE INDEX "idx_peer_feedback_reviewer_status" ON "peer_feedbacks"("reviewer_id", "status");
+CREATE INDEX "idx_peer_feedback_reviewer_status" ON "core"."peer_feedbacks"("reviewer_id", "status");
 
 -- CreateIndex
-CREATE INDEX "idx_peer_feedback_contribution" ON "peer_feedbacks"("contribution_id");
+CREATE INDEX "idx_peer_feedback_contribution" ON "core"."peer_feedbacks"("contribution_id");
 
 -- CreateIndex
-CREATE INDEX "idx_peer_feedback_status_assigned" ON "peer_feedbacks"("status", "assigned_at");
+CREATE INDEX "idx_peer_feedback_status_assigned" ON "core"."peer_feedbacks"("status", "assigned_at");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "peer_feedbacks_contribution_reviewer_key" ON "peer_feedbacks"("contribution_id", "reviewer_id");
+CREATE UNIQUE INDEX "peer_feedbacks_contribution_reviewer_key" ON "core"."peer_feedbacks"("contribution_id", "reviewer_id");
 
 -- CreateIndex
 CREATE INDEX "audit_logs_created_at_idx" ON "audit"."audit_logs"("created_at");
@@ -963,115 +963,115 @@ CREATE INDEX "idx_temporal_aggregates_contributor_horizon_period" ON "evaluation
 CREATE UNIQUE INDEX "temporal_score_aggregates_contributor_horizon_period_key" ON "evaluation"."temporal_score_aggregates"("contributor_id", "horizon", "period_start");
 
 -- AddForeignKey
-ALTER TABLE "applications" ADD CONSTRAINT "applications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."applications" ADD CONSTRAINT "applications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "applications" ADD CONSTRAINT "applications_reviewed_by_id_fkey" FOREIGN KEY ("reviewed_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."applications" ADD CONSTRAINT "applications_reviewed_by_id_fkey" FOREIGN KEY ("reviewed_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "application_reviews" ADD CONSTRAINT "application_reviews_application_id_fkey" FOREIGN KEY ("application_id") REFERENCES "applications"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."application_reviews" ADD CONSTRAINT "application_reviews_application_id_fkey" FOREIGN KEY ("application_id") REFERENCES "core"."applications"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "application_reviews" ADD CONSTRAINT "application_reviews_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."application_reviews" ADD CONSTRAINT "application_reviews_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "buddy_assignments" ADD CONSTRAINT "buddy_assignments_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."buddy_assignments" ADD CONSTRAINT "buddy_assignments_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "buddy_assignments" ADD CONSTRAINT "buddy_assignments_buddy_id_fkey" FOREIGN KEY ("buddy_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."buddy_assignments" ADD CONSTRAINT "buddy_assignments_buddy_id_fkey" FOREIGN KEY ("buddy_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "onboarding_milestones" ADD CONSTRAINT "onboarding_milestones_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."onboarding_milestones" ADD CONSTRAINT "onboarding_milestones_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "monitored_repositories" ADD CONSTRAINT "monitored_repositories_added_by_id_fkey" FOREIGN KEY ("added_by_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."monitored_repositories" ADD CONSTRAINT "monitored_repositories_added_by_id_fkey" FOREIGN KEY ("added_by_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contributions" ADD CONSTRAINT "contributions_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."contributions" ADD CONSTRAINT "contributions_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contributions" ADD CONSTRAINT "contributions_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "tasks"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."contributions" ADD CONSTRAINT "contributions_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "core"."tasks"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contributions" ADD CONSTRAINT "contributions_repository_id_fkey" FOREIGN KEY ("repository_id") REFERENCES "monitored_repositories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."contributions" ADD CONSTRAINT "contributions_repository_id_fkey" FOREIGN KEY ("repository_id") REFERENCES "core"."monitored_repositories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "core"."contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_overridden_by_id_fkey" FOREIGN KEY ("overridden_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."contribution_collaborations" ADD CONSTRAINT "contribution_collaborations_overridden_by_id_fkey" FOREIGN KEY ("overridden_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "webhook_deliveries" ADD CONSTRAINT "webhook_deliveries_repository_id_fkey" FOREIGN KEY ("repository_id") REFERENCES "monitored_repositories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."webhook_deliveries" ADD CONSTRAINT "webhook_deliveries_repository_id_fkey" FOREIGN KEY ("repository_id") REFERENCES "core"."monitored_repositories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "working_groups" ADD CONSTRAINT "working_groups_lead_contributor_id_fkey" FOREIGN KEY ("lead_contributor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."working_groups" ADD CONSTRAINT "working_groups_lead_contributor_id_fkey" FOREIGN KEY ("lead_contributor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "working_group_members" ADD CONSTRAINT "working_group_members_working_group_id_fkey" FOREIGN KEY ("working_group_id") REFERENCES "working_groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."working_group_members" ADD CONSTRAINT "working_group_members_working_group_id_fkey" FOREIGN KEY ("working_group_id") REFERENCES "core"."working_groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "working_group_members" ADD CONSTRAINT "working_group_members_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."working_group_members" ADD CONSTRAINT "working_group_members_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "announcements" ADD CONSTRAINT "announcements_working_group_id_fkey" FOREIGN KEY ("working_group_id") REFERENCES "working_groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."announcements" ADD CONSTRAINT "announcements_working_group_id_fkey" FOREIGN KEY ("working_group_id") REFERENCES "core"."working_groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "announcements" ADD CONSTRAINT "announcements_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."announcements" ADD CONSTRAINT "announcements_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "tasks" ADD CONSTRAINT "tasks_claimed_by_id_fkey" FOREIGN KEY ("claimed_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."tasks" ADD CONSTRAINT "tasks_claimed_by_id_fkey" FOREIGN KEY ("claimed_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "tasks" ADD CONSTRAINT "tasks_created_by_id_fkey" FOREIGN KEY ("created_by_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."tasks" ADD CONSTRAINT "tasks_created_by_id_fkey" FOREIGN KEY ("created_by_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "activity_events" ADD CONSTRAINT "activity_events_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."activity_events" ADD CONSTRAINT "activity_events_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "notifications" ADD CONSTRAINT "notifications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."notifications" ADD CONSTRAINT "notifications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "peer_feedbacks" ADD CONSTRAINT "peer_feedbacks_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."peer_feedbacks" ADD CONSTRAINT "peer_feedbacks_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "core"."contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "peer_feedbacks" ADD CONSTRAINT "peer_feedbacks_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "core"."peer_feedbacks" ADD CONSTRAINT "peer_feedbacks_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "platform_settings" ADD CONSTRAINT "platform_settings_updated_by_fkey" FOREIGN KEY ("updated_by") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "core"."platform_settings" ADD CONSTRAINT "platform_settings_updated_by_fkey" FOREIGN KEY ("updated_by") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "audit"."audit_logs" ADD CONSTRAINT "audit_logs_actor_id_fkey" FOREIGN KEY ("actor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "audit"."audit_logs" ADD CONSTRAINT "audit_logs_actor_id_fkey" FOREIGN KEY ("actor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "audit"."data_export_requests" ADD CONSTRAINT "data_export_requests_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "audit"."data_export_requests" ADD CONSTRAINT "data_export_requests_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "audit"."data_deletion_requests" ADD CONSTRAINT "data_deletion_requests_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "audit"."data_deletion_requests" ADD CONSTRAINT "data_deletion_requests_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "audit"."compliance_documents" ADD CONSTRAINT "compliance_documents_legal_reviewed_by_fkey" FOREIGN KEY ("legal_reviewed_by") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "audit"."compliance_documents" ADD CONSTRAINT "compliance_documents_legal_reviewed_by_fkey" FOREIGN KEY ("legal_reviewed_by") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."articles" ADD CONSTRAINT "articles_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."articles" ADD CONSTRAINT "articles_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."articles" ADD CONSTRAINT "articles_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."articles" ADD CONSTRAINT "articles_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "publication"."article_versions" ADD CONSTRAINT "article_versions_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."article_versions" ADD CONSTRAINT "article_versions_created_by_id_fkey" FOREIGN KEY ("created_by_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."article_versions" ADD CONSTRAINT "article_versions_created_by_id_fkey" FOREIGN KEY ("created_by_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "publication"."editorial_feedback" ADD CONSTRAINT "editorial_feedback_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."editorial_feedback" ADD CONSTRAINT "editorial_feedback_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."editorial_feedback" ADD CONSTRAINT "editorial_feedback_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "publication"."inline_comments" ADD CONSTRAINT "inline_comments_feedback_id_fkey" FOREIGN KEY ("feedback_id") REFERENCES "publication"."editorial_feedback"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -1080,19 +1080,19 @@ ALTER TABLE "publication"."inline_comments" ADD CONSTRAINT "inline_comments_feed
 ALTER TABLE "publication"."inline_comments" ADD CONSTRAINT "inline_comments_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."inline_comments" ADD CONSTRAINT "inline_comments_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."inline_comments" ADD CONSTRAINT "inline_comments_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_reviewed_by_id_fkey" FOREIGN KEY ("reviewed_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_reviewed_by_id_fkey" FOREIGN KEY ("reviewed_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_revoked_by_id_fkey" FOREIGN KEY ("revoked_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."editor_applications" ADD CONSTRAINT "editor_applications_revoked_by_id_fkey" FOREIGN KEY ("revoked_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."editor_eligibility_criteria" ADD CONSTRAINT "editor_eligibility_criteria_updated_by_id_fkey" FOREIGN KEY ("updated_by_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."editor_eligibility_criteria" ADD CONSTRAINT "editor_eligibility_criteria_updated_by_id_fkey" FOREIGN KEY ("updated_by_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "publication"."article_views" ADD CONSTRAINT "article_views_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -1101,22 +1101,22 @@ ALTER TABLE "publication"."article_views" ADD CONSTRAINT "article_views_article_
 ALTER TABLE "publication"."article_reward_allocations" ADD CONSTRAINT "article_reward_allocations_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."article_reward_allocations" ADD CONSTRAINT "article_reward_allocations_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "publication"."article_reward_allocations" ADD CONSTRAINT "article_reward_allocations_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."article_reward_allocations" ADD CONSTRAINT "article_reward_allocations_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."article_reward_allocations" ADD CONSTRAINT "article_reward_allocations_editor_id_fkey" FOREIGN KEY ("editor_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "publication"."moderation_reports" ADD CONSTRAINT "moderation_reports_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "publication"."articles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "publication"."moderation_reports" ADD CONSTRAINT "moderation_reports_admin_id_fkey" FOREIGN KEY ("admin_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "publication"."moderation_reports" ADD CONSTRAINT "moderation_reports_admin_id_fkey" FOREIGN KEY ("admin_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_contribution_id_fkey" FOREIGN KEY ("contribution_id") REFERENCES "core"."contributions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_model_id_fkey" FOREIGN KEY ("model_id") REFERENCES "evaluation"."evaluation_models"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -1128,10 +1128,10 @@ ALTER TABLE "evaluation"."evaluations" ADD CONSTRAINT "evaluations_rubric_id_fke
 ALTER TABLE "evaluation"."evaluation_reviews" ADD CONSTRAINT "evaluation_reviews_evaluation_id_fkey" FOREIGN KEY ("evaluation_id") REFERENCES "evaluation"."evaluations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "evaluation"."evaluation_reviews" ADD CONSTRAINT "evaluation_reviews_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "evaluation"."evaluation_reviews" ADD CONSTRAINT "evaluation_reviews_contributor_id_fkey" FOREIGN KEY ("contributor_id") REFERENCES "core"."contributors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "evaluation"."evaluation_reviews" ADD CONSTRAINT "evaluation_reviews_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "evaluation"."evaluation_reviews" ADD CONSTRAINT "evaluation_reviews_reviewer_id_fkey" FOREIGN KEY ("reviewer_id") REFERENCES "core"."contributors"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "evaluation"."contribution_scores" ADD CONSTRAINT "contribution_scores_formula_version_id_fkey" FOREIGN KEY ("formula_version_id") REFERENCES "evaluation"."scoring_formula_versions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
