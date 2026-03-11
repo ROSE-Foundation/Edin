@@ -11,6 +11,9 @@ RUN cd apps/api && npx prisma generate
 RUN pnpm --filter api build
 # Create standalone deployment with flat node_modules (no symlinks)
 RUN pnpm --filter api deploy --legacy /app/deployed
+# dist/ and generated/ are excluded by .gitignore so pnpm deploy skips them
+RUN cp -r /app/apps/api/dist /app/deployed/dist
+RUN cp -r /app/apps/api/generated /app/deployed/generated
 
 # ── Production ────────────────────────────────────────────────────
 FROM node:20-alpine AS runner
@@ -19,9 +22,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY --from=builder /app/deployed ./
-# dist/ and generated/ are excluded by .gitignore so pnpm deploy skips them
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/apps/api/generated ./generated
 
 EXPOSE 3001
 CMD ["dumb-init", "sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
