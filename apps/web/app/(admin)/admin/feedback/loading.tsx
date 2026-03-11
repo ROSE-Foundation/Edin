@@ -1,4 +1,4 @@
-import { StatCardSkeleton } from '../../../components/features/metrics/stat-card';
+import { StatCardSkeleton } from '../../../../components/features/metrics/stat-card';
 
 export default function FeedbackMonitoringLoading() {
   return (

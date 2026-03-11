@@ -4,11 +4,11 @@ import { useState } from 'react';
 import {
   useEvaluationModels,
   useEvaluationModelMetrics,
-} from '../../../../hooks/use-evaluation-models';
-import { useAgreementRates } from '../../../../hooks/use-evaluation-review';
-import { ModelRegistryList } from '../../../../components/features/evaluation/admin/model-registry-list';
-import { ModelMetricsComparison } from '../../../../components/features/evaluation/admin/model-metrics-comparison';
-import { AgreementRateCard } from '../../../../components/features/evaluation/admin/agreement-rate-card';
+} from '../../../../../hooks/use-evaluation-models';
+import { useAgreementRates } from '../../../../../hooks/use-evaluation-review';
+import { ModelRegistryList } from '../../../../../components/features/evaluation/admin/model-registry-list';
+import { ModelMetricsComparison } from '../../../../../components/features/evaluation/admin/model-metrics-comparison';
+import { AgreementRateCard } from '../../../../../components/features/evaluation/admin/agreement-rate-card';
 
 export default function EvaluationModelsPage() {
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);

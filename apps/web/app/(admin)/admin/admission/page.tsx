@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { AdmissionQueue } from '../../../components/features/admission/admin/admission-queue';
-import { ToastProvider } from '../../../components/ui/toast';
+import { AdmissionQueue } from '../../../../components/features/admission/admin/admission-queue';
+import { ToastProvider } from '../../../../components/ui/toast';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

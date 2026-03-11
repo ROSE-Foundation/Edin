@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { FeedbackMonitoringDashboard } from '../../../components/features/feedback/admin/feedback-monitoring-dashboard';
-import { ToastProvider } from '../../../components/ui/toast';
+import { FeedbackMonitoringDashboard } from '../../../../components/features/feedback/admin/feedback-monitoring-dashboard';
+import { ToastProvider } from '../../../../components/ui/toast';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

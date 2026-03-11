@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useReviewQueue } from '../../../../hooks/use-evaluation-review';
-import { ReviewQueueTable } from '../../../../components/features/evaluation/review/review-queue-table';
+import { useReviewQueue } from '../../../../../hooks/use-evaluation-review';
+import { ReviewQueueTable } from '../../../../../components/features/evaluation/review/review-queue-table';
 
 const DOMAIN_OPTIONS = ['', 'TECHNOLOGY', 'FINTECH', 'IMPACT', 'GOVERNANCE'];
 

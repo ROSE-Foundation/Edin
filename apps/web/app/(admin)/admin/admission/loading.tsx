@@ -1,4 +1,4 @@
-import { AdmissionQueueSkeleton } from '../../../components/features/admission/admin/admission-queue-skeleton';
+import { AdmissionQueueSkeleton } from '../../../../components/features/admission/admin/admission-queue-skeleton';
 
 export default function Loading() {
   return (

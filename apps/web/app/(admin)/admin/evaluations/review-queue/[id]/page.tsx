@@ -3,10 +3,10 @@
 import { use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useReviewDetail } from '../../../../../hooks/use-evaluation-review';
-import { NarrativeCard } from '../../../../../components/features/evaluation/narrative/narrative-card';
-import { DimensionAccordion } from '../../../../../components/features/evaluation/narrative/dimension-accordion';
-import { ReviewResolveForm } from '../../../../../components/features/evaluation/review/review-resolve-form';
+import { useReviewDetail } from '../../../../../../hooks/use-evaluation-review';
+import { NarrativeCard } from '../../../../../../components/features/evaluation/narrative/narrative-card';
+import { DimensionAccordion } from '../../../../../../components/features/evaluation/narrative/dimension-accordion';
+import { ReviewResolveForm } from '../../../../../../components/features/evaluation/review/review-resolve-form';
 import type { EvaluationDimensionScoreDto } from '@edin/shared';
 
 export default function ReviewDetailPage({ params }: { params: Promise<{ id: string }> }) {
