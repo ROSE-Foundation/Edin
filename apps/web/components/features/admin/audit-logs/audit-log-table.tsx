@@ -192,7 +192,7 @@ export function AuditLogTable() {
             {isFetching && <span className="text-xs text-brand-secondary">Loading...</span>}
             <button
               onClick={() => {
-                if (pagination?.nextCursor) setCursor(pagination.nextCursor);
+                if (pagination?.cursor) setCursor(pagination.cursor);
               }}
               disabled={!pagination?.hasMore}
               className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
