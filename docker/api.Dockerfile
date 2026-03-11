@@ -19,6 +19,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY --from=builder /app/deployed ./
+# dist/ and generated/ are excluded by .gitignore so pnpm deploy skips them
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/generated ./generated
 
 EXPOSE 3001
 CMD ["dumb-init", "sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
