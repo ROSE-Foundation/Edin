@@ -309,7 +309,7 @@ describe('AdmissionService', () => {
         {
           id: 'app-2',
           applicantName: 'Bob',
-          domain: 'Fintech',
+          domain: 'Finance',
           status: 'UNDER_REVIEW',
           createdAt: new Date(),
           reviews: [],
@@ -648,7 +648,7 @@ describe('AdmissionService', () => {
     it('returns active contributors eligible for review', async () => {
       const reviewers = [
         { id: 'r-1', name: 'Alice', domain: 'Technology', avatarUrl: null },
-        { id: 'r-2', name: 'Bob', domain: 'Fintech', avatarUrl: null },
+        { id: 'r-2', name: 'Bob', domain: 'Finance', avatarUrl: null },
       ];
       mockPrisma.contributor.findMany.mockResolvedValueOnce(reviewers);
 
@@ -703,7 +703,7 @@ describe('AdmissionService', () => {
   describe('listMicroTasks', () => {
     it('returns paginated micro-tasks ordered by domain then createdAt', async () => {
       const tasks = [
-        { ...mockMicroTask, id: 'mt-1', domain: 'Fintech' },
+        { ...mockMicroTask, id: 'mt-1', domain: 'Finance' },
         { ...mockMicroTask, id: 'mt-2', domain: 'Technology' },
       ];
       mockPrisma.microTask.findMany.mockResolvedValueOnce(tasks);
@@ -1154,8 +1154,8 @@ describe('AdmissionService', () => {
   describe('getEligibleBuddies', () => {
     it('returns domain-matching buddies first', async () => {
       const techBuddy = { ...mockBuddy, domain: 'Technology' };
-      const fintechBuddy = { ...mockBuddy, id: 'buddy-2', domain: 'Fintech' };
-      mockPrisma.contributor.findMany.mockResolvedValueOnce([techBuddy, fintechBuddy]);
+      const financeBuddy = { ...mockBuddy, id: 'buddy-2', domain: 'Finance' };
+      mockPrisma.contributor.findMany.mockResolvedValueOnce([techBuddy, financeBuddy]);
 
       const result = await service.getEligibleBuddies('Technology');
 
@@ -1573,7 +1573,7 @@ describe('AdmissionService', () => {
         {
           id: 'healthy-uuid',
           name: 'Healthy',
-          domain: 'Fintech',
+          domain: 'Finance',
           applications: [{ ignitionStartedAt: healthyStart }],
           onboardingMilestones: [
             {

@@ -124,7 +124,7 @@ Request body (Zod-validated):
   monthlyContributions: number  // 1-50, contributions per month
   avgQualityScore: number       // 0-100, average quality score
   months: number                // 1-36, engagement duration in months
-  domain?: string               // optional: 'technology' | 'fintech' | 'impact' | 'governance'
+  domain?: string               // optional: 'technology' | 'finance' | 'impact' | 'governance'
 }
 
 Response:
@@ -206,7 +206,7 @@ The calculator component should have:
   - Monthly contributions: slider 1-50, default 5
   - Average quality score: slider 0-100, default 70
   - Duration: slider 1-36 months, default 12
-  - Domain: radio group (Technology/Fintech/Impact/Governance), default Technology
+  - Domain: radio group (Technology/Finance/Impact/Governance), default Technology
 - **Output section**: Mini Recharts AreaChart showing projected trajectory + summary stats
 - **Debounced API calls**: Use 500ms debounce on slider changes to avoid API spam
 - **Keyboard accessible**: All inputs navigable via Tab, adjustable via arrow keys

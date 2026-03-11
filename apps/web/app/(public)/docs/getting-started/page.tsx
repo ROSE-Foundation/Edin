@@ -52,7 +52,7 @@ export default function GettingStartedPage() {
           </li>
           <li className="font-sans text-[14px] leading-[1.6] text-brand-secondary">
             <strong className="text-brand-primary">Select your domain</strong> — choose your primary
-            area of expertise: Technology, Fintech & Financial Engineering, Impact & Sustainability,
+            area of expertise: Technology, Finance & Financial Engineering, Impact & Sustainability,
             or Governance.
           </li>
           <li className="font-sans text-[14px] leading-[1.6] text-brand-secondary">

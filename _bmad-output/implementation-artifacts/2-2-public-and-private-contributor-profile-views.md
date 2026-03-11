@@ -10,7 +10,7 @@ so that I can understand each contributor's expertise and involvement.
 
 ## Acceptance Criteria
 
-1. **Given** I am an unauthenticated visitor **When** I navigate to `/contributors/:id` **Then** I see a public contributor profile with: name, avatar, bio, primary domain, skill areas, role designation (Contributor, Founding Contributor, Working Group Lead), and domain badge with accent color (Technology: teal, Fintech: amber, Impact: terra rose, Governance: slate violet) **And** the page is server-side rendered for SEO **And** the profile layout uses serif typography for the bio and sans-serif for interface labels
+1. **Given** I am an unauthenticated visitor **When** I navigate to `/contributors/:id` **Then** I see a public contributor profile with: name, avatar, bio, primary domain, skill areas, role designation (Contributor, Founding Contributor, Working Group Lead), and domain badge with accent color (Technology: teal, Finance: amber, Impact: terra rose, Governance: slate violet) **And** the page is server-side rendered for SEO **And** the profile layout uses serif typography for the bio and sans-serif for interface labels
 
 2. **Given** I am an authenticated contributor **When** I navigate to `/dashboard` **Then** I see my own dashboard with: my profile summary, contribution history (placeholder for Epic 4), evaluation scores (placeholder for Epic 7), and peer feedback received (placeholder for Epic 6) **And** placeholder sections display dignified empty states ("Contributions will appear here once your GitHub repositories are connected")
 
@@ -39,7 +39,7 @@ so that I can understand each contributor's expertise and involvement.
 - [x] Task 4: Create public profile view component (AC: 1, 3, 4)
   - [x] 4.1 Create `apps/web/components/features/contributor-profile/public-profile-view.tsx` as read-only display
   - [x] 4.2 Display: avatar (large), name (serif h1), role badge (subtle, below name), domain badge (pill with accent color), bio (serif 17px), skill areas (read-only tag pills), member since date
-  - [x] 4.3 Domain badge colors: Technology → teal, Fintech → amber, Impact → terra rose (#B06B6B), Governance → slate violet (#7B6B8A). All badges MUST have equal visual weight
+  - [x] 4.3 Domain badge colors: Technology → teal, Finance → amber, Impact → terra rose (#B06B6B), Governance → slate violet (#7B6B8A). All badges MUST have equal visual weight
   - [x] 4.4 Founding Contributor badge: permanent, distinct visual treatment alongside role designation
   - [x] 4.5 Responsive: mobile single-column stacked, desktop side-by-side avatar+name layout
   - [x] 4.6 Accessibility: semantic headings, alt text on avatar, WCAG 2.1 AA color contrast (4.5:1 body, 3:1 large text), keyboard navigable
@@ -127,7 +127,7 @@ Use Prisma `select` to limit fields at query level — do NOT fetch all fields a
 | Domain | Color | Hex |
 |--------|-------|-----|
 | Technology | Deep teal | #3A7D7E |
-| Fintech | Warm amber | #C49A3C |
+| Finance | Warm amber | #C49A3C |
 | Impact | Terra rose | #B06B6B |
 | Governance | Slate violet | #7B6B8A |
 

@@ -22,14 +22,14 @@ import { CreateTaskForm } from '../task/create-task-form';
 
 const DOMAIN_TINT: Record<string, string> = {
   Technology: 'bg-[#3A7D7E]/3',
-  Fintech: 'bg-[#C49A3C]/3',
+  Finance: 'bg-[#C49A3C]/3',
   Impact: 'bg-[#B06B6B]/3',
   Governance: 'bg-[#7B6B8A]/3',
 };
 
 const DOMAIN_BADGE: Record<string, string> = {
   Technology: 'bg-domain-technology text-white',
-  Fintech: 'bg-domain-fintech text-brand-primary',
+  Finance: 'bg-domain-finance text-brand-primary',
   Impact: 'bg-domain-impact text-brand-primary',
   Governance: 'bg-domain-governance text-white',
 };

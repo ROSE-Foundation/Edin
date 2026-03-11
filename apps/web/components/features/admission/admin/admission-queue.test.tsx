@@ -44,7 +44,7 @@ const mockApplications = [
   {
     id: 'app-2',
     applicantName: 'Bob Jones',
-    domain: 'Fintech',
+    domain: 'Finance',
     status: 'UNDER_REVIEW',
     createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
     reviews: [
@@ -105,7 +105,7 @@ describe('AdmissionQueue', () => {
     renderWithProviders(<AdmissionQueue />);
 
     expect(screen.getAllByText('Technology').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Fintech').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Finance').length).toBeGreaterThan(0);
   });
 
   it('renders status badges', () => {

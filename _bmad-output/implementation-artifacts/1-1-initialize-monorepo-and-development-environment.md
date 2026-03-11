@@ -361,7 +361,7 @@ edin/
 | `surface-raised`      | `#FFFFFF` | Cards, modals                      |
 | `surface-sunken`      | `#F2F0EB` | Inset areas, code blocks           |
 | `domain-technology`   | `#3A7D7E` | Technology domain accent           |
-| `domain-fintech`      | `#C49A3C` | Fintech domain accent              |
+| `domain-finance`      | `#C49A3C` | Finance domain accent              |
 | `domain-impact`       | `#B06B6B` | Impact domain accent               |
 | `domain-governance`   | `#7B6B8A` | Governance domain accent           |
 | `semantic-success`    | `#5A8A6B` | Positive states                    |

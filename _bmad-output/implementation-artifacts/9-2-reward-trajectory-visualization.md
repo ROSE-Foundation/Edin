@@ -151,7 +151,7 @@ All Edin charts follow these conventions:
 Per contributor's domain — use for primary curve color:
 
 - Technology: teal (`#3A7D7E` or `var(--color-domain-technology)`)
-- Fintech: amber
+- Finance: amber
 - Impact: rose
 - Governance: violet
 

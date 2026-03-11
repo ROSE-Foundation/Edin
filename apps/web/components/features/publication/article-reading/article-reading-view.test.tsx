@@ -23,21 +23,21 @@ const mockArticle: PublicArticleDetailDto = {
   slug: 'future-decentralized-finance-abc123',
   abstract: 'An in-depth look at DeFi protocols and their impact on traditional finance.',
   body: '{"type":"doc","content":[]}',
-  domain: 'Fintech',
+  domain: 'Finance',
   publishedAt: '2026-03-05T10:00:00.000Z',
   readingTimeMinutes: 8,
   author: {
     id: 'author-1',
     name: 'Alice Smith',
     avatarUrl: 'https://example.com/alice.jpg',
-    domain: 'Fintech',
+    domain: 'Finance',
     bio: 'DeFi researcher and contributor.',
   },
   editor: {
     id: 'editor-1',
     name: 'Bob Jones',
     avatarUrl: 'https://example.com/bob.jpg',
-    domain: 'Fintech',
+    domain: 'Finance',
   },
   evaluationScore: null,
   evaluationNarrative: null,
@@ -60,7 +60,7 @@ describe('ArticleReadingView', () => {
 
   it('renders domain badge', () => {
     render(<ArticleReadingView article={mockArticle} />);
-    const domainBadges = screen.getAllByText('Fintech');
+    const domainBadges = screen.getAllByText('Finance');
     expect(domainBadges.length).toBeGreaterThan(0);
   });
 

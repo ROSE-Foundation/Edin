@@ -49,7 +49,7 @@ This document provides the complete epic and story breakdown for Edin, decomposi
 - FR30: Contributors can view peer feedback received on their dashboard
 - FR31: Admins can monitor peer feedback turnaround times and identify overdue assignments
 - FR32: The system can track feedback completion rates, timeliness, and rubric coverage
-- FR33: Contributors can view and join one of four domain working groups (Technology, Fintech, Impact, Governance)
+- FR33: Contributors can view and join one of four domain working groups (Technology, Finance, Impact, Governance)
 - FR34: Contributors can browse a curated contribution menu of available tasks tagged by domain, difficulty, and estimated effort
 - FR35: Admins and Working Group Leads can create, edit, and retire tasks on the contribution menu
 - FR36: Contributors can claim tasks from the contribution menu
@@ -222,7 +222,7 @@ Total NFRs: 44
 
 - Tailwind CSS + Radix UI (headless component library) + custom Edin Component Library
 - Dual typography: serif (Libre Baskerville / Source Serif Pro) for editorial, sans-serif (Inter / Source Sans Pro) for interface
-- Domain accent colors: Technology (#3A7D7E teal), Fintech (#C49A3C amber), Impact (#B06B6B terra rose), Governance (#7B6B8A slate violet)
+- Domain accent colors: Technology (#3A7D7E teal), Finance (#C49A3C amber), Impact (#B06B6B terra rose), Governance (#7B6B8A slate violet)
 - Warm off-white base (#FAFAF7), terracotta accent (#C4956A)
 - 8px spacing base unit; minimum 24px between editorial content blocks
 - No red/green for scoring; narrative-first evaluation design
@@ -567,7 +567,7 @@ So that other contributors and visitors can understand my background and contrib
 
 **Given** I am authenticated as a contributor
 **When** I navigate to /dashboard/profile
-**Then** I see a profile editing form with fields for: display name, bio (rich text, max 500 characters), primary domain (select: Technology, Fintech, Impact, Governance), skill areas (multi-select tags), and a profile photo (synced from GitHub by default, with override option)
+**Then** I see a profile editing form with fields for: display name, bio (rich text, max 500 characters), primary domain (select: Technology, Finance, Impact, Governance), skill areas (multi-select tags), and a profile photo (synced from GitHub by default, with override option)
 **And** the form is validated using the shared Zod schema (contributorProfileSchema) on both frontend and backend
 
 **Given** I am editing my profile
@@ -596,7 +596,7 @@ So that I can understand each contributor's expertise and involvement.
 
 **Given** I am an unauthenticated visitor
 **When** I navigate to /contributors/:id
-**Then** I see a public contributor profile with: name, avatar, bio, primary domain, skill areas, role designation (Contributor, Founding Contributor, Working Group Lead), and domain badge with the appropriate accent color (Technology: teal, Fintech: amber, Impact: terra rose, Governance: slate violet)
+**Then** I see a public contributor profile with: name, avatar, bio, primary domain, skill areas, role designation (Contributor, Founding Contributor, Working Group Lead), and domain badge with the appropriate accent color (Technology: teal, Finance: amber, Impact: terra rose, Governance: slate violet)
 **And** the page is server-side rendered for SEO
 **And** the profile layout uses serif typography for the bio and sans-serif for interface labels (dual-typography system)
 
@@ -648,7 +648,7 @@ So that I can understand each domain pillar and evaluate the community's caliber
 
 **Given** I am an unauthenticated visitor
 **When** I navigate to /about
-**Then** I see four domain manifesto sections: Technology, Fintech & Financial Engineering, Impact & Sustainability, and Governance
+**Then** I see four domain manifesto sections: Technology, Finance & Financial Engineering, Impact & Sustainability, and Governance
 **And** each manifesto section has its domain accent color as a subtle visual element (border or background tint)
 **And** all four sections have identical layout structure and visual weight (no domain dominates)
 **And** the page is server-side rendered for SEO
@@ -656,7 +656,7 @@ So that I can understand each domain pillar and evaluate the community's caliber
 **Given** I am an unauthenticated visitor
 **When** I navigate to /contributors
 **Then** I see a browsable contributor roster showing: name, avatar, domain, role designation, and a brief bio excerpt for each contributor
-**And** I can filter contributors by domain (Technology, Fintech, Impact, Governance)
+**And** I can filter contributors by domain (Technology, Finance, Impact, Governance)
 **And** I can search contributors by name
 **And** filtering and search return results within <1s (NFR-P7)
 **And** the contributor list uses cursor-based pagination (default 20, max 100)
@@ -726,7 +726,7 @@ So that I can demonstrate my competence and join the Edin community.
 
 **Given** I am an unauthenticated visitor
 **When** I navigate to /apply
-**Then** I see an application form with fields for: name, email, primary domain (select: Technology, Fintech, Impact, Governance), a brief statement of interest (max 300 characters), and a domain-specific micro-task assignment displayed based on my selected domain
+**Then** I see an application form with fields for: name, email, primary domain (select: Technology, Finance, Impact, Governance), a brief statement of interest (max 300 characters), and a domain-specific micro-task assignment displayed based on my selected domain
 **And** the micro-task description clearly states expected deliverable, estimated effort (2-4 hours), and submission format
 **And** the page design follows UX spec: "respectful challenge" — feels like an invitation to demonstrate competence, not a gatekeeping hurdle
 
@@ -1016,7 +1016,7 @@ So that I can connect with contributors in my area of expertise and access domai
 
 **Given** I am an authenticated contributor
 **When** I navigate to /dashboard/working-groups
-**Then** I see four working groups displayed with equal visual weight: Technology (teal accent), Fintech & Financial Engineering (amber accent), Impact & Sustainability (terra rose accent), and Governance (slate violet accent)
+**Then** I see four working groups displayed with equal visual weight: Technology (teal accent), Finance & Financial Engineering (amber accent), Impact & Sustainability (terra rose accent), and Governance (slate violet accent)
 **And** each group shows: domain name, brief description, member count, and a domain-colored badge
 **And** no domain appears more prominent or positioned higher by default
 
@@ -1375,7 +1375,7 @@ So that I feel recognized for my craft rather than reduced to a number.
 **Then** I see my evaluation score history displayed as a timeline visualization (FR25)
 **And** the timeline shows scores over time with the narrative preview (first sentence) for each evaluation
 **And** trend lines use organic, garden-inspired visual language — growth curves, not stock charts (UX spec: patient confidence)
-**And** the visualization uses the contributor's domain accent color (teal for Technology, amber for Fintech, rose for Impact, violet for Governance)
+**And** the visualization uses the contributor's domain accent color (teal for Technology, amber for Finance, rose for Impact, violet for Governance)
 **And** the chart meets accessibility requirements: sufficient color contrast (4.5:1 minimum) and alternative text representations for screen readers (NFR-A4)
 
 **Given** I have multiple evaluations over time
@@ -1469,7 +1469,7 @@ So that I can share my intellectual insights with the community with minimal fri
 **Then** I see a focused authoring interface built on the Tiptap block-based editor (UX spec: Notion-like block editing with slash commands)
 **And** the editor supports rich text editing: headings (H2-H4), bold, italic, blockquotes, code blocks (with syntax highlighting), ordered and unordered lists, links, and images
 **And** slash commands (/) are available for inserting content blocks: code block, pull quote, data visualization placeholder, image, horizontal divider
-**And** the interface displays fields for: article title, abstract/summary (max 300 characters), domain tag selection (Technology, Fintech, Impact, Governance — single select), and the main article body
+**And** the interface displays fields for: article title, abstract/summary (max 300 characters), domain tag selection (Technology, Finance, Impact, Governance — single select), and the main article body
 **And** the writing experience feels like a focused writing tool — no platform chrome competing for attention (UX spec: progressive navigation collapse during focused tasks)
 
 **Given** I am writing an article
@@ -1784,7 +1784,7 @@ So that I can make data-driven decisions about community health and go/no-go rea
 
 **Given** I am an authenticated admin
 **When** I navigate to /admin/dashboard
-**Then** I see a health metrics dashboard displaying community vitals (FR48): active contributors (count and trend), retention rate (monthly cohort retention), domain balance (contributor distribution across Technology, Fintech, Impact, Governance), and feedback turnaround (average time from assignment to submission, from Epic 6)
+**Then** I see a health metrics dashboard displaying community vitals (FR48): active contributors (count and trend), retention rate (monthly cohort retention), domain balance (contributor distribution across Technology, Finance, Impact, Governance), and feedback turnaround (average time from assignment to submission, from Epic 6)
 **And** the dashboard presents metrics with editorial context — each metric includes a brief textual interpretation (e.g., "Technology domain has 45% of contributors — consider recruiting for Impact"), not raw numbers in isolation (UX spec: insight before numbers)
 **And** all leading and lagging KPIs from the PRD Success Criteria are available on the dashboard (NFR-O3)
 **And** dashboard data has <5 minute data lag (NFR-O3), sourced from Redis-cached aggregations

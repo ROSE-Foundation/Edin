@@ -2,7 +2,7 @@ import type { DomainManifesto } from '@edin/shared';
 
 const DOMAIN_ACCENT_CLASSES: Record<string, { border: string; bgVar: string }> = {
   Technology: { border: 'border-l-domain-technology', bgVar: '--color-domain-technology' },
-  Fintech: { border: 'border-l-domain-fintech', bgVar: '--color-domain-fintech' },
+  Finance: { border: 'border-l-domain-finance', bgVar: '--color-domain-finance' },
   Impact: { border: 'border-l-domain-impact', bgVar: '--color-domain-impact' },
   Governance: { border: 'border-l-domain-governance', bgVar: '--color-domain-governance' },
 };

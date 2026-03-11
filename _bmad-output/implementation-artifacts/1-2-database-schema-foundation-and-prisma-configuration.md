@@ -40,7 +40,7 @@ so that feature development can proceed with a properly structured data layer.
 | name       | String    | Not Null                               | Display name from GitHub                                                                                       |
 | bio        | String    | Nullable, max 500 chars                | User-provided biography                                                                                        |
 | avatar_url | String    | Nullable                               | GitHub profile avatar URL                                                                                      |
-| domain     | Enum      | Nullable                               | Primary domain: Technology / Fintech / Impact / Governance                                                     |
+| domain     | Enum      | Nullable                               | Primary domain: Technology / Finance / Impact / Governance                                                     |
 | role       | Enum      | Not Null, Default: PUBLIC              | Permission tier: PUBLIC / APPLICANT / CONTRIBUTOR / EDITOR / FOUNDING_CONTRIBUTOR / WORKING_GROUP_LEAD / ADMIN |
 | is_active  | Boolean   | Not Null, Default: true                | Soft-delete support                                                                                            |
 | created_at | Timestamp | Not Null, Default: now()               | Account creation timestamp                                                                                     |
@@ -79,7 +79,7 @@ so that feature development can proceed with a properly structured data layer.
 
 - Validates new contributor creation from OAuth callback
 - Requires: github_id (number), name (string), email (string, valid email format), avatar_url (string, URL format)
-- Optional: bio (max 500 chars), domain (one of: Technology, Fintech, Impact, Governance)
+- Optional: bio (max 500 chars), domain (one of: Technology, Finance, Impact, Governance)
 - Enforces field constraints matching database schema
 
 **updateContributorSchema:**

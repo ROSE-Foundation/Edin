@@ -33,7 +33,7 @@ const ROLE_OPTIONS = [
 const DOMAIN_OPTIONS = [
   { value: '', label: 'All Domains' },
   { value: 'TECHNOLOGY', label: 'Technology' },
-  { value: 'FINTECH', label: 'Fintech' },
+  { value: 'FINTECH', label: 'Finance' },
   { value: 'IMPACT', label: 'Impact' },
   { value: 'GOVERNANCE', label: 'Governance' },
 ];

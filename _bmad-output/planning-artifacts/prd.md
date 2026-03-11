@@ -36,7 +36,7 @@ documentCounts:
 workflowType: 'prd'
 classification:
   projectType: web_app
-  domain: fintech
+  domain: finance
   complexity: high
   projectContext: brownfield
 ---
@@ -52,7 +52,7 @@ classification:
 
 Edin is a curated contributor platform that organizes, evaluates, rewards, and publishes collaborative development within the Rose decentralized finance ecosystem. Built by the IOUR Foundation (Belgian non-profit), Edin addresses a structural failure in open-source economics: contributors produce enormous value but receive no objective evaluation, no sustained compensation, and no channel to share their insights with a broader audience. Existing platforms rely on subjective peer voting and single-task bounties — rewarding activity over impact, code over all other disciplines, and short-term engagement over long-term commitment.
 
-Edin proposes a new economic model for human contribution. The platform connects to contributors' existing tools (GitHub, Google Workspace, Slack), ingests their output through an integration layer, and applies an AI-powered Evaluation Engine that objectively assesses quality across four domains: Technology, Fintech, Impact, and Governance. Evaluated contributions feed into a multi-scale reward system distributing blockchain-based tokens across seven temporal horizons — from hourly micro-rewards to yearly commitment recognition — using scaling-law mathematics derived from Rose's own financial research (ORTFM). A curated admission model ensures community quality through selectivity rather than open access.
+Edin proposes a new economic model for human contribution. The platform connects to contributors' existing tools (GitHub, Google Workspace, Slack), ingests their output through an integration layer, and applies an AI-powered Evaluation Engine that objectively assesses quality across four domains: Technology, Finance, Impact, and Governance. Evaluated contributions feed into a multi-scale reward system distributing blockchain-based tokens across seven temporal horizons — from hourly micro-rewards to yearly commitment recognition — using scaling-law mathematics derived from Rose's own financial research (ORTFM). A curated admission model ensures community quality through selectivity rather than open access.
 
 At the heart of Edin's community growth strategy is the Publication Platform — a modern think tank and community-driven publication where contributors share insightful content on decentralized finance, governance, impact, and technology. Every piece of content has an Author. Every piece also has an Editor — a curator and guide who shapes the author's work to publication standard. The Editor receives 20% of the reward allocated to the author, creating a structured incentive for mentorship and editorial excellence. The Publication Platform is not an add-on; it is core to Edin's strategy — the visible, public-facing expression of the community's intellectual depth, designed to rival the quality and authority of established publications like The Economist, but built by a decentralized community of domain experts.
 
@@ -79,7 +79,7 @@ The recommended strategy is to validate the methodology with a founding communit
 ## Project Classification
 
 - **Project Type:** Web application (SaaS-like platform with significant API/backend infrastructure and blockchain components)
-- **Domain:** Fintech (blockchain-based contributor economy within a DeFi ecosystem, MiCA-regulated token economics)
+- **Domain:** Finance (blockchain-based contributor economy within a DeFi ecosystem, MiCA-regulated token economics)
 - **Complexity:** High (regulated token economics, AI evaluation engine, multi-scale smart contract rewards, curated admission governance, multi-source integration architecture)
 - **Project Context:** Brownfield (existing platform description and comprehensive product brief define the architecture and phased roadmap)
 
@@ -92,27 +92,27 @@ The recommended strategy is to validate the methodology with a founding communit
 **Persona-Specific Success Moments:**
 
 - **Lena (Technology):** Her detailed code review receives a higher evaluation score than a quick-fix PR with twice the line count — and the reward reflects craft over quantity. She stays because the AI sees what human popularity contests miss.
-- **Amir (Fintech):** His scaling-law parameter analysis appears on the contribution wall alongside code commits — with the same visibility and reward pathway. He stays because financial engineering is a first-class domain, not an afterthought.
+- **Amir (Finance):** His scaling-law parameter analysis appears on the contribution wall alongside code commits — with the same visibility and reward pathway. He stays because financial engineering is a first-class domain, not an afterthought.
 - **Sofia (Impact):** Her social impact assessment framework is adopted as a core governance criterion, influencing how the entire community measures success. She stays because Impact is a real pillar with real decision-making power.
 - **Yuki (Governance):** A governance proposal she drafted is adopted by community vote, traceable from proposal to ratification on an immutable record. She stays because progressive decentralization is credible, not performative.
 
 **Measurable User Metrics:**
 
-| Metric | Target | Rationale |
-|---|---|---|
-| Time-to-first-contribution | <72 hours for >80% of admitted contributors | 72-Hour Ignition onboarding compresses the gap between admission and action |
-| Multi-domain contribution balance | At least 1 active contributor per domain at all times | Four-pillar structure delivers on multi-domain equality |
-| Belonging score | Average >=4/5 on "How valued do you feel?" | Contributors feel chosen and respected, not processed |
-| Peer feedback satisfaction | >60% rate feedback as "useful" or "very useful" | Bridge mechanism holds until AI evaluation is online |
-| Referral willingness | >70% would invite someone they respect | The ultimate quality signal — people only refer to things they're proud of |
-| AI evaluation trust score (Phase 2+) | >70% rate evaluation as "fair" or "very fair" | Evaluation Engine is credible and contributors don't feel gamed |
-| Reward comprehension rate | >80% can explain the scaling-law model | Reward system motivates because it's understood |
-| Non-automatable contribution ratio | >25% of evaluated contributions are in mentoring, governance design, creative problem-solving, or leadership categories | Validates that uniquely human capabilities are being contributed and valued (Human Empowerment thesis) |
-| Reward motivation effectiveness (Phase 2+) | >50% of retained contributors cite the reward model as a top-3 engagement factor in quarterly survey | Compounding rewards drive retention, not just comprehension |
-| Admission selectivity signal | Track acceptance rate and quality differential between admitted and non-admitted applicants | Curated community thesis validated — selectivity creates signal value |
-| Publication engagement rate | >30% of active contributors publish or edit at least 1 article per quarter | Publication Platform is a living community expression, not a dormant feature |
-| Editor participation rate | >20% of active contributors serve as Editor on at least 1 article per quarter | Editorial mentorship flywheel is functioning — contributors want to curate, not just create |
-| Publication readership growth | Month-over-month growth in unique article readers from outside the contributor community | Publication attracts external audience and potential contributors |
+| Metric                                     | Target                                                                                                                  | Rationale                                                                                              |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Time-to-first-contribution                 | <72 hours for >80% of admitted contributors                                                                             | 72-Hour Ignition onboarding compresses the gap between admission and action                            |
+| Multi-domain contribution balance          | At least 1 active contributor per domain at all times                                                                   | Four-pillar structure delivers on multi-domain equality                                                |
+| Belonging score                            | Average >=4/5 on "How valued do you feel?"                                                                              | Contributors feel chosen and respected, not processed                                                  |
+| Peer feedback satisfaction                 | >60% rate feedback as "useful" or "very useful"                                                                         | Bridge mechanism holds until AI evaluation is online                                                   |
+| Referral willingness                       | >70% would invite someone they respect                                                                                  | The ultimate quality signal — people only refer to things they're proud of                             |
+| AI evaluation trust score (Phase 2+)       | >70% rate evaluation as "fair" or "very fair"                                                                           | Evaluation Engine is credible and contributors don't feel gamed                                        |
+| Reward comprehension rate                  | >80% can explain the scaling-law model                                                                                  | Reward system motivates because it's understood                                                        |
+| Non-automatable contribution ratio         | >25% of evaluated contributions are in mentoring, governance design, creative problem-solving, or leadership categories | Validates that uniquely human capabilities are being contributed and valued (Human Empowerment thesis) |
+| Reward motivation effectiveness (Phase 2+) | >50% of retained contributors cite the reward model as a top-3 engagement factor in quarterly survey                    | Compounding rewards drive retention, not just comprehension                                            |
+| Admission selectivity signal               | Track acceptance rate and quality differential between admitted and non-admitted applicants                             | Curated community thesis validated — selectivity creates signal value                                  |
+| Publication engagement rate                | >30% of active contributors publish or edit at least 1 article per quarter                                              | Publication Platform is a living community expression, not a dormant feature                           |
+| Editor participation rate                  | >20% of active contributors serve as Editor on at least 1 article per quarter                                           | Editorial mentorship flywheel is functioning — contributors want to curate, not just create            |
+| Publication readership growth              | Month-over-month growth in unique article readers from outside the contributor community                                | Publication attracts external audience and potential contributors                                      |
 
 ### Business Success
 
@@ -146,52 +146,52 @@ The recommended strategy is to validate the methodology with a founding communit
 
 **Decision Gates (Go/No-Go Checkpoints):**
 
-| Gate | Trigger | Decision |
-|---|---|---|
-| Community Viability | End of Phase 1 | <15 active contributors after 60 days → STOP. Reassess mission-based attraction |
-| Evaluation Credibility | AI prototype complete | <60% agreement with human experts → STOP AI-based rewards. Fall back to peer evaluation |
-| Regulatory Feasibility | Token classification opinion received | MiCA requires e-money or asset-referenced license → REDESIGN token economics |
-| Economic Viability | First quarter of on-chain rewards | Transaction costs >10% of reward value → REDUCE temporal scales or switch L2 |
-| External Validation | End of Phase 2 | Zero external interest → ABANDON Ecosystem-as-a-Service hypothesis |
+| Gate                   | Trigger                               | Decision                                                                                |
+| ---------------------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| Community Viability    | End of Phase 1                        | <15 active contributors after 60 days → STOP. Reassess mission-based attraction         |
+| Evaluation Credibility | AI prototype complete                 | <60% agreement with human experts → STOP AI-based rewards. Fall back to peer evaluation |
+| Regulatory Feasibility | Token classification opinion received | MiCA requires e-money or asset-referenced license → REDESIGN token economics            |
+| Economic Viability     | First quarter of on-chain rewards     | Transaction costs >10% of reward value → REDUCE temporal scales or switch L2            |
+| External Validation    | End of Phase 2                        | Zero external interest → ABANDON Ecosystem-as-a-Service hypothesis                      |
 
 ### Technical Success
 
-| Metric | Target | Rationale |
-|---|---|---|
-| AI evaluation agreement rate | >70% vs human expert assessment | Core hypothesis validation — if AI can't evaluate fairly, the entire model collapses |
-| L2 transaction cost ratio | <5% of reward value in gas costs | Economic viability of multi-temporal on-chain distribution |
-| GitHub integration reliability | >99% artifact ingestion success rate | Integration layer is the data foundation — missed contributions erode trust |
-| Evaluation transparency | 100% of evaluations include explainable criteria | Contributors must understand how their work was scored |
-| Contribution attribution accuracy | >95% correct credit assignment | Fair attribution is non-negotiable in a multi-contributor environment |
-| Portal availability | >99.5% uptime during active contributor hours | Community trust requires reliable access to profiles, dashboards, and feeds |
-| Ingestion pipeline latency | <15 minutes from contribution to dashboard visibility | Contributors need near-real-time feedback on their work |
+| Metric                            | Target                                                | Rationale                                                                            |
+| --------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| AI evaluation agreement rate      | >70% vs human expert assessment                       | Core hypothesis validation — if AI can't evaluate fairly, the entire model collapses |
+| L2 transaction cost ratio         | <5% of reward value in gas costs                      | Economic viability of multi-temporal on-chain distribution                           |
+| GitHub integration reliability    | >99% artifact ingestion success rate                  | Integration layer is the data foundation — missed contributions erode trust          |
+| Evaluation transparency           | 100% of evaluations include explainable criteria      | Contributors must understand how their work was scored                               |
+| Contribution attribution accuracy | >95% correct credit assignment                        | Fair attribution is non-negotiable in a multi-contributor environment                |
+| Portal availability               | >99.5% uptime during active contributor hours         | Community trust requires reliable access to profiles, dashboards, and feeds          |
+| Ingestion pipeline latency        | <15 minutes from contribution to dashboard visibility | Contributors need near-real-time feedback on their work                              |
 
 ### Measurable Outcomes
 
 **Leading Indicators (early signals of strategic health):**
 
-| KPI | Target | Frequency |
-|---|---|---|
-| Application rate | 5+ qualified applications/week by end of Phase 1 | Weekly |
-| 30-day contributor retention | >50% (Phase 1), >60% (Phase 2) | Monthly |
-| Contribution frequency | >2 meaningful contributions/week per active contributor | Weekly |
-| Cross-domain engagement | >30% of contributors engage beyond their primary domain | Monthly |
-| Referral rate | >20% of new contributors from organic referrals | Monthly |
-| Publication submission rate | >3 article submissions/week by end of Phase 1 | Weekly |
-| Editorial turnaround | <7 days from submission to publication decision | Weekly |
+| KPI                          | Target                                                  | Frequency |
+| ---------------------------- | ------------------------------------------------------- | --------- |
+| Application rate             | 5+ qualified applications/week by end of Phase 1        | Weekly    |
+| 30-day contributor retention | >50% (Phase 1), >60% (Phase 2)                          | Monthly   |
+| Contribution frequency       | >2 meaningful contributions/week per active contributor | Weekly    |
+| Cross-domain engagement      | >30% of contributors engage beyond their primary domain | Monthly   |
+| Referral rate                | >20% of new contributors from organic referrals         | Monthly   |
+| Publication submission rate  | >3 article submissions/week by end of Phase 1           | Weekly    |
+| Editorial turnaround         | <7 days from submission to publication decision         | Weekly    |
 
 **Lagging Indicators (confirm strategic success):**
 
-| KPI | Target | Frequency |
-|---|---|---|
-| Active contributor count | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3) | Monthly |
-| Quarterly contributor retention | >40% quarter-over-quarter | Quarterly |
-| Contribution quality trend | Positive trend in average AI evaluation scores | Quarterly |
-| Rose development velocity | Measurable increase in merged PRs, shipped features | Monthly |
-| Token distribution health | <5% of reward value consumed by transaction costs | Monthly |
-| Fundraising traction | Seed round closed (Phase 1); subsequent funding conversations active (Phase 2) | Quarterly |
-| Publication external reach | Unique external readers per published article | Monthly |
-| Author-to-Editor conversion | % of contributors who transition from Author to Editor role | Quarterly |
+| KPI                             | Target                                                                         | Frequency |
+| ------------------------------- | ------------------------------------------------------------------------------ | --------- |
+| Active contributor count        | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3)                                  | Monthly   |
+| Quarterly contributor retention | >40% quarter-over-quarter                                                      | Quarterly |
+| Contribution quality trend      | Positive trend in average AI evaluation scores                                 | Quarterly |
+| Rose development velocity       | Measurable increase in merged PRs, shipped features                            | Monthly   |
+| Token distribution health       | <5% of reward value consumed by transaction costs                              | Monthly   |
+| Fundraising traction            | Seed round closed (Phase 1); subsequent funding conversations active (Phase 2) | Quarterly |
+| Publication external reach      | Unique external readers per published article                                  | Monthly   |
+| Author-to-Editor conversion     | % of contributors who transition from Author to Editor role                    | Quarterly |
 
 ## User Journeys
 
@@ -201,7 +201,7 @@ The recommended strategy is to validate the methodology with a founding communit
 
 **Rising Action:** A message from Marcus, a developer she respects deeply, who's already in Edin's founding circle: "You should look at this. They're building something different." She clicks through to the Edin web portal. The Founding Circle page lists names she recognizes — serious people, not influencers. The domain manifesto for Technology speaks her language: craft matters, quality over quantity, AI that evaluates code the way a senior engineer would. She's skeptical but intrigued. She submits the contribution-based application — a domain-specific micro-task that asks her to review a real piece of Rose infrastructure code and propose improvements. Not a personality quiz. Not a popularity contest. An actual test of her skills.
 
-**Climax:** Forty-eight hours after admission, she's on a welcome call with two existing contributors. They walk her through the contribution menu, and she picks her first task: refactoring a critical module in the Rose clearing engine. She submits the PR through GitHub — her normal workflow, nothing new to learn. Three days later, the AI Evaluation Engine scores her contribution. Her meticulous refactoring — fewer lines, better architecture, comprehensive tests — scores significantly higher than a feature PR submitted the same day with triple the line count. She stares at the evaluation breakdown: complexity reduction, maintainability improvement, test coverage, standards adherence. The AI *saw* what she did. It understood the craft.
+**Climax:** Forty-eight hours after admission, she's on a welcome call with two existing contributors. They walk her through the contribution menu, and she picks her first task: refactoring a critical module in the Rose clearing engine. She submits the PR through GitHub — her normal workflow, nothing new to learn. Three days later, the AI Evaluation Engine scores her contribution. Her meticulous refactoring — fewer lines, better architecture, comprehensive tests — scores significantly higher than a feature PR submitted the same day with triple the line count. She stares at the evaluation breakdown: complexity reduction, maintainability improvement, test coverage, standards adherence. The AI _saw_ what she did. It understood the craft.
 
 **Resolution:** Two months in, Lena is a working group lead in the Technology pillar. Her fingerprints are on the evaluation criteria — she helped calibrate what "quality" means for backend code. She mentors a newer contributor through the buddy system. The scaling-law rewards are compounding — her sustained engagement is earning disproportionately more than someone who dips in and out. She refers a colleague she deeply respects. When asked why she stays, she says: "Because for the first time, the system is as rigorous about evaluating my work as I am about producing it."
 
@@ -209,9 +209,9 @@ The recommended strategy is to validate the methodology with a founding communit
 
 **Opening Scene:** Amir has a PhD in mathematical finance and eight years at a London hedge fund designing algorithmic trading systems. He discovered the ORTFM model through a research paper and was captivated — the scaling laws, the intrinsic time framework, the coastline trading methodology. This is his domain. He wants to contribute to Rose. But he's never contributed to open source. He doesn't know Git workflows. Every contributor platform he's looked at is a wall of code repositories and pull requests. He has no entry point.
 
-**Rising Action:** He finds the Edin web portal through Rose's website. The four-pillar structure catches his eye immediately — Fintech & Financial Engineering is a dedicated domain, not a footnote. The manifesto speaks directly to him: quantitative modeling, token economics design, scaling-law calibration, financial infrastructure architecture. There's a contribution menu with tasks tagged for his expertise: "Analyze scaling exponents for reward distribution across temporal horizons," "Review token economics model for MiCA compliance implications." No Git required. He submits his application with a micro-task: a brief analysis of how Rose's Coastline Law could inform reward sizing. He writes it in a Google Doc — his natural workspace.
+**Rising Action:** He finds the Edin web portal through Rose's website. The four-pillar structure catches his eye immediately — Finance & Financial Engineering is a dedicated domain, not a footnote. The manifesto speaks directly to him: quantitative modeling, token economics design, scaling-law calibration, financial infrastructure architecture. There's a contribution menu with tasks tagged for his expertise: "Analyze scaling exponents for reward distribution across temporal horizons," "Review token economics model for MiCA compliance implications." No Git required. He submits his application with a micro-task: a brief analysis of how Rose's Coastline Law could inform reward sizing. He writes it in a Google Doc — his natural workspace.
 
-**Climax:** During his welcome call, his buddy — another quant who joined a month earlier — walks him through how the Fintech working group operates. His first real contribution is a parameter analysis for the multi-scale reward system. His buddy shows him how to commit a markdown document to GitHub — the basics take 20 minutes to learn. Edin's integration layer ingests it automatically. (In Phase 2, Amir will submit through native document platform integration; in MVP, all contributors use GitHub for contribution submission.) When the contribution appears on the Activity Feed — the Contribution Wall — it sits alongside Lena's code commits with the same visual weight, the same status, the same reward pathway. He's not a second-class citizen. His domain expertise is architecturally equal to code.
+**Climax:** During his welcome call, his buddy — another quant who joined a month earlier — walks him through how the Finance working group operates. His first real contribution is a parameter analysis for the multi-scale reward system. His buddy shows him how to commit a markdown document to GitHub — the basics take 20 minutes to learn. Edin's integration layer ingests it automatically. (In Phase 2, Amir will submit through native document platform integration; in MVP, all contributors use GitHub for contribution submission.) When the contribution appears on the Activity Feed — the Contribution Wall — it sits alongside Lena's code commits with the same visual weight, the same status, the same reward pathway. He's not a second-class citizen. His domain expertise is architecturally equal to code.
 
 **Resolution:** By month three, Amir leads a working group session on calibrating the scaling-law exponents for the reward system. His analysis directly shapes how every contributor in the ecosystem will be compensated. He has governance weight — his sustained engagement has compounded his influence. He starts cross-pollinating, engaging with the Technology working group to ensure the smart contract implementation faithfully represents the mathematical model. When a new financial engineer applies, Amir is on the welcome committee. He tells them: "This is the first place where what I know matters as much as what I can code."
 
@@ -249,7 +249,7 @@ The recommended strategy is to validate the methodology with a founding communit
 
 **Opening Scene:** Marie is a Rose core team member responsible for community operations. She oversees Edin's day-to-day health: admissions pipeline, contribution menu curation, working group coordination, and platform metrics. Before Edin, she was managing contributor coordination through spreadsheets, Slack messages, and manual tracking. It was unsustainable beyond 10 people.
 
-**Rising Action:** Marie's morning starts on the admin dashboard. She reviews the overnight metrics: 3 new applications in the admission queue, 12 contributions submitted across all domains, 2 peer feedback assignments overdue. She triages the applications — each has a completed micro-task attached. She assigns reviewers from the contributor pool and flags one application for the Fintech working group lead (domain expertise needed for evaluation). She checks the contribution menu: two tasks marked "completed" need replacement. She drafts two new tasks, tags them by domain, difficulty, and estimated effort, and publishes them.
+**Rising Action:** Marie's morning starts on the admin dashboard. She reviews the overnight metrics: 3 new applications in the admission queue, 12 contributions submitted across all domains, 2 peer feedback assignments overdue. She triages the applications — each has a completed micro-task attached. She assigns reviewers from the contributor pool and flags one application for the Finance working group lead (domain expertise needed for evaluation). She checks the contribution menu: two tasks marked "completed" need replacement. She drafts two new tasks, tags them by domain, difficulty, and estimated effort, and publishes them.
 
 **Climax:** The weekly health dashboard shows a potential issue: the Impact & Sustainability pillar has only one active contributor this week (Sofia is on vacation). Marie uses the cross-domain engagement data to identify two contributors who've shown interest in impact topics and sends them a targeted message about available Impact tasks. She also notices that peer feedback turnaround has slipped from 24 hours to 48 hours — she raises this in the next working group leads meeting and proposes adjusting the feedback assignment algorithm.
 
@@ -267,11 +267,11 @@ The recommended strategy is to validate the methodology with a founding communit
 
 ### Journey 8: Clara — The Author Who Finds Her Voice
 
-**Opening Scene:** Clara is a fintech researcher with seven years of experience in payment systems and financial inclusion. She's been contributing to the Rose ecosystem through Edin for two months — mostly technical analyses submitted through GitHub. Her work is solid and well-evaluated, but she keeps having larger ideas she wants to share: insights that connect Rose's scaling laws to broader trends in decentralized finance, observations about what financial inclusion really requires at the infrastructure level. She writes long posts on LinkedIn that get modest engagement. She's never been published in a serious outlet. The barrier feels too high — she doesn't know editors, she doesn't have an academic affiliation, and the established publications in her field are gatekept by institutional networks she's not part of.
+**Opening Scene:** Clara is a finance researcher with seven years of experience in payment systems and financial inclusion. She's been contributing to the Rose ecosystem through Edin for two months — mostly technical analyses submitted through GitHub. Her work is solid and well-evaluated, but she keeps having larger ideas she wants to share: insights that connect Rose's scaling laws to broader trends in decentralized finance, observations about what financial inclusion really requires at the infrastructure level. She writes long posts on LinkedIn that get modest engagement. She's never been published in a serious outlet. The barrier feels too high — she doesn't know editors, she doesn't have an academic affiliation, and the established publications in her field are gatekept by institutional networks she's not part of.
 
 **Rising Action:** She notices the Publication Platform on Edin's portal. Articles from other contributors are displayed prominently — thoughtful, well-crafted pieces on governance design, scaling-law economics, and impact measurement. They read like something from The Economist, but written by the people actually building the technology. She reads the submission guidelines: any contributor can propose an article. Every submission is assigned an Editor — an experienced contributor who helps shape the piece to publication standard. The Editor earns 20% of the author's content reward. This catches her attention: the editorial relationship is structured, incentivized, and mutual. It's not a favor — it's a rewarded role.
 
-**Climax:** Clara submits her first article draft: "Why Scaling Laws Will Reshape Financial Inclusion Infrastructure." It's rough — strong analysis but unfocused structure. Within 48 hours, she's matched with an Editor: Marcus, a governance specialist who's been in Edin for four months and has edited three previous articles. Marcus doesn't rewrite her work — he asks sharp questions, suggests structural reorganization, and pushes her to sharpen her thesis. Over three rounds of editorial feedback, the piece transforms from a blog post into a publication-quality essay. When it goes live on the Publication Platform, it sits alongside articles from contributors across all four domains — technology, fintech, impact, governance. The AI Evaluation Engine scores the content. Clara's article is shared externally by two investors who found it through search. A developer she's never met submits an application to Edin citing her article as the reason he wants to join.
+**Climax:** Clara submits her first article draft: "Why Scaling Laws Will Reshape Financial Inclusion Infrastructure." It's rough — strong analysis but unfocused structure. Within 48 hours, she's matched with an Editor: Marcus, a governance specialist who's been in Edin for four months and has edited three previous articles. Marcus doesn't rewrite her work — he asks sharp questions, suggests structural reorganization, and pushes her to sharpen her thesis. Over three rounds of editorial feedback, the piece transforms from a blog post into a publication-quality essay. When it goes live on the Publication Platform, it sits alongside articles from contributors across all four domains — technology, finance, impact, governance. The AI Evaluation Engine scores the content. Clara's article is shared externally by two investors who found it through search. A developer she's never met submits an application to Edin citing her article as the reason he wants to join.
 
 **Resolution:** By month four, Clara has published three articles. Her second piece was co-authored with a technology contributor — a cross-domain collaboration that emerged from a working group discussion. She's now serving as Editor on another contributor's article about impact measurement methodology. The 20% editorial reward makes the time investment worthwhile, but what keeps her editing is the satisfaction of shaping someone else's thinking. Her publication profile is becoming her professional calling card — more substantive than LinkedIn posts, more accessible than academic journals. When a conference organizer contacts her for a speaking invitation, they reference her Edin articles. She tells a colleague: "I finally have a place where my ideas are taken seriously, shaped with care, and read by people who matter."
 
@@ -287,17 +287,17 @@ The recommended strategy is to validate the methodology with a founding communit
 
 ### Journey Requirements Summary
 
-| Journey | Key Capabilities Revealed |
-|---|---|
-| **Lena (Developer)** | GitHub integration, AI code evaluation, evaluation transparency/explainability, contribution wall, scaling-law reward display |
-| **Amir (Financial Engineer)** | GitHub-based document contribution (MVP), non-code contribution ingestion, multi-domain contribution menu, domain-equal visibility on Activity Feed |
-| **Sofia (Impact Analyst)** | Peer feedback system, governance proposal workflow, community discussion mechanism, cross-domain contribution visibility |
-| **Yuki (Governance)** | Proposal submission and ratification tracking, governance weight accumulation, progressive decentralization milestones, immutable decision records |
-| **Daniel (Applicant)** | Application workflow with micro-task, admission review pipeline, 72-Hour Ignition onboarding, buddy assignment, first-task matching, multi-contributor attribution confirmation |
-| **Marie (Admin)** | Admin dashboard, admission queue management, contribution menu curation, health metrics monitoring, feedback assignment tracking |
-| **Henrik (Investor)** | Public project showcase (no auth), contributor roster with profiles, real-time activity metrics, AI evaluation quality signals |
-| **Clara (Author)** | Article submission workflow, Editor assignment, editorial feedback rounds, publication lifecycle tracking, content evaluation, publication metrics, cross-domain co-authorship |
-| **Marcus (Editor)** | Editor onboarding, editorial workflow, editorial feedback tools, Editor profile and history, editorial reward (20% of author's content reward), Editor-Author matching |
+| Journey                       | Key Capabilities Revealed                                                                                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Lena (Developer)**          | GitHub integration, AI code evaluation, evaluation transparency/explainability, contribution wall, scaling-law reward display                                                   |
+| **Amir (Financial Engineer)** | GitHub-based document contribution (MVP), non-code contribution ingestion, multi-domain contribution menu, domain-equal visibility on Activity Feed                             |
+| **Sofia (Impact Analyst)**    | Peer feedback system, governance proposal workflow, community discussion mechanism, cross-domain contribution visibility                                                        |
+| **Yuki (Governance)**         | Proposal submission and ratification tracking, governance weight accumulation, progressive decentralization milestones, immutable decision records                              |
+| **Daniel (Applicant)**        | Application workflow with micro-task, admission review pipeline, 72-Hour Ignition onboarding, buddy assignment, first-task matching, multi-contributor attribution confirmation |
+| **Marie (Admin)**             | Admin dashboard, admission queue management, contribution menu curation, health metrics monitoring, feedback assignment tracking                                                |
+| **Henrik (Investor)**         | Public project showcase (no auth), contributor roster with profiles, real-time activity metrics, AI evaluation quality signals                                                  |
+| **Clara (Author)**            | Article submission workflow, Editor assignment, editorial feedback rounds, publication lifecycle tracking, content evaluation, publication metrics, cross-domain co-authorship  |
+| **Marcus (Editor)**           | Editor onboarding, editorial workflow, editorial feedback tools, Editor profile and history, editorial reward (20% of author's content reward), Editor-Author matching          |
 
 **Cross-Journey Capability Map:**
 
@@ -388,30 +388,30 @@ The recommended strategy is to validate the methodology with a founding communit
 
 ### Risk Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| MiCA token classification requires full licensing | Blocks entire token reward system | Design dual-path architecture: token rewards as primary, non-token recognition (reputation points, badges, governance weight) as fallback |
-| AI evaluation perceived as unfair or biased | Destroys contributor trust — existential risk | Evaluation transparency by default, human appeal process, continuous calibration against expert benchmarks, bias monitoring dashboard |
-| GDPR right-to-erasure conflicts with blockchain immutability | Regulatory non-compliance | Pseudonymization architecture: on-chain records use opaque IDs, identity mapping stored off-chain and deletable |
-| Smart contract vulnerability in reward distribution | Financial loss, trust collapse | Mandatory third-party audit, bug bounty program, time-locked upgrades, multi-sig admin controls |
-| GitHub API rate limiting disrupts ingestion | Missed contributions, incomplete evaluations | Webhook-first architecture (push, not poll), caching layer, graceful degradation with retry queue |
-| EU AI Act classifies Evaluation Engine as high-risk | Significant compliance burden and timeline impact | Architect for high-risk from the start: documentation, human oversight, conformity assessment readiness |
-| Contributor data breach | Regulatory penalties, reputation destruction | Encryption at rest and in transit, minimal data collection, access controls, incident response plan |
-| Publication quality degrades | Reputational damage; undermines "modern Economist" positioning | Editorial standards with Editor accountability, AI content quality evaluation, admin editorial oversight, community reporting mechanism |
-| Editor shortage | Articles stuck in editorial queue; submission pipeline bottleneck | Editor incentive (20% reward), Editor onboarding and training, admin ability to reassign or serve as Editor, editorial turnaround SLA monitoring |
-| Publication content liability | Legal risk from published opinions on financial topics | Editorial guidelines on disclaimers, content review for regulatory-sensitive claims, MiCA-aware publication standards for financial content |
+| Risk                                                         | Impact                                                            | Mitigation                                                                                                                                       |
+| ------------------------------------------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| MiCA token classification requires full licensing            | Blocks entire token reward system                                 | Design dual-path architecture: token rewards as primary, non-token recognition (reputation points, badges, governance weight) as fallback        |
+| AI evaluation perceived as unfair or biased                  | Destroys contributor trust — existential risk                     | Evaluation transparency by default, human appeal process, continuous calibration against expert benchmarks, bias monitoring dashboard            |
+| GDPR right-to-erasure conflicts with blockchain immutability | Regulatory non-compliance                                         | Pseudonymization architecture: on-chain records use opaque IDs, identity mapping stored off-chain and deletable                                  |
+| Smart contract vulnerability in reward distribution          | Financial loss, trust collapse                                    | Mandatory third-party audit, bug bounty program, time-locked upgrades, multi-sig admin controls                                                  |
+| GitHub API rate limiting disrupts ingestion                  | Missed contributions, incomplete evaluations                      | Webhook-first architecture (push, not poll), caching layer, graceful degradation with retry queue                                                |
+| EU AI Act classifies Evaluation Engine as high-risk          | Significant compliance burden and timeline impact                 | Architect for high-risk from the start: documentation, human oversight, conformity assessment readiness                                          |
+| Contributor data breach                                      | Regulatory penalties, reputation destruction                      | Encryption at rest and in transit, minimal data collection, access controls, incident response plan                                              |
+| Publication quality degrades                                 | Reputational damage; undermines "modern Economist" positioning    | Editorial standards with Editor accountability, AI content quality evaluation, admin editorial oversight, community reporting mechanism          |
+| Editor shortage                                              | Articles stuck in editorial queue; submission pipeline bottleneck | Editor incentive (20% reward), Editor onboarding and training, admin ability to reassign or serve as Editor, editorial turnaround SLA monitoring |
+| Publication content liability                                | Legal risk from published opinions on financial topics            | Editorial guidelines on disclaimers, content review for regulatory-sensitive claims, MiCA-aware publication standards for financial content      |
 
 ### Fraud Prevention & Abuse Mitigation
 
-As a fintech platform distributing blockchain-based token rewards, Edin must address fraud vectors specific to contribution economies. The curated admission model provides first-line defense (sybil resistance through human review), and AI evaluation reduces subjective manipulation. These indirect mitigations are insufficient alone — the following explicit safeguards are required, becoming critical in Phase 2 when token rewards go live.
+As a finance platform distributing blockchain-based token rewards, Edin must address fraud vectors specific to contribution economies. The curated admission model provides first-line defense (sybil resistance through human review), and AI evaluation reduces subjective manipulation. These indirect mitigations are insufficient alone — the following explicit safeguards are required, becoming critical in Phase 2 when token rewards go live.
 
-| Fraud Vector | Risk | Mitigation |
-|---|---|---|
-| Contribution gaming | Fabricated or inflated contributions to earn undeserved rewards | Anomaly detection on contribution patterns: unusually high volume, low-complexity padding, self-merged PRs. AI evaluation inherently penalizes low-quality output; flag statistical outliers for human review |
-| Sybil attacks | Fake contributor accounts to accumulate multiple reward streams | Curated admission (first line), identity verification escalation for reward distribution (Phase 2), behavioral analysis for account similarity patterns, single-identity-per-reward-stream enforcement |
-| Evaluation manipulation | Adversarial inputs designed to inflate AI evaluation scores | Adversarial input detection in the evaluation pipeline, model robustness testing against gaming patterns, human expert spot-checks on statistical outlier scores, evaluation model versioning with rollback capability |
-| Reward system abuse | Exploiting multi-temporal reward distribution mechanics (e.g., contribution timing to maximize compounding) | Reward anomaly detection: unusual accumulation patterns, distribution spikes, temporal gaming indicators. Rate limiting on reward claims. Reward formula transparency reduces attack surface (known rules are auditable) |
-| Peer feedback collusion | Contributors coordinating to inflate each other's evaluations or feedback scores | Pattern analysis for reciprocal feedback inflation, network graph analysis for coordinated feedback clusters, randomized reviewer assignment to break collusion patterns, feedback weight normalization |
+| Fraud Vector            | Risk                                                                                                        | Mitigation                                                                                                                                                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Contribution gaming     | Fabricated or inflated contributions to earn undeserved rewards                                             | Anomaly detection on contribution patterns: unusually high volume, low-complexity padding, self-merged PRs. AI evaluation inherently penalizes low-quality output; flag statistical outliers for human review            |
+| Sybil attacks           | Fake contributor accounts to accumulate multiple reward streams                                             | Curated admission (first line), identity verification escalation for reward distribution (Phase 2), behavioral analysis for account similarity patterns, single-identity-per-reward-stream enforcement                   |
+| Evaluation manipulation | Adversarial inputs designed to inflate AI evaluation scores                                                 | Adversarial input detection in the evaluation pipeline, model robustness testing against gaming patterns, human expert spot-checks on statistical outlier scores, evaluation model versioning with rollback capability   |
+| Reward system abuse     | Exploiting multi-temporal reward distribution mechanics (e.g., contribution timing to maximize compounding) | Reward anomaly detection: unusual accumulation patterns, distribution spikes, temporal gaming indicators. Rate limiting on reward claims. Reward formula transparency reduces attack surface (known rules are auditable) |
+| Peer feedback collusion | Contributors coordinating to inflate each other's evaluations or feedback scores                            | Pattern analysis for reciprocal feedback inflation, network graph analysis for coordinated feedback clusters, randomized reviewer assignment to break collusion patterns, feedback weight normalization                  |
 
 | Editorial reward abuse | Editors approving low-quality content to accumulate 20% rewards without genuine editorial contribution | Editorial quality assessment: AI evaluation of content improvement between draft and published version, author satisfaction ratings on editorial quality, admin review of Editor approval patterns with low editorial contribution signals |
 | Content plagiarism | Submitted articles containing plagiarized or AI-generated content without attribution | Plagiarism detection in publication pipeline, AI-generated content detection, mandatory originality declaration by authors, editorial verification as second line of defense |
@@ -432,7 +432,7 @@ The multi-temporal reward system using power-law distribution across seven time 
 
 **3. Multi-Domain Equality as Architecture (Structural Innovation)**
 
-Existing platforms treat non-code contributions as second-class citizens — they may acknowledge documentation or community work, but the platform architecture centers on code repositories, commits, and pull requests. Edin's four-pillar structure (Technology, Fintech, Impact, Governance) is not a UI categorization; it's an architectural decision that ensures financial engineering, impact analysis, and governance design have the same integration connectors, evaluation pipelines, reward pathways, and visibility as code contributions. Multi-domain equality is enforced by architecture, not policy.
+Existing platforms treat non-code contributions as second-class citizens — they may acknowledge documentation or community work, but the platform architecture centers on code repositories, commits, and pull requests. Edin's four-pillar structure (Technology, Finance, Impact, Governance) is not a UI categorization; it's an architectural decision that ensures financial engineering, impact analysis, and governance design have the same integration connectors, evaluation pipelines, reward pathways, and visibility as code contributions. Multi-domain equality is enforced by architecture, not policy.
 
 **4. Curated Community as Economic Mechanism (Counter-Trend Innovation)**
 
@@ -448,19 +448,19 @@ As AI agents handle increasing amounts of routine development, Edin positions it
 
 ### Market Context & Competitive Landscape
 
-| Competitor | What They Do | Innovation Gap vs. Edin |
-|---|---|---|
-| **Gitcoin** | Community-voted grant rounds | No AI evaluation, no multi-temporal rewards, popularity-driven |
-| **Coordinape** | Peer-based epoch rewards | Subjective circle voting, no scaling-law economics, doesn't scale |
-| **SourceCred** | Algorithmic graph-based scoring | No multi-domain support, no blockchain rewards, limited adoption |
-| **Colony** | Task-based evaluation with reputation | No AI evaluation, no scaling-law compounding, structurally complex |
-| **GitHub Sponsors / Open Collective** | Donation-based funding | No evaluation whatsoever, irregular, dependent on individual donors |
-| **Mirror / Paragraph** | Web3 publishing platforms | No contributor evaluation, no editorial reward-sharing, no integration with contribution economics |
-| **The Economist / established publications** | Traditional editorial publication | Institutional gatekeeping, no community ownership, no contributor reward economics, no decentralized editorial model |
+| Competitor                                   | What They Do                          | Innovation Gap vs. Edin                                                                                              |
+| -------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Gitcoin**                                  | Community-voted grant rounds          | No AI evaluation, no multi-temporal rewards, popularity-driven                                                       |
+| **Coordinape**                               | Peer-based epoch rewards              | Subjective circle voting, no scaling-law economics, doesn't scale                                                    |
+| **SourceCred**                               | Algorithmic graph-based scoring       | No multi-domain support, no blockchain rewards, limited adoption                                                     |
+| **Colony**                                   | Task-based evaluation with reputation | No AI evaluation, no scaling-law compounding, structurally complex                                                   |
+| **GitHub Sponsors / Open Collective**        | Donation-based funding                | No evaluation whatsoever, irregular, dependent on individual donors                                                  |
+| **Mirror / Paragraph**                       | Web3 publishing platforms             | No contributor evaluation, no editorial reward-sharing, no integration with contribution economics                   |
+| **The Economist / established publications** | Traditional editorial publication     | Institutional gatekeeping, no community ownership, no contributor reward economics, no decentralized editorial model |
 
 The strategic white space — AI-objective evaluation + multi-temporal scaling-law rewards + curated community + community-driven publication with editorial reward-sharing — is entirely unoccupied. No competitor combines more than one of these four innovations.
 
-*Validation approach and risk mitigation for each innovation area are detailed in the Project Scoping & Phased Development section under MVP Hypothesis Validation and Risk Mitigation Strategy.*
+_Validation approach and risk mitigation for each innovation area are detailed in the Project Scoping & Phased Development section under MVP Hypothesis Validation and Risk Mitigation Strategy._
 
 ## Web Application Specific Requirements
 
@@ -509,22 +509,22 @@ Edin is a web application with four distinct interface contexts: a **public-faci
 
 ### Performance Targets
 
-*Detailed performance targets with measurable thresholds are defined in the Non-Functional Requirements section (NFR-P1 through NFR-P7).*
+_Detailed performance targets with measurable thresholds are defined in the Non-Functional Requirements section (NFR-P1 through NFR-P7)._
 
 ### Authentication & Authorization
 
 - **Authentication:** OAuth 2.0 / OIDC with support for GitHub OAuth (primary — aligns with integration layer), email/password as fallback, and future eIDAS 2.0 digital identity wallet integration.
 - **Authorization (RBAC):**
 
-| Role | Access Scope |
-|---|---|
-| Public (unauthenticated) | Project showcase, contributor roster, domain manifestos, public metrics |
-| Applicant | Application workflow, micro-task submission |
-| Contributor / Author | Dashboard, profile, contribution history, evaluations, peer feedback, working group channels, governance participation, article submission and drafting |
-| Editor | All contributor access + editorial workflow, editorial feedback on assigned articles, Editor profile with editorial history |
-| Founding Contributor | All contributor access + founding privileges (governance weight bonus, early access to new features) |
-| Working Group Lead | Contributor access + working group management, contribution menu curation for their domain |
-| Admin | Full platform access: admission queue, health metrics, contribution menu management, feedback assignment, system configuration |
+| Role                     | Access Scope                                                                                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public (unauthenticated) | Project showcase, contributor roster, domain manifestos, public metrics                                                                                 |
+| Applicant                | Application workflow, micro-task submission                                                                                                             |
+| Contributor / Author     | Dashboard, profile, contribution history, evaluations, peer feedback, working group channels, governance participation, article submission and drafting |
+| Editor                   | All contributor access + editorial workflow, editorial feedback on assigned articles, Editor profile with editorial history                             |
+| Founding Contributor     | All contributor access + founding privileges (governance weight bonus, early access to new features)                                                    |
+| Working Group Lead       | Contributor access + working group management, contribution menu curation for their domain                                                              |
+| Admin                    | Full platform access: admission queue, health metrics, contribution menu management, feedback assignment, system configuration                          |
 
 ### Implementation Considerations
 
@@ -560,11 +560,11 @@ Edin is a web application with four distinct interface contexts: a **public-faci
 
 **MVP Hypothesis Validation Framework:**
 
-| Hypothesis | Validation Metric | Failure Threshold | Failure Response |
-|---|---|---|---|
-| H1: Contributors join and stay | >15 active contributors at 60 days; >50% 30-day retention | <15 active contributors after 60 days | STOP. Reassess mission-based attraction strategy. Evaluate whether value proposition resonates with target personas |
-| H2: AI evaluates fairly | >70% agreement between AI evaluation and human expert assessment | <60% agreement with human experts | STOP AI-based rewards. Fall back to peer evaluation as primary mechanism. Iterate on model training |
-| H3: Reward model is comprehensible and motivating | >80% of contributors can explain the scaling-law model; >50% cite rewards as top-3 engagement factor | <60% comprehension after explanation materials | Simplify. Start with 3 temporal scales instead of 7. Reduce model complexity until comprehension exceeds threshold |
+| Hypothesis                                                           | Validation Metric                                                                                                   | Failure Threshold                                                                             | Failure Response                                                                                                                                                                                 |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| H1: Contributors join and stay                                       | >15 active contributors at 60 days; >50% 30-day retention                                                           | <15 active contributors after 60 days                                                         | STOP. Reassess mission-based attraction strategy. Evaluate whether value proposition resonates with target personas                                                                              |
+| H2: AI evaluates fairly                                              | >70% agreement between AI evaluation and human expert assessment                                                    | <60% agreement with human experts                                                             | STOP AI-based rewards. Fall back to peer evaluation as primary mechanism. Iterate on model training                                                                                              |
+| H3: Reward model is comprehensible and motivating                    | >80% of contributors can explain the scaling-law model; >50% cite rewards as top-3 engagement factor                | <60% comprehension after explanation materials                                                | Simplify. Start with 3 temporal scales instead of 7. Reduce model complexity until comprehension exceeds threshold                                                                               |
 | H4: Publication platform attracts contributors and external audience | >30% of contributors publish or edit at least 1 article per quarter; month-over-month growth in external readership | <10% contributor participation in publication after 3 months; zero external readership growth | Simplify editorial workflow. Reduce editorial friction. Consider curated content themes to guide authors. If publication doesn't attract, deprioritize and focus on core contribution evaluation |
 
 **Resource Requirements:**
@@ -578,17 +578,17 @@ Edin is a web application with four distinct interface contexts: a **public-faci
 
 **Core User Journeys Supported:**
 
-| Journey | MVP Support Level | Rationale |
-|---|---|---|
-| Lena (Developer) | Full | Primary contributor type; GitHub integration is the core integration |
-| Amir (Financial Engineer) | Partial | Can contribute via GitHub (docs/specs); full document platform integration deferred to Phase 2 |
-| Sofia (Impact Analyst) | Partial | Can contribute via GitHub (markdown docs); peer feedback system bridges AI gap |
-| Yuki (Governance) | Partial | Governance proposals via GitHub; formal governance workflow deferred |
-| Daniel (Applicant) | Full | Complete 72-Hour Ignition onboarding flow |
-| Marie (Admin) | Full | Admin dashboard for community operations |
-| Henrik (Investor) | Full | Public showcase with contributor roster and metrics |
-| Clara (Author) | Full | Article submission, Editor assignment, editorial workflow, publication |
-| Marcus (Editor) | Full | Editor onboarding, editorial feedback, Editor profile, editorial reward |
+| Journey                   | MVP Support Level | Rationale                                                                                      |
+| ------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| Lena (Developer)          | Full              | Primary contributor type; GitHub integration is the core integration                           |
+| Amir (Financial Engineer) | Partial           | Can contribute via GitHub (docs/specs); full document platform integration deferred to Phase 2 |
+| Sofia (Impact Analyst)    | Partial           | Can contribute via GitHub (markdown docs); peer feedback system bridges AI gap                 |
+| Yuki (Governance)         | Partial           | Governance proposals via GitHub; formal governance workflow deferred                           |
+| Daniel (Applicant)        | Full              | Complete 72-Hour Ignition onboarding flow                                                      |
+| Marie (Admin)             | Full              | Admin dashboard for community operations                                                       |
+| Henrik (Investor)         | Full              | Public showcase with contributor roster and metrics                                            |
+| Clara (Author)            | Full              | Article submission, Editor assignment, editorial workflow, publication                         |
+| Marcus (Editor)           | Full              | Editor onboarding, editorial feedback, Editor profile, editorial reward                        |
 
 **Must-Have Capabilities (Phase 1):**
 
@@ -652,28 +652,28 @@ Edin is a web application with four distinct interface contexts: a **public-faci
 
 **Technical Risks:**
 
-| Risk | Impact | Mitigation |
-|---|---|---|
+| Risk                                                 | Impact                                       | Mitigation                                                                                                                               |
+| ---------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | AI evaluation prototype doesn't reach >70% agreement | Blocks H2 validation; undermines core thesis | Start with narrow scope (code quality only); use established code analysis tools as baseline; iterate with human expert calibration loop |
-| GitHub integration reliability issues | Missed contributions erode trust | Webhook-first architecture; retry queue; manual submission fallback for edge cases |
-| Real-time Activity Feed performance at scale | Degraded contributor experience | Start with polling-based updates; upgrade to WebSocket/SSE when contributor count exceeds polling efficiency threshold |
+| GitHub integration reliability issues                | Missed contributions erode trust             | Webhook-first architecture; retry queue; manual submission fallback for edge cases                                                       |
+| Real-time Activity Feed performance at scale         | Degraded contributor experience              | Start with polling-based updates; upgrade to WebSocket/SSE when contributor count exceeds polling efficiency threshold                   |
 
 **Market Risks:**
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| Founding contributors don't join (H1 fails) | Existential — no community, no platform | Personal outreach by founding team; lead with 3-5 respected names; domain-specific manifestos that speak each persona's language |
-| Non-developer contributors don't feel equal | Multi-domain equality thesis fails | Ensure peer feedback covers all domains equally in MVP; visible non-code contributions on Activity Feed from day one |
-| Scaling-law reward model incomprehensible | H3 fails; contributors don't understand or trust rewards | Visual reward trajectory dashboard; simplified explanation materials; start presenting model early, iterate on communication |
-| Contributors don't publish (H4 fails) | Publication Platform unused; no external visibility | Curated content themes to guide authors; reduce editorial friction; seed with founding team articles; Editor incentive (20% reward) lowers editorial barrier |
+| Risk                                        | Impact                                                   | Mitigation                                                                                                                                                   |
+| ------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Founding contributors don't join (H1 fails) | Existential — no community, no platform                  | Personal outreach by founding team; lead with 3-5 respected names; domain-specific manifestos that speak each persona's language                             |
+| Non-developer contributors don't feel equal | Multi-domain equality thesis fails                       | Ensure peer feedback covers all domains equally in MVP; visible non-code contributions on Activity Feed from day one                                         |
+| Scaling-law reward model incomprehensible   | H3 fails; contributors don't understand or trust rewards | Visual reward trajectory dashboard; simplified explanation materials; start presenting model early, iterate on communication                                 |
+| Contributors don't publish (H4 fails)       | Publication Platform unused; no external visibility      | Curated content themes to guide authors; reduce editorial friction; seed with founding team articles; Editor incentive (20% reward) lowers editorial barrier |
 
 **Resource Risks:**
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| Fewer developers than planned | MVP timeline extends | Reduce MVP scope: ship web portal + GitHub integration + peer feedback first; defer AI evaluation prototype by 4-6 weeks |
-| No AI/ML engineer available | Cannot validate H2 | Use existing code analysis APIs (SonarQube, CodeClimate) as evaluation proxy; build custom model later |
-| Community operations overwhelm single person | Admission and coordination bottleneck | Automate admission pipeline steps; recruit founding contributors into peer review and buddy roles early |
+| Risk                                         | Impact                                | Mitigation                                                                                                               |
+| -------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Fewer developers than planned                | MVP timeline extends                  | Reduce MVP scope: ship web portal + GitHub integration + peer feedback first; defer AI evaluation prototype by 4-6 weeks |
+| No AI/ML engineer available                  | Cannot validate H2                    | Use existing code analysis APIs (SonarQube, CodeClimate) as evaluation proxy; build custom model later                   |
+| Community operations overwhelm single person | Admission and coordination bottleneck | Automate admission pipeline steps; recruit founding contributors into peer review and buddy roles early                  |
 
 **Absolute Minimum Viable Feature Set (if resources are severely constrained):**
 
@@ -739,7 +739,7 @@ This validates H1 (can we attract and retain contributors?) without H2 (AI evalu
 
 ### Community Structure & Working Groups
 
-- FR33: Contributors can view and join one of four domain working groups (Technology, Fintech, Impact, Governance)
+- FR33: Contributors can view and join one of four domain working groups (Technology, Finance, Impact, Governance)
 - FR34: Contributors can browse a curated contribution menu of available tasks tagged by domain, difficulty, and estimated effort
 - FR35: Admins and Working Group Leads can create, edit, and retire tasks on the contribution menu
 - FR36: Contributors can claim tasks from the contribution menu
@@ -814,84 +814,84 @@ This validates H1 (can we attract and retain contributors?) without H2 (AI evalu
 
 ### Performance
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-P1 | Public pages load quickly for first-time visitors (applicants, investors) | First Contentful Paint <1.5s on 4G connection |
-| NFR-P2 | Authenticated dashboard interactions feel responsive for contributors monitoring evaluations and rewards | Time to Interactive <3s; user actions complete within 2s |
-| NFR-P3 | Activity Feed updates reflect new contributions promptly so contributors see their work acknowledged quickly | <5 seconds from ingestion completion to feed visibility |
-| NFR-P4 | API responses support responsive UI interactions across all portal contexts | 95th percentile response time <500ms |
-| NFR-P5 | GitHub ingestion pipeline processes contributions without noticeable delay so contributors maintain trust in attribution | <15 minutes from contribution event to dashboard visibility |
-| NFR-P6 | AI evaluation completes within a reasonable timeframe so contributors receive feedback before context is lost | <30 minutes for code evaluation; <15 minutes for documentation evaluation |
-| NFR-P7 | Search and filtering on contribution menu and contributor roster is responsive for contributors selecting tasks | <1s for filtered results |
+| NFR    | Requirement                                                                                                              | Measurable Target                                                         |
+| ------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| NFR-P1 | Public pages load quickly for first-time visitors (applicants, investors)                                                | First Contentful Paint <1.5s on 4G connection                             |
+| NFR-P2 | Authenticated dashboard interactions feel responsive for contributors monitoring evaluations and rewards                 | Time to Interactive <3s; user actions complete within 2s                  |
+| NFR-P3 | Activity Feed updates reflect new contributions promptly so contributors see their work acknowledged quickly             | <5 seconds from ingestion completion to feed visibility                   |
+| NFR-P4 | API responses support responsive UI interactions across all portal contexts                                              | 95th percentile response time <500ms                                      |
+| NFR-P5 | GitHub ingestion pipeline processes contributions without noticeable delay so contributors maintain trust in attribution | <15 minutes from contribution event to dashboard visibility               |
+| NFR-P6 | AI evaluation completes within a reasonable timeframe so contributors receive feedback before context is lost            | <30 minutes for code evaluation; <15 minutes for documentation evaluation |
+| NFR-P7 | Search and filtering on contribution menu and contributor roster is responsive for contributors selecting tasks          | <1s for filtered results                                                  |
 
 ### Security
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-S1 | All data in transit is encrypted | Current industry-standard transport encryption for all connections; no unencrypted endpoints |
-| NFR-S2 | Sensitive data at rest is encrypted to protect contributor PII and financial data from unauthorized access | Current industry-standard encryption at rest for contributor PII, evaluation scores, token balances |
-| NFR-S3 | Third-party API credentials are securely stored to prevent integration compromise | No plaintext credentials accessible in codebase, logs, or storage; all secrets encrypted at rest |
-| NFR-S4 | Authentication follows industry standards | OAuth 2.0 / OIDC with PKCE; session tokens expire after 24 hours of inactivity; refresh tokens expire after 30 days; token rotation on every refresh |
-| NFR-S5 | Authorization enforces role boundaries so contributors, admins, and public viewers see only permitted content | Zero unauthorized access across all six RBAC tiers verified by automated tests |
-| NFR-S6 | All security-relevant actions are auditable for regulatory compliance and contributor trust | Immutable audit logs for admission decisions, evaluation outputs, role changes, governance actions; 100% event coverage; minimum 2-year retention; logs queryable within 10 seconds |
-| NFR-S7 | The system resists common web application attacks to protect contributor data and platform integrity | OWASP Top 10 mitigations verified; input validation, CSRF protection, XSS prevention, SQL injection prevention |
-| NFR-S8 | Contributor personal data is separated from contribution records | On-chain records contain no directly identifiable data; identity-to-contribution mapping is stored separately with access controls |
-| NFR-S9 | Smart contracts undergo security validation before deployment (Phase 2+) | Third-party audit completed with no critical or high-severity findings unresolved |
+| NFR    | Requirement                                                                                                   | Measurable Target                                                                                                                                                                   |
+| ------ | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-S1 | All data in transit is encrypted                                                                              | Current industry-standard transport encryption for all connections; no unencrypted endpoints                                                                                        |
+| NFR-S2 | Sensitive data at rest is encrypted to protect contributor PII and financial data from unauthorized access    | Current industry-standard encryption at rest for contributor PII, evaluation scores, token balances                                                                                 |
+| NFR-S3 | Third-party API credentials are securely stored to prevent integration compromise                             | No plaintext credentials accessible in codebase, logs, or storage; all secrets encrypted at rest                                                                                    |
+| NFR-S4 | Authentication follows industry standards                                                                     | OAuth 2.0 / OIDC with PKCE; session tokens expire after 24 hours of inactivity; refresh tokens expire after 30 days; token rotation on every refresh                                |
+| NFR-S5 | Authorization enforces role boundaries so contributors, admins, and public viewers see only permitted content | Zero unauthorized access across all six RBAC tiers verified by automated tests                                                                                                      |
+| NFR-S6 | All security-relevant actions are auditable for regulatory compliance and contributor trust                   | Immutable audit logs for admission decisions, evaluation outputs, role changes, governance actions; 100% event coverage; minimum 2-year retention; logs queryable within 10 seconds |
+| NFR-S7 | The system resists common web application attacks to protect contributor data and platform integrity          | OWASP Top 10 mitigations verified; input validation, CSRF protection, XSS prevention, SQL injection prevention                                                                      |
+| NFR-S8 | Contributor personal data is separated from contribution records                                              | On-chain records contain no directly identifiable data; identity-to-contribution mapping is stored separately with access controls                                                  |
+| NFR-S9 | Smart contracts undergo security validation before deployment (Phase 2+)                                      | Third-party audit completed with no critical or high-severity findings unresolved                                                                                                   |
 
 ### Scalability
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-SC1 | System supports Phase 1 contributor base | 50 concurrent contributors with no performance degradation |
-| NFR-SC2 | System supports Phase 2 growth | 200 concurrent contributors with <10% performance degradation vs. Phase 1 baseline |
-| NFR-SC3 | Activity Feed scales with contribution volume to maintain contributor engagement as the community grows | Handles 500+ contributions/day without feed latency exceeding 10s |
-| NFR-SC4 | GitHub integration handles multi-repository monitoring so contribution data is complete as the ecosystem grows | 20+ monitored repositories with >99% ingestion success rate and <15 min p95 latency per contribution event |
-| NFR-SC5 | Database supports growing contribution and evaluation history for long-term contributor analytics | 2+ years of contribution data without query performance degradation beyond 20% |
-| NFR-SC6 | Architecture supports horizontal scaling so the platform handles Phase 2 growth without re-architecture | Application services can be scaled to 3x instances with linear throughput increase and no architectural changes required |
+| NFR     | Requirement                                                                                                    | Measurable Target                                                                                                        |
+| ------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| NFR-SC1 | System supports Phase 1 contributor base                                                                       | 50 concurrent contributors with no performance degradation                                                               |
+| NFR-SC2 | System supports Phase 2 growth                                                                                 | 200 concurrent contributors with <10% performance degradation vs. Phase 1 baseline                                       |
+| NFR-SC3 | Activity Feed scales with contribution volume to maintain contributor engagement as the community grows        | Handles 500+ contributions/day without feed latency exceeding 10s                                                        |
+| NFR-SC4 | GitHub integration handles multi-repository monitoring so contribution data is complete as the ecosystem grows | 20+ monitored repositories with >99% ingestion success rate and <15 min p95 latency per contribution event               |
+| NFR-SC5 | Database supports growing contribution and evaluation history for long-term contributor analytics              | 2+ years of contribution data without query performance degradation beyond 20%                                           |
+| NFR-SC6 | Architecture supports horizontal scaling so the platform handles Phase 2 growth without re-architecture        | Application services can be scaled to 3x instances with linear throughput increase and no architectural changes required |
 
 ### Reliability
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-R1 | Web portal is available during active contributor hours | >99.5% uptime (measured monthly, excluding planned maintenance windows) |
-| NFR-R2 | GitHub ingestion pipeline recovers from transient failures so no contributor work is lost | Automatic retry with exponential backoff; zero contribution loss from transient GitHub API failures |
-| NFR-R3 | Evaluation Engine failures do not block contributor experience so the platform remains usable during AI outages | Graceful degradation: contributions display as "evaluation pending" rather than erroring |
-| NFR-R4 | Data is protected against loss to preserve contributor trust and regulatory compliance | Automated daily backups with <4-hour recovery point objective (RPO); <2-hour recovery time objective (RTO) |
-| NFR-R5 | Peer feedback assignment maintains high availability so contributors receive timely feedback | >95% assignment success rate; admin manual override available as fallback with <5 minute resolution time |
+| NFR    | Requirement                                                                                                     | Measurable Target                                                                                          |
+| ------ | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| NFR-R1 | Web portal is available during active contributor hours                                                         | >99.5% uptime (measured monthly, excluding planned maintenance windows)                                    |
+| NFR-R2 | GitHub ingestion pipeline recovers from transient failures so no contributor work is lost                       | Automatic retry with exponential backoff; zero contribution loss from transient GitHub API failures        |
+| NFR-R3 | Evaluation Engine failures do not block contributor experience so the platform remains usable during AI outages | Graceful degradation: contributions display as "evaluation pending" rather than erroring                   |
+| NFR-R4 | Data is protected against loss to preserve contributor trust and regulatory compliance                          | Automated daily backups with <4-hour recovery point objective (RPO); <2-hour recovery time objective (RTO) |
+| NFR-R5 | Peer feedback assignment maintains high availability so contributors receive timely feedback                    | >95% assignment success rate; admin manual override available as fallback with <5 minute resolution time   |
 
 ### Accessibility
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-A1 | Web portal meets accessibility standards | WCAG 2.1 Level AA compliance for all public and authenticated pages |
-| NFR-A2 | Activity Feed and evaluation displays are screen-reader compatible | All dynamic content changes announced to assistive technology within 2 seconds of update |
-| NFR-A3 | All interactive elements are keyboard-navigable so contributors with motor disabilities can use the full platform | Complete task flows achievable via keyboard-only navigation |
+| NFR    | Requirement                                                                                                                | Measurable Target                                                                          |
+| ------ | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| NFR-A1 | Web portal meets accessibility standards                                                                                   | WCAG 2.1 Level AA compliance for all public and authenticated pages                        |
+| NFR-A2 | Activity Feed and evaluation displays are screen-reader compatible                                                         | All dynamic content changes announced to assistive technology within 2 seconds of update   |
+| NFR-A3 | All interactive elements are keyboard-navigable so contributors with motor disabilities can use the full platform          | Complete task flows achievable via keyboard-only navigation                                |
 | NFR-A4 | Data visualizations (evaluation scores, reward charts) are accessible so all contributors can understand their performance | Sufficient color contrast (4.5:1 minimum); alternative text representations for chart data |
-| NFR-A5 | Accessibility compliance is verified continuously | Automated accessibility testing on every deployment; manual audit quarterly |
+| NFR-A5 | Accessibility compliance is verified continuously                                                                          | Automated accessibility testing on every deployment; manual audit quarterly                |
 
 ### Integration
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-I1 | GitHub integration reliably captures all contribution artifacts so no contributor work goes unrecognized | >99% artifact ingestion success rate measured weekly |
-| NFR-I2 | Integration layer handles GitHub API rate limiting gracefully so ingestion remains reliable under load | Webhook-first architecture; rate-limited requests queued and retried without data loss |
-| NFR-I3 | Normalized contribution schema is extensible so Phase 2 integrations (Google Workspace, Slack) can be added efficiently | New integration source can be added by a single developer within 2 weeks without schema migration or breaking existing evaluation pipelines |
-| NFR-I4 | API versioning prevents breaking changes for consumers so external integrations and future mobile clients remain compatible | All API endpoints versioned; deprecated endpoints supported for minimum 6 months |
-| NFR-I5 | Integration authentication follows least-privilege principle to minimize data exposure risk | Each integration connector requests only documented minimum permissions; verified by automated permission scope audit on each deployment |
+| NFR    | Requirement                                                                                                                 | Measurable Target                                                                                                                           |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-I1 | GitHub integration reliably captures all contribution artifacts so no contributor work goes unrecognized                    | >99% artifact ingestion success rate measured weekly                                                                                        |
+| NFR-I2 | Integration layer handles GitHub API rate limiting gracefully so ingestion remains reliable under load                      | Webhook-first architecture; rate-limited requests queued and retried without data loss                                                      |
+| NFR-I3 | Normalized contribution schema is extensible so Phase 2 integrations (Google Workspace, Slack) can be added efficiently     | New integration source can be added by a single developer within 2 weeks without schema migration or breaking existing evaluation pipelines |
+| NFR-I4 | API versioning prevents breaking changes for consumers so external integrations and future mobile clients remain compatible | All API endpoints versioned; deprecated endpoints supported for minimum 6 months                                                            |
+| NFR-I5 | Integration authentication follows least-privilege principle to minimize data exposure risk                                 | Each integration connector requests only documented minimum permissions; verified by automated permission scope audit on each deployment    |
 
 ### Observability & Operations
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
+| NFR    | Requirement                                                                                                           | Measurable Target                                                                                                                                                                |
+| ------ | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NFR-O1 | System health degradation is detected and alerted promptly so operations can respond before contributors are impacted | Alert fired within 60 seconds of threshold breach; monitored thresholds: API error rate >1%, ingestion pipeline failure, evaluation throughput drop >50%, database query p95 >2s |
-| NFR-O2 | Production issues can be diagnosed efficiently so contributor-facing incidents are resolved quickly | 100% of contributor-facing requests have correlation IDs; any production issue can be traced from user report to root cause within 30 minutes using logs alone |
-| NFR-O3 | Business KPIs are accessible for decision-making so the founding team can make data-driven go/no-go decisions | All leading and lagging KPIs from Success Criteria available on dashboard with <5 minute data lag; data export available for quarterly reporting |
-| NFR-O4 | Deployments do not disrupt contributor experience so the platform maintains trust during iteration | Zero-downtime deployments verified; rollback completes within 5 minutes; all production deployments pass staging validation before promotion |
+| NFR-O2 | Production issues can be diagnosed efficiently so contributor-facing incidents are resolved quickly                   | 100% of contributor-facing requests have correlation IDs; any production issue can be traced from user report to root cause within 30 minutes using logs alone                   |
+| NFR-O3 | Business KPIs are accessible for decision-making so the founding team can make data-driven go/no-go decisions         | All leading and lagging KPIs from Success Criteria available on dashboard with <5 minute data lag; data export available for quarterly reporting                                 |
+| NFR-O4 | Deployments do not disrupt contributor experience so the platform maintains trust during iteration                    | Zero-downtime deployments verified; rollback completes within 5 minutes; all production deployments pass staging validation before promotion                                     |
 
 ### Content Delivery & Publication
 
-| NFR | Requirement | Measurable Target |
-|---|---|---|
-| NFR-C1 | Published articles load quickly for external readers to support SEO and reader retention | First Contentful Paint <1.2s for article pages; Largest Contentful Paint <2.5s; Core Web Vitals passing for all published content |
+| NFR    | Requirement                                                                                              | Measurable Target                                                                                                                                                    |
+| ------ | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-C1 | Published articles load quickly for external readers to support SEO and reader retention                 | First Contentful Paint <1.2s for article pages; Largest Contentful Paint <2.5s; Core Web Vitals passing for all published content                                    |
 | NFR-C2 | Article pages are optimized for search engine indexing to drive organic contributor and reader discovery | Server-side rendered article pages with structured data (JSON-LD); Open Graph and Twitter Card metadata auto-generated; sitemap updated within 1 hour of publication |
-| NFR-C3 | Publication storage scales with growing article archive to support long-term content growth | System handles 1000+ published articles without query performance degradation beyond 10%; article search returns results within 1s |
+| NFR-C3 | Publication storage scales with growing article archive to support long-term content growth              | System handles 1000+ published articles without query performance degradation beyond 10%; article search returns results within 1s                                   |

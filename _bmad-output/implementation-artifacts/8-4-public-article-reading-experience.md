@@ -108,7 +108,7 @@ so that I can engage with the community's intellectual output as I would with a 
 - [x]**Task 5: Article List Client Component** (AC: 1)
   - [x]5.1 Create `apps/web/components/features/publication/article-list/article-list-content.tsx`:
     - `'use client'` component receiving `initialArticles` and `initialTotal`
-    - Domain filter: four domain buttons (Technology, Fintech, Impact, Governance) + "All" — styled with domain accent colors
+    - Domain filter: four domain buttons (Technology, Finance, Impact, Governance) + "All" — styled with domain accent colors
     - URL search params for filters: `?domain=Technology&author=...`
     - TanStack `useInfiniteQuery` for cursor-based pagination (follow `use-contributor-roster.ts` pattern)
     - "Load more" button (not infinite scroll)
@@ -357,7 +357,7 @@ const jsonLd = {
 
 ```
 Technology: var(--color-domain-technology) = #3A7D7E
-Fintech:    var(--color-domain-fintech)    = #C49A3C
+Finance:    var(--color-domain-finance)    = #C49A3C
 Impact:     var(--color-domain-impact)     = #B06B6B
 Governance: var(--color-domain-governance) = #7B6B8A
 ```

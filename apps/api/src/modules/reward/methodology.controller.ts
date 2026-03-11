@@ -7,7 +7,7 @@ import { ERROR_CODES } from '@edin/shared';
 import type { CalculatorInput } from '@edin/shared';
 import type { Request } from 'express';
 
-const VALID_DOMAINS = new Set(['technology', 'fintech', 'impact', 'governance']);
+const VALID_DOMAINS = new Set(['technology', 'finance', 'impact', 'governance']);
 
 @Controller({ path: 'rewards/methodology', version: '1' })
 export class MethodologyController {
@@ -65,7 +65,7 @@ export class MethodologyController {
     if (domain !== undefined && !VALID_DOMAINS.has(domain)) {
       errors.push({
         field: 'domain',
-        message: 'Must be one of: technology, fintech, impact, governance',
+        message: 'Must be one of: technology, finance, impact, governance',
       });
     }
 

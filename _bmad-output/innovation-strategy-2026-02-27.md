@@ -65,17 +65,17 @@ The timing is favorable but not indefinitely so:
 
 **Five Forces Assessment:**
 
-| Force | Intensity | Analysis |
-|---|---|---|
-| **Rivalry among existing platforms** | Medium | Gitcoin, SourceCred, Coordinape, Colony, and various DAO tooling platforms compete for contributor attention. However, none combine AI evaluation + multi-scale rewards + curated community. Competition is fragmented and no dominant model has emerged. |
-| **Threat of new entrants** | High | Low barriers to launching a contributor platform. Any well-funded DAO or protocol can create a contributor incentivization layer. The defensibility must come from community quality, evaluation sophistication, and network effects — not from technical moats alone. |
-| **Buyer (contributor) power** | Very High | Contributors are the scarce resource. They have zero switching costs, unlimited alternatives for their time, and high bargaining power. This is the single most important force shaping strategy. |
-| **Supplier power** | Low-Medium | Dependencies on external platforms (GitHub, Google Workspace, Slack) create some supplier risk, but these are commoditized and interchangeable. AI model providers (for the Evaluation Engine) represent a more concentrated supplier base. |
-| **Threat of substitutes** | High | Contributors can earn through traditional employment, freelancing (Upwork, Toptal), other DAOs, protocol grants, or simply volunteer on projects they find intrinsically motivating. The substitute is not another platform — it's any alternative use of a skilled person's time. |
+| Force                                | Intensity  | Analysis                                                                                                                                                                                                                                                                           |
+| ------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Rivalry among existing platforms** | Medium     | Gitcoin, SourceCred, Coordinape, Colony, and various DAO tooling platforms compete for contributor attention. However, none combine AI evaluation + multi-scale rewards + curated community. Competition is fragmented and no dominant model has emerged.                          |
+| **Threat of new entrants**           | High       | Low barriers to launching a contributor platform. Any well-funded DAO or protocol can create a contributor incentivization layer. The defensibility must come from community quality, evaluation sophistication, and network effects — not from technical moats alone.             |
+| **Buyer (contributor) power**        | Very High  | Contributors are the scarce resource. They have zero switching costs, unlimited alternatives for their time, and high bargaining power. This is the single most important force shaping strategy.                                                                                  |
+| **Supplier power**                   | Low-Medium | Dependencies on external platforms (GitHub, Google Workspace, Slack) create some supplier risk, but these are commoditized and interchangeable. AI model providers (for the Evaluation Engine) represent a more concentrated supplier base.                                        |
+| **Threat of substitutes**            | High       | Contributors can earn through traditional employment, freelancing (Upwork, Toptal), other DAOs, protocol grants, or simply volunteer on projects they find intrinsically motivating. The substitute is not another platform — it's any alternative use of a skilled person's time. |
 
 **Competitive Positioning Map:**
 
-Mapping existing platforms across two critical dimensions — *Evaluation Sophistication* (manual/peer → AI-augmented) and *Reward Time Horizon* (single-task bounties → multi-scale compounding):
+Mapping existing platforms across two critical dimensions — _Evaluation Sophistication_ (manual/peer → AI-augmented) and _Reward Time Horizon_ (single-task bounties → multi-scale compounding):
 
 - **Gitcoin:** Low evaluation sophistication (community voting), short-term rewards (grant rounds, bounties). Strong brand, large ecosystem.
 - **Coordinape:** Peer-based evaluation (subjective circles), short-to-medium term (epoch-based). Good for small teams, struggles at scale.
@@ -113,17 +113,17 @@ Mapping existing platforms across two critical dimensions — *Evaluation Sophis
 
 **Framework applied:** Business Model Canvas
 
-| Building Block | Current State |
-|---|---|
-| **Customer Segments** | Three distinct segments: (1) Contributors — developers, researchers, designers, governance specialists, financial engineers; (2) Investors — seeking exposure to DeFi infrastructure with social impact; (3) The Rose ecosystem itself — which needs organized development capacity |
-| **Value Propositions** | For contributors: fair AI-evaluated rewards, curated community, skill development, early access to a high-potential ecosystem. For investors: transparent traction metrics, AI-augmented quality assurance, mathematically grounded incentive model. For Rose: scalable contributor operations |
-| **Channels** | Web portal (primary), GitHub repository (integration), community referrals (growth), investor outreach (fundraising) |
-| **Customer Relationships** | Curated admission (trust-based), AI-generated feedback (continuous), community governance (participatory), mentoring (peer-to-peer) |
-| **Revenue Streams** | Currently none. Platform is free and open-source. Value capture happens at the Rose ecosystem level through the IOUR Foundation's fundraising (convertible bonds at 10% yield, 36-month maturity) and future token economics |
-| **Key Resources** | AI Evaluation Engine (intellectual property), scaling-law reward methodology (unique design), curated community (social capital), Rose ecosystem alignment (strategic positioning) |
-| **Key Activities** | Platform development, AI evaluation model training, integration maintenance, community curation, token economics design, regulatory compliance |
-| **Key Partnerships** | External tool providers (GitHub, Google, Slack), blockchain infrastructure (L2/settlement layer), AI model providers, regulatory advisors, IOUR Foundation governance |
-| **Cost Structure** | Engineering team, cloud infrastructure, AI model API costs, blockchain transaction fees, legal/regulatory compliance, community management |
+| Building Block             | Current State                                                                                                                                                                                                                                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Customer Segments**      | Three distinct segments: (1) Contributors — developers, researchers, designers, governance specialists, financial engineers; (2) Investors — seeking exposure to DeFi infrastructure with social impact; (3) The Rose ecosystem itself — which needs organized development capacity            |
+| **Value Propositions**     | For contributors: fair AI-evaluated rewards, curated community, skill development, early access to a high-potential ecosystem. For investors: transparent traction metrics, AI-augmented quality assurance, mathematically grounded incentive model. For Rose: scalable contributor operations |
+| **Channels**               | Web portal (primary), GitHub repository (integration), community referrals (growth), investor outreach (fundraising)                                                                                                                                                                           |
+| **Customer Relationships** | Curated admission (trust-based), AI-generated feedback (continuous), community governance (participatory), mentoring (peer-to-peer)                                                                                                                                                            |
+| **Revenue Streams**        | Currently none. Platform is free and open-source. Value capture happens at the Rose ecosystem level through the IOUR Foundation's fundraising (convertible bonds at 10% yield, 36-month maturity) and future token economics                                                                   |
+| **Key Resources**          | AI Evaluation Engine (intellectual property), scaling-law reward methodology (unique design), curated community (social capital), Rose ecosystem alignment (strategic positioning)                                                                                                             |
+| **Key Activities**         | Platform development, AI evaluation model training, integration maintenance, community curation, token economics design, regulatory compliance                                                                                                                                                 |
+| **Key Partnerships**       | External tool providers (GitHub, Google, Slack), blockchain infrastructure (L2/settlement layer), AI model providers, regulatory advisors, IOUR Foundation governance                                                                                                                          |
+| **Cost Structure**         | Engineering team, cloud infrastructure, AI model API costs, blockchain transaction fees, legal/regulatory compliance, community management                                                                                                                                                     |
 
 ### Value Proposition Assessment
 
@@ -131,15 +131,15 @@ Mapping existing platforms across two critical dimensions — *Evaluation Sophis
 
 **Contributor Jobs-to-be-Done:**
 
-| Job Type | Specific Job | How Edin Addresses It |
-|---|---|---|
-| **Functional** | Earn income/rewards from skills | Multi-scale token rewards with compounding long-term value |
-| **Functional** | Contribute to meaningful technology | Direct participation in next-gen financial infrastructure |
-| **Functional** | Work flexibly on own terms | Integration-first — use own tools, own schedule |
-| **Social** | Be recognized for quality work | AI-evaluated contribution scoring with transparent attribution |
-| **Social** | Belong to a high-caliber community | Curated admission ensures peer quality |
-| **Emotional** | Feel empowered as AI transforms work | Explicit focus on uniquely human skills development |
-| **Emotional** | Trust that compensation is fair | Blockchain-immutable reward records, algorithmic distribution |
+| Job Type       | Specific Job                         | How Edin Addresses It                                          |
+| -------------- | ------------------------------------ | -------------------------------------------------------------- |
+| **Functional** | Earn income/rewards from skills      | Multi-scale token rewards with compounding long-term value     |
+| **Functional** | Contribute to meaningful technology  | Direct participation in next-gen financial infrastructure      |
+| **Functional** | Work flexibly on own terms           | Integration-first — use own tools, own schedule                |
+| **Social**     | Be recognized for quality work       | AI-evaluated contribution scoring with transparent attribution |
+| **Social**     | Belong to a high-caliber community   | Curated admission ensures peer quality                         |
+| **Emotional**  | Feel empowered as AI transforms work | Explicit focus on uniquely human skills development            |
+| **Emotional**  | Trust that compensation is fair      | Blockchain-immutable reward records, algorithmic distribution  |
 
 **Pains relieved:**
 
@@ -155,7 +155,7 @@ Mapping existing platforms across two critical dimensions — *Evaluation Sophis
 - Early positioning in a potentially high-growth ecosystem
 - Portfolio of evaluated contributions serving as a verifiable track record
 
-**Value Proposition Strength:** The proposition is *intellectually compelling* but *experientially unproven*. The scaling-law compounding rewards and AI evaluation are strong differentiators on paper. The critical question is whether they translate into felt value for contributors in practice. Theory must become experience.
+**Value Proposition Strength:** The proposition is _intellectually compelling_ but _experientially unproven_. The scaling-law compounding rewards and AI evaluation are strong differentiators on paper. The critical question is whether they translate into felt value for contributors in practice. Theory must become experience.
 
 ### Revenue and Cost Structure
 
@@ -165,23 +165,23 @@ Mapping existing platforms across two critical dimensions — *Evaluation Sophis
 
 **Value capture mechanisms (current and planned):**
 
-| Mechanism | Status | Description |
-|---|---|---|
-| **Foundation fundraising** | Active | IOUR Foundation raises capital through convertible bonds (10% yield, 36-month maturity) and seed funding (€1M target) |
-| **Token economics** | Planned | Edin project token will eventually have utility value — governance voting, access tiers, reward distribution. Token appreciation tied to ecosystem growth could create indirect value capture |
-| **Ecosystem value** | Theoretical | If Rose's financial platform succeeds, the contributor community that built it holds tokens whose value is linked to platform adoption |
-| **Grant funding** | Potential | EU innovation grants, blockchain ecosystem grants (e.g., Ethereum Foundation, L2 ecosystem funds) |
+| Mechanism                  | Status      | Description                                                                                                                                                                                   |
+| -------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Foundation fundraising** | Active      | IOUR Foundation raises capital through convertible bonds (10% yield, 36-month maturity) and seed funding (€1M target)                                                                         |
+| **Token economics**        | Planned     | Edin project token will eventually have utility value — governance voting, access tiers, reward distribution. Token appreciation tied to ecosystem growth could create indirect value capture |
+| **Ecosystem value**        | Theoretical | If Rose's financial platform succeeds, the contributor community that built it holds tokens whose value is linked to platform adoption                                                        |
+| **Grant funding**          | Potential   | EU innovation grants, blockchain ecosystem grants (e.g., Ethereum Foundation, L2 ecosystem funds)                                                                                             |
 
 **Cost Structure Analysis:**
 
-| Cost Category | Scale Sensitivity | Risk Level |
-|---|---|---|
-| **Engineering (core team)** | Fixed (short-term) | High — small team, high dependency on individuals |
-| **Cloud infrastructure** | Variable, grows with usage | Medium — manageable at small scale |
-| **AI model API costs** | Variable, grows with contribution volume | Medium-High — evaluation at scale could become expensive |
-| **Blockchain gas fees** | Variable, depends on network and reward frequency | Medium — L2 solutions mitigate but 7 temporal scales = high transaction volume |
-| **Legal/regulatory** | Semi-fixed | High — MiCA compliance is non-trivial and specialized |
-| **Community management** | Grows with community size | Low initially, high at scale |
+| Cost Category               | Scale Sensitivity                                 | Risk Level                                                                     |
+| --------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Engineering (core team)** | Fixed (short-term)                                | High — small team, high dependency on individuals                              |
+| **Cloud infrastructure**    | Variable, grows with usage                        | Medium — manageable at small scale                                             |
+| **AI model API costs**      | Variable, grows with contribution volume          | Medium-High — evaluation at scale could become expensive                       |
+| **Blockchain gas fees**     | Variable, depends on network and reward frequency | Medium — L2 solutions mitigate but 7 temporal scales = high transaction volume |
+| **Legal/regulatory**        | Semi-fixed                                        | High — MiCA compliance is non-trivial and specialized                          |
+| **Community management**    | Grows with community size                         | Low initially, high at scale                                                   |
 
 **Critical observation:** The cost structure scales with activity, but the revenue model does not. There is no direct mechanism through which increased contributor activity generates increased revenue. This creates a structural dependency on external fundraising until token economics mature.
 
@@ -219,7 +219,7 @@ The entire market operates on a task-bounty model: do work → get paid → rela
 
 **Vector 3: From tool replacement to tool integration**
 
-Most platforms try to become the workspace — forcing contributors into new tools, new workflows, new habits. Edin's integration-first approach is disruptive precisely because it *doesn't* try to own the workspace. It says: "Keep your tools. We'll analyze your output." This is the classic disruption pattern of doing less to achieve more — removing the adoption friction that kills platforms.
+Most platforms try to become the workspace — forcing contributors into new tools, new workflows, new habits. Edin's integration-first approach is disruptive precisely because it _doesn't_ try to own the workspace. It says: "Keep your tools. We'll analyze your output." This is the classic disruption pattern of doing less to achieve more — removing the adoption friction that kills platforms.
 
 **Vector 4: From open access to curated community**
 
@@ -229,33 +229,34 @@ Counter-intuitively, closing the door is a disruption vector. Open-source's grea
 
 **Framework applied:** Jobs to be Done
 
-| Job | Current Solution | Satisfaction Level | Edin Opportunity |
-|---|---|---|---|
-| "I want to earn fairly for my open-source contributions" | GitHub Sponsors, Gitcoin grants, occasional bounties | Very Low — most contributors earn nothing or negligible amounts | Multi-scale token rewards with transparent AI evaluation |
-| "I want objective recognition of my work quality" | Peer reviews, GitHub stars, social media followers | Low — highly subjective, popularity-driven, inconsistent | AI-powered evaluation with transparent scoring criteria |
-| "I want to build long-term value, not just complete tasks" | Equity in startups, protocol token allocations | Medium — available but typically requires full-time commitment and insider access | Scaling-law compounding rewards that grow disproportionately with sustained engagement |
-| "I want to belong to a high-quality technical community" | Company teams, elite open-source projects, invite-only DAOs | Medium — exists but often exclusionary or inaccessible | Curated admission with clear criteria, not social connections |
-| "I want to develop skills beyond coding as AI automates routine work" | Corporate training programs, bootcamps, self-directed learning | Low — most platforms focus on output, not development | Explicit human empowerment pillar: mentoring, governance, leadership |
-| "I want to contribute to something meaningful, not just profitable" | Non-profit tech, civic tech, humanitarian open-source | Medium — meaningful projects often cannot compensate contributors | Rose mission (reimagining financial systems) + fair compensation |
-| "I want to trust that the system won't change the rules on me" | Traditional employment contracts, platform ToS | Very Low — centralized platforms change rules unilaterally | Blockchain-immutable reward records, progressive decentralization toward DAO governance |
+| Job                                                                   | Current Solution                                               | Satisfaction Level                                                                | Edin Opportunity                                                                        |
+| --------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| "I want to earn fairly for my open-source contributions"              | GitHub Sponsors, Gitcoin grants, occasional bounties           | Very Low — most contributors earn nothing or negligible amounts                   | Multi-scale token rewards with transparent AI evaluation                                |
+| "I want objective recognition of my work quality"                     | Peer reviews, GitHub stars, social media followers             | Low — highly subjective, popularity-driven, inconsistent                          | AI-powered evaluation with transparent scoring criteria                                 |
+| "I want to build long-term value, not just complete tasks"            | Equity in startups, protocol token allocations                 | Medium — available but typically requires full-time commitment and insider access | Scaling-law compounding rewards that grow disproportionately with sustained engagement  |
+| "I want to belong to a high-quality technical community"              | Company teams, elite open-source projects, invite-only DAOs    | Medium — exists but often exclusionary or inaccessible                            | Curated admission with clear criteria, not social connections                           |
+| "I want to develop skills beyond coding as AI automates routine work" | Corporate training programs, bootcamps, self-directed learning | Low — most platforms focus on output, not development                             | Explicit human empowerment pillar: mentoring, governance, leadership                    |
+| "I want to contribute to something meaningful, not just profitable"   | Non-profit tech, civic tech, humanitarian open-source          | Medium — meaningful projects often cannot compensate contributors                 | Rose mission (reimagining financial systems) + fair compensation                        |
+| "I want to trust that the system won't change the rules on me"        | Traditional employment contracts, platform ToS                 | Very Low — centralized platforms change rules unilaterally                        | Blockchain-immutable reward records, progressive decentralization toward DAO governance |
 
 **Highest-priority unmet jobs:**
+
 1. Fair, objective compensation for open-source work (massive underserved market)
 2. Long-term value accumulation without full-time employment commitment
 3. Skills development in an AI-transformed work landscape
 
 ### Technology Enablers
 
-Several technology shifts have converged to make Edin feasible *now* in ways that would not have been possible even 2 years ago:
+Several technology shifts have converged to make Edin feasible _now_ in ways that would not have been possible even 2 years ago:
 
-| Enabler | Maturity | Strategic Implication |
-|---|---|---|
+| Enabler                                         | Maturity         | Strategic Implication                                                                                                                                                                                                                                                |
+| ----------------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Large Language Models for code/doc analysis** | Production-ready | AI evaluation of code quality, documentation completeness, and collaboration patterns is now credible. Models can assess semantic meaning, not just syntax — enabling evaluation of non-code contributions (research, governance proposals, community participation) |
-| **Layer 2 blockchain scaling** | Production-ready | Micro-rewards across 7 temporal scales require high transaction throughput at low cost. L2 solutions (Optimism, Arbitrum, Base, zkSync) make this economically viable for the first time |
-| **Smart contract standards for token vesting** | Mature | Complex reward distribution logic (scaling-law compounding, multi-temporal vesting) can be encoded in auditable smart contracts — removing trust from the equation |
-| **API ecosystem maturity** | Mature | GitHub API, Google Workspace API, Slack API, and others provide reliable programmatic access to contribution artifacts — making the integration-first architecture feasible without proprietary partnerships |
-| **Decentralized identity (eIDAS 2.0)** | Emerging | EU digital identity framework will enable verified contributor identities without centralized databases — critical for a curated community model operating under EU regulation |
-| **AI agent frameworks** | Rapidly maturing | The emergence of AI coding agents (Claude, Copilot, Cursor) creates a new category of contributor — AI agents whose output flows through the same evaluation pipeline. Edin could be one of the first platforms designed to evaluate both human and AI contributions |
+| **Layer 2 blockchain scaling**                  | Production-ready | Micro-rewards across 7 temporal scales require high transaction throughput at low cost. L2 solutions (Optimism, Arbitrum, Base, zkSync) make this economically viable for the first time                                                                             |
+| **Smart contract standards for token vesting**  | Mature           | Complex reward distribution logic (scaling-law compounding, multi-temporal vesting) can be encoded in auditable smart contracts — removing trust from the equation                                                                                                   |
+| **API ecosystem maturity**                      | Mature           | GitHub API, Google Workspace API, Slack API, and others provide reliable programmatic access to contribution artifacts — making the integration-first architecture feasible without proprietary partnerships                                                         |
+| **Decentralized identity (eIDAS 2.0)**          | Emerging         | EU digital identity framework will enable verified contributor identities without centralized databases — critical for a curated community model operating under EU regulation                                                                                       |
+| **AI agent frameworks**                         | Rapidly maturing | The emergence of AI coding agents (Claude, Copilot, Cursor) creates a new category of contributor — AI agents whose output flows through the same evaluation pipeline. Edin could be one of the first platforms designed to evaluate both human and AI contributions |
 
 ### Strategic White Space
 
@@ -263,7 +264,7 @@ The strategic white space — the territory no one occupies — is defined by th
 
 **White Space 1: AI-Evaluated + Long-Term Compounding Rewards**
 
-No platform combines objective AI evaluation with multi-temporal compounding incentives. Bounty platforms evaluate manually and pay once. DAO tools distribute tokens but don't evaluate quality. Edin occupies the intersection: *what you did is measured by AI, and how long you stay multiplies your reward non-linearly.*
+No platform combines objective AI evaluation with multi-temporal compounding incentives. Bounty platforms evaluate manually and pay once. DAO tools distribute tokens but don't evaluate quality. Edin occupies the intersection: _what you did is measured by AI, and how long you stay multiplies your reward non-linearly._
 
 **White Space 2: Curated Community + Open-Source Economics**
 
@@ -275,7 +276,7 @@ Generic contributor platforms serve all domains. DeFi protocols hire through tra
 
 **White Space 4: Human Empowerment in an AI-Automated World**
 
-As AI automates routine development, every other platform is focused on *leveraging* AI to increase output. Edin explicitly positions itself as a space for *human growth* alongside AI — developing mentoring, governance, creative thinking, and leadership capabilities. This narrative is powerful and entirely uncontested in the Web3 contributor space.
+As AI automates routine development, every other platform is focused on _leveraging_ AI to increase output. Edin explicitly positions itself as a space for _human growth_ alongside AI — developing mentoring, governance, creative thinking, and leadership capabilities. This narrative is powerful and entirely uncontested in the Web3 contributor space.
 
 ---
 
@@ -364,15 +365,15 @@ The evaluation engine and reward methodology could be unbundled from the Edin pl
 
 **Framework applied:** Partnership Strategy
 
-| Partnership Type | Target Partners | Value Exchange | Priority |
-|---|---|---|---|
-| **Blockchain infrastructure** | L2 networks (Optimism, Base, Arbitrum) | Edin builds on their chain → they provide grants, gas subsidies, developer support | High — needed for MVP |
-| **AI evaluation** | Anthropic, OpenAI, open-source model providers | Edin uses their models for evaluation → Edin provides a novel use case and potential case study | High — core dependency |
-| **Developer tooling** | GitHub, GitLab | Deep integration access, API partnerships → Edin drives engagement on their platforms | Medium — standard API access may suffice initially |
-| **DeFi ecosystem** | Established DeFi protocols (Aave, Uniswap, MakerDAO ecosystem) | Cross-pollination of contributors → shared evaluation standards, network effects | Medium — valuable once Edin has traction |
-| **Academic/research** | Universities with fintech/blockchain programs | Edin provides research opportunities and contributor pipeline → universities provide talent and credibility | Medium — good for contributor recruitment |
-| **EU regulatory** | MiCA compliance specialists, eIDAS identity providers | Compliance guidance and digital identity integration → Edin as a regulatory-first reference implementation | High — regulatory is a first-class constraint |
-| **Other non-profit tech** | Open-source foundations (Linux Foundation, Apache, Eclipse) | Shared contributor evaluation methodology → broader adoption and validation of Edin's approach | Low initially — aspirational for later phases |
+| Partnership Type              | Target Partners                                                | Value Exchange                                                                                              | Priority                                           |
+| ----------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Blockchain infrastructure** | L2 networks (Optimism, Base, Arbitrum)                         | Edin builds on their chain → they provide grants, gas subsidies, developer support                          | High — needed for MVP                              |
+| **AI evaluation**             | Anthropic, OpenAI, open-source model providers                 | Edin uses their models for evaluation → Edin provides a novel use case and potential case study             | High — core dependency                             |
+| **Developer tooling**         | GitHub, GitLab                                                 | Deep integration access, API partnerships → Edin drives engagement on their platforms                       | Medium — standard API access may suffice initially |
+| **DeFi ecosystem**            | Established DeFi protocols (Aave, Uniswap, MakerDAO ecosystem) | Cross-pollination of contributors → shared evaluation standards, network effects                            | Medium — valuable once Edin has traction           |
+| **Academic/research**         | Universities with finance/blockchain programs                  | Edin provides research opportunities and contributor pipeline → universities provide talent and credibility | Medium — good for contributor recruitment          |
+| **EU regulatory**             | MiCA compliance specialists, eIDAS identity providers          | Compliance guidance and digital identity integration → Edin as a regulatory-first reference implementation  | High — regulatory is a first-class constraint      |
+| **Other non-profit tech**     | Open-source foundations (Linux Foundation, Apache, Eclipse)    | Shared contributor evaluation methodology → broader adoption and validation of Edin's approach              | Low initially — aspirational for later phases      |
 
 **Most critical partnership:** An L2 blockchain partner willing to provide infrastructure support and ecosystem grants. This directly addresses the cost structure concern around high-frequency reward distribution across 7 temporal scales.
 
@@ -414,7 +415,7 @@ The evaluation engine and reward methodology could be unbundled from the Edin pl
 
 ### Option C: Community-First, Platform-Second
 
-**Strategic direction:** Deprioritize the full platform build. Instead, focus first on building the curated contributor community using minimal tooling (GitHub + manual processes + simple tracking). Validate that talented people want to join and stay *before* investing in AI evaluation, blockchain rewards, and multi-source integration. Treat the technology as something you earn the right to build by proving community demand.
+**Strategic direction:** Deprioritize the full platform build. Instead, focus first on building the curated contributor community using minimal tooling (GitHub + manual processes + simple tracking). Validate that talented people want to join and stay _before_ investing in AI evaluation, blockchain rewards, and multi-source integration. Treat the technology as something you earn the right to build by proving community demand.
 
 **Business model implications:** Dramatically reduced initial costs. No AI evaluation or blockchain infrastructure until community viability is proven. Rewards could start as simple reputation scoring, contributor recognition, or even manual token allocation — graduated to the full scaling-law system only after validation.
 
@@ -440,7 +441,7 @@ Here is the logic:
 
 Option A is too fragile. Coupling Edin's survival entirely to Rose's success creates a single point of failure that no strategic planning can mitigate — only diversification can. A team of <10 building a platform with no independent value proposition is a team with no fallback.
 
-Option C is too timid. The technology differentiators — AI evaluation and scaling-law rewards — are what make Edin *Edin* and not just another GitHub organization. Deferring them eliminates the very thing that would attract high-caliber contributors and investors. You don't prove demand for a Ferrari by showing people a bicycle.
+Option C is too timid. The technology differentiators — AI evaluation and scaling-law rewards — are what make Edin _Edin_ and not just another GitHub organization. Deferring them eliminates the very thing that would attract high-caliber contributors and investors. You don't prove demand for a Ferrari by showing people a bicycle.
 
 Option B strikes the right balance: build for Rose with discipline and speed, but architect the evaluation engine and reward methodology as portable, modular components. This creates three sources of strategic value simultaneously:
 
@@ -448,7 +449,7 @@ Option B strikes the right balance: build for Rose with discipline and speed, bu
 2. **Defensible asset** — The evaluation engine and scaling-law methodology have independent value
 3. **Sustainability path** — External licensing or SaaS creates revenue that reduces foundation dependency
 
-**The critical discipline from Option C to incorporate:** Do not attempt to build everything at once. Validate community willingness to participate *early* — even with simplified tooling. Let the first 20-30 contributors tell you whether the mission and community quality are enough to attract talent before the full technology stack is online. Run the community validation and technology build in parallel, not sequentially.
+**The critical discipline from Option C to incorporate:** Do not attempt to build everything at once. Validate community willingness to participate _early_ — even with simplified tooling. Let the first 20-30 contributors tell you whether the mission and community quality are enough to attract talent before the full technology stack is online. Run the community validation and technology build in parallel, not sequentially.
 
 **What makes me confident:** The white space analysis confirms that no one occupies the AI-evaluated + multi-scale compounding reward position. The technology enablers are mature enough to build credibly. The Rose mission provides genuine differentiation in contributor motivation. The non-profit structure signals integrity.
 
@@ -458,15 +459,15 @@ Option B strikes the right balance: build for Rose with discipline and speed, bu
 
 These hypotheses must be tested before committing significant resources. If any of the critical ones fail, the strategy must pivot.
 
-| # | Hypothesis | Criticality | Validation Method |
-|---|---|---|---|
-| H1 | Talented contributors will join a curated community for an unproven project based on mission alignment and reward *potential* | **Critical** | Recruit first 20 contributors. Measure application rate, acceptance rate, and 30-day retention without full reward system |
-| H2 | AI can evaluate contribution quality with sufficient accuracy and perceived fairness to be trusted by contributors | **Critical** | Build evaluation prototype, test on real contributions, gather contributor feedback on fairness and accuracy. Target >70% agreement rate with human expert assessment |
-| H3 | The scaling-law multi-temporal reward mechanism is comprehensible and motivating to contributors (not just intellectually elegant) | **Critical** | Present the reward model to early contributors. Measure comprehension (can they explain it back?) and stated motivation impact. If people can't understand it, it doesn't matter how clever it is |
-| H4 | The integration-first approach provides sufficient contribution data for meaningful evaluation | **High** | Test AI evaluation on GitHub commits, Google Docs, and Slack messages from a pilot period. Assess data completeness and quality |
-| H5 | Blockchain micro-reward distribution across 7 temporal scales is economically viable on L2 infrastructure | **High** | Calculate total gas costs for realistic reward distribution scenarios (100 contributors, 7 scales). Confirm costs remain <5% of reward value |
-| H6 | MiCA token classification allows the intended reward model without requiring a financial license the foundation cannot obtain | **High** | Engage regulatory counsel for preliminary token classification assessment before designing final token economics |
-| H7 | The evaluation methodology has value beyond Rose (other projects would adopt it) | **Medium** | Informal conversations with 5-10 open-source project leads or DAO operators. Gauge interest in evaluation-as-a-service |
+| #   | Hypothesis                                                                                                                         | Criticality  | Validation Method                                                                                                                                                                                 |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| H1  | Talented contributors will join a curated community for an unproven project based on mission alignment and reward _potential_      | **Critical** | Recruit first 20 contributors. Measure application rate, acceptance rate, and 30-day retention without full reward system                                                                         |
+| H2  | AI can evaluate contribution quality with sufficient accuracy and perceived fairness to be trusted by contributors                 | **Critical** | Build evaluation prototype, test on real contributions, gather contributor feedback on fairness and accuracy. Target >70% agreement rate with human expert assessment                             |
+| H3  | The scaling-law multi-temporal reward mechanism is comprehensible and motivating to contributors (not just intellectually elegant) | **Critical** | Present the reward model to early contributors. Measure comprehension (can they explain it back?) and stated motivation impact. If people can't understand it, it doesn't matter how clever it is |
+| H4  | The integration-first approach provides sufficient contribution data for meaningful evaluation                                     | **High**     | Test AI evaluation on GitHub commits, Google Docs, and Slack messages from a pilot period. Assess data completeness and quality                                                                   |
+| H5  | Blockchain micro-reward distribution across 7 temporal scales is economically viable on L2 infrastructure                          | **High**     | Calculate total gas costs for realistic reward distribution scenarios (100 contributors, 7 scales). Confirm costs remain <5% of reward value                                                      |
+| H6  | MiCA token classification allows the intended reward model without requiring a financial license the foundation cannot obtain      | **High**     | Engage regulatory counsel for preliminary token classification assessment before designing final token economics                                                                                  |
+| H7  | The evaluation methodology has value beyond Rose (other projects would adopt it)                                                   | **Medium**   | Informal conversations with 5-10 open-source project leads or DAO operators. Gauge interest in evaluation-as-a-service                                                                            |
 
 ### Critical Success Factors
 
@@ -494,7 +495,7 @@ For this strategy to succeed, six conditions must hold:
 
 **Key initiatives:**
 
-- **Founding community recruitment.** Personally recruit 20-30 founding contributors from existing networks. Focus on mission-aligned individuals with expertise across the four strategic categories (Technology, Fintech, Impact, Governance). These are the people who will define the culture.
+- **Founding community recruitment.** Personally recruit 20-30 founding contributors from existing networks. Focus on mission-aligned individuals with expertise across the four strategic categories (Technology, Finance, Impact, Governance). These are the people who will define the culture.
 - **Evaluation Engine prototype.** Build a functional AI evaluation prototype focused on GitHub contributions (commits, PRs, reviews). Test against real contributions from the founding community. Measure accuracy vs. human expert judgment. Target H2 validation.
 - **Reward model communication test.** Present the scaling-law multi-temporal reward concept to founding contributors. Measure comprehension and motivation. Iterate on explanation until >80% can articulate how it works. Target H3 validation.
 - **Regulatory preliminary assessment.** Engage MiCA-specialized counsel for initial token classification analysis. Determine whether the intended utility token model is viable under current regulation. Target H6 validation.
@@ -566,42 +567,42 @@ For this strategy to succeed, six conditions must hold:
 
 These are early signals that the strategy is working — they move before business outcomes do:
 
-| Indicator | What It Measures | Target | Measurement Frequency |
-|---|---|---|---|
-| **Application rate** | How many qualified people want to join | 5+ applications/week by end of Phase 1 | Weekly |
-| **30-day contributor retention** | Whether new contributors stay past initial enthusiasm | >50% in Phase 1, >60% in Phase 2 | Monthly |
-| **Contribution frequency per active contributor** | Whether contributors are actually working, not just registered | >2 meaningful contributions/week on average | Weekly |
-| **AI evaluation trust score** | Whether contributors perceive evaluation as fair | >70% "fair or very fair" in contributor surveys | Monthly |
-| **Reward comprehension rate** | Whether contributors understand the scaling-law model | >80% can explain the model when asked | Quarterly |
-| **Referral rate** | Whether contributors are recruiting others organically | >20% of new contributors come from referrals | Monthly |
-| **Community engagement depth** | Participation in governance, mentoring, discussions beyond core tasks | >30% of active contributors engage beyond their primary contribution type | Monthly |
+| Indicator                                         | What It Measures                                                      | Target                                                                    | Measurement Frequency |
+| ------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------- |
+| **Application rate**                              | How many qualified people want to join                                | 5+ applications/week by end of Phase 1                                    | Weekly                |
+| **30-day contributor retention**                  | Whether new contributors stay past initial enthusiasm                 | >50% in Phase 1, >60% in Phase 2                                          | Monthly               |
+| **Contribution frequency per active contributor** | Whether contributors are actually working, not just registered        | >2 meaningful contributions/week on average                               | Weekly                |
+| **AI evaluation trust score**                     | Whether contributors perceive evaluation as fair                      | >70% "fair or very fair" in contributor surveys                           | Monthly               |
+| **Reward comprehension rate**                     | Whether contributors understand the scaling-law model                 | >80% can explain the model when asked                                     | Quarterly             |
+| **Referral rate**                                 | Whether contributors are recruiting others organically                | >20% of new contributors come from referrals                              | Monthly               |
+| **Community engagement depth**                    | Participation in governance, mentoring, discussions beyond core tasks | >30% of active contributors engage beyond their primary contribution type | Monthly               |
 
 ### Lagging Indicators
 
 These are the business outcomes that confirm strategic success — they move slower but matter more:
 
-| Indicator | What It Measures | Target | Measurement Frequency |
-|---|---|---|---|
-| **Active contributor count** | Community scale and health | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3) | Monthly |
-| **Quarterly contributor retention** | Sustained engagement beyond initial period | >40% quarter-over-quarter | Quarterly |
-| **Contribution quality trend** | Whether AI evaluation scores improve over time | Positive trend in average evaluation scores | Quarterly |
-| **Rose development velocity** | Whether Edin actually accelerates Rose platform delivery | Measurable increase in merged PRs, shipped features, resolved issues | Monthly |
-| **External methodology interest** | Market validation for Ecosystem-as-a-Service | 3+ external projects expressing formal interest by end of Phase 2 | Quarterly |
-| **Token distribution health** | Whether the reward system operates as designed | <5% of reward value consumed by transaction costs | Monthly |
-| **Fundraising traction** | Whether the strategy translates into investor confidence | Seed round closed, subsequent funding conversations active | Quarterly |
+| Indicator                           | What It Measures                                         | Target                                                               | Measurement Frequency |
+| ----------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------- | --------------------- |
+| **Active contributor count**        | Community scale and health                               | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3)                        | Monthly               |
+| **Quarterly contributor retention** | Sustained engagement beyond initial period               | >40% quarter-over-quarter                                            | Quarterly             |
+| **Contribution quality trend**      | Whether AI evaluation scores improve over time           | Positive trend in average evaluation scores                          | Quarterly             |
+| **Rose development velocity**       | Whether Edin actually accelerates Rose platform delivery | Measurable increase in merged PRs, shipped features, resolved issues | Monthly               |
+| **External methodology interest**   | Market validation for Ecosystem-as-a-Service             | 3+ external projects expressing formal interest by end of Phase 2    | Quarterly             |
+| **Token distribution health**       | Whether the reward system operates as designed           | <5% of reward value consumed by transaction costs                    | Monthly               |
+| **Fundraising traction**            | Whether the strategy translates into investor confidence | Seed round closed, subsequent funding conversations active           | Quarterly             |
 
 ### Decision Gates
 
 Critical go/no-go checkpoints where the strategy must be evaluated and potentially pivoted:
 
-| Gate | Trigger | Decision |
-|---|---|---|
-| **Gate 1: Community Viability** | End of Phase 1 | If <15 active contributors remain after 60 days → STOP. Reassess whether the mission and community quality alone can attract talent. Consider pivoting to Option C (community-first) with dramatically reduced technology scope. |
-| **Gate 2: Evaluation Credibility** | AI evaluation prototype complete | If AI agreement with human experts is <60% → STOP evaluation-based rewards. Fall back to simpler peer-based or manager-assessed rewards until evaluation quality improves. Do not distribute rewards based on an engine contributors don't trust. |
-| **Gate 3: Regulatory Feasibility** | Token classification opinion received | If MiCA classification requires e-money or asset-referenced token license → REDESIGN token economics. Consider non-token reward mechanisms (reputation points, fiat grants) or pursue the license if feasible. Do not proceed with non-compliant token distribution. |
-| **Gate 4: Economic Viability** | First quarter of on-chain reward distribution | If transaction costs exceed 10% of reward value → REDUCE temporal scales or switch L2 infrastructure. The reward system must be economically sustainable, not just technically functional. |
-| **Gate 5: External Market Validation** | End of Phase 2 | If zero external projects show interest in the evaluation methodology → ABANDON the Ecosystem-as-a-Service hypothesis. Revert to Option A (focused Rose engine) and accept foundation dependency as the long-term funding model. |
-| **Gate 6: Sustainability Trajectory** | End of Phase 3 first year | If operational costs are growing faster than external revenue + foundation funding → RESTRUCTURE. Either reduce scope, increase fundraising, or pivot the business model. An unsustainable cost trajectory will kill the platform regardless of community quality. |
+| Gate                                   | Trigger                                       | Decision                                                                                                                                                                                                                                                             |
+| -------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Gate 1: Community Viability**        | End of Phase 1                                | If <15 active contributors remain after 60 days → STOP. Reassess whether the mission and community quality alone can attract talent. Consider pivoting to Option C (community-first) with dramatically reduced technology scope.                                     |
+| **Gate 2: Evaluation Credibility**     | AI evaluation prototype complete              | If AI agreement with human experts is <60% → STOP evaluation-based rewards. Fall back to simpler peer-based or manager-assessed rewards until evaluation quality improves. Do not distribute rewards based on an engine contributors don't trust.                    |
+| **Gate 3: Regulatory Feasibility**     | Token classification opinion received         | If MiCA classification requires e-money or asset-referenced token license → REDESIGN token economics. Consider non-token reward mechanisms (reputation points, fiat grants) or pursue the license if feasible. Do not proceed with non-compliant token distribution. |
+| **Gate 4: Economic Viability**         | First quarter of on-chain reward distribution | If transaction costs exceed 10% of reward value → REDUCE temporal scales or switch L2 infrastructure. The reward system must be economically sustainable, not just technically functional.                                                                           |
+| **Gate 5: External Market Validation** | End of Phase 2                                | If zero external projects show interest in the evaluation methodology → ABANDON the Ecosystem-as-a-Service hypothesis. Revert to Option A (focused Rose engine) and accept foundation dependency as the long-term funding model.                                     |
+| **Gate 6: Sustainability Trajectory**  | End of Phase 3 first year                     | If operational costs are growing faster than external revenue + foundation funding → RESTRUCTURE. Either reduce scope, increase fundraising, or pivot the business model. An unsustainable cost trajectory will kill the platform regardless of community quality.   |
 
 ---
 
@@ -609,33 +610,33 @@ Critical go/no-go checkpoints where the strategy must be evaluated and potential
 
 ### Key Risks
 
-| # | Risk | Probability | Impact | Category |
-|---|---|---|---|---|
-| R1 | **Cold-start failure** — Unable to recruit and retain the first 20-30 founding contributors | Medium | Critical | Community |
-| R2 | **AI evaluation perceived as unfair** — Contributors reject algorithmic assessment of their work | Medium-High | Critical | Technology |
-| R3 | **Token regulatory blockade** — MiCA classification prevents intended token reward model | Medium | High | Regulatory |
-| R4 | **Team burnout/departure** — <10 person team overwhelmed by multi-domain complexity | High | Critical | Operational |
-| R5 | **Rose project failure** — If Rose's financial platform fails, Edin loses its primary purpose | Medium | Critical | Strategic |
-| R6 | **Scaling-law reward incomprehension** — Contributors find the reward model too complex to be motivating | Medium | High | Product |
-| R7 | **Integration maintenance burden** — API changes across GitHub, Google, Slack consume disproportionate engineering time | Medium | Medium | Operational |
-| R8 | **Competitor leapfrog** — A well-funded platform launches with similar AI evaluation + token reward capabilities | Low-Medium | High | Competitive |
-| R9 | **Token value collapse** — If the project token loses value, the entire reward system becomes meaningless | Medium | Critical | Economic |
-| R10 | **Contributor gaming** — Contributors optimize for evaluation metrics rather than genuine quality | Medium | Medium | Product |
+| #   | Risk                                                                                                                    | Probability | Impact   | Category    |
+| --- | ----------------------------------------------------------------------------------------------------------------------- | ----------- | -------- | ----------- |
+| R1  | **Cold-start failure** — Unable to recruit and retain the first 20-30 founding contributors                             | Medium      | Critical | Community   |
+| R2  | **AI evaluation perceived as unfair** — Contributors reject algorithmic assessment of their work                        | Medium-High | Critical | Technology  |
+| R3  | **Token regulatory blockade** — MiCA classification prevents intended token reward model                                | Medium      | High     | Regulatory  |
+| R4  | **Team burnout/departure** — <10 person team overwhelmed by multi-domain complexity                                     | High        | Critical | Operational |
+| R5  | **Rose project failure** — If Rose's financial platform fails, Edin loses its primary purpose                           | Medium      | Critical | Strategic   |
+| R6  | **Scaling-law reward incomprehension** — Contributors find the reward model too complex to be motivating                | Medium      | High     | Product     |
+| R7  | **Integration maintenance burden** — API changes across GitHub, Google, Slack consume disproportionate engineering time | Medium      | Medium   | Operational |
+| R8  | **Competitor leapfrog** — A well-funded platform launches with similar AI evaluation + token reward capabilities        | Low-Medium  | High     | Competitive |
+| R9  | **Token value collapse** — If the project token loses value, the entire reward system becomes meaningless               | Medium      | Critical | Economic    |
+| R10 | **Contributor gaming** — Contributors optimize for evaluation metrics rather than genuine quality                       | Medium      | Medium   | Product     |
 
 ### Mitigation Strategies
 
-| Risk | Mitigation |
-|---|---|
-| **R1: Cold-start failure** | Recruit founding contributors through personal networks and direct outreach. Offer founding contributor status with governance privileges and enhanced long-term rewards. Make the first 20 feel like co-founders, not users. If necessary, provide modest fiat compensation or grants to bridge the period before token rewards are credible. |
-| **R2: AI evaluation unfairness** | Build evaluation transparency from day one — contributors must see exactly how scores are calculated. Implement a human appeal process for disputed evaluations. Start with simpler, more explainable evaluation metrics before adding complexity. Publish evaluation methodology openly and invite community input on criteria. Conduct regular fairness audits with diverse contributor panels. |
-| **R3: Token regulatory blockade** | Engage MiCA-specialized counsel immediately — before designing token economics. Design the reward system with a non-token fallback (reputation points, fiat grants). Ensure the token can be reclassified or restructured if initial classification is unfavorable. Consider the Belgian regulatory sandbox if available. |
-| **R4: Team burnout** | Ruthlessly prioritize. Accept that not everything can be built simultaneously. Phase 1 focuses on community + evaluation prototype + basic web portal only. Do not attempt blockchain integration, multi-source integration, and governance simultaneously. Recruit advisors for domains where the team lacks depth (regulatory, token economics). |
-| **R5: Rose project failure** | This is why Option B matters. Build the evaluation engine and reward methodology as portable, independent assets. If Rose fails, Edin's technology can serve other ecosystems. Diversification is the only real mitigation for single-project dependency. |
-| **R6: Reward model incomprehension** | Test comprehension with every new contributor during onboarding. Simplify the model relentlessly — if a contributor can't explain it in 2 minutes, it's too complex. Consider launching with 3 temporal scales (daily, weekly, monthly) and adding finer granularity only after the concept is understood and valued. Create visual dashboards that make the compounding effect tangible, not abstract. |
-| **R7: Integration maintenance** | Start with GitHub only. Add additional integrations only when there is demonstrated demand from active contributors. Use standard API client libraries and implement robust error handling. Budget 15-20% of engineering capacity for ongoing integration maintenance. |
-| **R8: Competitor leapfrog** | Speed matters. Reach MVP and community proof-of-concept before competitors. Build defensibility through community quality (curated admission), evaluation data advantage (more data = better models), and contributor switching costs (portable reputation, compounding rewards). The evaluation engine improves with data — early mover advantage compounds. |
-| **R9: Token value collapse** | Design the reward system so that token value is not the only source of contributor motivation. Community quality, learning opportunities, mission alignment, and portable reputation should provide intrinsic value independent of token price. Implement vesting schedules that prevent dump-and-exit behavior. Maintain the 30/70 reserve ratio for token treasury management. |
-| **R10: Contributor gaming** | Design evaluation metrics that are resistant to gaming — prioritize outcome-based metrics (impact, adoption of contributions) over activity-based metrics (number of commits, lines of code). Use the AI evaluation to detect patterns consistent with gaming (high volume, low quality). Build a community culture that values genuine impact over metric optimization. Adjust evaluation criteria based on observed gaming patterns. |
+| Risk                                 | Mitigation                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **R1: Cold-start failure**           | Recruit founding contributors through personal networks and direct outreach. Offer founding contributor status with governance privileges and enhanced long-term rewards. Make the first 20 feel like co-founders, not users. If necessary, provide modest fiat compensation or grants to bridge the period before token rewards are credible.                                                                                         |
+| **R2: AI evaluation unfairness**     | Build evaluation transparency from day one — contributors must see exactly how scores are calculated. Implement a human appeal process for disputed evaluations. Start with simpler, more explainable evaluation metrics before adding complexity. Publish evaluation methodology openly and invite community input on criteria. Conduct regular fairness audits with diverse contributor panels.                                      |
+| **R3: Token regulatory blockade**    | Engage MiCA-specialized counsel immediately — before designing token economics. Design the reward system with a non-token fallback (reputation points, fiat grants). Ensure the token can be reclassified or restructured if initial classification is unfavorable. Consider the Belgian regulatory sandbox if available.                                                                                                              |
+| **R4: Team burnout**                 | Ruthlessly prioritize. Accept that not everything can be built simultaneously. Phase 1 focuses on community + evaluation prototype + basic web portal only. Do not attempt blockchain integration, multi-source integration, and governance simultaneously. Recruit advisors for domains where the team lacks depth (regulatory, token economics).                                                                                     |
+| **R5: Rose project failure**         | This is why Option B matters. Build the evaluation engine and reward methodology as portable, independent assets. If Rose fails, Edin's technology can serve other ecosystems. Diversification is the only real mitigation for single-project dependency.                                                                                                                                                                              |
+| **R6: Reward model incomprehension** | Test comprehension with every new contributor during onboarding. Simplify the model relentlessly — if a contributor can't explain it in 2 minutes, it's too complex. Consider launching with 3 temporal scales (daily, weekly, monthly) and adding finer granularity only after the concept is understood and valued. Create visual dashboards that make the compounding effect tangible, not abstract.                                |
+| **R7: Integration maintenance**      | Start with GitHub only. Add additional integrations only when there is demonstrated demand from active contributors. Use standard API client libraries and implement robust error handling. Budget 15-20% of engineering capacity for ongoing integration maintenance.                                                                                                                                                                 |
+| **R8: Competitor leapfrog**          | Speed matters. Reach MVP and community proof-of-concept before competitors. Build defensibility through community quality (curated admission), evaluation data advantage (more data = better models), and contributor switching costs (portable reputation, compounding rewards). The evaluation engine improves with data — early mover advantage compounds.                                                                          |
+| **R9: Token value collapse**         | Design the reward system so that token value is not the only source of contributor motivation. Community quality, learning opportunities, mission alignment, and portable reputation should provide intrinsic value independent of token price. Implement vesting schedules that prevent dump-and-exit behavior. Maintain the 30/70 reserve ratio for token treasury management.                                                       |
+| **R10: Contributor gaming**          | Design evaluation metrics that are resistant to gaming — prioritize outcome-based metrics (impact, adoption of contributions) over activity-based metrics (number of commits, lines of code). Use the AI evaluation to detect patterns consistent with gaming (high volume, low quality). Build a community culture that values genuine impact over metric optimization. Adjust evaluation criteria based on observed gaming patterns. |
 
 ---
 

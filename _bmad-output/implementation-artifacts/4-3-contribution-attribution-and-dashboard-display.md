@@ -236,7 +236,7 @@ so that I can verify my work is captured and track my contribution status.
 - "Awaiting evaluation" styled as neutral, calm indicator (not alert/warning)
 - Sans-serif for data display, 15px text
 - Warm borders (`border-surface-border`), `surface-raised` backgrounds, generous padding
-- Domain color accents: Technology (teal), Fintech (amber), Impact (rose), Governance (violet)
+- Domain color accents: Technology (teal), Finance (amber), Impact (rose), Governance (violet)
 - New SSE items announced via `aria-live="polite"` for screen readers
 - 44x44px minimum touch targets, keyboard navigation, 4.5:1 contrast ratio
 

@@ -75,7 +75,7 @@ describe('ArticleEditor', () => {
     const select = screen.getByLabelText('Article domain');
     expect(select).toBeInTheDocument();
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('Impact')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
   });

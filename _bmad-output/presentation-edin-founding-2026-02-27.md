@@ -15,7 +15,7 @@
 
 **Typography:** One serif typeface for headlines (e.g., Playfair Display, Cormorant Garamond). One clean sans-serif for body text (e.g., Inter, IBM Plex Sans). Large, breathing type. Never more than 30 words on a slide.
 
-**Imagery:** Abstract botanical textures, aerial views of fertile landscapes, macro shots of soil/roots/growth. Avoid stock photos of people. Avoid tech imagery. The visual metaphor is *the garden*, not the machine.
+**Imagery:** Abstract botanical textures, aerial views of fertile landscapes, macro shots of soil/roots/growth. Avoid stock photos of people. Avoid tech imagery. The visual metaphor is _the garden_, not the machine.
 
 **Transitions:** Simple fades. No animations. Let the words carry the weight.
 
@@ -31,7 +31,7 @@
               [ Sumerian: a fertile plain ]
 ```
 
-**Speaker notes:** *Open with silence. Let them read it. Don't explain yet. Hold for 5 seconds.*
+**Speaker notes:** _Open with silence. Let them read it. Don't explain yet. Hold for 5 seconds._
 
 ---
 
@@ -51,7 +51,7 @@ Not wilderness. Not a city.
 A space between.
 ```
 
-**Speaker notes:** *Speak slowly. "Not wilderness. Not a city." — pause between each. Let the in-between-ness land. This is about possibility, not product.*
+**Speaker notes:** _Speak slowly. "Not wilderness. Not a city." — pause between each. Let the in-between-ness land. This is about possibility, not product._
 
 ---
 
@@ -64,7 +64,7 @@ A space between.
                You've already been chosen.
 ```
 
-**Speaker notes:** *Make eye contact around the room. This is the moment they realize this is personal. Pause after "chosen." Then move forward without explaining — the explanation IS the rest of the talk.*
+**Speaker notes:** _Make eye contact around the room. This is the moment they realize this is personal. Pause after "chosen." Then move forward without explaining — the explanation IS the rest of the talk._
 
 ---
 
@@ -76,7 +76,7 @@ A space between.
                      I — The Broken Equation
 ```
 
-**Speaker notes:** *Brief pause. Shift tone — now we're getting into the problem. Voice drops slightly. More serious.*
+**Speaker notes:** _Brief pause. Shift tone — now we're getting into the problem. Voice drops slightly. More serious._
 
 ---
 
@@ -92,7 +92,7 @@ A space between.
                      Value flows ↑ up.
 ```
 
-**Speaker notes:** *"The financial system operates on a simple principle. Value flows upward. The people who design the instruments profit most. The builders get salaries. The billions affected? They get whatever trickles down. We've all seen this. Some of us profited from it. All of us know it's wrong."*
+**Speaker notes:** _"The financial system operates on a simple principle. Value flows upward. The people who design the instruments profit most. The builders get salaries. The billions affected? They get whatever trickles down. We've all seen this. Some of us profited from it. All of us know it's wrong."_
 
 ---
 
@@ -108,7 +108,7 @@ A space between.
                   Most receive nothing.
 ```
 
-**Speaker notes:** *"And here's the quieter injustice. The people building the alternative — decentralized protocols, transparent ledgers, financial tools that could serve everyone — they work for almost nothing. Their code powers trillion-dollar ecosystems. Their reward is a GitHub star and burnout."*
+**Speaker notes:** _"And here's the quieter injustice. The people building the alternative — decentralized protocols, transparent ledgers, financial tools that could serve everyone — they work for almost nothing. Their code powers trillion-dollar ecosystems. Their reward is a GitHub star and burnout."_
 
 ---
 
@@ -122,7 +122,7 @@ A space between.
       not quality            not belonging          not craft
 ```
 
-**Speaker notes:** *"The platforms that try to fix this — Gitcoin, Coordinape, SourceCred — have good intentions. But they use popularity contests instead of quality assessment. Bounties instead of building belonging. And they see 'contribution' as code and nothing else."*
+**Speaker notes:** _"The platforms that try to fix this — Gitcoin, Coordinape, SourceCred — have good intentions. But they use popularity contests instead of quality assessment. Bounties instead of building belonging. And they see 'contribution' as code and nothing else."_
 
 ---
 
@@ -136,7 +136,7 @@ A space between.
               What if the problem is measurement?
 ```
 
-**Speaker notes:** *This is the pivot. Hold the pause between the two questions. The first is rhetorical — the second is the thesis of everything that follows. Let it hang in the air.*
+**Speaker notes:** _This is the pivot. Hold the pause between the two questions. The first is rhetorical — the second is the thesis of everything that follows. Let it hang in the air._
 
 ---
 
@@ -148,7 +148,7 @@ A space between.
                    II — What If Math Could Be Fair?
 ```
 
-**Speaker notes:** *Tone shift — now we move from frustration to possibility. Energy rises. This is where intellectual excitement enters.*
+**Speaker notes:** _Tone shift — now we move from frustration to possibility. Energy rises. This is where intellectual excitement enters._
 
 ---
 
@@ -168,7 +168,7 @@ A space between.
      contribution?
 ```
 
-**Speaker notes:** *"Rose began with a mathematical insight: that scaling laws — the same relationships that govern city growth, neural networks, financial systems — could be applied as architecture. We asked the next question: what if the same mathematics could measure contribution? Not lines of code. Not popularity. But the quality of thinking, the impact of work, the compounding value of sustained commitment."*
+**Speaker notes:** _"Rose began with a mathematical insight: that scaling laws — the same relationships that govern city growth, neural networks, financial systems — could be applied as architecture. We asked the next question: what if the same mathematics could measure contribution? Not lines of code. Not popularity. But the quality of thinking, the impact of work, the compounding value of sustained commitment."_
 
 ---
 
@@ -180,7 +180,7 @@ A space between.
                     That question became Edin.
 ```
 
-**Speaker notes:** *Name reveal. Brief. Powerful. Move immediately to next slide — don't over-explain here.*
+**Speaker notes:** _Name reveal. Brief. Powerful. Move immediately to next slide — don't over-explain here._
 
 ---
 
@@ -189,14 +189,14 @@ A space between.
 **Layout:** Four circles in a horizontal row. Equal size. Each labeled. Connected by a thin line.
 
 ```
-     ◉ Technology     ◉ Fintech     ◉ Impact     ◉ Governance
+     ◉ Technology     ◉ Finance     ◉ Impact     ◉ Governance
 
                      Same rigor.
                      Same visibility.
                      Same rewards.
 ```
 
-**Speaker notes:** *"Edin evaluates quality across four equal domains. A financial engineer's scaling-law analysis appears on the same contribution wall as a developer's pull request. Evaluated with the same rigor. Rewarded through the same system. Not code-first with everything else as an afterthought. Four pillars. Equal by architecture."*
+**Speaker notes:** _"Edin evaluates quality across four equal domains. A financial engineer's scaling-law analysis appears on the same contribution wall as a developer's pull request. Evaluated with the same rigor. Rewarded through the same system. Not code-first with everything else as an afterthought. Four pillars. Equal by architecture."_
 
 ---
 
@@ -216,7 +216,7 @@ A space between.
               The mathematics of loyalty made real.
 ```
 
-**Speaker notes:** *"And those rewards compound. Not linearly — exponentially. Seven temporal horizons. The longer you stay, the more disproportionately you earn. This isn't a flat rate. This is a scaling law applied to loyalty. The mathematics of commitment made real."*
+**Speaker notes:** _"And those rewards compound. Not linearly — exponentially. Seven temporal horizons. The longer you stay, the more disproportionately you earn. This isn't a flat rate. This is a scaling law applied to loyalty. The mathematics of commitment made real."_
 
 ---
 
@@ -228,7 +228,7 @@ A space between.
                            III — Why You
 ```
 
-**Speaker notes:** *This is the most personal section. Lower voice. Slow down. You're now speaking directly to each person in the room.*
+**Speaker notes:** _This is the most personal section. Lower voice. Slow down. You're now speaking directly to each person in the room._
 
 ---
 
@@ -246,7 +246,7 @@ A space between.
      And the fatal one.
 ```
 
-**Speaker notes:** *"Every contributor platform that defaults to open access eventually drowns in noise. Quality degrades. The best people leave. So we chose differently. Edin is curated. Not by prestige or credentials — by commitment and craft."*
+**Speaker notes:** _"Every contributor platform that defaults to open access eventually drowns in noise. Quality degrades. The best people leave. So we chose differently. Edin is curated. Not by prestige or credentials — by commitment and craft."_
 
 ---
 
@@ -262,7 +262,7 @@ A space between.
                 and said: this person belongs.
 ```
 
-**Speaker notes:** *Speak this almost as if reciting it. This is the emotional peak — the moment of personal recognition. "You are not here because you answered a posting. You are here because the work ahead demands people who refuse to compromise."*
+**Speaker notes:** _Speak this almost as if reciting it. This is the emotional peak — the moment of personal recognition. "You are not here because you answered a posting. You are here because the work ahead demands people who refuse to compromise."_
 
 ---
 
@@ -274,7 +274,7 @@ A space between.
                          IV — The Garden
 ```
 
-**Speaker notes:** *Tone shift again. Now we move from "you" to "us." The metaphor that ties everything together.*
+**Speaker notes:** _Tone shift again. Now we move from "you" to "us." The metaphor that ties everything together._
 
 ---
 
@@ -292,7 +292,7 @@ A space between.
      It trusts the soil.
 ```
 
-**Speaker notes:** *"We are planting something here. Not a platform — a community where the world's best minds can do their deepest work and be recognized for it. Where a documentation writer's clarity is valued as much as a backend engineer's elegance. Where staying matters more than arriving."*
+**Speaker notes:** _"We are planting something here. Not a platform — a community where the world's best minds can do their deepest work and be recognized for it. Where a documentation writer's clarity is valued as much as a backend engineer's elegance. Where staying matters more than arriving."_
 
 ---
 
@@ -311,7 +311,7 @@ A space between.
             This is the foundation pour.
 ```
 
-**Speaker notes:** *"We are building inside the IOUR Foundation — a Belgian non-profit — because this work should not belong to shareholders. We are building on Rose because its mathematical foundations can reshape how value moves through the world. And we are starting now. With you. Your fingerprints will be on everything. The evaluation criteria. The governance structure. The community culture. This is not version 2.0 where you inherit someone else's decisions. This is the foundation pour."*
+**Speaker notes:** _"We are building inside the IOUR Foundation — a Belgian non-profit — because this work should not belong to shareholders. We are building on Rose because its mathematical foundations can reshape how value moves through the world. And we are starting now. With you. Your fingerprints will be on everything. The evaluation criteria. The governance structure. The community culture. This is not version 2.0 where you inherit someone else's decisions. This is the foundation pour."_
 
 ---
 
@@ -330,7 +330,7 @@ A space between.
                     Welcome to Edin.
 ```
 
-**Speaker notes:** *Say the first three lines slowly. Pause. Then: "Welcome to Edin." — and stop. Don't add anything. Don't say "any questions." Let the silence hold. The power is in not breaking the moment. After 5-10 seconds of silence, simply nod and say "Thank you." That's your close.*
+**Speaker notes:** _Say the first three lines slowly. Pause. Then: "Welcome to Edin." — and stop. Don't add anything. Don't say "any questions." Let the silence hold. The power is in not breaking the moment. After 5-10 seconds of silence, simply nod and say "Thank you." That's your close._
 
 ---
 
@@ -350,17 +350,17 @@ A space between.
 
 ### Visual Design Specifications
 
-| Element | Specification |
-|---|---|
-| **Background** | Dark charcoal (#1a1a1a) primary. Deep warm gray (#2a2520) alternate |
-| **Primary text** | Off-white (#f0ebe3) — warm, not clinical |
-| **Accent color** | Warm amber/gold (#c4953a) — used sparingly for emphasis |
-| **Secondary accent** | Muted sage green (#6b7c5e) — botanical references only |
-| **Headline font** | Playfair Display or Cormorant Garamond, 48-72pt |
-| **Body font** | Inter or IBM Plex Sans, 24-32pt |
-| **Max words per slide** | 30 (most have fewer than 20) |
-| **Imagery style** | Abstract botanical textures, aerial landscapes, macro earth/soil. No people. No tech. No icons. |
-| **Transitions** | Simple crossfade, 0.5s. No motion effects. |
+| Element                 | Specification                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------------- |
+| **Background**          | Dark charcoal (#1a1a1a) primary. Deep warm gray (#2a2520) alternate                             |
+| **Primary text**        | Off-white (#f0ebe3) — warm, not clinical                                                        |
+| **Accent color**        | Warm amber/gold (#c4953a) — used sparingly for emphasis                                         |
+| **Secondary accent**    | Muted sage green (#6b7c5e) — botanical references only                                          |
+| **Headline font**       | Playfair Display or Cormorant Garamond, 48-72pt                                                 |
+| **Body font**           | Inter or IBM Plex Sans, 24-32pt                                                                 |
+| **Max words per slide** | 30 (most have fewer than 20)                                                                    |
+| **Imagery style**       | Abstract botanical textures, aerial landscapes, macro earth/soil. No people. No tech. No icons. |
+| **Transitions**         | Simple crossfade, 0.5s. No motion effects.                                                      |
 
 ### Adaptation Notes
 

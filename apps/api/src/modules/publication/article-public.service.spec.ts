@@ -96,11 +96,11 @@ describe('ArticleService — Public Methods', () => {
       mockPrisma.article.findMany.mockResolvedValue([]);
       mockPrisma.article.count.mockResolvedValue(0);
 
-      await service.listPublished({ domain: 'Fintech' }, undefined, 20);
+      await service.listPublished({ domain: 'Finance' }, undefined, 20);
 
       expect(mockPrisma.article.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ status: 'PUBLISHED', domain: 'Fintech' }),
+          where: expect.objectContaining({ status: 'PUBLISHED', domain: 'Finance' }),
         }),
       );
     });

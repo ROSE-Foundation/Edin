@@ -22,8 +22,8 @@ const mockContributor2: PublicContributorProfile = {
   id: '550e8400-e29b-41d4-a716-446655440001',
   name: 'Bob Investor',
   avatarUrl: null,
-  bio: 'Fintech specialist building equitable economic systems.',
-  domain: 'Fintech',
+  bio: 'Finance specialist building equitable economic systems.',
+  domain: 'Finance',
   skillAreas: ['Python'],
   role: 'FOUNDING_CONTRIBUTOR',
   createdAt: '2025-07-01T10:00:00Z',
@@ -59,11 +59,11 @@ describe('ContributorRosterCard', () => {
     expect(badge).toHaveClass('text-white');
   });
 
-  it('renders domain badge with correct color for Fintech', () => {
+  it('renders domain badge with correct color for Finance', () => {
     render(<ContributorRosterCard contributor={mockContributor2} />);
 
-    const badge = screen.getByText('Fintech');
-    expect(badge).toHaveClass('bg-domain-fintech');
+    const badge = screen.getByText('Finance');
+    expect(badge).toHaveClass('bg-domain-finance');
     expect(badge).toHaveClass('text-black');
   });
 
@@ -107,7 +107,7 @@ describe('ContributorRosterCard', () => {
 
     const initial = screen.getByText('B');
     expect(initial).toBeInTheDocument();
-    expect(initial.parentElement).toHaveClass('bg-domain-fintech');
+    expect(initial.parentElement).toHaveClass('bg-domain-finance');
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 
@@ -159,7 +159,7 @@ describe('RosterFilters', () => {
 
     expect(screen.getByText('All')).toBeInTheDocument();
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('Impact')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
   });
@@ -236,7 +236,7 @@ describe('RosterFilters', () => {
 
     expect(screen.getByText('Technology')).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByText('All')).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByText('Fintech')).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByText('Finance')).toHaveAttribute('aria-pressed', 'false');
   });
 });
 

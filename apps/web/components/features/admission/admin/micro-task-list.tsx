@@ -8,7 +8,7 @@ import { DOMAIN_COLORS } from '../../../../lib/domain-colors';
 import { MicroTaskFormPanel } from './micro-task-form-panel';
 import { MicroTaskStatusToggle } from './micro-task-status-toggle';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'];
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'];
 
 function formatRelativeDate(dateString: string): string {
   const date = new Date(dateString);

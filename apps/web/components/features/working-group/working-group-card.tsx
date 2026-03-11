@@ -9,10 +9,10 @@ const DOMAIN_STYLES: Record<string, { bg: string; border: string; badge: string 
     border: 'border-[#3A7D7E]/20',
     badge: 'bg-domain-technology text-white',
   },
-  Fintech: {
+  Finance: {
     bg: 'bg-[#C49A3C]/5',
     border: 'border-[#C49A3C]/20',
-    badge: 'bg-domain-fintech text-brand-primary',
+    badge: 'bg-domain-finance text-brand-primary',
   },
   Impact: {
     bg: 'bg-[#B06B6B]/5',

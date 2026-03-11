@@ -5,7 +5,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Apply to Edin — Contribute Your Expertise',
     description:
-      'Join the Edin contributor community. Submit your application with a domain-specific micro-task to demonstrate your expertise in Technology, Fintech, Impact, or Governance.',
+      'Join the Edin contributor community. Submit your application with a domain-specific micro-task to demonstrate your expertise in Technology, Finance, Impact, or Governance.',
     openGraph: {
       title: 'Apply to Edin — Contribute Your Expertise',
       description:

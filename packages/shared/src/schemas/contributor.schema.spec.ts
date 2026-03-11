@@ -28,7 +28,7 @@ describe('createContributorSchema', () => {
   });
 
   it('accepts all domain values', () => {
-    for (const domain of ['Technology', 'Fintech', 'Impact', 'Governance']) {
+    for (const domain of ['Technology', 'Finance', 'Impact', 'Governance']) {
       const result = createContributorSchema.safeParse({ ...validInput, domain });
       expect(result.success).toBe(true);
     }
@@ -125,7 +125,7 @@ describe('updateContributorSchema', () => {
   });
 
   it('accepts valid partial update with domain', () => {
-    const result = updateContributorSchema.safeParse({ domain: 'Fintech' });
+    const result = updateContributorSchema.safeParse({ domain: 'Finance' });
     expect(result.success).toBe(true);
   });
 

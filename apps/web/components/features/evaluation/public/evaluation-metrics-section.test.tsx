@@ -20,7 +20,7 @@ const mockMetrics: PublicEvaluationAggregateDto = {
   averageScore: 67.5,
   byDomain: [
     { domain: 'Technology', averageScore: 72.3, count: 20 },
-    { domain: 'Fintech', averageScore: 63.1, count: 12 },
+    { domain: 'Finance', averageScore: 63.1, count: 12 },
   ],
   scoreDistribution: [
     { range: '0–20', min: 0, max: 20, count: 2 },
@@ -54,7 +54,7 @@ describe('EvaluationMetricsSection', () => {
 
     expect(screen.getByText('Technology')).toBeInTheDocument();
     expect(screen.getByText('72.3')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('63.1')).toBeInTheDocument();
   });
 

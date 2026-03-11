@@ -14,7 +14,7 @@ CREATE SCHEMA IF NOT EXISTS "publication";
 CREATE TYPE "core"."ContributorRole" AS ENUM ('PUBLIC', 'APPLICANT', 'CONTRIBUTOR', 'EDITOR', 'FOUNDING_CONTRIBUTOR', 'WORKING_GROUP_LEAD', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "core"."ContributorDomain" AS ENUM ('Technology', 'Fintech', 'Impact', 'Governance');
+CREATE TYPE "core"."ContributorDomain" AS ENUM ('Technology', 'Finance', 'Impact', 'Governance');
 
 -- CreateEnum
 CREATE TYPE "core"."ApplicationStatus" AS ENUM ('PENDING', 'UNDER_REVIEW', 'APPROVED', 'DECLINED');

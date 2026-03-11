@@ -15,11 +15,11 @@ export const DOMAIN_MANIFESTOS: DomainManifesto[] = [
     ],
   },
   {
-    domain: 'Fintech',
-    title: 'Fintech & Financial Engineering',
+    domain: 'Finance',
+    title: 'Finance & Financial Engineering',
     subtitle: 'Designing equitable economic systems',
     content:
-      'The Fintech domain shapes how value flows through the Edin ecosystem. Contributors model reward mechanisms, design scaling-law economics, and build the financial infrastructure that ensures every contribution is fairly recognized. This is where economic theory meets practical implementation — from token economics to contributor compensation models that scale with community growth.',
+      'The Finance domain shapes how value flows through the Edin ecosystem. Contributors model reward mechanisms, design scaling-law economics, and build the financial infrastructure that ensures every contribution is fairly recognized. This is where economic theory meets practical implementation — from token economics to contributor compensation models that scale with community growth.',
     highlights: [
       'Scaling-law reward models and contributor economics',
       'Financial transparency and real-time reporting',

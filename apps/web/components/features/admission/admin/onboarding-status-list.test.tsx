@@ -51,7 +51,7 @@ const mockStatuses = [
   {
     contributorId: 'c-2',
     contributorName: 'At Risk Contributor',
-    contributorDomain: 'Fintech',
+    contributorDomain: 'Finance',
     ignitionStartedAt: new Date(Date.now() - 50 * 60 * 60 * 1000).toISOString(),
     milestones: [
       {
@@ -182,7 +182,7 @@ describe('OnboardingStatusList', () => {
     renderWithQuery(<OnboardingStatusList />);
 
     expect(screen.getByText('Technology')).toBeTruthy();
-    expect(screen.getByText('Fintech')).toBeTruthy();
+    expect(screen.getByText('Finance')).toBeTruthy();
   });
 
   it('renders milestone dots for each contributor', () => {

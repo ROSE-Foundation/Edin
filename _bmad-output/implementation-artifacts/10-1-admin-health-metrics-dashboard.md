@@ -10,7 +10,7 @@ so that I can make data-driven decisions about community health and go/no-go rea
 
 ## Acceptance Criteria
 
-1. **Health Metrics Dashboard** — Route: `/admin` (existing page, currently blank). Displays community vitals (FR48): active contributor count with trend, retention rate (30-day cohort), domain balance (contributor distribution across Technology/Fintech/Impact/Governance), and feedback turnaround (average time from peer feedback assignment to submission). Each metric card includes editorial context — a brief textual interpretation (e.g., "Technology domain has 45% of contributors — consider recruiting for Impact"). All leading and lagging KPIs from PRD Success Criteria are available (NFR-O3). Dashboard data has <5 minute lag via Redis-cached aggregations.
+1. **Health Metrics Dashboard** — Route: `/admin` (existing page, currently blank). Displays community vitals (FR48): active contributor count with trend, retention rate (30-day cohort), domain balance (contributor distribution across Technology/Finance/Impact/Governance), and feedback turnaround (average time from peer feedback assignment to submission). Each metric card includes editorial context — a brief textual interpretation (e.g., "Technology domain has 45% of contributors — consider recruiting for Impact"). All leading and lagging KPIs from PRD Success Criteria are available (NFR-O3). Dashboard data has <5 minute lag via Redis-cached aggregations.
 
 2. **Progressive Disclosure** — Each metric card shows summary value at a glance, expandable to show: trend chart (Recharts AreaChart), breakdown by domain or time period, and historical comparison. Keyboard-navigable (NFR-A3). TTI <3s (NFR-P2).
 

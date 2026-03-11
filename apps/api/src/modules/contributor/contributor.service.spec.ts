@@ -347,7 +347,7 @@ describe('ContributorService', () => {
       name: 'Founder Two',
       avatarUrl: null,
       bio: 'Second founding contributor',
-      domain: 'Fintech',
+      domain: 'Finance',
       skillAreas: ['Python', 'ML'],
       role: 'FOUNDING_CONTRIBUTOR',
       createdAt: new Date('2025-02-01'),
@@ -561,7 +561,7 @@ describe('ContributorService', () => {
       const updatedContributor = {
         ...mockContributor,
         bio: 'New bio',
-        domain: 'Fintech',
+        domain: 'Finance',
         skillAreas: ['React', 'GraphQL'],
       };
       mockPrisma.contributor.findUnique.mockResolvedValueOnce(mockContributor);
@@ -569,12 +569,12 @@ describe('ContributorService', () => {
 
       const result = await service.updateProfile(
         'contributor-uuid-1',
-        { bio: 'New bio', domain: 'Fintech', skillAreas: ['React', 'GraphQL'] },
+        { bio: 'New bio', domain: 'Finance', skillAreas: ['React', 'GraphQL'] },
         'corr-multi-1',
       );
 
       expect(result.bio).toBe('New bio');
-      expect(result.domain).toBe('Fintech');
+      expect(result.domain).toBe('Finance');
       expect(mockAuditService.log).toHaveBeenCalledWith(
         expect.objectContaining({
           details: {
@@ -623,7 +623,7 @@ describe('ContributorService', () => {
         name: mockContributor.name,
         bio: mockContributor.bio ?? undefined,
         domain:
-          (mockContributor.domain as 'Technology' | 'Fintech' | 'Impact' | 'Governance' | null) ??
+          (mockContributor.domain as 'Technology' | 'Finance' | 'Impact' | 'Governance' | null) ??
           undefined,
         avatarUrl: mockContributor.avatarUrl ?? undefined,
         skillAreas: [...mockContributor.skillAreas],
@@ -663,8 +663,8 @@ describe('ContributorService', () => {
       id: 'roster-uuid-2',
       name: 'Bob Finance',
       avatarUrl: null,
-      bio: 'Fintech specialist',
-      domain: 'Fintech',
+      bio: 'Finance specialist',
+      domain: 'Finance',
       skillAreas: ['Python'],
       role: 'CONTRIBUTOR',
       createdAt: new Date('2025-06-15'),

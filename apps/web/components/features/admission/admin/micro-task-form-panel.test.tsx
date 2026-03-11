@@ -124,7 +124,7 @@ describe('MicroTaskFormPanel', () => {
     const optionTexts = Array.from(options).map((o) => o.textContent);
 
     expect(optionTexts).toContain('Technology');
-    expect(optionTexts).toContain('Fintech');
+    expect(optionTexts).toContain('Finance');
     expect(optionTexts).toContain('Impact');
     expect(optionTexts).toContain('Governance');
   });

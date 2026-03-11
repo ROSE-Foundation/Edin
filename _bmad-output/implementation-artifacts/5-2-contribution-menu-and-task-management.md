@@ -102,7 +102,7 @@ So that I can find meaningful work matched to my skills and contribute to the ec
 - [x] Task 6: Frontend contribution menu page (AC: #1)
   - [x]6.1 Create `apps/web/app/(dashboard)/dashboard/tasks/page.tsx` with `'use client'` directive
   - [x]6.2 Display task list with: title, domain tag (colored badge using DOMAIN_DETAILS accent colors), difficulty level badge, estimated effort, status indicator
-  - [x]6.3 Implement filter bar: domain dropdown (Technology, Fintech, Impact, Governance, All), difficulty dropdown (Beginner, Intermediate, Advanced, All), status dropdown (Available, Claimed, In Progress, Completed, All)
+  - [x]6.3 Implement filter bar: domain dropdown (Technology, Finance, Impact, Governance, All), difficulty dropdown (Beginner, Intermediate, Advanced, All), status dropdown (Available, Claimed, In Progress, Completed, All)
   - [x]6.4 Implement cursor-based infinite scroll pagination using TanStack Query `useInfiniteQuery`
   - [x]6.5 "Claim" button on AVAILABLE tasks — disabled for other statuses; show "Claimed" / "In Progress" / "Completed" state text for non-claimable tasks
   - [x]6.6 Use skeleton loaders for initial loading state (NOT spinners) — mirror task card layout
@@ -167,7 +167,7 @@ So that I can find meaningful work matched to my skills and contribute to the ec
 - **Task model is separate from MicroTask** — MicroTask (in `micro_tasks` table) is for admission micro-tasks (Story 3.x). The new `tasks` table is for the contribution menu system. Do NOT reuse or modify the MicroTask model.
 - **Status machine:** AVAILABLE → CLAIMED → IN_PROGRESS → COMPLETED → EVALUATED. RETIRED is a separate admin-only side transition (not part of the normal flow). CLAIMED can revert to AVAILABLE (unclaim).
 - **Atomic claiming:** Use `prisma.$transaction()` to verify task is AVAILABLE and set CLAIMED in one atomic operation. This prevents race conditions with concurrent claims.
-- **Domain filtering:** Tasks are tagged with a `ContributorDomain` (Technology, Fintech, Impact, Governance) — reuse the existing enum from Prisma schema.
+- **Domain filtering:** Tasks are tagged with a `ContributorDomain` (Technology, Finance, Impact, Governance) — reuse the existing enum from Prisma schema.
 - **Difficulty levels:** BEGINNER, INTERMEDIATE, ADVANCED — stored as enum in database.
 - **RETIRED tasks:** Do NOT appear in the contributor-facing task list (`GET /api/v1/tasks`). They DO appear in the admin task management view. RETIRED is a soft-delete — tasks remain in the database for audit purposes.
 - **Working group integration:** The working group detail page (Story 5.1) has a placeholder for "active tasks tagged for this domain" — replace this with actual task data filtered by domain using the new task API.
@@ -304,7 +304,7 @@ apps/web/app/(dashboard)/dashboard/working-groups/[id]/page.tsx  (replace task p
 
 - **Calm clarity aesthetic** — Beautiful, calming visuals; not metrics-dashboard nervousness
 - **Task cards:** `surface.raised` background, `border-light`, 12px radius, `shadow-card`. Hover: subtle shadow lift + `translateY(-2px)`. Content with `space.lg` (24px) padding
-- **Domain badges:** Pill-shaped with domain accent color background. Technology (#3A7D7E teal), Fintech (#C49A3C amber), Impact (#B06B6B terra rose), Governance (#7B6B8A slate violet). Color NEVER sole indicator — always paired with domain text
+- **Domain badges:** Pill-shaped with domain accent color background. Technology (#3A7D7E teal), Finance (#C49A3C amber), Impact (#B06B6B terra rose), Governance (#7B6B8A slate violet). Color NEVER sole indicator — always paired with domain text
 - **Difficulty badges:** Subtle outline style. Beginner (green-tinted), Intermediate (amber-tinted), Advanced (red-tinted) — subtle, not aggressive
 - **Status indicators:** Warm-toned descriptive text — "Available", "Claimed", "In Progress", "Completed", "Evaluated". Never use percentage progress bars or countdown timers
 - **Claim button:** Primary action (`btn-primary`) — solid `brand.accent` (#C4956A) background, white text, 8px radius. Only one primary button per card. Disabled state for non-claimable tasks

@@ -84,12 +84,12 @@ describe('ActivityController', () => {
         pagination: { cursor: null, hasMore: false, total: 0 },
       });
 
-      await controller.getFeed({ limit: '10', domain: 'Fintech' });
+      await controller.getFeed({ limit: '10', domain: 'Finance' });
 
       expect(mockActivityService.getFeed).toHaveBeenCalledWith(
         expect.objectContaining({
           limit: 10,
-          domain: 'Fintech',
+          domain: 'Finance',
         }),
       );
     });

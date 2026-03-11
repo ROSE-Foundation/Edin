@@ -15,7 +15,7 @@ import type { CalculatorProjectedPoint } from '@edin/shared';
 
 const DOMAINS = [
   { value: 'technology', label: 'Technology' },
-  { value: 'fintech', label: 'Fintech' },
+  { value: 'finance', label: 'Finance' },
   { value: 'impact', label: 'Impact' },
   { value: 'governance', label: 'Governance' },
 ] as const;

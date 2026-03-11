@@ -6,7 +6,7 @@ import { ContributorScoreSummary } from '../evaluation/public/contributor-score-
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
-  Fintech: { bg: 'bg-domain-fintech', text: 'text-black' },
+  Finance: { bg: 'bg-domain-finance', text: 'text-black' },
   Impact: { bg: 'bg-domain-impact', text: 'text-black' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
 };

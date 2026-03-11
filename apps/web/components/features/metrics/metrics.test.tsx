@@ -29,7 +29,7 @@ const mockMetrics: PlatformMetrics = {
   contributionVelocity: 0,
   domainDistribution: [
     { domain: 'Technology', count: 10, percentage: 40 },
-    { domain: 'Fintech', count: 8, percentage: 32 },
+    { domain: 'Finance', count: 8, percentage: 32 },
     { domain: 'Impact', count: 4, percentage: 16 },
     { domain: 'Governance', count: 3, percentage: 12 },
   ],
@@ -99,7 +99,7 @@ describe('DomainDistributionChart', () => {
     const cells = screen.getAllByTestId('cell');
     expect(cells).toHaveLength(4);
     expect(cells[0]).toHaveAttribute('data-fill', '#3A7D7E'); // Technology
-    expect(cells[1]).toHaveAttribute('data-fill', '#C49A3C'); // Fintech
+    expect(cells[1]).toHaveAttribute('data-fill', '#C49A3C'); // Finance
     expect(cells[2]).toHaveAttribute('data-fill', '#B06B6B'); // Impact
     expect(cells[3]).toHaveAttribute('data-fill', '#7B6B8A'); // Governance
   });
@@ -114,7 +114,7 @@ describe('DomainDistributionChart', () => {
 
     expect(screen.getByText('Technology')).toBeInTheDocument();
     expect(screen.getByText('40%')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('32%')).toBeInTheDocument();
   });
 

@@ -191,7 +191,7 @@ so that I can see the community's work in motion and feel connected to the ecosy
 | Current user decorator                    | `apps/api/src/common/decorators/current-user.decorator.ts`      | `@CurrentUser()`                                                                              |
 | Ability decorator                         | `apps/api/src/common/decorators/check-ability.decorator.ts`     | `@CheckAbility()`                                                                             |
 | API client                                | `apps/web/lib/api-client.ts`                                    | `apiClient<T>()` for all frontend API calls                                                   |
-| Domain colors                             | `packages/shared/src/constants/domains.ts`                      | `DOMAIN_DETAILS` — Technology teal, Fintech amber, Impact terra rose, Governance slate violet |
+| Domain colors                             | `packages/shared/src/constants/domains.ts`                      | `DOMAIN_DETAILS` — Technology teal, Finance amber, Impact terra rose, Governance slate violet |
 | Infinite scroll                           | `apps/web/components/features/task/task-list.tsx`               | IntersectionObserver pattern                                                                  |
 | TanStack infinite query                   | `apps/web/hooks/use-tasks.ts`                                   | `useInfiniteQuery` with `initialPageParam` and `getNextPageParam`                             |
 
@@ -201,7 +201,7 @@ so that I can see the community's work in motion and feel connected to the ecosy
 - **NO urgency signals**: No unread counts, no badge counts, no "X items need attention"
 - **NO notification overload**: Activity is discoverable, not pushed
 - **Equal domain prominence**: All four domains get identical card dimensions and status indicators
-- **Domain accent colors**: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A
+- **Domain accent colors**: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A
 - **Brand accent (warm indicator)**: #C4956A — used for "new" item indicator
 - **Typography**: Sans-serif (Inter/Source Sans Pro) at body-interface 15px for dashboard content
 - **Animation**: 200ms ease-out for new items fade-in; respect `prefers-reduced-motion`

@@ -6,7 +6,7 @@ const MAX_BIO_LENGTH = 500;
 
 const domainEnum = z.enum([
   DOMAINS.Technology,
-  DOMAINS.Fintech,
+  DOMAINS.Finance,
   DOMAINS.Impact,
   DOMAINS.Governance,
 ]);

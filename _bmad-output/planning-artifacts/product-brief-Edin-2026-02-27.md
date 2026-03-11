@@ -47,13 +47,13 @@ For the Rose ecosystem specifically, there is an additional challenge: building 
 
 ### Why Existing Solutions Fall Short
 
-| Platform | What It Does | Where It Fails |
-|---|---|---|
-| **Gitcoin** | Community-voted grant rounds and bounties | Low evaluation sophistication (popularity contest), short-term only, no sustained engagement incentive |
-| **Coordinape** | Peer-based epoch rewards within small teams | Subjective circle voting, struggles at scale, no quality assessment beyond social consensus |
-| **SourceCred** | Algorithmic graph-based contribution scoring | Innovative but limited adoption, no multi-domain support, no blockchain reward integration |
-| **Colony** | Task-based evaluation with reputation staking | Structurally complex, medium-term rewards, no scaling-law compounding |
-| **GitHub Sponsors / Open Collective** | Donation-based funding | No structured evaluation whatsoever, irregular and unpredictable, dependent on individual donors |
+| Platform                              | What It Does                                  | Where It Fails                                                                                         |
+| ------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Gitcoin**                           | Community-voted grant rounds and bounties     | Low evaluation sophistication (popularity contest), short-term only, no sustained engagement incentive |
+| **Coordinape**                        | Peer-based epoch rewards within small teams   | Subjective circle voting, struggles at scale, no quality assessment beyond social consensus            |
+| **SourceCred**                        | Algorithmic graph-based contribution scoring  | Innovative but limited adoption, no multi-domain support, no blockchain reward integration             |
+| **Colony**                            | Task-based evaluation with reputation staking | Structurally complex, medium-term rewards, no scaling-law compounding                                  |
+| **GitHub Sponsors / Open Collective** | Donation-based funding                        | No structured evaluation whatsoever, irregular and unpredictable, dependent on individual donors       |
 
 The strategic white space is clear: **no platform combines AI-powered objective evaluation with multi-temporal compounding rewards and a curated community model.** This intersection is entirely unoccupied.
 
@@ -69,7 +69,7 @@ Edin is an integration-first contributor platform organized around five function
 
 4. **Multi-Scale Reward System** — Token-based rewards distributed across seven temporal horizons (hourly to yearly) using a scaling-law methodology where longer-term engagement yields disproportionately greater rewards. Smart contracts on L2 blockchain ensure trustless, transparent distribution.
 
-5. **Governance Layer** — Curated admission process, role management across four strategic categories (Technology, Fintech, Impact, Governance), and progressive decentralization toward community-driven decision-making.
+5. **Governance Layer** — Curated admission process, role management across four strategic categories (Technology, Finance, Impact, Governance), and progressive decentralization toward community-driven decision-making.
 
 The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) → Intelligence (Q3-Q4 2026) → Scale (2027+), with a recommended strategy of validating the methodology with Rose first, then offering it as a service to other ecosystems.
 
@@ -83,7 +83,7 @@ The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) �
 
 4. **Curated Community as Network Effect** — Open access is the industry default. Edin's admission-based model creates a selectivity flywheel: high-quality members attract high-quality applicants, which justifies the selectivity, which raises the signal value of membership.
 
-5. **Multi-Domain Equality by Design** — Four structural pillars (Technology, Fintech, Impact, Governance) ensure that non-code contributions are architecturally first-class citizens, not afterthoughts. Financial engineers, governance designers, and impact analysts have the same visibility, contribution pathways, and reward mechanisms as developers.
+5. **Multi-Domain Equality by Design** — Four structural pillars (Technology, Finance, Impact, Governance) ensure that non-code contributions are architecturally first-class citizens, not afterthoughts. Financial engineers, governance designers, and impact analysts have the same visibility, contribution pathways, and reward mechanisms as developers.
 
 6. **Human Empowerment in an AI World** — As AI automates routine development, Edin explicitly creates space for uniquely human capabilities: mentoring, governance, creative problem-solving, and leadership. This narrative is entirely uncontested in the Web3 contributor space.
 
@@ -97,11 +97,11 @@ The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) �
 
 - **Context:** 12 years experience, freelancing after leaving a FAANG company. Active open-source contributor to DeFi protocols, has authored two Ethereum EIPs. Technically excellent, highly selective about where she spends time.
 - **Problem experience:** Hundreds of hours of high-quality open-source contributions with almost zero financial recognition. Measured by vanity metrics (GitHub stars, commit counts) rather than craft quality. Has seen too many token promises collapse.
-- **What she needs from Edin:** A community of respected peers where her *craft* is recognized by something smarter than social popularity — AI evaluation that distinguishes quality from quantity. Fair, transparent compensation that compounds with sustained engagement.
+- **What she needs from Edin:** A community of respected peers where her _craft_ is recognized by something smarter than social popularity — AI evaluation that distinguishes quality from quantity. Fair, transparent compensation that compounds with sustained engagement.
 - **Success moment:** Seeing her detailed code review receive a higher evaluation score than a quick-fix PR with twice the line count — and knowing the reward reflects that.
 - **Trigger to join:** Seeing 3-5 names she already respects on the founding contributor roster.
 
-**Persona 2: Amir — Financial Engineer / Quant (Fintech & Financial Engineering)**
+**Persona 2: Amir — Financial Engineer / Quant (Finance & Financial Engineering)**
 
 - **Context:** PhD in mathematical finance, 8 years in algorithmic trading at a London hedge fund. Intellectually captivated by the ORTFM model and scaling laws — this is his domain.
 - **Problem experience:** Has never contributed to open source. Finds the developer-centric culture intimidating. Doesn't know Git workflows. Has deep domain expertise (financial modeling, token economics) that is essential to Rose but invisible in typical contributor platforms.
@@ -150,27 +150,27 @@ The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) �
 
 **The Founding Contributor Journey (Phase 0-1):**
 
-| Stage | Experience | Key Touchpoint |
-|---|---|---|
-| **Discovery** | Hears about Edin through a personal referral from someone they respect, or encounters the Founding Circle page / domain manifesto shared in their professional network | Personal outreach, Founding Circle page, domain-specific manifesto |
-| **Interest** | Reads the platform description, checks who else is involved, evaluates whether the mission and community quality are worth their limited time | Web portal, founding contributor roster, Rose vision documents |
-| **Application** | Completes a contribution-based application — a domain-specific micro-task that simultaneously demonstrates their expertise and gives them a taste of participation | Contribution-based application prompt, domain-matched micro-task |
-| **Admission** | Receives personal welcome message with Founding Contributor privileges explained. Welcome call scheduled within 48 hours | Personal message, peer welcome committee (2-3 existing contributors on video call) |
-| **Activation (72-Hour Ignition)** | During welcome call: introduced to working groups, walks through contribution menu, selects first task with buddy support. Completes first meaningful contribution within 72 hours | Buddy assignment, curated contribution menu, first task matched to domain and skill |
-| **Feedback** | Receives peer feedback within 24 hours of first contribution. Contribution posted to the visible contribution wall with recognition | Peer feedback rubric, contribution wall, public recognition |
-| **Belonging** | Joins domain working group, attends first meeting, participates in "What I Learned This Week" ritual. Begins feeling like a co-architect, not just a user | Domain working group, community rituals, co-creation opportunities |
-| **Deepening** | Month 2: takes a role within working group. Month 3: proposes an initiative or mentors a newcomer. Governance weight accumulates. Switching cost compounds | Escalating commitment design, governance stake escalation, compounding rewards |
-| **Retention** | Stays because they built something — their fingerprints are in the evaluation criteria, the governance structure, the community culture. Leaving means losing accumulated influence and compounding rewards | "Your Fingerprints Are Everywhere" dashboard, governance weight, scaling-law reward trajectory |
+| Stage                             | Experience                                                                                                                                                                                                  | Key Touchpoint                                                                                 |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **Discovery**                     | Hears about Edin through a personal referral from someone they respect, or encounters the Founding Circle page / domain manifesto shared in their professional network                                      | Personal outreach, Founding Circle page, domain-specific manifesto                             |
+| **Interest**                      | Reads the platform description, checks who else is involved, evaluates whether the mission and community quality are worth their limited time                                                               | Web portal, founding contributor roster, Rose vision documents                                 |
+| **Application**                   | Completes a contribution-based application — a domain-specific micro-task that simultaneously demonstrates their expertise and gives them a taste of participation                                          | Contribution-based application prompt, domain-matched micro-task                               |
+| **Admission**                     | Receives personal welcome message with Founding Contributor privileges explained. Welcome call scheduled within 48 hours                                                                                    | Personal message, peer welcome committee (2-3 existing contributors on video call)             |
+| **Activation (72-Hour Ignition)** | During welcome call: introduced to working groups, walks through contribution menu, selects first task with buddy support. Completes first meaningful contribution within 72 hours                          | Buddy assignment, curated contribution menu, first task matched to domain and skill            |
+| **Feedback**                      | Receives peer feedback within 24 hours of first contribution. Contribution posted to the visible contribution wall with recognition                                                                         | Peer feedback rubric, contribution wall, public recognition                                    |
+| **Belonging**                     | Joins domain working group, attends first meeting, participates in "What I Learned This Week" ritual. Begins feeling like a co-architect, not just a user                                                   | Domain working group, community rituals, co-creation opportunities                             |
+| **Deepening**                     | Month 2: takes a role within working group. Month 3: proposes an initiative or mentors a newcomer. Governance weight accumulates. Switching cost compounds                                                  | Escalating commitment design, governance stake escalation, compounding rewards                 |
+| **Retention**                     | Stays because they built something — their fingerprints are in the evaluation criteria, the governance structure, the community culture. Leaving means losing accumulated influence and compounding rewards | "Your Fingerprints Are Everywhere" dashboard, governance weight, scaling-law reward trajectory |
 
 **The Active Contributor Journey (Phase 2+):**
 
-| Stage | Experience |
-|---|---|
-| **Daily rhythm** | Works with preferred tools (GitHub, Google Docs, Slack). Edin's Integration Layer ingests all artifacts automatically |
-| **Evaluation** | AI Evaluation Engine generates quality assessments and transparent feedback on each contribution |
-| **Reward** | Earns tokens distributed across multiple time cycles — immediate session-level recognition to compounding quarterly and yearly rewards |
-| **Growth** | Participates in governance, mentors newer contributors, develops uniquely human skills alongside technical output |
-| **Long-term** | Scaling-law compounding rewards create disproportionate value for sustained engagement. Portable reputation profile serves as verifiable track record beyond Edin |
+| Stage            | Experience                                                                                                                                                        |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Daily rhythm** | Works with preferred tools (GitHub, Google Docs, Slack). Edin's Integration Layer ingests all artifacts automatically                                             |
+| **Evaluation**   | AI Evaluation Engine generates quality assessments and transparent feedback on each contribution                                                                  |
+| **Reward**       | Earns tokens distributed across multiple time cycles — immediate session-level recognition to compounding quarterly and yearly rewards                            |
+| **Growth**       | Participates in governance, mentors newer contributors, develops uniquely human skills alongside technical output                                                 |
+| **Long-term**    | Scaling-law compounding rewards create disproportionate value for sustained engagement. Portable reputation profile serves as verifiable track record beyond Edin |
 
 ---
 
@@ -184,15 +184,15 @@ The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) �
 
 ### User Success Metrics
 
-| Metric | What It Measures | Target | How We Know It's Working |
-|---|---|---|---|
-| **Time-to-first-contribution** | How quickly new contributors become active | <72 hours for >80% of admitted contributors | The 72-Hour Ignition onboarding design compresses the gap between admission and action |
-| **Multi-domain contribution balance** | Whether non-developer contributors feel equal | At least 1 active contributor per domain (Tech, Fintech, Impact, Governance) at all times | The four-pillar structure works — Amir, Sofia, and Yuki are as engaged as Lena |
-| **Belonging score** | Emotional experience of community membership | Average >=4/5 on "How valued do you feel?" in contributor surveys | Contributors feel chosen and respected, not processed and filed |
-| **Peer feedback satisfaction** | Whether feedback is useful before AI evaluation exists | >60% rate peer feedback as "useful" or "very useful" | The bridge mechanism holds until the Evaluation Engine is online |
-| **Referral willingness** | Whether contributors are proud enough to recruit peers | >70% would invite someone they respect | The ultimate quality signal — people only refer to things they're proud of |
-| **AI evaluation trust score** | Whether contributors perceive AI evaluation as fair (Phase 2+) | >70% rate evaluation as "fair" or "very fair" | The Evaluation Engine is credible and contributors don't feel gamed |
-| **Reward comprehension rate** | Whether contributors understand the scaling-law model | >80% can explain the model when asked | The reward system motivates because it's understood, not just theoretically elegant |
+| Metric                                | What It Measures                                               | Target                                                                                    | How We Know It's Working                                                               |
+| ------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Time-to-first-contribution**        | How quickly new contributors become active                     | <72 hours for >80% of admitted contributors                                               | The 72-Hour Ignition onboarding design compresses the gap between admission and action |
+| **Multi-domain contribution balance** | Whether non-developer contributors feel equal                  | At least 1 active contributor per domain (Tech, Finance, Impact, Governance) at all times | The four-pillar structure works — Amir, Sofia, and Yuki are as engaged as Lena         |
+| **Belonging score**                   | Emotional experience of community membership                   | Average >=4/5 on "How valued do you feel?" in contributor surveys                         | Contributors feel chosen and respected, not processed and filed                        |
+| **Peer feedback satisfaction**        | Whether feedback is useful before AI evaluation exists         | >60% rate peer feedback as "useful" or "very useful"                                      | The bridge mechanism holds until the Evaluation Engine is online                       |
+| **Referral willingness**              | Whether contributors are proud enough to recruit peers         | >70% would invite someone they respect                                                    | The ultimate quality signal — people only refer to things they're proud of             |
+| **AI evaluation trust score**         | Whether contributors perceive AI evaluation as fair (Phase 2+) | >70% rate evaluation as "fair" or "very fair"                                             | The Evaluation Engine is credible and contributors don't feel gamed                    |
+| **Reward comprehension rate**         | Whether contributors understand the scaling-law model          | >80% can explain the model when asked                                                     | The reward system motivates because it's understood, not just theoretically elegant    |
 
 ### Business Objectives
 
@@ -224,35 +224,35 @@ The platform follows a phased approach: Foundation (Q1 2026) → MVP (Q2 2026) �
 
 **Leading Indicators (move first — early signals of strategic health):**
 
-| KPI | Target | Frequency |
-|---|---|---|
-| Application rate | 5+ qualified applications/week by end of Phase 1 | Weekly |
-| 30-day contributor retention | >50% (Phase 1), >60% (Phase 2) | Monthly |
-| Contribution frequency per active contributor | >2 meaningful contributions/week average | Weekly |
-| Community engagement depth | >30% of contributors engage beyond their primary domain | Monthly |
-| Referral rate | >20% of new contributors come from organic referrals | Monthly |
+| KPI                                           | Target                                                  | Frequency |
+| --------------------------------------------- | ------------------------------------------------------- | --------- |
+| Application rate                              | 5+ qualified applications/week by end of Phase 1        | Weekly    |
+| 30-day contributor retention                  | >50% (Phase 1), >60% (Phase 2)                          | Monthly   |
+| Contribution frequency per active contributor | >2 meaningful contributions/week average                | Weekly    |
+| Community engagement depth                    | >30% of contributors engage beyond their primary domain | Monthly   |
+| Referral rate                                 | >20% of new contributors come from organic referrals    | Monthly   |
 
 **Lagging Indicators (move slower — confirm strategic success):**
 
-| KPI | Target | Frequency |
-|---|---|---|
-| Active contributor count | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3) | Monthly |
-| Quarterly contributor retention | >40% quarter-over-quarter | Quarterly |
-| Contribution quality trend | Positive trend in average AI evaluation scores | Quarterly |
-| Rose development velocity | Measurable increase in merged PRs, shipped features, resolved issues | Monthly |
-| External methodology interest | 3+ formal expressions of interest by end of Phase 2 | Quarterly |
-| Token distribution health | <5% of reward value consumed by transaction costs | Monthly |
-| Fundraising traction | Seed round closed, subsequent conversations active | Quarterly |
+| KPI                             | Target                                                               | Frequency |
+| ------------------------------- | -------------------------------------------------------------------- | --------- |
+| Active contributor count        | 20 (Phase 1) → 100 (Phase 2) → 200+ (Phase 3)                        | Monthly   |
+| Quarterly contributor retention | >40% quarter-over-quarter                                            | Quarterly |
+| Contribution quality trend      | Positive trend in average AI evaluation scores                       | Quarterly |
+| Rose development velocity       | Measurable increase in merged PRs, shipped features, resolved issues | Monthly   |
+| External methodology interest   | 3+ formal expressions of interest by end of Phase 2                  | Quarterly |
+| Token distribution health       | <5% of reward value consumed by transaction costs                    | Monthly   |
+| Fundraising traction            | Seed round closed, subsequent conversations active                   | Quarterly |
 
 **Decision Gates (go/no-go checkpoints):**
 
-| Gate | Trigger | Decision |
-|---|---|---|
-| **Community Viability** | End of Phase 1 | <15 active contributors after 60 days → STOP. Reassess mission-based attraction. Consider pivoting to community-first with reduced technology scope |
-| **Evaluation Credibility** | AI prototype complete | <60% agreement with human experts → STOP AI-based rewards. Fall back to peer-based evaluation until quality improves |
-| **Regulatory Feasibility** | Token classification opinion received | If MiCA requires e-money or asset-referenced license → REDESIGN token economics or pursue non-token reward mechanisms |
-| **Economic Viability** | First quarter of on-chain rewards | Transaction costs >10% of reward value → REDUCE temporal scales or switch L2 infrastructure |
-| **External Validation** | End of Phase 2 | Zero external interest in methodology → ABANDON Ecosystem-as-a-Service hypothesis. Revert to focused Rose engine |
+| Gate                       | Trigger                               | Decision                                                                                                                                            |
+| -------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Community Viability**    | End of Phase 1                        | <15 active contributors after 60 days → STOP. Reassess mission-based attraction. Consider pivoting to community-first with reduced technology scope |
+| **Evaluation Credibility** | AI prototype complete                 | <60% agreement with human experts → STOP AI-based rewards. Fall back to peer-based evaluation until quality improves                                |
+| **Regulatory Feasibility** | Token classification opinion received | If MiCA requires e-money or asset-referenced license → REDESIGN token economics or pursue non-token reward mechanisms                               |
+| **Economic Viability**     | First quarter of on-chain rewards     | Transaction costs >10% of reward value → REDUCE temporal scales or switch L2 infrastructure                                                         |
+| **External Validation**    | End of Phase 2                        | Zero external interest in methodology → ABANDON Ecosystem-as-a-Service hypothesis. Revert to focused Rose engine                                    |
 
 ---
 
@@ -295,7 +295,7 @@ The MVP aligns with Phase 1 (Foundation + early MVP) of the roadmap. It delivers
 
 **5. Community Structure — Four Pillars**
 
-- Four domain working groups (Technology, Fintech, Impact, Governance) with dedicated communication channels
+- Four domain working groups (Technology, Finance, Impact, Governance) with dedicated communication channels
 - Curated contribution menu: 15-20+ tasks across all domains, tagged by difficulty and effort, regularly refreshed
 - Buddy system: each new contributor paired with an existing contributor for 30 days
 - Basic meeting infrastructure for working group sessions
@@ -310,33 +310,33 @@ The MVP aligns with Phase 1 (Foundation + early MVP) of the roadmap. It delivers
 
 ### Out of Scope for MVP
 
-| Feature | Why It's Deferred | Target Phase |
-|---|---|---|
-| **Blockchain token rewards** | Token economics design, MiCA classification, and L2 infrastructure selection must be completed first. Premature token launch could create regulatory and trust risks | Phase 2 |
-| **Multi-source integration** (Google Workspace, Slack, Discord) | GitHub integration alone provides sufficient contribution data for Phase 1 validation. Additional integrations add maintenance burden for a <10 person team | Phase 2 |
-| **Full multi-temporal reward distribution** (7 scales) | Start with simpler recognition mechanisms (peer feedback, contribution wall, Founding Contributor privileges). Validate community viability before layering complex reward systems | Phase 2-3 |
-| **DAO governance / on-chain voting** | Progressive decentralization is a Phase 3 goal. Phase 1 governance is direct, human, and deliberate through working group discussions and founding contributor input | Phase 3 |
-| **Contributor Portable Reputation** | Requires a mature evaluation engine and sufficient contribution data to be meaningful. Premature portability adds complexity without value | Phase 3 |
-| **AI Agent contributor class** | Fascinating but not essential for founding community validation. Humans first, AI agents later | Phase 3 |
-| **Evaluation-as-a-Service / external licensing** | The methodology must be validated internally before offering externally. External licensing is the Option B sustainability play — it follows proof-of-concept, not precedes it | Phase 3 |
-| **Advanced analytics and forecasting** | Contribution pattern analysis, skill gap detection, and development recommendations require historical data that doesn't exist yet | Phase 2-3 |
-| **Staking / vesting mechanisms** | Dependent on token economics design and regulatory classification | Phase 2-3 |
+| Feature                                                         | Why It's Deferred                                                                                                                                                                  | Target Phase |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| **Blockchain token rewards**                                    | Token economics design, MiCA classification, and L2 infrastructure selection must be completed first. Premature token launch could create regulatory and trust risks               | Phase 2      |
+| **Multi-source integration** (Google Workspace, Slack, Discord) | GitHub integration alone provides sufficient contribution data for Phase 1 validation. Additional integrations add maintenance burden for a <10 person team                        | Phase 2      |
+| **Full multi-temporal reward distribution** (7 scales)          | Start with simpler recognition mechanisms (peer feedback, contribution wall, Founding Contributor privileges). Validate community viability before layering complex reward systems | Phase 2-3    |
+| **DAO governance / on-chain voting**                            | Progressive decentralization is a Phase 3 goal. Phase 1 governance is direct, human, and deliberate through working group discussions and founding contributor input               | Phase 3      |
+| **Contributor Portable Reputation**                             | Requires a mature evaluation engine and sufficient contribution data to be meaningful. Premature portability adds complexity without value                                         | Phase 3      |
+| **AI Agent contributor class**                                  | Fascinating but not essential for founding community validation. Humans first, AI agents later                                                                                     | Phase 3      |
+| **Evaluation-as-a-Service / external licensing**                | The methodology must be validated internally before offering externally. External licensing is the Option B sustainability play — it follows proof-of-concept, not precedes it     | Phase 3      |
+| **Advanced analytics and forecasting**                          | Contribution pattern analysis, skill gap detection, and development recommendations require historical data that doesn't exist yet                                                 | Phase 2-3    |
+| **Staking / vesting mechanisms**                                | Dependent on token economics design and regulatory classification                                                                                                                  | Phase 2-3    |
 
 ### MVP Success Criteria
 
 The MVP succeeds if it validates the three critical hypotheses from the innovation strategy:
 
-| Hypothesis | MVP Test | Success Threshold | Failure Response |
-|---|---|---|---|
-| **H1: Contributors will join and stay** | Recruit first 20 founding contributors, measure 30-day retention | >50% still active at day 30, with representation across all 4 domains | STOP and reassess attraction strategy. Is the mission sufficient? Is the roster compelling enough? |
-| **H2: AI can evaluate fairly enough to be trusted** | Run evaluation prototype on real GitHub contributions, gather contributor feedback | >70% agreement with human expert assessment; >70% contributor trust score | Fall back to peer-only feedback. Invest more in evaluation quality before reintroducing |
-| **H3: The scaling-law reward model is comprehensible and motivating** | Present reward model to founding contributors, test comprehension | >80% can explain the model; majority report it as motivating | Simplify. Start with 3 temporal scales. Use visual dashboards. If still incomprehensible, reconsider the model |
+| Hypothesis                                                            | MVP Test                                                                           | Success Threshold                                                         | Failure Response                                                                                               |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **H1: Contributors will join and stay**                               | Recruit first 20 founding contributors, measure 30-day retention                   | >50% still active at day 30, with representation across all 4 domains     | STOP and reassess attraction strategy. Is the mission sufficient? Is the roster compelling enough?             |
+| **H2: AI can evaluate fairly enough to be trusted**                   | Run evaluation prototype on real GitHub contributions, gather contributor feedback | >70% agreement with human expert assessment; >70% contributor trust score | Fall back to peer-only feedback. Invest more in evaluation quality before reintroducing                        |
+| **H3: The scaling-law reward model is comprehensible and motivating** | Present reward model to founding contributors, test comprehension                  | >80% can explain the model; majority report it as motivating              | Simplify. Start with 3 temporal scales. Use visual dashboards. If still incomprehensible, reconsider the model |
 
 **Additional MVP validation signals:**
 
 - Time-to-first-contribution <72 hours for >80% of admitted contributors
-- Non-developer contributors (Fintech, Impact, Governance) rate belonging >=4/5
-- >70% of active contributors say they would invite a respected peer
+- Non-developer contributors (Finance, Impact, Governance) rate belonging >=4/5
+- > 70% of active contributors say they would invite a respected peer
 - Peer feedback rated as "useful" or "very useful" by >60% of recipients
 
 ### Future Vision

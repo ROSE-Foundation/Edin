@@ -12,7 +12,7 @@ so that I can demonstrate my competence and join the Edin community.
 
 ## Acceptance Criteria
 
-1. **Given** I am an unauthenticated visitor **When** I navigate to `/apply` **Then** I see an application form with fields for: name, email, primary domain (select: Technology, Fintech, Impact, Governance), a brief statement of interest (max 300 characters), and a domain-specific micro-task assignment displayed based on my selected domain **And** the micro-task description clearly states expected deliverable, estimated effort (2-4 hours), and submission format **And** the page design follows UX spec: "respectful challenge" — feels like an invitation to demonstrate competence, not a gatekeeping hurdle
+1. **Given** I am an unauthenticated visitor **When** I navigate to `/apply` **Then** I see an application form with fields for: name, email, primary domain (select: Technology, Finance, Impact, Governance), a brief statement of interest (max 300 characters), and a domain-specific micro-task assignment displayed based on my selected domain **And** the micro-task description clearly states expected deliverable, estimated effort (2-4 hours), and submission format **And** the page design follows UX spec: "respectful challenge" — feels like an invitation to demonstrate competence, not a gatekeeping hurdle
 
 2. **Given** I have completed the application form and micro-task **When** I click Submit **Then** my application is saved via POST `/api/v1/admission/applications` with status PENDING **And** I receive an on-screen confirmation: "We'll review your application within 48 hours" **And** a contributor record is created with role APPLICANT if I authenticated via GitHub, or the application is stored for linking upon first GitHub auth **And** an audit log entry records the application submission
 
@@ -49,7 +49,7 @@ so that I can demonstrate my competence and join the Edin community.
   - [x] 3.6 Register AdmissionModule in AppModule
 
 - [x] Task 4: Seed micro-task data (AC: #1)
-  - [x] 4.1 Create or update seed script to insert one active micro-task per domain (Technology, Fintech, Impact, Governance) with realistic descriptions, expected deliverables, and estimated effort (2-4 hours)
+  - [x] 4.1 Create or update seed script to insert one active micro-task per domain (Technology, Finance, Impact, Governance) with realistic descriptions, expected deliverables, and estimated effort (2-4 hours)
   - [x] 4.2 Run seed: `pnpm --filter api prisma:seed`
 
 - [x] Task 5: Create frontend application page (AC: #1, #3, #4)
@@ -195,7 +195,7 @@ Claude Opus 4.6
 - Task 1: Added `ApplicationStatus` enum, `Application` model (core schema), `MicroTask` model (core schema), `ConsentRecord` model (audit schema). Migration `20260304134609_add_admission_models` applied successfully. Prisma client regenerated.
 - Task 2: Created shared Zod schema `createApplicationSchema` with all field validations. Created TypeScript interfaces for `Application`, `MicroTask`, `ConsentRecord`, `ApplicationStatus`. Added 4 admission error codes. All exported from shared package index.
 - Task 3: Created NestJS `AdmissionModule` with controller (3 public endpoints), service (3 methods), and DTO. Endpoints: `POST /api/v1/admission/applications` (rate-limited: 5/hour), `GET /api/v1/admission/applications/:id`, `GET /api/v1/admission/micro-tasks/:domain`. All public (no auth guards). Audit logging, consent records, and domain events (`admission.application.submitted`) implemented. EventEmitterModule registered globally.
-- Task 4: Seed script updated with 4 domain-specific micro-tasks (Technology, Fintech, Impact, Governance). Each has realistic descriptions, expected deliverables, estimated effort (2-4 hours), and submission format. Uses `upsert` for idempotency.
+- Task 4: Seed script updated with 4 domain-specific micro-tasks (Technology, Finance, Impact, Governance). Each has realistic descriptions, expected deliverables, estimated effort (2-4 hours), and submission format. Uses `upsert` for idempotency.
 - Task 5: Created `/apply` page with Server Component, loading skeleton, and Client Component form. Form uses React Hook Form + Zod resolver with shared schema. Progressive disclosure — micro-task fields appear after domain selection. GDPR consent checkbox required. Confirmation state replaces form after successful submission. Follows UX spec: single-column, mobile-first, validate on blur, warm color palette, "respectful challenge" tone.
 - Task 6: Created `PublicNav` component with Publication, Contributors, About, Apply links. Integrated into public layout. Active link highlighting using `usePathname()`.
 - Task 7: 17 API tests (9 service + 8 controller) and 20 frontend component tests. All pass with no regressions across existing test suites (205 API, 144 web).

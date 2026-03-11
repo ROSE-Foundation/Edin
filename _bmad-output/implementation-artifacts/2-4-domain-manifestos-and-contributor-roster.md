@@ -12,9 +12,9 @@ so that I can understand each domain pillar and evaluate the community's caliber
 
 ## Acceptance Criteria
 
-1. **Given** I am an unauthenticated visitor **When** I navigate to `/about` **Then** I see four domain manifesto sections: Technology, Fintech & Financial Engineering, Impact & Sustainability, and Governance **And** each manifesto section has its domain accent color as a subtle visual element (border or background tint) **And** all four sections have identical layout structure and visual weight (no domain dominates) **And** the page is server-side rendered for SEO
+1. **Given** I am an unauthenticated visitor **When** I navigate to `/about` **Then** I see four domain manifesto sections: Technology, Finance & Financial Engineering, Impact & Sustainability, and Governance **And** each manifesto section has its domain accent color as a subtle visual element (border or background tint) **And** all four sections have identical layout structure and visual weight (no domain dominates) **And** the page is server-side rendered for SEO
 
-2. **Given** I am an unauthenticated visitor **When** I navigate to `/contributors` **Then** I see a browsable contributor roster showing: name, avatar, domain, role designation, and a brief bio excerpt for each contributor **And** I can filter contributors by domain (Technology, Fintech, Impact, Governance) **And** I can search contributors by name **And** filtering and search return results within <1s (NFR-P7) **And** the contributor list uses cursor-based pagination (default 20, max 100)
+2. **Given** I am an unauthenticated visitor **When** I navigate to `/contributors` **Then** I see a browsable contributor roster showing: name, avatar, domain, role designation, and a brief bio excerpt for each contributor **And** I can filter contributors by domain (Technology, Finance, Impact, Governance) **And** I can search contributors by name **And** filtering and search return results within <1s (NFR-P7) **And** the contributor list uses cursor-based pagination (default 20, max 100)
 
 3. **Given** the contributor roster is displayed **When** I click on a contributor card **Then** I am navigated to their public profile page at `/contributors/:id`
 
@@ -31,7 +31,7 @@ so that I can understand each domain pillar and evaluate the community's caliber
   - [x] 1.8 Unit tests: returns paginated results, filters by domain correctly, searches by name case-insensitively, returns empty results for no matches, respects limit parameter, cursor pagination works across pages, returns only public fields (no email, githubId), validates query params
 
 - [x] Task 2: Create domain manifesto data and types (AC: 1)
-  - [x] 2.1 Create `packages/shared/src/constants/manifestos.ts` with manifesto content for each domain: `DOMAIN_MANIFESTOS` — an array of `{ domain, title, subtitle, content, highlights }` for Technology, Fintech & Financial Engineering, Impact & Sustainability, and Governance. Content describes each domain pillar's mission, what contributors do, and why it matters
+  - [x] 2.1 Create `packages/shared/src/constants/manifestos.ts` with manifesto content for each domain: `DOMAIN_MANIFESTOS` — an array of `{ domain, title, subtitle, content, highlights }` for Technology, Finance & Financial Engineering, Impact & Sustainability, and Governance. Content describes each domain pillar's mission, what contributors do, and why it matters
   - [x] 2.2 Create `DomainManifesto` type in `packages/shared/src/types/manifesto.types.ts`: `{ domain: ContributorDomain, title: string, subtitle: string, content: string, highlights: string[] }`
   - [x] 2.3 Export from `packages/shared/src/index.ts`
 
@@ -82,7 +82,7 @@ so that I can understand each domain pillar and evaluate the community's caliber
   - [x] 9.5 Test ContributorRosterCard renders avatar, name, domain badge with correct color, role badge, bio excerpt, and links to `/contributors/:id`
   - [x] 9.6 Test ContributorRosterGrid renders correct number of cards and shows empty state messages
   - [x] 9.7 Test RosterPagination shows count and "Load more" button, hides when hasMore is false
-  - [x] 9.8 Test domain badge colors: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A
+  - [x] 9.8 Test domain badge colors: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A
   - [x] 9.9 Test skeleton components render during loading
 
 - [x] Task 10: Build verification
@@ -177,7 +177,7 @@ Use the existing `publicProfileSelect` from `ContributorService` — same select
 | Token               | Hex     | Usage                              |
 | ------------------- | ------- | ---------------------------------- |
 | `domain.technology` | #3A7D7E | Technology manifesto accent, badge |
-| `domain.fintech`    | #C49A3C | Fintech manifesto accent, badge    |
+| `domain.finance`    | #C49A3C | Finance manifesto accent, badge    |
 | `domain.impact`     | #B06B6B | Impact manifesto accent, badge     |
 | `domain.governance` | #7B6B8A | Governance manifesto accent, badge |
 
@@ -226,10 +226,10 @@ UI: "Load more" button calls fetchNextPage()
 6. **Public endpoint pattern**: Use `fetch()` directly (NOT `apiClient`) for public data fetching — `apiClient` adds auth headers.
 7. **SSR data fetching**: Server Components use `fetch()` with `next: { revalidate: 60 }` for ISR. Pass data as props to Client Components.
 8. **generateMetadata()**: Fetch requests inside are automatically memoized by Next.js 16.
-9. **Domain badge colors**: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A — reuse DOMAIN_COLORS from showcase.
+9. **Domain badge colors**: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A — reuse DOMAIN_COLORS from showcase.
 10. **Test infrastructure**: Frontend tests use Vitest + React Testing Library with jsdom environment. Config at `apps/web/vitest.config.ts`, setup at `apps/web/vitest.setup.ts`.
 11. **Next.js Image component**: Use `next/image` for avatars. `images.remotePatterns` for `avatars.githubusercontent.com` already configured in `next.config.ts`.
-12. **Code review fix from 2-2**: Domain badge text colors need WCAG contrast — ensure white text on Technology (#3A7D7E) and Governance (#7B6B8A), dark text on Fintech (#C49A3C) and Impact (#B06B6B).
+12. **Code review fix from 2-2**: Domain badge text colors need WCAG contrast — ensure white text on Technology (#3A7D7E) and Governance (#7B6B8A), dark text on Finance (#C49A3C) and Impact (#B06B6B).
 
 ### Git Intelligence — Recent Patterns
 

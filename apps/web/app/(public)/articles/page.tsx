@@ -41,18 +41,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Articles — Edin',
     description:
-      'Read articles from the Edin community. Explore insights across Technology, Fintech, Impact, and Governance from expert contributors.',
+      'Read articles from the Edin community. Explore insights across Technology, Finance, Impact, and Governance from expert contributors.',
     openGraph: {
       title: 'Articles — Edin',
       description:
-        'Read articles from the Edin community. Explore insights across Technology, Fintech, Impact, and Governance.',
+        'Read articles from the Edin community. Explore insights across Technology, Finance, Impact, and Governance.',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Articles — Edin',
       description:
-        'Read articles from the Edin community. Explore insights across Technology, Fintech, Impact, and Governance.',
+        'Read articles from the Edin community. Explore insights across Technology, Finance, Impact, and Governance.',
     },
   };
 }
@@ -72,7 +72,7 @@ export default async function ArticlesPage() {
           </h1>
           <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
             Explore insights and analysis from our community of contributors across Technology,
-            Fintech, Impact, and Governance.
+            Finance, Impact, and Governance.
           </p>
         </div>
       </section>

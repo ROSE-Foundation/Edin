@@ -33,7 +33,7 @@ describe('ApplicationForm', () => {
     const select = screen.getByLabelText('Primary Domain');
     expect(select).toBeInTheDocument();
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('Impact')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
   });

@@ -59,7 +59,7 @@ so that I can understand the project and its community without creating an accou
   - [x] 7.2 Test FoundingCircle renders correct number of contributor cards
   - [x] 7.3 Test FoundingCircle empty state renders dignified message when array is empty
   - [x] 7.4 Test FoundingContributorCard renders avatar, name, domain badge with correct color, bio excerpt
-  - [x] 7.5 Test domain badge colors: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A
+  - [x] 7.5 Test domain badge colors: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A
   - [x] 7.6 Test card links to `/contributors/:id`
   - [x] 7.7 Test skeleton components render during loading
 
@@ -109,7 +109,7 @@ Use Prisma `select` to limit fields at query level — do NOT fetch all fields a
 - **Client Components**: Only needed for interactive parts (card hover effects, Link navigation). Keep the page primarily Server Component for SSR performance.
 - **Skeleton loaders**: Use skeleton components (NOT spinners) per UX spec. Show showcase structure as loading placeholder with pulsing opacity.
 - **Reuse `PublicContributorProfile` type** from `@edin/shared` — same type used by public profile endpoint.
-- **Reuse domain badge color mapping** from `PublicProfileView` component patterns (Technology: teal, Fintech: amber, Impact: terra rose, Governance: slate violet).
+- **Reuse domain badge color mapping** from `PublicProfileView` component patterns (Technology: teal, Finance: amber, Impact: terra rose, Governance: slate violet).
 
 ### Design System — Typography, Colors & Spacing
 
@@ -134,7 +134,7 @@ Use Prisma `select` to limit fields at query level — do NOT fetch all fields a
 | `surface.raised`      | #FFFFFF | Cards, elevated content           |
 | `surface.sunken`      | #F2F0EB | Inset areas, hero gradient target |
 | `domain.technology`   | #3A7D7E | Technology badge                  |
-| `domain.fintech`      | #C49A3C | Fintech badge                     |
+| `domain.finance`      | #C49A3C | Finance badge                     |
 | `domain.impact`       | #B06B6B | Impact badge                      |
 | `domain.governance`   | #7B6B8A | Governance badge                  |
 
@@ -236,7 +236,7 @@ Use Prisma `select` to limit fields at query level — do NOT fetch all fields a
 6. **Public endpoint pattern**: Use `fetch()` directly (NOT `apiClient`) for public data fetching — `apiClient` adds auth headers.
 7. **SSR data fetching**: Server Components use `fetch()` with `next: { revalidate: 60 }` for ISR. Pass data as props to Client Components.
 8. **generateMetadata()**: Fetch requests inside are automatically memoized across the route by Next.js 16.
-9. **Domain badge colors**: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A — all with equal visual weight.
+9. **Domain badge colors**: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A — all with equal visual weight.
 10. **Test infrastructure**: Frontend tests use Vitest + React Testing Library with jsdom environment. Config at `apps/web/vitest.config.ts`, setup at `apps/web/vitest.setup.ts`.
 11. **Next.js Image component**: Use `next/image` for avatars. `images.remotePatterns` for `avatars.githubusercontent.com` already configured in `next.config.ts`.
 12. **Code review fixes from 2.2**: Domain badge text colors needed WCAG contrast adjustment — ensure text on domain-colored badges meets 4.5:1 ratio.

@@ -40,7 +40,7 @@ describe('AgreementRateCard', () => {
     render(<AgreementRateCard rates={mockRates} isLoading={false} />);
 
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('83%')).toBeInTheDocument();
     expect(screen.getByText('50%')).toBeInTheDocument();
   });

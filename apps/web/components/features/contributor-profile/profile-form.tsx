@@ -9,7 +9,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useUpdateProfile } from '../../../hooks/use-profile';
 import { useToast } from '../../ui/toast';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'] as const;
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
 const MAX_BIO = 500;
 const MAX_TAGS = 10;
 const MAX_TAG_LENGTH = 50;

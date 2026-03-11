@@ -70,7 +70,7 @@ describe('EditorEligibilityService', () => {
     // Default mock for checkAllDomainEligibility domain discovery
     mockPrisma.editorEligibilityCriteria.findMany.mockResolvedValue([
       { domain: 'Technology' },
-      { domain: 'Fintech' },
+      { domain: 'Finance' },
       { domain: 'Impact' },
       { domain: 'Governance' },
     ]);

@@ -101,8 +101,8 @@ export default function ContributionsPage() {
           </div>
 
           <div className="rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)]">
-            <h3 className="font-sans text-[15px] font-semibold text-domain-fintech">
-              Fintech & Financial Engineering
+            <h3 className="font-sans text-[15px] font-semibold text-domain-finance">
+              Finance & Financial Engineering
             </h3>
             <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
               Financial models, reward mechanism design, economic analysis, tokenomics research,

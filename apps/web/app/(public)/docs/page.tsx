@@ -123,7 +123,7 @@ export default function DocsPage() {
           peer-reviewed articles.
         </p>
         <p className="mt-[var(--spacing-sm)] font-sans text-[15px] leading-[1.7] text-brand-secondary">
-          Edin is organized around four equal domains — Technology, Fintech, Impact, and Governance
+          Edin is organized around four equal domains — Technology, Finance, Impact, and Governance
           — ensuring that non-code contributions like financial modeling, sustainability research,
           and policy design are valued equally alongside engineering.
         </p>

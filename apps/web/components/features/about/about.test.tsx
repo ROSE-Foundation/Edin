@@ -27,11 +27,11 @@ describe('ManifestoSection', () => {
     expect(section).toHaveClass('border-l-domain-technology');
   });
 
-  it('applies domain accent border color for Fintech', () => {
+  it('applies domain accent border color for Finance', () => {
     render(<ManifestoSection manifesto={DOMAIN_MANIFESTOS[1]} />);
 
-    const section = screen.getByLabelText('Fintech & Financial Engineering domain');
-    expect(section).toHaveClass('border-l-domain-fintech');
+    const section = screen.getByLabelText('Finance & Financial Engineering domain');
+    expect(section).toHaveClass('border-l-domain-finance');
   });
 
   it('applies domain accent border color for Impact', () => {
@@ -67,7 +67,7 @@ describe('ManifestoGrid', () => {
     render(<ManifestoGrid manifestos={DOMAIN_MANIFESTOS} />);
 
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech & Financial Engineering')).toBeInTheDocument();
+    expect(screen.getByText('Finance & Financial Engineering')).toBeInTheDocument();
     expect(screen.getByText('Impact & Sustainability')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
   });

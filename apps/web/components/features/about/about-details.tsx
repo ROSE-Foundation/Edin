@@ -26,7 +26,7 @@ const CORE_PRINCIPLES = [
   {
     title: 'Multi-Domain Equality',
     description:
-      'Edin is built on four equal pillars: Technology, Fintech, Impact, and Governance. Unlike traditional open-source platforms that are code-centric, Edin values financial modeling, sustainability research, and governance design just as much as engineering.',
+      'Edin is built on four equal pillars: Technology, Finance, Impact, and Governance. Unlike traditional open-source platforms that are code-centric, Edin values financial modeling, sustainability research, and governance design just as much as engineering.',
     icon: '05',
   },
   {

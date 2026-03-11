@@ -8,7 +8,7 @@
 
 ## 🎯 Design Challenge
 
-How might we design a founding contributor experience for Edin that attracts high-caliber contributors across Technology, Fintech, Impact, and Governance domains, guides them through a curated admission process that feels aspirational rather than exclusionary, activates them into meaningful contributions using minimal tooling (before the full platform exists), and creates sufficient intrinsic motivation — through mission, community quality, and co-creation ownership — to retain >50% of them beyond 30 days, even without proven token rewards?
+How might we design a founding contributor experience for Edin that attracts high-caliber contributors across Technology, Finance, Impact, and Governance domains, guides them through a curated admission process that feels aspirational rather than exclusionary, activates them into meaningful contributions using minimal tooling (before the full platform exists), and creates sufficient intrinsic motivation — through mission, community quality, and co-creation ownership — to retain >50% of them beyond 30 days, even without proven token rewards?
 
 ---
 
@@ -28,17 +28,17 @@ To understand our founding contributors, we constructed four representative pers
 - Active open-source contributor to DeFi protocols; has authored two Ethereum EIPs
 - Frustrated by open-source burnout: hundreds of hours of high-quality contributions, almost zero financial recognition
 - Skeptical of token rewards — has seen too many "tokenomics" collapse into worthless dust
-- What she really wants: a community of *peers* she respects, where her craft is recognized by something smarter than GitHub stars
+- What she really wants: a community of _peers_ she respects, where her craft is recognized by something smarter than GitHub stars
 - Her fear: joining another project that demands time, promises the future, and delivers nothing
 - Her trigger to join: seeing 3-5 names she already respects on the contributor roster
 
-**Persona 2: "Amir" — Financial Engineer / Quant (Fintech & Financial Engineering)**
+**Persona 2: "Amir" — Financial Engineer / Quant (Finance & Financial Engineering)**
 
 - PhD in mathematical finance, 8 years in algorithmic trading at a London hedge fund
 - Intellectually captivated by the ORTFM model and scaling laws — this is his domain, and Rose is doing something genuinely novel
 - Has never contributed to open source — doesn't know how, finds the culture intimidating
 - Wants to participate but fears being judged by developers for not knowing Git workflows
-- What he really wants: a way to contribute his *domain expertise* (financial modeling, token economics design) without pretending to be a software engineer
+- What he really wants: a way to contribute his _domain expertise_ (financial modeling, token economics design) without pretending to be a software engineer
 - His fear: being irrelevant in a community that only values code
 - His trigger to join: a clear role that values financial engineering as equal to code
 
@@ -65,28 +65,28 @@ To understand our founding contributors, we constructed four representative pers
 
 **Cross-persona patterns:**
 
-1. **Trust deficit is universal.** Every persona has been burned before — by empty token promises, by unrecognized contributions, by projects that talked big and delivered nothing. Trust is not the starting position; it must be *earned* through consistent, small demonstrations of integrity.
+1. **Trust deficit is universal.** Every persona has been burned before — by empty token promises, by unrecognized contributions, by projects that talked big and delivered nothing. Trust is not the starting position; it must be _earned_ through consistent, small demonstrations of integrity.
 
-2. **"Code-first" culture is a barrier.** Three of four personas are not primarily developers. If Edin's early culture feels like "a GitHub repo with a website," it will repel the Fintech, Impact, and Governance contributors it claims to want. The multi-domain contribution model must be *visible and practiced* from day one, not promised for later.
+2. **"Code-first" culture is a barrier.** Three of four personas are not primarily developers. If Edin's early culture feels like "a GitHub repo with a website," it will repel the Finance, Impact, and Governance contributors it claims to want. The multi-domain contribution model must be _visible and practiced_ from day one, not promised for later.
 
-3. **Peer quality is the #1 attractor.** Across all personas, the single strongest pull is the quality of other people in the room. A curated community's greatest asset is not exclusivity — it is the signal that "if *these* people are here, this must be worth my time." The founding roster IS the marketing.
+3. **Peer quality is the #1 attractor.** Across all personas, the single strongest pull is the quality of other people in the room. A curated community's greatest asset is not exclusivity — it is the signal that "if _these_ people are here, this must be worth my time." The founding roster IS the marketing.
 
 4. **Intrinsic motivation must carry Phase 1.** Token rewards don't exist yet. The scaling-law model is theoretical. Every persona is motivated by something other than money in the first instance: intellectual fascination (Amir), mission alignment (Sofia), community quality (Lena), governance integrity (Yuki). The Phase 1 experience must feed these intrinsic drivers, not promise future extrinsic ones.
 
-5. **Fear of irrelevance outweighs fear of failure.** Nobody worries about Edin failing — they worry about *their own contribution not mattering*. The admission process must make people feel chosen and valued, not processed and filed.
+5. **Fear of irrelevance outweighs fear of failure.** Nobody worries about Edin failing — they worry about _their own contribution not mattering_. The admission process must make people feel chosen and valued, not processed and filed.
 
-6. **Co-creation is the hook, not consumption.** These are people who build things. They don't want to use a platform — they want to *shape* one. The most powerful retention mechanism may be giving founding contributors genuine influence over Edin's design and governance.
+6. **Co-creation is the hook, not consumption.** These are people who build things. They don't want to use a platform — they want to _shape_ one. The most powerful retention mechanism may be giving founding contributors genuine influence over Edin's design and governance.
 
-7. **Onboarding is emotional, not procedural.** The first 72 hours after admission determine whether someone becomes an active contributor or a silent spectator. This window is about *belonging*, not documentation.
+7. **Onboarding is emotional, not procedural.** The first 72 hours after admission determine whether someone becomes an active contributor or a silent spectator. This window is about _belonging_, not documentation.
 
 ### Empathy Map Summary
 
-| Dimension | What Founding Contributors... |
-|---|---|
-| **SAY** | "I want to work on something that matters." / "Show me who else is involved." / "How do I contribute if I'm not a coder?" / "I've been burned by token promises before." / "I don't have unlimited time — convince me this is worth it." |
-| **THINK** | "Is this real or another vaporware project?" / "Am I qualified enough for a curated community?" / "Will my type of contribution actually be valued?" / "The scaling-law reward idea is fascinating but will it actually work?" / "If the founder leaves, does this survive?" |
-| **DO** | Research the team behind the project before committing / Look for recognizable names in the contributor list / Try to assess how much time this will realistically require / Check GitHub activity to see if there's real momentum / Ask around their network about Rose and IOUR Foundation |
-| **FEEL** | Cautious optimism mixed with protective skepticism / Excitement about the intellectual challenge / Anxiety about time commitment vs. uncertain payoff / Desire to belong to something excellent / Fear of investing in something that fizzles |
+| Dimension | What Founding Contributors...                                                                                                                                                                                                                                                                |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SAY**   | "I want to work on something that matters." / "Show me who else is involved." / "How do I contribute if I'm not a coder?" / "I've been burned by token promises before." / "I don't have unlimited time — convince me this is worth it."                                                     |
+| **THINK** | "Is this real or another vaporware project?" / "Am I qualified enough for a curated community?" / "Will my type of contribution actually be valued?" / "The scaling-law reward idea is fascinating but will it actually work?" / "If the founder leaves, does this survive?"                 |
+| **DO**    | Research the team behind the project before committing / Look for recognizable names in the contributor list / Try to assess how much time this will realistically require / Check GitHub activity to see if there's real momentum / Ask around their network about Rose and IOUR Foundation |
+| **FEEL**  | Cautious optimism mixed with protective skepticism / Excitement about the intellectual challenge / Anxiety about time commitment vs. uncertain payoff / Desire to belong to something excellent / Fear of investing in something that fizzles                                                |
 
 ---
 
@@ -118,7 +118,7 @@ To understand our founding contributors, we constructed four representative pers
 
 **Admit:**
 
-4. How might we design an admission process that makes applicants feel *chosen and valued* rather than *screened and processed*?
+4. How might we design an admission process that makes applicants feel _chosen and valued_ rather than _screened and processed_?
 5. How might we create admission criteria that are rigorous enough to signal quality but accessible enough to not exclude non-traditional contributors?
 6. How might we turn the admission process itself into a first act of contribution — so that applying is already a meaningful experience?
 
@@ -126,7 +126,7 @@ To understand our founding contributors, we constructed four representative pers
 
 7. How might we make the first 72 hours after admission feel like joining a jazz ensemble — immediately playing, not sitting in the audience reading sheet music?
 8. How might we help founding contributors find their first meaningful task within their first session, using only the minimal tooling available in Phase 0?
-9. How might we create visible contribution pathways across all four domains (Tech, Fintech, Impact, Governance) from day one, even before the full platform exists?
+9. How might we create visible contribution pathways across all four domains (Tech, Finance, Impact, Governance) from day one, even before the full platform exists?
 
 **Retain:**
 
@@ -138,23 +138,23 @@ To understand our founding contributors, we constructed four representative pers
 
 **Insight 1: The Roster IS the Product**
 
-In Phase 0, Edin has no platform, no token, no AI evaluation. The only tangible asset is the *people*. The founding contributor roster — their names, backgrounds, expertise, and credibility — is simultaneously the recruitment tool, the investor pitch, the quality signal, and the community itself. Every strategic decision should be evaluated through the lens: "Does this make our roster more impressive and more visible?"
+In Phase 0, Edin has no platform, no token, no AI evaluation. The only tangible asset is the _people_. The founding contributor roster — their names, backgrounds, expertise, and credibility — is simultaneously the recruitment tool, the investor pitch, the quality signal, and the community itself. Every strategic decision should be evaluated through the lens: "Does this make our roster more impressive and more visible?"
 
 **Insight 2: The Admission Gate Must Create Value, Not Just Filter**
 
-Traditional admission processes extract information and deliver a verdict. For Edin, the admission process should be a *contribution experience* in itself — applicants should learn something, demonstrate something, and feel something. The application could include a micro-contribution (a short analysis, a review of existing work, a proposal) that simultaneously assesses the applicant and gives them a taste of what participation feels like. Rejection should still feel valuable — the applicant should walk away having engaged meaningfully with Rose's ideas.
+Traditional admission processes extract information and deliver a verdict. For Edin, the admission process should be a _contribution experience_ in itself — applicants should learn something, demonstrate something, and feel something. The application could include a micro-contribution (a short analysis, a review of existing work, a proposal) that simultaneously assesses the applicant and gives them a taste of what participation feels like. Rejection should still feel valuable — the applicant should walk away having engaged meaningfully with Rose's ideas.
 
 **Insight 3: Multi-Domain Equality Must Be Architectural, Not Rhetorical**
 
-Saying "we value all contribution types equally" is meaningless if the GitHub repo is the only visible artifact of community activity. From day one, there must be visible, structured spaces for each domain: a financial modeling workspace, a governance proposal system, an impact assessment framework — not just a code repository. The *structure* of the community must reflect the *values* of the community.
+Saying "we value all contribution types equally" is meaningless if the GitHub repo is the only visible artifact of community activity. From day one, there must be visible, structured spaces for each domain: a financial modeling workspace, a governance proposal system, an impact assessment framework — not just a code repository. The _structure_ of the community must reflect the _values_ of the community.
 
 **Insight 4: Co-Creation Is the Retention Mechanism**
 
-Founding contributors are not users — they are co-architects. The most powerful retention lever is giving them genuine design authority over Edin itself. This means: founding contributors vote on platform features, propose governance structures, design the evaluation criteria, and shape the reward model. When you *build* something, you don't walk away from it. This transforms the cold-start problem from "convince people to join an unfinished project" into "invite people to build a project that is *theirs*."
+Founding contributors are not users — they are co-architects. The most powerful retention lever is giving them genuine design authority over Edin itself. This means: founding contributors vote on platform features, propose governance structures, design the evaluation criteria, and shape the reward model. When you _build_ something, you don't walk away from it. This transforms the cold-start problem from "convince people to join an unfinished project" into "invite people to build a project that is _theirs_."
 
 **Insight 5: Feedback Before AI**
 
-The AI evaluation engine won't exist in Phase 1. But contributors need feedback on their work *immediately* — not as a reward mechanism, but as a signal that someone is paying attention and their contribution matters. In the interim, structured peer feedback (modeled on high-quality code review culture) can serve as the bridge. This has a secondary benefit: the peer feedback data becomes training data for the future AI evaluation engine.
+The AI evaluation engine won't exist in Phase 1. But contributors need feedback on their work _immediately_ — not as a reward mechanism, but as a signal that someone is paying attention and their contribution matters. In the interim, structured peer feedback (modeled on high-quality code review culture) can serve as the bridge. This has a secondary benefit: the peer feedback data becomes training data for the future AI evaluation engine.
 
 **Insight 6: The 72-Hour Window Is Everything**
 
@@ -179,7 +179,7 @@ The gap between "accepted" and "first meaningful contribution" is where most com
 
 1. **"The Circle" Launch Announcement** — A beautifully crafted public announcement naming the first 10 founding contributors with their photos, bios, and why they joined. Each person's credibility becomes recruitment fuel for the next wave. Modeled on YC's batch announcements.
 
-2. **Domain-Specific Manifestos** — Instead of one generic "about" page, create four compelling manifestos — one per strategic domain (Tech, Fintech, Impact, Governance) — each written by a credible voice in that field, explaining why *this domain* matters to Edin. A financial engineer reading the Fintech manifesto should feel: "these people understand my world."
+2. **Domain-Specific Manifestos** — Instead of one generic "about" page, create four compelling manifestos — one per strategic domain (Tech, Finance, Impact, Governance) — each written by a credible voice in that field, explaining why _this domain_ matters to Edin. A financial engineer reading the Finance manifesto should feel: "these people understand my world."
 
 3. **"The Invitation" Model** — Each founding contributor can invite exactly one person. This creates scarcity, makes the invitation feel valuable, and ensures cultural fit through personal vouching. Modeled on early Gmail's invitation system.
 
@@ -189,13 +189,13 @@ The gap between "accepted" and "first meaningful contribution" is where most com
 
 6. **"Build Your Reputation From Zero" Narrative** — Market Edin not as "earn tokens" but as "build a verifiable, AI-evaluated contribution portfolio that follows you forever." Target professionals who want a portable proof-of-competence that transcends any single employer or project.
 
-7. **University Partnership Pipeline** — Partner with 2-3 universities with strong fintech/blockchain programs. Offer master's thesis collaboration opportunities within Edin, giving students real-world contribution experience and Edin a talent pipeline.
+7. **University Partnership Pipeline** — Partner with 2-3 universities with strong finance/blockchain programs. Offer master's thesis collaboration opportunities within Edin, giving students real-world contribution experience and Edin a talent pipeline.
 
 8. **Anti-Pitch: "What We Won't Promise"** — Instead of a hype-filled pitch deck, publish a radically honest document: "We don't have a working token yet. Our AI evaluation is a prototype. Our team is small. Here's what we DO have: a mission, a mathematical framework, and a commitment to building this transparently. If that's enough for you, you're our kind of person."
 
 **ADMIT — Making Selection Feel Like Elevation (6 ideas)**
 
-9. **Contribution-Based Application** — Instead of a form asking "tell us about yourself," ask applicants to complete a micro-contribution relevant to their domain: review a section of the Rose spec and propose improvements (Tech), analyze the scaling-law reward model and identify a gap (Fintech), draft a social impact assessment framework for contributor platforms (Impact), critique Edin's governance assumptions and propose an alternative (Governance). The application IS a contribution.
+9. **Contribution-Based Application** — Instead of a form asking "tell us about yourself," ask applicants to complete a micro-contribution relevant to their domain: review a section of the Rose spec and propose improvements (Tech), analyze the scaling-law reward model and identify a gap (Finance), draft a social impact assessment framework for contributor platforms (Impact), critique Edin's governance assumptions and propose an alternative (Governance). The application IS a contribution.
 
 10. **Peer Welcome Committee** — Each admitted contributor is welcomed by a small panel (2-3 existing contributors) in a live video call. Not an interview — a welcome. They share what they're working on, ask the newcomer what excites them, and help them identify their first contribution. First contact is human, warm, and curated.
 
@@ -211,7 +211,7 @@ The gap between "accepted" and "first meaningful contribution" is where most com
 
 15. **"First Day, First Commit" Protocol** — Within the first session, every new contributor completes a visible, meaningful micro-contribution: adding their profile to the contributor page, reviewing a document, proposing a small improvement, or fixing a flagged issue. The task is pre-selected and curated for their skill level and domain. The point: break the "passive observer" pattern immediately.
 
-16. **Domain Working Groups from Day One** — Establish four permanent working groups (Tech, Fintech, Impact, Governance) that meet regularly from the very beginning — even if each group has only 2-3 people. This creates a structure where non-developers have an immediate home, a meeting to attend, and a group to belong to.
+16. **Domain Working Groups from Day One** — Establish four permanent working groups (Tech, Finance, Impact, Governance) that meet regularly from the very beginning — even if each group has only 2-3 people. This creates a structure where non-developers have an immediate home, a meeting to attend, and a group to belong to.
 
 17. **Contribution Menu** — A curated, always-updated list of "contribution opportunities" across all four domains, tagged by skill level (starter / intermediate / advanced), estimated effort (small / medium / large), and domain. New contributors browse the menu and pick what resonates. No one has to figure out how to be useful on their own.
 
@@ -247,9 +247,9 @@ After clustering and evaluating all 28 ideas against feasibility (can it be done
 
 **Concept 1: "The Founding Circle" — Identity + Roster as Recruitment Engine**
 
-*Combines ideas: #1, #3, #11, #27*
+_Combines ideas: #1, #3, #11, #27_
 
-The core insight: in Phase 0, the people ARE the product. Design the founding contributor experience as an *identity* — not a user role. Founding Contributors are a named, visible, permanent class with irreversible privileges: blockchain-recorded genesis membership, permanent governance weight bonus, and design authority over evaluation criteria. The roster is published, beautiful, and shareable. Each person's credibility recruits the next. Admission is by invitation (each founder invites one) plus a contribution-based application. The Circle has a cap (30 people) creating genuine scarcity. An annual gathering cements social bonds.
+The core insight: in Phase 0, the people ARE the product. Design the founding contributor experience as an _identity_ — not a user role. Founding Contributors are a named, visible, permanent class with irreversible privileges: blockchain-recorded genesis membership, permanent governance weight bonus, and design authority over evaluation criteria. The roster is published, beautiful, and shareable. Each person's credibility recruits the next. Admission is by invitation (each founder invites one) plus a contribution-based application. The Circle has a cap (30 people) creating genuine scarcity. An annual gathering cements social bonds.
 
 **Why this concept:** It addresses the #1 attractor (peer quality), creates scarcity and status, and transforms the cold-start problem from "recruit users for an unfinished platform" into "assemble an elite founding team for a historic initiative." It also creates an irreversible commitment structure that supports retention.
 
@@ -257,7 +257,7 @@ The core insight: in Phase 0, the people ARE the product. Design the founding co
 
 **Concept 2: "72-Hour Ignition" — Onboarding as Immediate Co-Creation**
 
-*Combines ideas: #9, #10, #15, #17, #18, #19*
+_Combines ideas: #9, #10, #15, #17, #18, #19_
 
 The core insight: the gap between admission and first contribution is where communities die. Design a 72-hour activation sequence that compresses discover → apply → contribute → feedback → belong into a single fluid experience. The application itself is a micro-contribution. Upon admission, a peer welcome call happens within 24 hours. A curated first task (from the contribution menu, matched to domain and skill) is assigned during the call. Completion triggers peer feedback and visible recognition on the contribution wall. A buddy is assigned for the first 30 days. By hour 72, the contributor has: made a visible contribution, received feedback, met real people, and seen their name on the wall.
 
@@ -267,9 +267,9 @@ The core insight: the gap between admission and first contribution is where comm
 
 **Concept 3: "Four Pillars, One Community" — Structural Multi-Domain Equality**
 
-*Combines ideas: #2, #6, #16, #20, #22, #24*
+_Combines ideas: #2, #6, #16, #20, #22, #24_
 
-The core insight: if the community looks and feels like a GitHub repo with extra steps, it will attract only developers and repel everyone else. Design the community structure from day one with four visible, equally resourced working groups — one per strategic domain (Technology, Fintech, Impact, Governance) — each with its own communication space, contribution menu, meeting rhythm, and peer feedback loop. Each group has a founding lead. Cross-domain collaboration is encouraged but not forced. Every domain has visible contribution types and recognition mechanisms. The "What I Learned This Week" ritual brings the groups together and makes cross-domain learning a community norm.
+The core insight: if the community looks and feels like a GitHub repo with extra steps, it will attract only developers and repel everyone else. Design the community structure from day one with four visible, equally resourced working groups — one per strategic domain (Technology, Finance, Impact, Governance) — each with its own communication space, contribution menu, meeting rhythm, and peer feedback loop. Each group has a founding lead. Cross-domain collaboration is encouraged but not forced. Every domain has visible contribution types and recognition mechanisms. The "What I Learned This Week" ritual brings the groups together and makes cross-domain learning a community norm.
 
 **Why this concept:** It is the structural answer to the insight that multi-domain equality must be architectural, not rhetorical. It immediately signals to Amir, Sofia, and Yuki that their domains are real — with real spaces, real tasks, and real recognition. Without this structure, the community will default to developer-centric culture regardless of stated values.
 
@@ -281,15 +281,15 @@ The core insight: if the community looks and feels like a GitHub repo with extra
 
 **Methods applied:** Wizard of Oz, Storyboarding, Role Playing
 
-The three top concepts are all *experience designs*, not technology features. They can be prototyped with minimal tooling — which is exactly right for Phase 0.
+The three top concepts are all _experience designs_, not technology features. They can be prototyped with minimal tooling — which is exactly right for Phase 0.
 
-**Prototyping philosophy:** Build nothing. Fake everything. Test the *experience*, not the technology. If the experience works with manual processes and existing tools, we know the concept is valid. If it doesn't work manually, no amount of technology will save it.
+**Prototyping philosophy:** Build nothing. Fake everything. Test the _experience_, not the technology. If the experience works with manual processes and existing tools, we know the concept is valid. If it doesn't work manually, no amount of technology will save it.
 
-| Concept | Prototype Approach | Tools Needed |
-|---|---|---|
-| **The Founding Circle** | Create the actual roster page and founding contributor identity — real names, real bios, real privileges. Test with 5-10 real people. | A static web page or Notion page, a shared document defining privileges, personal outreach |
-| **72-Hour Ignition** | Run the complete onboarding sequence manually for 5 people. Wizard of Oz: a human plays the role of every automated system. | Video call tool, a shared contribution menu document, a Slack/Discord channel for the contribution wall, a buddy assignment spreadsheet |
-| **Four Pillars** | Stand up the four working groups with real (even if tiny) membership. Run one meeting per group. See if the structure holds and if non-developer contributors feel equal. | Four Slack/Discord channels, a simple meeting schedule, one curated task list per domain |
+| Concept                 | Prototype Approach                                                                                                                                                        | Tools Needed                                                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **The Founding Circle** | Create the actual roster page and founding contributor identity — real names, real bios, real privileges. Test with 5-10 real people.                                     | A static web page or Notion page, a shared document defining privileges, personal outreach                                              |
+| **72-Hour Ignition**    | Run the complete onboarding sequence manually for 5 people. Wizard of Oz: a human plays the role of every automated system.                                               | Video call tool, a shared contribution menu document, a Slack/Discord channel for the contribution wall, a buddy assignment spreadsheet |
+| **Four Pillars**        | Stand up the four working groups with real (even if tiny) membership. Run one meeting per group. See if the structure holds and if non-developer contributors feel equal. | Four Slack/Discord channels, a simple meeting schedule, one curated task list per domain                                                |
 
 ### Prototype Description
 
@@ -337,29 +337,29 @@ This is a Wizard of Oz prototype at the highest level — the entire Edin foundi
 
 **What we're simulating manually:**
 
-| Platform Feature | Manual Simulation |
-|---|---|
-| AI Evaluation Engine | Peer feedback from existing team members |
-| Token Rewards | Verbal recognition + published contribution wall + Founding Contributor status |
-| Web Portal Dashboard | A Notion page or shared doc showing contribution history |
-| Automated Admission | Manual outreach, manual review, personal welcome calls |
-| Contribution Matching | Curated menu + buddy guidance |
-| Governance System | Direct conversations and shared decision-making in working group meetings |
+| Platform Feature      | Manual Simulation                                                              |
+| --------------------- | ------------------------------------------------------------------------------ |
+| AI Evaluation Engine  | Peer feedback from existing team members                                       |
+| Token Rewards         | Verbal recognition + published contribution wall + Founding Contributor status |
+| Web Portal Dashboard  | A Notion page or shared doc showing contribution history                       |
+| Automated Admission   | Manual outreach, manual review, personal welcome calls                         |
+| Contribution Matching | Curated menu + buddy guidance                                                  |
+| Governance System     | Direct conversations and shared decision-making in working group meetings      |
 
 ### Key Features to Test
 
 **Hypothesis tests embedded in the prototype:**
 
-| # | Feature Being Tested | Success Criteria | Maps to Innovation Strategy Hypothesis |
-|---|---|---|---|
-| F1 | **The Founding Circle identity attracts quality candidates** | 50%+ of contacted candidates engage with the application | H1: Will talented contributors join? |
-| F2 | **Contribution-based application works as both filter and hook** | 70%+ of applicants complete the micro-contribution; feedback is positive on the experience | H1 (admission design) |
-| F3 | **72-hour activation compresses time-to-first-contribution** | 80%+ of admitted contributors complete a meaningful task within 72 hours | H1 (activation speed) |
-| F4 | **Non-developer contributors feel structurally equal** | In exit interviews, Fintech/Impact/Governance contributors rate their sense of belonging >=4/5 | Multi-domain equality |
-| F5 | **Peer feedback serves as credible bridge for AI evaluation** | Contributors rate peer feedback as "useful" or "very useful" for improving their contributions | H2 bridge: feedback before AI |
-| F6 | **Buddy system increases retention** | Contributors with active buddies are retained at higher rates than those without (if sample allows) | Retention mechanism |
-| F7 | **Working group structure creates domain-specific belonging** | Contributors attend >=2 working group meetings in 4 weeks and report value from them | Community structure |
-| F8 | **Co-creation generates retention** | Contributors who participate in at least one design/governance discussion are more likely to remain active at week 4 | Insight 4: co-creation as retention |
+| #   | Feature Being Tested                                             | Success Criteria                                                                                                     | Maps to Innovation Strategy Hypothesis |
+| --- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| F1  | **The Founding Circle identity attracts quality candidates**     | 50%+ of contacted candidates engage with the application                                                             | H1: Will talented contributors join?   |
+| F2  | **Contribution-based application works as both filter and hook** | 70%+ of applicants complete the micro-contribution; feedback is positive on the experience                           | H1 (admission design)                  |
+| F3  | **72-hour activation compresses time-to-first-contribution**     | 80%+ of admitted contributors complete a meaningful task within 72 hours                                             | H1 (activation speed)                  |
+| F4  | **Non-developer contributors feel structurally equal**           | In exit interviews, Finance/Impact/Governance contributors rate their sense of belonging >=4/5                       | Multi-domain equality                  |
+| F5  | **Peer feedback serves as credible bridge for AI evaluation**    | Contributors rate peer feedback as "useful" or "very useful" for improving their contributions                       | H2 bridge: feedback before AI          |
+| F6  | **Buddy system increases retention**                             | Contributors with active buddies are retained at higher rates than those without (if sample allows)                  | Retention mechanism                    |
+| F7  | **Working group structure creates domain-specific belonging**    | Contributors attend >=2 working group meetings in 4 weeks and report value from them                                 | Community structure                    |
+| F8  | **Co-creation generates retention**                              | Contributors who participate in at least one design/governance discussion are more likely to remain active at week 4 | Insight 4: co-creation as retention    |
 
 ---
 
@@ -374,17 +374,17 @@ Design thinking tests with real users, not surveys or focus groups. The entire p
 **Participants:**
 
 - Target: 5-8 founding contributors recruited from personal/professional networks
-- Diversity requirement: at least one person per strategic domain (Tech, Fintech, Impact, Governance)
+- Diversity requirement: at least one person per strategic domain (Tech, Finance, Impact, Governance)
 - Selection: prioritize people who match the persona profiles (experienced, selective, skeptical-but-curious)
 
 **Testing timeline:**
 
-| Week | Activity | What We're Observing |
-|---|---|---|
-| **Week 1** | Outreach + Admission | Response rate, application completion rate, quality of micro-contributions, time-to-respond |
-| **Week 2** | Welcome + Activation | Welcome call attendance, first task selection speed, time-to-first-contribution, buddy engagement |
-| **Week 3** | Contribution + Groups | Contribution frequency, working group attendance, cross-domain interaction, contribution wall activity |
-| **Week 4** | Retention + Interviews | Who is still active? Who went silent? Why? What would they change? |
+| Week       | Activity               | What We're Observing                                                                                   |
+| ---------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Week 1** | Outreach + Admission   | Response rate, application completion rate, quality of micro-contributions, time-to-respond            |
+| **Week 2** | Welcome + Activation   | Welcome call attendance, first task selection speed, time-to-first-contribution, buddy engagement      |
+| **Week 3** | Contribution + Groups  | Contribution frequency, working group attendance, cross-domain interaction, contribution wall activity |
+| **Week 4** | Retention + Interviews | Who is still active? Who went silent? Why? What would they change?                                     |
 
 **Data collection methods:**
 
@@ -415,14 +415,14 @@ Design thinking tests with real users, not surveys or focus groups. The entire p
 
 **Key questions we're testing (mapped to Assumption Testing method):**
 
-| Assumption | What Would Prove It Wrong |
-|---|---|
-| High-caliber professionals will complete a contribution-based application | <30% application completion rate from targeted candidates |
-| The 72-hour activation window works | >50% of contributors take more than a week to make their first contribution |
-| Non-developers feel equal | Fintech/Impact/Governance contributors rate belonging <3/5 in interviews |
-| Peer feedback is a credible AI-evaluation bridge | Contributors describe feedback as "unhelpful" or "not worth the effort" |
-| The Founding Circle identity creates retention | >50% of contributors disengage within 30 days despite having the title |
-| Working groups create domain-specific homes | Working group meetings feel forced or poorly attended (<50% attendance) |
+| Assumption                                                                | What Would Prove It Wrong                                                   |
+| ------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| High-caliber professionals will complete a contribution-based application | <30% application completion rate from targeted candidates                   |
+| The 72-hour activation window works                                       | >50% of contributors take more than a week to make their first contribution |
+| Non-developers feel equal                                                 | Finance/Impact/Governance contributors rate belonging <3/5 in interviews    |
+| Peer feedback is a credible AI-evaluation bridge                          | Contributors describe feedback as "unhelpful" or "not worth the effort"     |
+| The Founding Circle identity creates retention                            | >50% of contributors disengage within 30 days despite having the title      |
+| Working groups create domain-specific homes                               | Working group meetings feel forced or poorly attended (<50% attendance)     |
 
 ### User Feedback
 
@@ -434,7 +434,7 @@ This section will be populated with real data after the pilot. Below are predict
 
 - "The welcome call was the moment I knew this was different — real people, genuinely interested in what I could bring."
 - "Having a specific first task ready for me made all the difference. I wasn't wandering around wondering what to do."
-- "I like that my governance/fintech/impact work shows up on the same contribution wall as code commits. That visibility matters."
+- "I like that my governance/finance/impact work shows up on the same contribution wall as code commits. That visibility matters."
 - "The Founding Contributor title feels real, not cosmetic. Having a say in evaluation criteria design is meaningful."
 - "The buddy was essential for my first week — I would have dropped off without someone to ask stupid questions."
 
@@ -448,7 +448,7 @@ This section will be populated with real data after the pilot. Below are predict
 
 **Predicted critical insight:**
 
-The biggest surprise will likely be about *what type of contribution generates the most energy*. Hypothesis: the contributions that feel most meaningful to founding contributors will NOT be the ones that advance Rose's codebase directly — they will be the contributions that shape Edin itself (governance proposals, evaluation criteria debates, community culture discussions). People want to build the house, not just lay bricks.
+The biggest surprise will likely be about _what type of contribution generates the most energy_. Hypothesis: the contributions that feel most meaningful to founding contributors will NOT be the ones that advance Rose's codebase directly — they will be the contributions that shape Edin itself (governance proposals, evaluation criteria debates, community culture discussions). People want to build the house, not just lay bricks.
 
 ### Key Learnings
 
@@ -482,14 +482,14 @@ Learnings will be organized across four dimensions:
 
 **Pre-pilot learning hypotheses to track:**
 
-| Learning Area | Hypothesis | Validation Approach |
-|---|---|---|
-| Attraction | Personal outreach from credible peers is 5-10x more effective than public announcements | Compare response rates from personal vs. broadcast channels |
-| Admission | Contribution-based applications produce higher-quality signal than traditional CV-based applications | Assess whether micro-contribution quality predicts subsequent engagement quality |
-| Activation | The buddy system is the single most impactful retention intervention | Compare engagement of contributors with active vs. passive buddies |
-| Retention | Co-creation activities (shaping Edin itself) generate stronger retention than contribution activities (building Rose) | Track which activity types correlate with 30-day retention |
-| Multi-domain | The Impact and Governance domains need MORE structured task definition than Tech and Fintech | Assess task availability complaints by domain |
-| Feedback | Peer feedback quality varies too much without structured rubrics | Evaluate contributor satisfaction with feedback by whether a rubric was used |
+| Learning Area | Hypothesis                                                                                                            | Validation Approach                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Attraction    | Personal outreach from credible peers is 5-10x more effective than public announcements                               | Compare response rates from personal vs. broadcast channels                      |
+| Admission     | Contribution-based applications produce higher-quality signal than traditional CV-based applications                  | Assess whether micro-contribution quality predicts subsequent engagement quality |
+| Activation    | The buddy system is the single most impactful retention intervention                                                  | Compare engagement of contributors with active vs. passive buddies               |
+| Retention     | Co-creation activities (shaping Edin itself) generate stronger retention than contribution activities (building Rose) | Track which activity types correlate with 30-day retention                       |
+| Multi-domain  | The Impact and Governance domains need MORE structured task definition than Tech and Finance                          | Assess task availability complaints by domain                                    |
+| Feedback      | Peer feedback quality varies too much without structured rubrics                                                      | Evaluate contributor satisfaction with feedback by whether a rubric was used     |
 
 ---
 
@@ -499,7 +499,7 @@ Learnings will be organized across four dimensions:
 
 **Pre-pilot refinements (before launching the prototype):**
 
-1. **Contribution menu depth per domain.** The current design assumes 15-20 curated tasks across four domains. In practice, Technology and Fintech tasks are easier to define than Impact and Governance tasks — which are more strategic and less granular. Before the pilot, invest time in creating meaningful, concrete tasks for Impact and Governance specifically. Without this, contributors in those domains will have nothing to grab onto in their first session.
+1. **Contribution menu depth per domain.** The current design assumes 15-20 curated tasks across four domains. In practice, Technology and Finance tasks are easier to define than Impact and Governance tasks — which are more strategic and less granular. Before the pilot, invest time in creating meaningful, concrete tasks for Impact and Governance specifically. Without this, contributors in those domains will have nothing to grab onto in their first session.
 
 2. **Peer feedback rubric.** Unstructured peer feedback will produce wildly variable quality. Before the pilot, create a lightweight feedback rubric (5-7 questions, 2 minutes to complete) that ensures every contributor receives consistent, actionable feedback. Include both qualitative ("what's strong about this contribution") and developmental ("one thing that would make this even better") elements.
 
@@ -523,45 +523,45 @@ Learnings will be organized across four dimensions:
 
 **Immediate (This Week):**
 
-| # | Action | Owner | Dependency |
-|---|---|---|---|
-| A1 | Draft the Founding Circle page — names, bios, vision statement, founding privileges | Fabrice | Core team bios needed |
-| A2 | Write four domain manifestos (Tech, Fintech, Impact, Governance) — one page each | Fabrice + domain leads (if available) | Domain-specific vision clarity |
-| A3 | Create the contribution menu — 15-20 tasks across four domains, tagged by difficulty and effort | Fabrice + core team | Rose project priorities defined |
-| A4 | Design the contribution-based application prompts — one micro-task per domain | Fabrice | Contribution menu exists |
-| A5 | Set up tooling: four domain channels, contribution wall channel, shared workspace for docs | Fabrice | Tool selection (Slack/Discord + Notion/Google) |
+| #   | Action                                                                                          | Owner                                 | Dependency                                     |
+| --- | ----------------------------------------------------------------------------------------------- | ------------------------------------- | ---------------------------------------------- |
+| A1  | Draft the Founding Circle page — names, bios, vision statement, founding privileges             | Fabrice                               | Core team bios needed                          |
+| A2  | Write four domain manifestos (Tech, Finance, Impact, Governance) — one page each                | Fabrice + domain leads (if available) | Domain-specific vision clarity                 |
+| A3  | Create the contribution menu — 15-20 tasks across four domains, tagged by difficulty and effort | Fabrice + core team                   | Rose project priorities defined                |
+| A4  | Design the contribution-based application prompts — one micro-task per domain                   | Fabrice                               | Contribution menu exists                       |
+| A5  | Set up tooling: four domain channels, contribution wall channel, shared workspace for docs      | Fabrice                               | Tool selection (Slack/Discord + Notion/Google) |
 
 **Next 2 Weeks:**
 
-| # | Action | Owner | Dependency |
-|---|---|---|---|
-| A6 | Identify 10-15 founding contributor candidates across all four domains | Fabrice + core team | Personal network mapping |
-| A7 | Create the scaling-law reward one-page visual explainer | Fabrice (or a designer) | Reward model parameters |
-| A8 | Develop the peer feedback rubric (5-7 questions, lightweight) | Fabrice | Sample contributions to test against |
-| A9 | Define Founding Contributor privileges concretely (governance weight, evaluation influence, genesis record) | Fabrice + governance lead | Governance framework discussion |
-| A10 | Prepare the welcome call script and exit interview guide | Fabrice | Empathy findings from this session |
+| #   | Action                                                                                                      | Owner                     | Dependency                           |
+| --- | ----------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------ |
+| A6  | Identify 10-15 founding contributor candidates across all four domains                                      | Fabrice + core team       | Personal network mapping             |
+| A7  | Create the scaling-law reward one-page visual explainer                                                     | Fabrice (or a designer)   | Reward model parameters              |
+| A8  | Develop the peer feedback rubric (5-7 questions, lightweight)                                               | Fabrice                   | Sample contributions to test against |
+| A9  | Define Founding Contributor privileges concretely (governance weight, evaluation influence, genesis record) | Fabrice + governance lead | Governance framework discussion      |
+| A10 | Prepare the welcome call script and exit interview guide                                                    | Fabrice                   | Empathy findings from this session   |
 
 **Pilot Period (Weeks 3-6):**
 
-| # | Action | Owner | Dependency |
-|---|---|---|---|
-| A11 | Execute personal outreach to 10-15 candidates | Fabrice | A1, A2, A6 completed |
-| A12 | Review micro-contribution applications and make admission decisions | Fabrice + 1-2 team members | Applications received |
-| A13 | Conduct welcome calls and assign buddies and first tasks | Fabrice + core team | Admitted contributors confirmed |
-| A14 | Run the 72-hour activation sequence for each admitted contributor | Buddies + Fabrice | Onboarding materials ready |
-| A15 | Facilitate first working group meetings (one per domain) | Domain leads or Fabrice | Working groups populated |
-| A16 | Collect behavioral metrics weekly (contributions, attendance, wall activity) | Fabrice | Tracking system in place |
-| A17 | Conduct mid-pilot interviews (end of week 2) | Fabrice | Interview guide ready |
-| A18 | Conduct end-pilot interviews and synthesize learnings (end of week 4) | Fabrice | Pilot complete |
+| #   | Action                                                                       | Owner                      | Dependency                      |
+| --- | ---------------------------------------------------------------------------- | -------------------------- | ------------------------------- |
+| A11 | Execute personal outreach to 10-15 candidates                                | Fabrice                    | A1, A2, A6 completed            |
+| A12 | Review micro-contribution applications and make admission decisions          | Fabrice + 1-2 team members | Applications received           |
+| A13 | Conduct welcome calls and assign buddies and first tasks                     | Fabrice + core team        | Admitted contributors confirmed |
+| A14 | Run the 72-hour activation sequence for each admitted contributor            | Buddies + Fabrice          | Onboarding materials ready      |
+| A15 | Facilitate first working group meetings (one per domain)                     | Domain leads or Fabrice    | Working groups populated        |
+| A16 | Collect behavioral metrics weekly (contributions, attendance, wall activity) | Fabrice                    | Tracking system in place        |
+| A17 | Conduct mid-pilot interviews (end of week 2)                                 | Fabrice                    | Interview guide ready           |
+| A18 | Conduct end-pilot interviews and synthesize learnings (end of week 4)        | Fabrice                    | Pilot complete                  |
 
 **Post-Pilot (Week 7+):**
 
-| # | Action | Owner | Dependency |
-|---|---|---|---|
-| A19 | Synthesize all test data into validated/invalidated/surprise/gap framework | Fabrice | A18 complete |
-| A20 | Decide: iterate on founding experience or proceed to Cohort 2 with refinements | Fabrice + founding contributors | A19 analysis |
-| A21 | Document the founding contributor experience as a repeatable playbook for future cohorts | Fabrice | Pilot learnings synthesized |
-| A22 | Feed peer feedback data into requirements for AI Evaluation Engine design | Fabrice + Tech lead | Peer feedback collected during pilot |
+| #   | Action                                                                                   | Owner                           | Dependency                           |
+| --- | ---------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------ |
+| A19 | Synthesize all test data into validated/invalidated/surprise/gap framework               | Fabrice                         | A18 complete                         |
+| A20 | Decide: iterate on founding experience or proceed to Cohort 2 with refinements           | Fabrice + founding contributors | A19 analysis                         |
+| A21 | Document the founding contributor experience as a repeatable playbook for future cohorts | Fabrice                         | Pilot learnings synthesized          |
+| A22 | Feed peer feedback data into requirements for AI Evaluation Engine design                | Fabrice + Tech lead             | Peer feedback collected during pilot |
 
 ### Success Metrics
 
@@ -573,23 +573,23 @@ Learnings will be organized across four dimensions:
 
 **Secondary metrics:**
 
-| Metric | Target | Why It Matters |
-|---|---|---|
-| **Application completion rate** | >50% of contacted candidates submit a micro-contribution | Measures whether the invitation + contribution-based application is compelling enough to overcome inertia |
-| **Time-to-first-contribution** | <72 hours for >80% of admitted contributors | Validates the 72-hour activation design |
-| **Multi-domain contribution balance** | At least 1 active contributor per domain at day 30 | Validates that the four-pillar structure works for non-developers |
-| **Belonging score** | Average >=4/5 on "How valued do you feel?" in interviews | Measures the emotional experience — the deepest indicator of sustainable engagement |
-| **Referral willingness** | >70% of active contributors say they would invite someone they respect | The ultimate quality signal — people only refer peers to things they're proud to be part of |
-| **Peer feedback satisfaction** | >60% rate peer feedback as "useful" or "very useful" | Validates the bridge mechanism until AI evaluation exists |
-| **Working group attendance** | >50% attendance at scheduled meetings | Validates the domain working group structure |
+| Metric                                | Target                                                                 | Why It Matters                                                                                            |
+| ------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Application completion rate**       | >50% of contacted candidates submit a micro-contribution               | Measures whether the invitation + contribution-based application is compelling enough to overcome inertia |
+| **Time-to-first-contribution**        | <72 hours for >80% of admitted contributors                            | Validates the 72-hour activation design                                                                   |
+| **Multi-domain contribution balance** | At least 1 active contributor per domain at day 30                     | Validates that the four-pillar structure works for non-developers                                         |
+| **Belonging score**                   | Average >=4/5 on "How valued do you feel?" in interviews               | Measures the emotional experience — the deepest indicator of sustainable engagement                       |
+| **Referral willingness**              | >70% of active contributors say they would invite someone they respect | The ultimate quality signal — people only refer peers to things they're proud to be part of               |
+| **Peer feedback satisfaction**        | >60% rate peer feedback as "useful" or "very useful"                   | Validates the bridge mechanism until AI evaluation exists                                                 |
+| **Working group attendance**          | >50% attendance at scheduled meetings                                  | Validates the domain working group structure                                                              |
 
 **Decision gate (aligns with Innovation Strategy Gate 1):**
 
-| Outcome | Decision |
-|---|---|
-| >50% 30-day retention AND multi-domain balance achieved | **PROCEED** — open Cohort 2 with refinements from pilot learnings |
-| 30-50% retention OR one domain has zero active contributors | **ITERATE** — redesign the underperforming elements and run a second pilot before scaling |
-| <30% retention | **STOP** — the founding experience design does not work. Return to empathy phase and investigate what we missed about contributor motivations. Consider pivoting to Option C (community-first, minimal technology) from the Innovation Strategy |
+| Outcome                                                     | Decision                                                                                                                                                                                                                                        |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| >50% 30-day retention AND multi-domain balance achieved     | **PROCEED** — open Cohort 2 with refinements from pilot learnings                                                                                                                                                                               |
+| 30-50% retention OR one domain has zero active contributors | **ITERATE** — redesign the underperforming elements and run a second pilot before scaling                                                                                                                                                       |
+| <30% retention                                              | **STOP** — the founding experience design does not work. Return to empathy phase and investigate what we missed about contributor motivations. Consider pivoting to Option C (community-first, minimal technology) from the Innovation Strategy |
 
 **Long-term north star (beyond this design thinking session):**
 

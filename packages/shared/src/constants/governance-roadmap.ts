@@ -206,7 +206,7 @@ export const PROGRESSIVE_DECENTRALIZATION_ROADMAP: ProgressiveDecentralizationRo
       term: 'Domain Breadth Multiplier',
       definition:
         'A component of the governance weight formula that recognizes contributors who engage meaningfully ' +
-        'across multiple domains (Technology, Fintech, Impact, Governance), reflecting broader perspective ' +
+        'across multiple domains (Technology, Finance, Impact, Governance), reflecting broader perspective ' +
         'and cross-functional understanding.',
     },
   ],

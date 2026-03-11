@@ -25,7 +25,7 @@ overallStatus: Pass
 
 # PRD Validation Report
 
-**PRD Being Validated:** _bmad-output/planning-artifacts/prd.md
+**PRD Being Validated:** \_bmad-output/planning-artifacts/prd.md
 **Validation Date:** 2026-02-28
 **Validator:** BMAD Validation Workflow (automated)
 **PRD Version:** Post-edit (2 edit cycles on 2026-02-28: validation fixes + Publication Platform addition)
@@ -46,7 +46,7 @@ overallStatus: Pass
 - lastEdited: 2026-02-28
 - editHistory: 2 entries documenting all changes
 - inputDocuments: 2 (product brief + platform description)
-- classification: projectType=web_app, domain=fintech, complexity=high, projectContext=brownfield
+- classification: projectType=web_app, domain=finance, complexity=high, projectContext=brownfield
 - workflowType: prd
 
 **Document Statistics:**
@@ -117,7 +117,7 @@ No instances of "Future plans", "Absolutely essential", "Past history", or "Comp
 The Product Brief's vision of Edin as "a curated contributor platform designed to organize, evaluate, and reward collaborative development within the Rose decentralized finance ecosystem" is fully represented in the PRD's Executive Summary (lines 53-61). The PRD expands the vision with the Publication Platform dimension, which was not in the Product Brief.
 
 **Target Users:** Fully Covered
-All four primary personas from the Product Brief (Lena/Technology, Amir/Fintech, Sofia/Impact, Yuki/Governance) are present as full User Journeys in the PRD (Journeys 1-4). Secondary users (Investors, Rose Core Team) are covered by Journeys 6-7 (Marie/Admin, Henrik/Investor). The PRD adds two new personas (Clara/Author, Marcus/Editor) for the Publication Platform.
+All four primary personas from the Product Brief (Lena/Technology, Amir/Finance, Sofia/Impact, Yuki/Governance) are present as full User Journeys in the PRD (Journeys 1-4). Secondary users (Investors, Rose Core Team) are covered by Journeys 6-7 (Marie/Admin, Henrik/Investor). The PRD adds two new personas (Clara/Author, Marcus/Editor) for the Publication Platform.
 
 **Problem Statement:** Fully Covered
 The three structural weaknesses identified in the Product Brief (subjective evaluation, short-term economics, code-centrism) are woven into the Executive Summary and the "What Makes This Special" subsection. The PRD's framing of "structural failure in open-source economics" (line 53) captures the Brief's problem statement.
@@ -250,34 +250,34 @@ All seven thematic pillars from the Executive Summary trace to specific Success 
 
 **Success Criteria --> User Journeys:** Intact
 
-| Success Criterion | Exercised By Journey |
-|---|---|
-| North Star: 90-day retention >40% | All journeys (retention is the universal outcome) |
-| Time-to-first-contribution <72h | Journey 5 (Daniel — 72-Hour Ignition) |
-| Multi-domain balance | Journeys 1-4 (Lena, Amir, Sofia, Yuki — one per domain) |
-| Belonging score >=4/5 | Journey 5 (Daniel — rates 5/5) |
-| Peer feedback satisfaction >60% | Journey 3 (Sofia — "received peer feedback within 24 hours"), Journey 5 (Daniel) |
-| AI evaluation trust >70% | Journey 1 (Lena — "the AI saw what she did") |
-| Reward comprehension >80% | Journey 2 (Amir — scaling-law engagement) |
-| Publication engagement >30% | Journey 8 (Clara — publishes 3 articles in 4 months) |
-| Editor participation >20% | Journey 9 (Marcus — edits 7 articles in 6 months) |
-| Publication readership growth | Journey 8 (Clara's article shared by investors, developer applies citing article) |
+| Success Criterion                 | Exercised By Journey                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------- |
+| North Star: 90-day retention >40% | All journeys (retention is the universal outcome)                                 |
+| Time-to-first-contribution <72h   | Journey 5 (Daniel — 72-Hour Ignition)                                             |
+| Multi-domain balance              | Journeys 1-4 (Lena, Amir, Sofia, Yuki — one per domain)                           |
+| Belonging score >=4/5             | Journey 5 (Daniel — rates 5/5)                                                    |
+| Peer feedback satisfaction >60%   | Journey 3 (Sofia — "received peer feedback within 24 hours"), Journey 5 (Daniel)  |
+| AI evaluation trust >70%          | Journey 1 (Lena — "the AI saw what she did")                                      |
+| Reward comprehension >80%         | Journey 2 (Amir — scaling-law engagement)                                         |
+| Publication engagement >30%       | Journey 8 (Clara — publishes 3 articles in 4 months)                              |
+| Editor participation >20%         | Journey 9 (Marcus — edits 7 articles in 6 months)                                 |
+| Publication readership growth     | Journey 8 (Clara's article shared by investors, developer applies citing article) |
 
 No unsupported Success Criteria identified.
 
 **User Journeys --> Functional Requirements:** Intact
 
-| Journey | Key Capabilities | Supporting FRs |
-|---|---|---|
-| Lena (Developer) | GitHub integration, AI evaluation, evaluation transparency, contribution wall, scaling-law rewards | FR15-17, FR21-27, FR39-40, FR57-59 |
-| Amir (Financial Engineer) | GitHub-based document contribution, non-code ingestion, domain-equal visibility | FR15-17, FR22, FR33-34, FR39-40 |
-| Sofia (Impact Analyst) | Peer feedback, governance proposals, community discussion | FR28-32, FR53-55, FR39-40 |
-| Yuki (Governance) | Proposal workflow, governance weight, decentralization milestones | FR53-56, FR55b, FR52 |
-| Daniel (Applicant) | Application, admission, onboarding, buddy, first task, multi-contributor attribution | FR8-14, FR11-12, FR19 |
-| Marie (Admin) | Admin dashboard, admission queue, contribution menu, health metrics | FR48-52b, FR10, FR35, FR31 |
-| Henrik (Investor) | Public showcase, contributor roster, metrics, AI evaluation data | FR43-47 |
-| Clara (Author) | Article submission, editor assignment, editorial feedback, publication, metrics | FR66-70, FR72-73, FR75-76 |
-| Marcus (Editor) | Editor onboarding, editorial workflow, editor profile, editorial reward | FR68, FR71, FR74, FR76-77 |
+| Journey                   | Key Capabilities                                                                                   | Supporting FRs                     |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| Lena (Developer)          | GitHub integration, AI evaluation, evaluation transparency, contribution wall, scaling-law rewards | FR15-17, FR21-27, FR39-40, FR57-59 |
+| Amir (Financial Engineer) | GitHub-based document contribution, non-code ingestion, domain-equal visibility                    | FR15-17, FR22, FR33-34, FR39-40    |
+| Sofia (Impact Analyst)    | Peer feedback, governance proposals, community discussion                                          | FR28-32, FR53-55, FR39-40          |
+| Yuki (Governance)         | Proposal workflow, governance weight, decentralization milestones                                  | FR53-56, FR55b, FR52               |
+| Daniel (Applicant)        | Application, admission, onboarding, buddy, first task, multi-contributor attribution               | FR8-14, FR11-12, FR19              |
+| Marie (Admin)             | Admin dashboard, admission queue, contribution menu, health metrics                                | FR48-52b, FR10, FR35, FR31         |
+| Henrik (Investor)         | Public showcase, contributor roster, metrics, AI evaluation data                                   | FR43-47                            |
+| Clara (Author)            | Article submission, editor assignment, editorial feedback, publication, metrics                    | FR66-70, FR72-73, FR75-76          |
+| Marcus (Editor)           | Editor onboarding, editorial workflow, editor profile, editorial reward                            | FR68, FR71, FR74, FR76-77          |
 
 All nine journeys have supporting FRs. No journey capabilities are without FR coverage.
 
@@ -347,8 +347,8 @@ No library-specific references in FRs or NFRs.
 
 **Other Implementation Details:** 1 (borderline, capability-relevant)
 
-- NFR-S1 (line 831): Mentions "Current industry-standard transport encryption" rather than specifying "TLS 1.3" — this is actually a *good* pattern that avoids implementation leakage while remaining measurable.
-- NFR-S4 (line 834): Mentions "OAuth 2.0 / OIDC with PKCE" — this is an authentication *standard*, not an implementation detail. The authentication protocol is a capability specification because it defines interoperability requirements. **Acceptable.**
+- NFR-S1 (line 831): Mentions "Current industry-standard transport encryption" rather than specifying "TLS 1.3" — this is actually a _good_ pattern that avoids implementation leakage while remaining measurable.
+- NFR-S4 (line 834): Mentions "OAuth 2.0 / OIDC with PKCE" — this is an authentication _standard_, not an implementation detail. The authentication protocol is a capability specification because it defines interoperability requirements. **Acceptable.**
 - NFR-I2 (line 877): Mentions "Webhook-first architecture" — this describes an architectural pattern in the measurable target. Borderline: it's more architectural guidance than capability specification, but it's in the NFR context column, not the requirement column. **Minor concern but acceptable in context.**
 
 **Focus on new content (FR66-FR79, NFR-C1-C3):**
@@ -367,9 +367,9 @@ No library-specific references in FRs or NFRs.
 
 **Recommendation:** No significant implementation leakage found. Requirements properly specify WHAT without HOW. One minor note: NFR-C2's use of "Server-side rendered" is a borderline architectural prescription. Consider rephrasing to capability-based language: "Article pages render full content on initial server response for search engine indexing." This is a minor refinement, not a blocking issue.
 
-## Step 8: Domain Compliance Validation (Fintech)
+## Step 8: Domain Compliance Validation (Finance)
 
-**Domain:** Fintech
+**Domain:** Finance
 **Complexity:** High (regulated)
 
 ### Required Special Sections
@@ -382,7 +382,7 @@ The Domain-Specific Requirements section covers four regulatory frameworks:
 - GDPR — data processing, DPAs, right to erasure, pseudonymization, cross-border transfers, retention policies
 - EU AI Act — automated assessment scope, risk classification, transparency, human oversight
 
-This is comprehensive for a European fintech platform operating with blockchain tokens.
+This is comprehensive for a European finance platform operating with blockchain tokens.
 
 **Security Architecture:** Present and Adequate
 Security Requirements subsection covers:
@@ -417,16 +417,16 @@ Each vector includes risk description, mitigation strategy, and phase approach. 
 
 ### Compliance Matrix
 
-| Requirement | Status | Notes |
-|---|---|---|
-| MiCA compliance | Met | Token classification as design constraint; decision gate documented; marketing disclosure requirements noted |
-| GDPR compliance | Met | DPAs, right to erasure with pseudonymization, cross-border transfers, retention policies |
-| EU AI Act compliance | Met | Risk classification awareness, transparency obligations, human oversight mechanisms, FR65 covers compliance documentation |
-| eIDAS 2.0 readiness | Met | Identity verification architecture noted for future accommodation |
-| Security architecture | Met | RBAC, API security, encryption, audit logging with specific NFR targets |
-| Audit requirements | Met | Immutable logs, 2-year retention, queryable, smart contract audit |
-| Fraud prevention | Met | 7 fraud vectors with mitigations, phased approach, includes 2 publication-specific vectors |
-| Financial transaction handling | Met | L2 infrastructure selection criteria, gas optimization, multi-sig controls, staking/vesting readiness |
+| Requirement                    | Status | Notes                                                                                                                     |
+| ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| MiCA compliance                | Met    | Token classification as design constraint; decision gate documented; marketing disclosure requirements noted              |
+| GDPR compliance                | Met    | DPAs, right to erasure with pseudonymization, cross-border transfers, retention policies                                  |
+| EU AI Act compliance           | Met    | Risk classification awareness, transparency obligations, human oversight mechanisms, FR65 covers compliance documentation |
+| eIDAS 2.0 readiness            | Met    | Identity verification architecture noted for future accommodation                                                         |
+| Security architecture          | Met    | RBAC, API security, encryption, audit logging with specific NFR targets                                                   |
+| Audit requirements             | Met    | Immutable logs, 2-year retention, queryable, smart contract audit                                                         |
+| Fraud prevention               | Met    | 7 fraud vectors with mitigations, phased approach, includes 2 publication-specific vectors                                |
+| Financial transaction handling | Met    | L2 infrastructure selection criteria, gas optimization, multi-sig controls, staking/vesting readiness                     |
 
 ### Summary
 
@@ -435,7 +435,7 @@ Each vector includes risk description, mitigation strategy, and phase approach. 
 
 **Severity:** Pass
 
-**Recommendation:** All required domain compliance sections for fintech are present and adequately documented. The Fraud Prevention section is notably thorough, with seven distinct vectors including two newly added for the Publication Platform (editorial reward abuse, content plagiarism). Regulatory coverage spans four EU frameworks (MiCA, GDPR, eIDAS 2.0, EU AI Act) — appropriate for a Belgian non-profit operating blockchain token economics.
+**Recommendation:** All required domain compliance sections for finance are present and adequately documented. The Fraud Prevention section is notably thorough, with seven distinct vectors including two newly added for the Publication Platform (editorial reward abuse, content plagiarism). Regulatory coverage spans four EU frameworks (MiCA, GDPR, eIDAS 2.0, EU AI Act) — appropriate for a Belgian non-profit operating blockchain token economics.
 
 ## Step 9: Project-Type Compliance Validation (web_app)
 
@@ -495,41 +495,41 @@ No command-line interface specifications found. Correctly excluded per the PRD's
 ### Scoring Table (Publication Platform FRs — Focus Area)
 
 | FR # | Specific | Measurable | Attainable | Relevant | Traceable | Average | Flag |
-|------|----------|------------|------------|----------|-----------|---------|------|
-| FR66 | 5 | 4 | 5 | 5 | 5 | 4.8 | |
-| FR67 | 5 | 4 | 4 | 5 | 5 | 4.6 | |
-| FR68 | 5 | 4 | 5 | 5 | 5 | 4.8 | |
-| FR69 | 5 | 4 | 5 | 5 | 5 | 4.8 | |
-| FR70 | 5 | 5 | 5 | 5 | 5 | 5.0 | |
-| FR71 | 5 | 5 | 4 | 5 | 5 | 4.8 | |
-| FR72 | 5 | 4 | 5 | 5 | 5 | 4.8 | |
-| FR73 | 5 | 5 | 5 | 5 | 5 | 5.0 | |
-| FR74 | 4 | 4 | 4 | 5 | 5 | 4.4 | |
-| FR75 | 5 | 4 | 4 | 5 | 5 | 4.6 | |
-| FR76 | 5 | 5 | 5 | 5 | 5 | 5.0 | |
-| FR77 | 4 | 3 | 5 | 5 | 5 | 4.4 | |
-| FR78 | 5 | 5 | 5 | 5 | 5 | 5.0 | |
-| FR79 | 5 | 4 | 4 | 5 | 5 | 4.6 | |
+| ---- | -------- | ---------- | ---------- | -------- | --------- | ------- | ---- |
+| FR66 | 5        | 4          | 5          | 5        | 5         | 4.8     |      |
+| FR67 | 5        | 4          | 4          | 5        | 5         | 4.6     |      |
+| FR68 | 5        | 4          | 5          | 5        | 5         | 4.8     |      |
+| FR69 | 5        | 4          | 5          | 5        | 5         | 4.8     |      |
+| FR70 | 5        | 5          | 5          | 5        | 5         | 5.0     |      |
+| FR71 | 5        | 5          | 4          | 5        | 5         | 4.8     |      |
+| FR72 | 5        | 4          | 5          | 5        | 5         | 4.8     |      |
+| FR73 | 5        | 5          | 5          | 5        | 5         | 5.0     |      |
+| FR74 | 4        | 4          | 4          | 5        | 5         | 4.4     |      |
+| FR75 | 5        | 4          | 4          | 5        | 5         | 4.6     |      |
+| FR76 | 5        | 5          | 5          | 5        | 5         | 5.0     |      |
+| FR77 | 4        | 3          | 5          | 5        | 5         | 4.4     |      |
+| FR78 | 5        | 5          | 5          | 5        | 5         | 5.0     |      |
+| FR79 | 5        | 4          | 4          | 5        | 5         | 4.6     |      |
 
 **Publication Platform FR Average:** 4.8/5.0
 
 ### Scoring Table (Original FRs — Summary by Section)
 
-| Section | FR Range | Avg Specific | Avg Measurable | Avg Attainable | Avg Relevant | Avg Traceable | Avg Overall |
-|---|---|---|---|---|---|---|---|
-| Contributor Identity | FR1-FR7b | 4.6 | 4.1 | 4.9 | 4.9 | 4.6 | 4.6 |
-| Admission & Onboarding | FR8-FR14 | 4.7 | 4.3 | 4.9 | 5.0 | 4.9 | 4.8 |
-| Ingestion & Attribution | FR15-FR20 | 4.8 | 4.3 | 4.5 | 5.0 | 4.8 | 4.7 |
-| AI Evaluation | FR21-FR27 | 4.7 | 4.4 | 4.3 | 5.0 | 4.9 | 4.7 |
-| Peer Feedback | FR28-FR32 | 4.6 | 4.4 | 5.0 | 5.0 | 4.8 | 4.8 |
-| Community Structure | FR33-FR38 | 4.5 | 4.0 | 5.0 | 5.0 | 4.8 | 4.7 |
-| Activity Feed | FR39-FR42 | 4.8 | 4.5 | 4.8 | 5.0 | 5.0 | 4.8 |
-| Public Showcase | FR43-FR47 | 4.6 | 4.2 | 5.0 | 5.0 | 4.8 | 4.7 |
-| Admin Operations | FR48-FR52b | 4.4 | 4.0 | 5.0 | 5.0 | 4.6 | 4.4 |
-| Governance | FR53-FR56 | 4.5 | 4.3 | 4.3 | 5.0 | 4.8 | 4.6 |
-| Reward System | FR57-FR60 | 4.5 | 4.3 | 4.3 | 5.0 | 4.8 | 4.6 |
-| Compliance | FR61-FR65 | 4.6 | 4.2 | 4.4 | 5.0 | 4.6 | 4.6 |
-| Publication | FR66-FR79 | 4.9 | 4.3 | 4.6 | 5.0 | 5.0 | 4.8 |
+| Section                 | FR Range   | Avg Specific | Avg Measurable | Avg Attainable | Avg Relevant | Avg Traceable | Avg Overall |
+| ----------------------- | ---------- | ------------ | -------------- | -------------- | ------------ | ------------- | ----------- |
+| Contributor Identity    | FR1-FR7b   | 4.6          | 4.1            | 4.9            | 4.9          | 4.6           | 4.6         |
+| Admission & Onboarding  | FR8-FR14   | 4.7          | 4.3            | 4.9            | 5.0          | 4.9           | 4.8         |
+| Ingestion & Attribution | FR15-FR20  | 4.8          | 4.3            | 4.5            | 5.0          | 4.8           | 4.7         |
+| AI Evaluation           | FR21-FR27  | 4.7          | 4.4            | 4.3            | 5.0          | 4.9           | 4.7         |
+| Peer Feedback           | FR28-FR32  | 4.6          | 4.4            | 5.0            | 5.0          | 4.8           | 4.8         |
+| Community Structure     | FR33-FR38  | 4.5          | 4.0            | 5.0            | 5.0          | 4.8           | 4.7         |
+| Activity Feed           | FR39-FR42  | 4.8          | 4.5            | 4.8            | 5.0          | 5.0           | 4.8         |
+| Public Showcase         | FR43-FR47  | 4.6          | 4.2            | 5.0            | 5.0          | 4.8           | 4.7         |
+| Admin Operations        | FR48-FR52b | 4.4          | 4.0            | 5.0            | 5.0          | 4.6           | 4.4         |
+| Governance              | FR53-FR56  | 4.5          | 4.3            | 4.3            | 5.0          | 4.8           | 4.6         |
+| Reward System           | FR57-FR60  | 4.5          | 4.3            | 4.3            | 5.0          | 4.8           | 4.6         |
+| Compliance              | FR61-FR65  | 4.6          | 4.2            | 4.4            | 5.0          | 4.6           | 4.6         |
+| Publication             | FR66-FR79  | 4.9          | 4.3            | 4.6            | 5.0          | 5.0           | 4.8         |
 
 ### FRs with Lower Scores (3 in any category)
 
@@ -608,15 +608,15 @@ All flagged items score 3 (acceptable) rather than below 3 (poor). No FR scores 
 
 ### BMAD PRD Principles Compliance
 
-| Principle | Status | Notes |
-|---|---|---|
-| Information Density | Met | Zero filler violations. Every sentence carries weight. Publication Platform content maintains same standard. |
-| Measurability | Met | All FRs testable, all NFRs have specific metrics. 0 violations across 110 requirements. |
-| Traceability | Met | Complete chain from Executive Summary through FRs. Zero orphan requirements. Publication Platform chain fully traced. |
-| Domain Awareness | Met | Four EU regulatory frameworks covered. Seven fraud vectors. Blockchain-specific constraints. Publication-specific risks added. |
-| Zero Anti-Patterns | Met | Zero conversational filler, zero wordy phrases, zero redundant phrases. |
-| Dual Audience | Met | Works for human readers (executives, developers, designers) and LLM consumption (structured, parseable, referenceable). |
-| Markdown Format | Met | Consistent heading hierarchy, proper table formatting, numbered requirements, frontmatter with structured metadata. |
+| Principle           | Status | Notes                                                                                                                          |
+| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Information Density | Met    | Zero filler violations. Every sentence carries weight. Publication Platform content maintains same standard.                   |
+| Measurability       | Met    | All FRs testable, all NFRs have specific metrics. 0 violations across 110 requirements.                                        |
+| Traceability        | Met    | Complete chain from Executive Summary through FRs. Zero orphan requirements. Publication Platform chain fully traced.          |
+| Domain Awareness    | Met    | Four EU regulatory frameworks covered. Seven fraud vectors. Blockchain-specific constraints. Publication-specific risks added. |
+| Zero Anti-Patterns  | Met    | Zero conversational filler, zero wordy phrases, zero redundant phrases.                                                        |
+| Dual Audience       | Met    | Works for human readers (executives, developers, designers) and LLM consumption (structured, parseable, referenceable).        |
+| Markdown Format     | Met    | Consistent heading hierarchy, proper table formatting, numbered requirements, frontmatter with structured metadata.            |
 
 **Principles Met:** 7/7
 
@@ -671,7 +671,7 @@ The integration touches 12+ sections consistently. This is not a bolt-on appendi
 
 ### Summary
 
-**This PRD is:** A strong, well-structured product requirements document that successfully balances narrative clarity with technical precision, covers a complex fintech/blockchain domain comprehensively, and integrates a major new feature (Publication Platform) without degrading document quality.
+**This PRD is:** A strong, well-structured product requirements document that successfully balances narrative clarity with technical precision, covers a complex finance/blockchain domain comprehensively, and integrates a major new feature (Publication Platform) without degrading document quality.
 
 **To make it great:** Focus on the top 3 improvements above — add navigation, strengthen 5 FRs, and reduce cross-section repetition.
 
@@ -720,7 +720,7 @@ MVP strategy, hypothesis validation framework (4 hypotheses), resource requireme
 All 13 user metrics have specific targets. All business objectives have quantified targets per phase. All 7 technical metrics have specific thresholds. All 15 KPIs have targets and measurement frequency.
 
 **User Journeys Coverage:** Yes — covers all user types
-All four domain personas (Technology, Fintech, Impact, Governance), applicant, admin, investor, author, and editor are covered. No user type gaps.
+All four domain personas (Technology, Finance, Impact, Governance), applicant, admin, investor, author, and editor are covered. No user type gaps.
 
 **FRs Cover MVP Scope:** Yes
 All 8 MVP Must-Have capabilities (Web Portal, GitHub Integration, AI Evaluation Prototype, Peer Feedback, Community Structure, Admission & Onboarding, Auth & RBAC, Publication Platform) have corresponding FR coverage.
@@ -758,19 +758,19 @@ All 38 NFRs include specific measurable targets.
 
 ### Step Results Overview
 
-| Step | Check | Severity | Key Finding |
-|---|---|---|---|
-| 2 | Format Detection | Pass | BMAD Standard — 6/6 core sections present |
-| 3 | Information Density | Pass | 0 violations — excellent density throughout |
-| 4 | Product Brief Coverage | Pass | 100% coverage + intentional expansion (Publication Platform) |
-| 5 | Measurability | Pass | 0 violations across 110 requirements |
-| 6 | Traceability | Pass | Complete chain — 0 orphan elements |
-| 7 | Implementation Leakage | Pass | 1 minor (NFR-C2 "Server-side rendered") |
-| 8 | Domain Compliance (Fintech) | Pass | 4/4 required sections present and adequate |
-| 9 | Project-Type (web_app) | Pass | 7/7 required sections, 0 excluded violations |
-| 10 | SMART Requirements | Pass | 4.4/5.0 average; 5/72 FRs score 3 in Measurable |
-| 11 | Holistic Quality | 4/5 Good | Well-structured, dual-audience effective, Publication Platform well-integrated |
-| 12 | Completeness | Pass | 100% complete, 0 template variables, 8/8 frontmatter fields |
+| Step | Check                       | Severity | Key Finding                                                                    |
+| ---- | --------------------------- | -------- | ------------------------------------------------------------------------------ |
+| 2    | Format Detection            | Pass     | BMAD Standard — 6/6 core sections present                                      |
+| 3    | Information Density         | Pass     | 0 violations — excellent density throughout                                    |
+| 4    | Product Brief Coverage      | Pass     | 100% coverage + intentional expansion (Publication Platform)                   |
+| 5    | Measurability               | Pass     | 0 violations across 110 requirements                                           |
+| 6    | Traceability                | Pass     | Complete chain — 0 orphan elements                                             |
+| 7    | Implementation Leakage      | Pass     | 1 minor (NFR-C2 "Server-side rendered")                                        |
+| 8    | Domain Compliance (Finance) | Pass     | 4/4 required sections present and adequate                                     |
+| 9    | Project-Type (web_app)      | Pass     | 7/7 required sections, 0 excluded violations                                   |
+| 10   | SMART Requirements          | Pass     | 4.4/5.0 average; 5/72 FRs score 3 in Measurable                                |
+| 11   | Holistic Quality            | 4/5 Good | Well-structured, dual-audience effective, Publication Platform well-integrated |
+| 12   | Completeness                | Pass     | 100% complete, 0 template variables, 8/8 frontmatter fields                    |
 
 ### Overall Validation Status: PASS
 

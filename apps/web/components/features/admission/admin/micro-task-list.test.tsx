@@ -45,7 +45,7 @@ const mockMicroTasks = [
   },
   {
     id: 'mt-2',
-    domain: 'Fintech',
+    domain: 'Finance',
     title: 'Financial data analysis',
     description: 'Analyze a sample financial dataset.',
     expectedDeliverable: 'Analysis report.',
@@ -121,7 +121,7 @@ describe('MicroTaskList', () => {
     renderWithProviders(<MicroTaskList />);
 
     expect(screen.getAllByText('Technology').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Fintech').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Finance').length).toBeGreaterThan(0);
   });
 
   it('renders empty state when no micro-tasks', () => {

@@ -63,7 +63,7 @@ export function ArticleEditor({
           title: title || 'Untitled',
           abstract,
           body,
-          domain: domain as 'Technology' | 'Fintech' | 'Impact' | 'Governance',
+          domain: domain as 'Technology' | 'Finance' | 'Impact' | 'Governance',
         });
         setArticleId(created.id);
         // Update URL to edit mode without full navigation
@@ -74,7 +74,7 @@ export function ArticleEditor({
           title,
           abstract,
           body,
-          domain: domain as 'Technology' | 'Fintech' | 'Impact' | 'Governance',
+          domain: domain as 'Technology' | 'Finance' | 'Impact' | 'Governance',
         });
       }
       isDirtyRef.current = false;

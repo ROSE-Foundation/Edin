@@ -10,7 +10,7 @@ So that I can connect with contributors in my area of expertise and access domai
 
 ## Acceptance Criteria
 
-1. **Given** I am an authenticated contributor **When** I navigate to `/dashboard/working-groups` **Then** I see four working groups displayed with equal visual weight: Technology (teal accent), Fintech & Financial Engineering (amber accent), Impact & Sustainability (terra rose accent), and Governance (slate violet accent) **And** each group shows: domain name, brief description, member count, and a domain-colored badge **And** no domain appears more prominent or positioned higher by default
+1. **Given** I am an authenticated contributor **When** I navigate to `/dashboard/working-groups` **Then** I see four working groups displayed with equal visual weight: Technology (teal accent), Finance & Financial Engineering (amber accent), Impact & Sustainability (terra rose accent), and Governance (slate violet accent) **And** each group shows: domain name, brief description, member count, and a domain-colored badge **And** no domain appears more prominent or positioned higher by default
 
 2. **Given** I view the working groups page **When** I click "Join" on a working group **Then** I am added as a member of that working group via `POST /api/v1/working-groups/:id/members` **And** the group's member count updates **And** I can join multiple working groups (my primary domain is set in my profile, but membership is not restricted)
 
@@ -92,13 +92,13 @@ So that I can connect with contributors in my area of expertise and access domai
 
 - **Four fixed domains** — These are seed data, not user-created. The working groups are pre-defined and immutable:
   - Technology (teal accent)
-  - Fintech & Financial Engineering (amber accent)
+  - Finance & Financial Engineering (amber accent)
   - Impact & Sustainability (terra rose accent)
   - Governance (slate violet accent)
 - **Multiple membership** — Contributors can join any number of working groups simultaneously
 - **Member count** — Must be atomically updated in a transaction alongside the member record insert/delete
 - **Contribution attribution** — Leaving a group does NOT affect existing contribution records; contributions remain attributed to the contributor
-- **ContributorDomain enum** already exists in Prisma schema (Technology, Fintech, Impact, Governance) — reuse it for the `domain` field on `WorkingGroup`
+- **ContributorDomain enum** already exists in Prisma schema (Technology, Finance, Impact, Governance) — reuse it for the `domain` field on `WorkingGroup`
 
 ### Library & Framework Requirements
 
@@ -265,7 +265,7 @@ Claude Opus 4.6
 
 ### Completion Notes List
 
-- **Task 1:** Added `WorkingGroup` and `WorkingGroupMember` models to Prisma schema with proper `@@map`, indexes, and unique constraints. Seed script inserts four fixed working groups (Technology, Fintech & Financial Engineering, Impact & Sustainability, Governance) with domain-specific accent colors. Migration applied successfully.
+- **Task 1:** Added `WorkingGroup` and `WorkingGroupMember` models to Prisma schema with proper `@@map`, indexes, and unique constraints. Seed script inserts four fixed working groups (Technology, Finance & Financial Engineering, Impact & Sustainability, Governance) with domain-specific accent colors. Migration applied successfully.
 - **Task 2:** Created Zod validation schemas (`workingGroupSchema`, `workingGroupMemberSchema`, `joinWorkingGroupSchema`), TypeScript types with domain event interfaces, added `DOMAIN_DETAILS` constant with accent colors, and three new error codes. All exported from `packages/shared`.
 - **Task 3:** Full NestJS `WorkingGroupModule` with service (6 methods: `findAll`, `findById`, `joinGroup`, `leaveGroup`, `getMembers`, `getGroupContributions`), controller (4 endpoints under `/api/v1/working-groups`), DTOs, CASL guards, domain event emission, and transactional join/leave with atomic member count updates. Added `Action.Delete` on `WorkingGroup` to CASL factory for leave operations.
 - **Task 4:** 25 backend tests (16 service + 9 controller) covering all CRUD operations, edge cases (join duplicate → 409, leave non-member → 404), event emission verification, response envelope format, and RBAC enforcement.

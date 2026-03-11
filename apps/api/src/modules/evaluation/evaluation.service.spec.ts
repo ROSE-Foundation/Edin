@@ -433,8 +433,8 @@ describe('EvaluationService', () => {
       const evaluations = [
         { compositeScore: { toNumber: () => 15 }, contributor: { domain: 'Technology' } },
         { compositeScore: { toNumber: () => 35 }, contributor: { domain: 'Technology' } },
-        { compositeScore: { toNumber: () => 55 }, contributor: { domain: 'Fintech' } },
-        { compositeScore: { toNumber: () => 75 }, contributor: { domain: 'Fintech' } },
+        { compositeScore: { toNumber: () => 55 }, contributor: { domain: 'Finance' } },
+        { compositeScore: { toNumber: () => 75 }, contributor: { domain: 'Finance' } },
         { compositeScore: { toNumber: () => 95 }, contributor: { domain: 'Technology' } },
       ];
       mockPrisma.evaluation.findMany.mockResolvedValue(evaluations);

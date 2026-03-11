@@ -108,11 +108,11 @@ describe('TaskService', () => {
       prisma.task.findMany.mockResolvedValue([]);
       prisma.task.count.mockResolvedValue(0);
 
-      await service.findAll({ limit: 20, domain: 'Fintech' });
+      await service.findAll({ limit: 20, domain: 'Finance' });
 
       expect(prisma.task.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ domain: 'Fintech' }),
+          where: expect.objectContaining({ domain: 'Finance' }),
         }),
       );
     });
@@ -596,7 +596,7 @@ describe('TaskService', () => {
       prisma.workingGroup.findFirst.mockResolvedValue(null);
 
       await expect(
-        service.reorderTasks('Fintech', [{ taskId: 'task-1', sortOrder: 1 }], {
+        service.reorderTasks('Finance', [{ taskId: 'task-1', sortOrder: 1 }], {
           ...mockContributorUser,
           role: 'WORKING_GROUP_LEAD',
         }),

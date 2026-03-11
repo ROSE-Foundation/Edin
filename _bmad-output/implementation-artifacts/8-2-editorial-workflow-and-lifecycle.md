@@ -400,7 +400,7 @@ Inline comments store `highlightStart` and `highlightEnd` as ProseMirror documen
 
 **Colors:**
 
-- Domain accents remain: Technology `#3A7D7E`, Fintech `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`
+- Domain accents remain: Technology `#3A7D7E`, Finance `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`
 - Inline comment highlight: `surface.secondary` with 2px left border in domain accent
 - Approved badge: `semantic.success` (#5A8A6B)
 - Revision requested badge: `accent.terracotta` (#C17C60)

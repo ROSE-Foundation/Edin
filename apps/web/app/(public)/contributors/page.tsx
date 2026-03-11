@@ -41,18 +41,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Contributors — Edin Community',
     description:
-      'Browse the Edin contributor roster. Discover experts across Technology, Fintech, Impact, and Governance building the future of collaborative publication.',
+      'Browse the Edin contributor roster. Discover experts across Technology, Finance, Impact, and Governance building the future of collaborative publication.',
     openGraph: {
       title: 'Contributors — Edin Community',
       description:
-        'Browse the Edin contributor roster. Discover experts across Technology, Fintech, Impact, and Governance.',
+        'Browse the Edin contributor roster. Discover experts across Technology, Finance, Impact, and Governance.',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Contributors — Edin Community',
       description:
-        'Browse the Edin contributor roster. Discover experts across Technology, Fintech, Impact, and Governance.',
+        'Browse the Edin contributor roster. Discover experts across Technology, Finance, Impact, and Governance.',
     },
   };
 }

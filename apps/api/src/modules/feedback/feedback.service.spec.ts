@@ -694,7 +694,7 @@ describe('FeedbackService', () => {
             id: 'reviewer-1',
             name: 'Bob',
             avatarUrl: 'https://avatar.url',
-            domain: 'Fintech',
+            domain: 'Finance',
           },
           contribution: { id: 'contrib-1', title: 'PR #42', contributionType: 'PULL_REQUEST' },
         },
@@ -705,7 +705,7 @@ describe('FeedbackService', () => {
 
       expect(result.items[0].ratings).toEqual(rubricData);
       expect(result.items[0].reviewer.avatarUrl).toBe('https://avatar.url');
-      expect(result.items[0].reviewer.domain).toBe('Fintech');
+      expect(result.items[0].reviewer.domain).toBe('Finance');
     });
   });
 
@@ -754,7 +754,7 @@ describe('FeedbackService', () => {
     it('fetches contribution title and contributor domain from DB in single query', async () => {
       mockPrisma.contribution.findUnique.mockResolvedValue({
         title: 'Add feature',
-        contributor: { domain: 'Fintech' },
+        contributor: { domain: 'Finance' },
       });
       mockQueue.add.mockResolvedValue({ id: 'job-1' });
 
@@ -776,7 +776,7 @@ describe('FeedbackService', () => {
       expect(mockQueue.add).toHaveBeenCalledWith(
         'assign-reviewer',
         expect.objectContaining({
-          contributorDomain: 'Fintech',
+          contributorDomain: 'Finance',
           contributionTitle: 'Add feature',
         }),
         expect.any(Object),

@@ -53,11 +53,11 @@ describe('PublicProfileView', () => {
     expect(domainBadge).toHaveClass('bg-domain-technology');
   });
 
-  it('displays domain badge with correct color class for Fintech', () => {
-    renderWithQueryClient(<PublicProfileView profile={{ ...baseProfile, domain: 'Fintech' }} />);
+  it('displays domain badge with correct color class for Finance', () => {
+    renderWithQueryClient(<PublicProfileView profile={{ ...baseProfile, domain: 'Finance' }} />);
 
-    const domainBadge = screen.getByText('Fintech');
-    expect(domainBadge).toHaveClass('bg-domain-fintech');
+    const domainBadge = screen.getByText('Finance');
+    expect(domainBadge).toHaveClass('bg-domain-finance');
   });
 
   it('displays domain badge with correct color class for Impact', () => {

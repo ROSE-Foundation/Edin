@@ -401,7 +401,7 @@ export class WorkingGroupService {
     });
   }
 
-  async getActiveTasksForDomain(domain: 'Technology' | 'Fintech' | 'Impact' | 'Governance') {
+  async getActiveTasksForDomain(domain: 'Technology' | 'Finance' | 'Impact' | 'Governance') {
     return this.prisma.microTask.findMany({
       where: {
         domain,

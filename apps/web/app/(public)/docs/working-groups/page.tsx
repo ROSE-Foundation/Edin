@@ -38,13 +38,13 @@ export default function WorkingGroupsPage() {
             </p>
           </div>
           <div
-            className="rounded-[var(--radius-md)] border-l-4 border-l-domain-fintech p-[var(--spacing-md)]"
+            className="rounded-[var(--radius-md)] border-l-4 border-l-domain-finance p-[var(--spacing-md)]"
             style={{
-              backgroundColor: 'color-mix(in srgb, var(--color-domain-fintech) 5%, transparent)',
+              backgroundColor: 'color-mix(in srgb, var(--color-domain-finance) 5%, transparent)',
             }}
           >
             <h3 className="font-sans text-[15px] font-semibold text-brand-primary">
-              Fintech & Financial Engineering
+              Finance & Financial Engineering
             </h3>
             <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
               Reward models, economic analysis, financial transparency, and compensation frameworks.

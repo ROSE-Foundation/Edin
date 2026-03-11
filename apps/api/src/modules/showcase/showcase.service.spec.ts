@@ -43,7 +43,7 @@ describe('ShowcaseService', () => {
         .mockResolvedValueOnce(2); // still active
       mockPrisma.contributor.groupBy.mockResolvedValueOnce([
         { domain: 'Technology', _count: { id: 3 } },
-        { domain: 'Fintech', _count: { id: 2 } },
+        { domain: 'Finance', _count: { id: 2 } },
       ]);
       mockRedis.set.mockResolvedValueOnce(undefined);
 
@@ -65,7 +65,7 @@ describe('ShowcaseService', () => {
         .mockResolvedValueOnce(4); // still active
       mockPrisma.contributor.groupBy.mockResolvedValueOnce([
         { domain: 'Technology', _count: { id: 4 } },
-        { domain: 'Fintech', _count: { id: 3 } },
+        { domain: 'Finance', _count: { id: 3 } },
         { domain: 'Impact', _count: { id: 2 } },
         { domain: 'Governance', _count: { id: 1 } },
       ]);
@@ -80,7 +80,7 @@ describe('ShowcaseService', () => {
         percentage: 40,
       });
       expect(result.domainDistribution[1]).toEqual({
-        domain: 'Fintech',
+        domain: 'Finance',
         count: 3,
         percentage: 30,
       });

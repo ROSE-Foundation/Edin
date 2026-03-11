@@ -93,7 +93,7 @@ so that each domain has an appropriate competence demonstration aligned with cur
 - **Data table layout:** Group or visually separate by domain. Columns: Domain (DomainBadge with accent color: teal/amber/rose/violet), Title (text), Status (warm StatusBadge: "Active" green-ish, "Inactive" muted), Created (relative date). Active task per domain should be visually prominent (e.g., slightly bolder or with an accent left-border).
 - **Slide-in panel for create/edit:** Max-width 640px, opens from right on row click (edit) or "Create Micro-Task" button (create). Single-column form. Labels above fields (never floating). Focus ring with `brand.accent` color. Auto-grow textareas for description and expected deliverable.
 - **Confirmation dialog for activation/deactivation:** Centered modal, 16px radius, calm tone. "Activate this micro-task? The current active task for [Domain] will be deactivated." / "Deactivate this micro-task? Applicants will no longer see it." Never "Are you sure?"
-- **Domain select:** Styled to match existing form inputs. Warm focus ring. Include all four domains: Technology, Fintech, Impact, Governance.
+- **Domain select:** Styled to match existing form inputs. Warm focus ring. Include all four domains: Technology, Finance, Impact, Governance.
 - **Success/error feedback:** Success = brief toast (auto-dismiss 4s, factual: "Micro-task created"). Error = inline, persistent below the field. No harsh colors.
 - **Empty states:** Informative and dignified. "No micro-tasks exist for [Domain]. Create one to enable applicant demonstrations."
 - **Loading states:** Skeleton screens matching table layout. No spinners.

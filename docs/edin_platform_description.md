@@ -2,7 +2,7 @@
 
 **A Rose Project Initiative**
 
-*Version 0.3 — Draft — February 27, 2026*
+_Version 0.3 — Draft — February 27, 2026_
 
 ---
 
@@ -22,11 +22,11 @@ Edin is not just a development tool. It is a social and economic experiment: as 
 
 Edin is a core initiative within Rose, a venture structured as a non-profit foundation (IOUR Foundation, Belgium) dedicated to building a next-generation decentralized financial infrastructure. Grounded in the Olsen Real-Time Finance Model (ORTFM), Rose reimagines financial markets through the lens of intrinsic time, fractal microstructure, and 12 empirical scaling laws discovered in high-frequency data. The platform introduces coupled assets (delta-neutral tokenized pairs), real-time atomic settlement, an intraday money market, and a Coastline Trading engine (Alpha Engine) that captures the vast untapped value in price trajectory volatility to fund societal regeneration.
 
-Rose encompasses the foundation's governance, the financial technology, the branding and investor strategy, and the contributor ecosystem. Edin serves as the operational backbone of this last pillar — the platform through which all contributions to the Rose ecosystem flow, are evaluated, and are rewarded. While Rose defines *what* is being built, Edin defines *how* the community collaborates to build it. Notably, Edin's multi-scale reward system is directly informed by Rose's scaling law methodology — the same mathematical principles that govern the Alpha Engine also govern how contributor rewards are sized and distributed across time scales.
+Rose encompasses the foundation's governance, the financial technology, the branding and investor strategy, and the contributor ecosystem. Edin serves as the operational backbone of this last pillar — the platform through which all contributions to the Rose ecosystem flow, are evaluated, and are rewarded. While Rose defines _what_ is being built, Edin defines _how_ the community collaborates to build it. Notably, Edin's multi-scale reward system is directly informed by Rose's scaling law methodology — the same mathematical principles that govern the Alpha Engine also govern how contributor rewards are sized and distributed across time scales.
 
 ### 2.2 The Name: Edin
 
-The name *Edin* was chosen for its deep cultural resonance and inclusivity. In Sumerian, *edin* referred to the fertile steppe between the rivers. The concept reappears as *Eden* in the Hebrew Bible and as *Adin/Edin* in Islamic tradition. By reaching back to the earliest known usage, the name transcends any single religious or cultural frame, evoking a universal symbol of fertile ground, prosperity, and the overcoming of obstacles.
+The name _Edin_ was chosen for its deep cultural resonance and inclusivity. In Sumerian, _edin_ referred to the fertile steppe between the rivers. The concept reappears as _Eden_ in the Hebrew Bible and as _Adin/Edin_ in Islamic tradition. By reaching back to the earliest known usage, the name transcends any single religious or cultural frame, evoking a universal symbol of fertile ground, prosperity, and the overcoming of obstacles.
 
 ### 2.3 Why Now
 
@@ -75,13 +75,13 @@ This approach has three important consequences:
 
 Edin follows an integration-first architecture: it does not replicate existing tools but connects to them, ingests their outputs, and adds its unique layers of evaluation, reward, and governance. The platform is organized around five interconnected functional layers:
 
-| Layer | Description |
-|---|---|
+| Layer                 | Description                                                                                                                                                                |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Integration Layer** | Connectors to external tools (repositories, document platforms, communication tools, project management) that ingest contributor outputs without imposing workflow changes |
-| **Web Portal** | Public-facing website and contributor dashboard for community interaction, onboarding, and visibility |
-| **Evaluation Engine** | AI-powered system for analyzing contributions from all connected sources, assessing quality, and attributing credit |
-| **Reward System** | Multi-scale incentive mechanism with token-based distribution on blockchain |
-| **Governance Layer** | Admission control, role management, community curation, and decision-making frameworks |
+| **Web Portal**        | Public-facing website and contributor dashboard for community interaction, onboarding, and visibility                                                                      |
+| **Evaluation Engine** | AI-powered system for analyzing contributions from all connected sources, assessing quality, and attributing credit                                                        |
+| **Reward System**     | Multi-scale incentive mechanism with token-based distribution on blockchain                                                                                                |
+| **Governance Layer**  | Admission control, role management, community curation, and decision-making frameworks                                                                                     |
 
 ### 4.2 Integration Layer
 
@@ -127,30 +127,30 @@ These evaluations feed directly into the Reward System at every temporal scale, 
 
 ### 4.5 Multi-Scale Reward System
 
-The reward system is the economic heart of Edin. It is multi-scale in two complementary senses: it recognizes multiple *dimensions* of contribution, and it operates across multiple *time scales*. This dual structure ensures that value is captured at every level of granularity — from a quick code review to a year-long strategic initiative — and that contributors are incentivized for both immediate impact and sustained commitment.
+The reward system is the economic heart of Edin. It is multi-scale in two complementary senses: it recognizes multiple _dimensions_ of contribution, and it operates across multiple _time scales_. This dual structure ensures that value is captured at every level of granularity — from a quick code review to a year-long strategic initiative — and that contributors are incentivized for both immediate impact and sustained commitment.
 
 #### Reward Dimensions
 
-| Dimension | Examples |
-|---|---|
-| **Code Contributions** | Commits, pull requests, bug fixes, feature implementations, code reviews |
-| **Knowledge Contributions** | Documentation, tutorials, research, architectural proposals, educational content |
+| Dimension                   | Examples                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Code Contributions**      | Commits, pull requests, bug fixes, feature implementations, code reviews                                 |
+| **Knowledge Contributions** | Documentation, tutorials, research, architectural proposals, educational content                         |
 | **Community Contributions** | Mentoring, onboarding new members, organizing events, facilitating discussions, governance participation |
-| **Strategic Contributions** | Business development, investor outreach, partnership building, branding, market analysis |
+| **Strategic Contributions** | Business development, investor outreach, partnership building, branding, market analysis                 |
 
 #### Temporal Reward Scales
 
 Rewards are distributed across seven distinct time horizons, each capturing a different rhythm of contribution:
 
-| Time Scale | Cycle | Purpose |
-|---|---|---|
-| **Hourly** | Per task/session | Immediate recognition for focused work sessions, sprint contributions, and real-time collaboration |
-| **6-Hourly** | Intra-day | Captures sustained effort within a working day, rewarding deep work and multi-task engagement |
-| **Daily** | End of day | Aggregated daily contribution score reflecting overall productivity and quality |
-| **Weekly** | End of week | Recognizes consistency and follow-through across a working week, including collaboration patterns |
-| **Monthly** | End of month | Rewards sustained engagement, milestone completion, and community participation over a full cycle |
-| **Quarterly** | End of quarter | Strategic-level recognition for project milestones, leadership contributions, and measurable impact |
-| **Yearly** | Annual | Long-term commitment rewards, ecosystem growth participation, and foundational contribution recognition |
+| Time Scale    | Cycle            | Purpose                                                                                                 |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------- |
+| **Hourly**    | Per task/session | Immediate recognition for focused work sessions, sprint contributions, and real-time collaboration      |
+| **6-Hourly**  | Intra-day        | Captures sustained effort within a working day, rewarding deep work and multi-task engagement           |
+| **Daily**     | End of day       | Aggregated daily contribution score reflecting overall productivity and quality                         |
+| **Weekly**    | End of week      | Recognizes consistency and follow-through across a working week, including collaboration patterns       |
+| **Monthly**   | End of month     | Rewards sustained engagement, milestone completion, and community participation over a full cycle       |
+| **Quarterly** | End of quarter   | Strategic-level recognition for project milestones, leadership contributions, and measurable impact     |
+| **Yearly**    | Annual           | Long-term commitment rewards, ecosystem growth participation, and foundational contribution recognition |
 
 This multi-temporal structure creates a continuous incentive gradient: contributors receive quick feedback through short-cycle rewards while building toward larger, compounding long-term rewards.
 
@@ -196,12 +196,12 @@ Edin operates as a closed, curated community. Access is controlled through a str
 
 Once admitted, contributors are assigned roles reflecting their expertise and areas of focus. Roles are organized across four strategic categories:
 
-| Category | Scope |
-|---|---|
-| **Technology & Development** | Platform architecture, AI integration, blockchain implementation, full-stack development, DevOps |
-| **Fintech & Financial Engineering** | Token economics, regulatory compliance, financial infrastructure, payment systems, market mechanisms |
-| **Impact & Sustainability** | Social impact measurement, environmental considerations, inclusive design, long-term sustainability |
-| **Consciousness & Governance** | Community governance design, ethical frameworks, decision-making structures, values alignment |
+| Category                            | Scope                                                                                                |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Technology & Development**        | Platform architecture, AI integration, blockchain implementation, full-stack development, DevOps     |
+| **Finance & Financial Engineering** | Token economics, regulatory compliance, financial infrastructure, payment systems, market mechanisms |
+| **Impact & Sustainability**         | Social impact measurement, environmental considerations, inclusive design, long-term sustainability  |
+| **Consciousness & Governance**      | Community governance design, ethical frameworks, decision-making structures, values alignment        |
 
 **Governance evolution:**
 
@@ -258,7 +258,7 @@ The founding core team establishes the initial governance framework and seeds th
 - AI-augmented quality assurance that maximizes development efficiency
 - Transparent contribution tracking providing clear metrics on project health and velocity across multiple time scales
 - A mathematically grounded reward model based on scaling law economics that aligns contributor incentives with long-term ecosystem growth
-- A credible team of high-caliber key contributors across technology, fintech, impact, and governance
+- A credible team of high-caliber key contributors across technology, finance, impact, and governance
 - A non-profit IOUR Foundation structure with conservative capital management (30/70 reserve rule) and convertible bond instruments (10% yield, 36-month maturity) for early investors
 
 ### 6.3 For the Rose Ecosystem
@@ -273,12 +273,12 @@ The founding core team establishes the initial governance framework and seeds th
 
 Edin's roadmap is aligned with Rose's overall project phasing. Rose's financial platform follows a two-phase approach: an initial internal phase (algorithmic market-making, API price publication) followed by an external phase (open exchange). Edin's development supports and accelerates both phases by organizing the contributor community that builds them.
 
-| Phase | Timeline | Objectives | Rose Alignment |
-|---|---|---|---|
-| **Phase 0 — Foundation** | Q1 2026 | Platform specification, repository setup, core team onboarding, initial branding, coordination infrastructure | Circle of 60 recruitment, IOUR Foundation reactivation, Seed/MVP fundraising (€1M) |
-| **Phase 1 — MVP** | Q2 2026 | Web portal launch, contributor profiles, basic reward tracking, admission workflow, first external contributors | Sandbox environment, real-time clearing tests with synthetic tokens |
+| Phase                      | Timeline   | Objectives                                                                                                         | Rose Alignment                                                                           |
+| -------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| **Phase 0 — Foundation**   | Q1 2026    | Platform specification, repository setup, core team onboarding, initial branding, coordination infrastructure      | Circle of 60 recruitment, IOUR Foundation reactivation, Seed/MVP fundraising (€1M)       |
+| **Phase 1 — MVP**          | Q2 2026    | Web portal launch, contributor profiles, basic reward tracking, admission workflow, first external contributors    | Sandbox environment, real-time clearing tests with synthetic tokens                      |
 | **Phase 2 — Intelligence** | Q3–Q4 2026 | AI evaluation engine integration, blockchain reward prototype, expanded contributor base, governance formalization | Prototype development: first coupled assets on private chain, inside exchange activation |
-| **Phase 3 — Scale** | 2027+ | Full token economics, decentralized governance, scaled community, public visibility, ecosystem partnerships | Compliance & risk phase, then public rollout and outside exchange opening |
+| **Phase 3 — Scale**        | 2027+      | Full token economics, decentralized governance, scaled community, public visibility, ecosystem partnerships        | Compliance & risk phase, then public rollout and outside exchange opening                |
 
 ---
 
@@ -292,4 +292,4 @@ Edin's roadmap is aligned with Rose's overall project phasing. Rose's financial 
 
 ---
 
-*Edin — Where contributions take root and grow.*
+_Edin — Where contributions take root and grow._

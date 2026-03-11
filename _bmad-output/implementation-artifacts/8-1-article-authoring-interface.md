@@ -17,7 +17,7 @@ so that I can share my intellectual insights with the community with minimal fri
 **Then** I see a focused authoring interface built on the Tiptap block-based editor
 **And** the editor supports: headings (H2-H4), bold, italic, blockquotes, code blocks (syntax highlighting), ordered/unordered lists, links, images
 **And** slash commands (`/`) insert: code block, pull quote, data visualization placeholder, image, horizontal divider
-**And** the interface displays fields for: article title, abstract/summary (max 300 chars), domain tag (single select: Technology, Fintech, Impact, Governance), main article body
+**And** the interface displays fields for: article title, abstract/summary (max 300 chars), domain tag (single select: Technology, Finance, Impact, Governance), main article body
 **And** the writing experience is distraction-free — sidebar collapses, no platform chrome competing for attention
 
 ### AC2: Auto-Save & Drafts
@@ -59,7 +59,7 @@ so that I can share my intellectual insights with the community with minimal fri
 
 - [x]**Task 2: Shared Package — Zod schemas, types, constants** (AC: 1, 2, 3)
   - [x]2.1 Create `packages/shared/src/schemas/article.schema.ts` with:
-    - `createArticleSchema`: title (string, min 1, max 200), abstract (string, max 300), body (string), domain (enum Technology/Fintech/Impact/Governance)
+    - `createArticleSchema`: title (string, min 1, max 200), abstract (string, max 300), body (string), domain (enum Technology/Finance/Impact/Governance)
     - `updateArticleSchema`: partial of createArticleSchema (all optional)
     - `submitArticleSchema`: title (min 1), abstract (min 50, max 300), body (min 500), domain (required) — stricter validation for submission
   - [x]2.2 Create `packages/shared/src/types/article.types.ts`:
@@ -224,7 +224,7 @@ apps/api/src/modules/publication/
 
 **Typography:** Serif (Libre Baskerville/Source Serif Pro) for article titles and body. Sans-serif (Inter/Source Sans Pro) for UI controls, labels, metadata. Monospace (JetBrains Mono/Source Code Pro) for code blocks only.
 
-**Colors:** Domain accents — Technology `#3A7D7E`, Fintech `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`. Domain dropdown subtly tints the editing environment with the selected domain's accent color.
+**Colors:** Domain accents — Technology `#3A7D7E`, Finance `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`. Domain dropdown subtly tints the editing environment with the selected domain's accent color.
 
 **Layout:** Authoring editor: single column centered, max-width 800px, generous side margins. Article body text at 17px with 1.65 line-height. Optimal measure: 60-75 characters per line.
 

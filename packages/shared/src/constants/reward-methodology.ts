@@ -53,7 +53,7 @@ export const REWARD_METHODOLOGY: RewardMethodology = {
     {
       name: 'Domain Normalization',
       description:
-        'Different domains — Technology, Fintech, Impact, and Governance — have different contribution ' +
+        'Different domains — Technology, Finance, Impact, and Governance — have different contribution ' +
         'patterns and volumes. Domain normalization ensures fair comparison across domains, so a governance ' +
         'policy contribution is valued fairly alongside a code commit.',
       qualitativeWeight: 'Balancing adjustment',
@@ -65,7 +65,7 @@ export const REWARD_METHODOLOGY: RewardMethodology = {
       term: 'Domain Normalization',
       definition:
         'A statistical adjustment that accounts for differences in contribution volume and patterns across ' +
-        'the four domains (Technology, Fintech, Impact, Governance). Without normalization, domains with ' +
+        'the four domains (Technology, Finance, Impact, Governance). Without normalization, domains with ' +
         'higher contribution frequency would dominate reward distributions.',
     },
     {
@@ -110,7 +110,7 @@ export const REWARD_METHODOLOGY: RewardMethodology = {
       monthlyContributions: 20,
       avgQualityScore: 65,
       months: 3,
-      domain: 'fintech',
+      domain: 'finance',
     },
     {
       name: 'The Quality Cultivator',

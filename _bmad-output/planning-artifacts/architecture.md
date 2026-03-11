@@ -58,7 +58,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 
 **Scale & Complexity:**
 
-- Primary domain: Full-stack web application (fintech domain)
+- Primary domain: Full-stack web application (finance domain)
 - Complexity level: High
 - Estimated architectural components: 12-15 distinct services/modules
 

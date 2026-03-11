@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useActivityFeed, useActivitySse } from '../../../hooks/use-activity-feed';
 import { ActivityItem } from './activity-item';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'] as const;
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
 
 function ActivityFeedSkeleton() {
   return (

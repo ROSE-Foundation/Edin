@@ -10,7 +10,7 @@ import { useCreateMicroTask, useUpdateMicroTask } from '../../../../hooks/use-mi
 import { renderRichText } from '../../../../lib/rich-text';
 import { useToast } from '../../../ui/toast';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'] as const;
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
 
 interface FormValues {
   domain: (typeof DOMAINS)[number];

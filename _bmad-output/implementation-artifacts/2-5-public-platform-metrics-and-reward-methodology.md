@@ -47,7 +47,7 @@ so that I can evaluate community health and the economic model.
 - [x] Task 3: Create platform metrics page components (AC: 1, 2)
   - [x]3.1 Create `apps/web/components/features/metrics/metrics-hero.tsx` — Hero section: heading "Platform Metrics" (serif, `text.display`), subtitle explaining what these metrics represent. Pattern: follow `AboutHero` from Story 2-4. Gradient background, centered, generous padding
   - [x]3.2 Create `apps/web/components/features/metrics/stat-card.tsx` — Reusable metric summary card displaying: metric label (sans-serif, `text.body-interface`), metric value (serif, `text.h1`, bold), trend description or context text (sans-serif, `text.small`, `brand.secondary`). Card styling: `surface.raised` bg, `surface.border` border, 12px radius, `shadow-card`, `space.lg` (24px) padding. NO red/green indicators — use `brand.accent` for highlights
-  - [x]3.3 Create `apps/web/components/features/metrics/domain-distribution-chart.tsx` — Recharts `PieChart` (or `RadialBarChart`) showing domain distribution with domain accent colors: Technology `#3A7D7E`, Fintech `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`. Include labels with domain names and percentages. Responsive: full-width on mobile, constrained on desktop. `aria-label` with text summary of distribution. Alternative data table toggle for accessibility (WCAG 2.1 AA, NFR-A4)
+  - [x]3.3 Create `apps/web/components/features/metrics/domain-distribution-chart.tsx` — Recharts `PieChart` (or `RadialBarChart`) showing domain distribution with domain accent colors: Technology `#3A7D7E`, Finance `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`. Include labels with domain names and percentages. Responsive: full-width on mobile, constrained on desktop. `aria-label` with text summary of distribution. Alternative data table toggle for accessibility (WCAG 2.1 AA, NFR-A4)
   - [x]3.4 Create `apps/web/components/features/metrics/metrics-stats-grid.tsx` — 2x2 grid on desktop, single column on mobile. Renders 4 `StatCard` components for: Active Contributors, Contribution Velocity, Retention Rate, Total Contributors. Gap: `space.lg` (24px)
   - [x]3.5 Create `apps/web/components/features/metrics/metrics-empty-state.tsx` — Dignified empty state component for when no data exists. Centered text explaining what each metric will show: "As our community grows, you'll see real-time metrics reflecting contributor activity across all four domains." Muted styling (`brand.secondary` text), generous whitespace. NO cheerful placeholders or spinning loaders
   - [x]3.6 Create `apps/web/components/features/metrics/metrics-skeleton.tsx` — Skeleton loader: hero placeholder + 4 stat card placeholders + chart area placeholder. Pulsing opacity 0.4-0.7, 2s cycle on warm grey rectangles
@@ -98,7 +98,7 @@ so that I can evaluate community health and the economic model.
 - [x] Task 9: Frontend tests (AC: 1, 2, 3)
   - [x]9.1 Test StatCard renders label, value, and context text
   - [x]9.2 Test MetricsStatsGrid renders 4 stat cards with correct data
-  - [x]9.3 Test DomainDistributionChart renders with correct domain colors (Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A)
+  - [x]9.3 Test DomainDistributionChart renders with correct domain colors (Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A)
   - [x]9.4 Test DomainDistributionChart shows accessible data table alternative
   - [x]9.5 Test MetricsEmptyState renders dignified message when no data
   - [x]9.6 Test MetricsHero renders heading and subtitle
@@ -183,7 +183,7 @@ Both endpoints return aggregated/static data only:
 **Color Constraints:**
 
 - NEVER use red/green for scoring or evaluation indicators
-- Domain colors for distribution: Technology `#3A7D7E`, Fintech `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`
+- Domain colors for distribution: Technology `#3A7D7E`, Finance `#C49A3C`, Impact `#B06B6B`, Governance `#7B6B8A`
 - Use `DOMAIN_COLORS` from `apps/web/lib/domain-colors.ts` (extracted in Story 2-4)
 - Brand accent `#C4956A` for growth curves and highlights
 
@@ -217,9 +217,9 @@ Both endpoints return aggregated/static data only:
 5. **Public endpoint pattern**: Use `fetch()` directly (NOT `apiClient`) for public data fetching on the frontend — `apiClient` adds auth headers
 6. **SSR data fetching**: Server Components use `fetch()` with `next: { revalidate: N }` for ISR. Pass data as props to Client Components
 7. **generateMetadata()**: Fetch requests inside are automatically memoized by Next.js 16
-8. **Domain colors**: Technology #3A7D7E, Fintech #C49A3C, Impact #B06B6B, Governance #7B6B8A — reuse `DOMAIN_COLORS` from `apps/web/lib/domain-colors.ts`
+8. **Domain colors**: Technology #3A7D7E, Finance #C49A3C, Impact #B06B6B, Governance #7B6B8A — reuse `DOMAIN_COLORS` from `apps/web/lib/domain-colors.ts`
 9. **Test infrastructure**: Frontend tests use Vitest + React Testing Library with jsdom environment. Config at `apps/web/vitest.config.ts`, setup at `apps/web/vitest.setup.ts`. Backend tests use Vitest + NestJS testing utilities
-10. **Code review fix from 2-4**: Domain badge text colors need WCAG contrast — white text on Technology (#3A7D7E) and Governance (#7B6B8A), dark text on Fintech (#C49A3C) and Impact (#B06B6B)
+10. **Code review fix from 2-4**: Domain badge text colors need WCAG contrast — white text on Technology (#3A7D7E) and Governance (#7B6B8A), dark text on Finance (#C49A3C) and Impact (#B06B6B)
 11. **CSS custom properties**: Use `var(--spacing-lg)`, `var(--color-brand-primary)`, etc. from `globals.css`. Tailwind classes map to these: `bg-surface-raised`, `text-brand-primary`, `border-surface-border`
 12. **Component location**: Components in `apps/web/components/features/{feature-name}/`. Hooks in `apps/web/hooks/`. Tests co-located
 

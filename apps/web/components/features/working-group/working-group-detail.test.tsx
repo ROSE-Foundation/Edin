@@ -53,7 +53,7 @@ const leadDashboardState = {
         id: string;
         name: string;
         avatarUrl: string | null;
-        domain: 'Technology' | 'Fintech' | 'Impact' | 'Governance' | null;
+        domain: 'Technology' | 'Finance' | 'Impact' | 'Governance' | null;
         role: string;
       };
     }>;

@@ -51,7 +51,7 @@ const mockReviews = [
     application: {
       id: 'app-2',
       applicantName: 'Bob Jones',
-      domain: 'Fintech',
+      domain: 'Finance',
       status: 'UNDER_REVIEW',
       createdAt: new Date().toISOString(),
     },
@@ -134,7 +134,7 @@ describe('ReviewList', () => {
     renderWithProviders(<ReviewList />);
 
     expect(screen.getAllByText('Technology').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Fintech').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Finance').length).toBeGreaterThan(0);
   });
 
   it('shows error message on failure', () => {

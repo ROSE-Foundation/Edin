@@ -8,7 +8,7 @@ export const workingGroupSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   description: z.string(),
-  domain: z.enum(['Technology', 'Fintech', 'Impact', 'Governance']),
+  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']),
   accentColor: z.string(),
   memberCount: z.number().int().min(0),
   isMember: z.boolean(),

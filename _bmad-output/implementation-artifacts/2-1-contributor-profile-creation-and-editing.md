@@ -16,7 +16,7 @@ so that other contributors and visitors can understand my background and contrib
 
 **Given** I am authenticated as a contributor
 **When** I navigate to /dashboard/profile
-**Then** I see a profile editing form with fields for: display name, bio (rich text, max 500 characters), primary domain (select: Technology, Fintech, Impact, Governance), skill areas (multi-select tags), and a profile photo (synced from GitHub by default, with override option)
+**Then** I see a profile editing form with fields for: display name, bio (rich text, max 500 characters), primary domain (select: Technology, Finance, Impact, Governance), skill areas (multi-select tags), and a profile photo (synced from GitHub by default, with override option)
 **And** the form is validated using the shared Zod schema (contributorProfileSchema) on both frontend and backend
 
 ### AC2: Profile Update via API
@@ -86,7 +86,7 @@ so that other contributors and visitors can understand my background and contrib
   - [x] 7.2: Implement form fields:
     - Display name: text input (required, min 1 char)
     - Bio: textarea with character counter (max 500 chars)
-    - Primary domain: select dropdown (Technology, Fintech, Impact, Governance) using Radix Select
+    - Primary domain: select dropdown (Technology, Finance, Impact, Governance) using Radix Select
     - Skill areas: tag input (freeform add/remove, max 10 tags, max 50 chars each)
     - Profile photo: display current avatar, URL input for override
   - [x] 7.3: Display field-level inline error messages from Zod validation

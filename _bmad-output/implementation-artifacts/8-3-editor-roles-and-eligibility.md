@@ -58,7 +58,7 @@ so that I can help shape the quality of published content and earn editorial rew
   - [ ] 1.8 Add `EDITOR_APPLICATION_SUBMITTED` to `NotificationType` enum
   - [ ] 1.9 Create migration SQL file in `apps/api/prisma/migrations/`
   - [ ] 1.10 Run `pnpm prisma generate` to verify schema compiles
-  - [ ] 1.11 Seed default EditorEligibilityCriteria for all four domains (Technology, Fintech, Impact, Governance) with default thresholds
+  - [ ] 1.11 Seed default EditorEligibilityCriteria for all four domains (Technology, Finance, Impact, Governance) with default thresholds
 
 - [ ] **Task 2: Shared Package — Editor eligibility Zod schemas, types** (AC: 1, 2, 3, 4)
   - [ ] 2.1 Create `packages/shared/src/schemas/editor.schema.ts`:
@@ -89,7 +89,7 @@ so that I can help shape the quality of published content and earn editorial rew
 - [ ] **Task 3: Editor Eligibility Service** (AC: 1, 2, 3, 4)
   - [ ] 3.1 Create `apps/api/src/modules/publication/editor-eligibility.service.ts`:
     - `checkEligibility(contributorId, domain)`: Query contributor's evaluated contributions count in the given domain (from `evaluation` schema, counting evaluations with status COMPLETED on contributions in that domain). Query EditorEligibilityCriteria for the domain. Check existing application for this contributor+domain. Return `EligibilityCheckDto` with met/not-met status per criterion
-    - `checkAllDomainEligibility(contributorId)`: Return eligibility check for all four domains (Technology, Fintech, Impact, Governance) — call `checkEligibility` for each
+    - `checkAllDomainEligibility(contributorId)`: Return eligibility check for all four domains (Technology, Finance, Impact, Governance) — call `checkEligibility` for each
     - `submitApplication(contributorId, domain, applicationStatement, correlationId)`: Verify eligibility criteria are met. Check no existing PENDING or APPROVED application. Create EditorApplication record. Emit `publication.editor.application-submitted` event. Return `EditorApplicationDto`
     - `reviewApplication(applicationId, adminId, decision, reviewNotes, correlationId)`: Validate application is in PENDING status. Update application status, reviewedById, reviewedAt, reviewNotes. If APPROVED: update contributor role to EDITOR (only if not already EDITOR or higher). Emit `publication.editor.application-reviewed` event. Notify applicant of decision
     - `revokeEditorStatus(contributorId, domain, adminId, reason, correlationId)`: Find APPROVED application for contributor+domain. Update application status to REVOKED. Set revokedAt, revokedById, revokeReason. Check if contributor has other APPROVED editor applications in different domains — if not, demote role from EDITOR to CONTRIBUTOR. Emit `publication.editor.role-revoked` event. Notify contributor
@@ -356,7 +356,7 @@ Governance weight (FR56) is not yet implemented. For Phase 1:
 **Domain Card Colors:** Use existing domain accents:
 
 - Technology: `#3A7D7E`
-- Fintech: `#C49A3C`
+- Finance: `#C49A3C`
 - Impact: `#B06B6B`
 - Governance: `#7B6B8A`
 
@@ -409,7 +409,7 @@ Response 200: {
       "existingApplication": null
     },
     {
-      "domain": "Fintech",
+      "domain": "Finance",
       "eligible": false,
       "criteria": { ... },
       "current": { "contributionCount": 3, "governanceWeight": 0 },
@@ -472,7 +472,7 @@ Errors: 404 (not an active editor)
 Response 200: {
   "data": [
     { "domain": "Technology", "minContributionCount": 10, "minGovernanceWeight": 0, "maxConcurrentAssignments": 5, "updatedAt": "..." },
-    { "domain": "Fintech", ... },
+    { "domain": "Finance", ... },
     { "domain": "Impact", ... },
     { "domain": "Governance", ... }
   ],

@@ -1,6 +1,6 @@
 export const DOMAINS = {
   Technology: 'Technology',
-  Fintech: 'Fintech',
+  Finance: 'Finance',
   Impact: 'Impact',
   Governance: 'Governance',
 } as const;
@@ -14,8 +14,8 @@ export const DOMAIN_DETAILS = {
       'Building the technical infrastructure that powers Edin — from core platform development to DevOps, security, and scalable architecture.',
     accentColor: '#3A7D7E',
   },
-  Fintech: {
-    name: 'Fintech & Financial Engineering',
+  Finance: {
+    name: 'Finance & Financial Engineering',
     description:
       'Designing financial models, tokenomics, and payment systems that ensure fair and transparent contributor rewards.',
     accentColor: '#C49A3C',

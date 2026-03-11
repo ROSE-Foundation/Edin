@@ -106,11 +106,11 @@ describe('ActivityService', () => {
       mockPrisma.activityEvent.findMany.mockResolvedValue([]);
       mockPrisma.activityEvent.count.mockResolvedValue(0);
 
-      await service.getFeed({ limit: 20, domain: 'Fintech' });
+      await service.getFeed({ limit: 20, domain: 'Finance' });
 
       expect(mockPrisma.activityEvent.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ domain: 'Fintech' }),
+          where: expect.objectContaining({ domain: 'Finance' }),
         }),
       );
     });
@@ -288,8 +288,8 @@ describe('ActivityService', () => {
 
     it('handles working-group.member.joined event', async () => {
       mockPrisma.workingGroup.findUnique.mockResolvedValue({
-        domain: 'Fintech',
-        name: 'Fintech & Financial Engineering',
+        domain: 'Finance',
+        name: 'Finance & Financial Engineering',
       });
       mockPrisma.contributor.findUnique.mockResolvedValue({
         name: 'Charlie',
@@ -297,10 +297,10 @@ describe('ActivityService', () => {
       mockPrisma.activityEvent.create.mockResolvedValue({
         id: 'event-3',
         eventType: 'MEMBER_JOINED',
-        title: 'Charlie joined Fintech & Financial Engineering',
+        title: 'Charlie joined Finance & Financial Engineering',
         description: null,
         contributorId: 'user-2',
-        domain: 'Fintech',
+        domain: 'Finance',
         contributionType: null,
         entityId: 'wg-1',
         metadata: null,
@@ -316,7 +316,7 @@ describe('ActivityService', () => {
         payload: {
           workingGroupId: 'wg-1',
           contributorId: 'user-2',
-          workingGroupName: 'Fintech & Financial Engineering',
+          workingGroupName: 'Finance & Financial Engineering',
         },
       });
 
@@ -324,7 +324,7 @@ describe('ActivityService', () => {
         expect.objectContaining({
           data: expect.objectContaining({
             eventType: 'MEMBER_JOINED',
-            domain: 'Fintech',
+            domain: 'Finance',
           }),
         }),
       );
@@ -498,7 +498,7 @@ describe('ActivityService', () => {
         title: 'Peer feedback submitted for PR #42',
         description: null,
         contributorId: 'reviewer-2',
-        domain: 'Fintech',
+        domain: 'Finance',
         contributionType: null,
         entityId: 'pf-2',
         metadata: {
@@ -522,7 +522,7 @@ describe('ActivityService', () => {
           contributorId: 'author-2',
           contributionTitle: 'PR #42',
           contributionType: 'PULL_REQUEST',
-          domain: 'Fintech',
+          domain: 'Finance',
         },
       });
 

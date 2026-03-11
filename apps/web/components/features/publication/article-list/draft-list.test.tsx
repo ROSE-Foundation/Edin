@@ -24,7 +24,7 @@ const mockDrafts = [
     title: 'Draft Article Two',
     slug: 'draft-article-two',
     abstract: 'Second draft abstract',
-    domain: 'Fintech',
+    domain: 'Finance',
     status: 'DRAFT' as const,
     version: 1,
     updatedAt: '2026-03-08T10:00:00Z',
@@ -63,7 +63,7 @@ describe('DraftList', () => {
     renderWithProviders(<DraftList />);
 
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
   });
 
   it('shows status badges', () => {

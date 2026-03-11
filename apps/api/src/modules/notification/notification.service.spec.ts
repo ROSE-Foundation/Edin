@@ -404,7 +404,7 @@ describe('NotificationService', () => {
           contributorId: 'author-2',
           contributionTitle: 'Add payment flow',
           contributionType: 'PULL_REQUEST',
-          domain: 'Fintech',
+          domain: 'Finance',
         },
       });
 
@@ -430,7 +430,7 @@ describe('NotificationService', () => {
           reviewerId: 'reviewer-2',
           contributionTitle: 'Add payment flow',
           contributionType: 'PULL_REQUEST',
-          domain: 'Fintech',
+          domain: 'Finance',
         },
       });
 

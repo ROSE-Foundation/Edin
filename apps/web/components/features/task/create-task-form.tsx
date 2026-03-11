@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import * as Select from '@radix-ui/react-select';
 
-const DOMAIN_OPTIONS = ['Technology', 'Fintech', 'Impact', 'Governance'];
+const DOMAIN_OPTIONS = ['Technology', 'Finance', 'Impact', 'Governance'];
 const DIFFICULTY_OPTIONS = [
   { value: 'BEGINNER', label: 'Beginner' },
   { value: 'INTERMEDIATE', label: 'Intermediate' },

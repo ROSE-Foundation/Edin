@@ -33,7 +33,7 @@ const mockPrActivity: ActivityEvent = {
   id: 'event-2',
   title: 'PR Merged: Add activity feed',
   contributionType: 'PULL_REQUEST',
-  domain: 'Fintech',
+  domain: 'Finance',
   contributorName: 'Bob',
   createdAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
 };
@@ -111,11 +111,11 @@ describe('ActivityItem', () => {
     expect(dot).toHaveStyle({ backgroundColor: '#3A7D7E' }); // Technology color
   });
 
-  it('renders Fintech accent color for Fintech domain', () => {
+  it('renders Finance accent color for Finance domain', () => {
     const { container } = render(<ActivityItem activity={mockPrActivity} />);
 
     const dot = container.querySelector('[style*="background-color"]');
-    expect(dot).toHaveStyle({ backgroundColor: '#C49A3C' }); // Fintech color
+    expect(dot).toHaveStyle({ backgroundColor: '#C49A3C' }); // Finance color
   });
 
   it('renders relative timestamp', () => {
@@ -336,7 +336,7 @@ describe('ActivityFeed', () => {
 
     expect(screen.getByText('All')).toBeInTheDocument();
     expect(screen.getByText('Technology')).toBeInTheDocument();
-    expect(screen.getByText('Fintech')).toBeInTheDocument();
+    expect(screen.getByText('Finance')).toBeInTheDocument();
     expect(screen.getByText('Impact')).toBeInTheDocument();
     expect(screen.getByText('Governance')).toBeInTheDocument();
   });
@@ -358,10 +358,10 @@ describe('ActivityFeed', () => {
 
     render(<ActivityFeed />);
 
-    fireEvent.click(screen.getByText('Fintech'));
+    fireEvent.click(screen.getByText('Finance'));
 
     // The hook should be called with the domain filter
-    expect(mockUseActivityFeed).toHaveBeenCalledWith({ domain: 'Fintech' });
+    expect(mockUseActivityFeed).toHaveBeenCalledWith({ domain: 'Finance' });
   });
 
   it('clears domain filter when All button is clicked', () => {
@@ -381,7 +381,7 @@ describe('ActivityFeed', () => {
 
     render(<ActivityFeed />);
 
-    fireEvent.click(screen.getByText('Fintech'));
+    fireEvent.click(screen.getByText('Finance'));
     fireEvent.click(screen.getByText('All'));
 
     // Last call should be with empty filters

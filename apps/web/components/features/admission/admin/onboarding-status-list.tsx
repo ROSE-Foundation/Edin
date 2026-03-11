@@ -5,7 +5,7 @@ import { useOnboardingStatusList } from '../../../../hooks/use-onboarding-admin'
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
-  Fintech: { bg: 'bg-domain-fintech', text: 'text-white' },
+  Finance: { bg: 'bg-domain-finance', text: 'text-white' },
   Impact: { bg: 'bg-domain-impact', text: 'text-white' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
 };

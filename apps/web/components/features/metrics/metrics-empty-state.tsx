@@ -39,7 +39,7 @@ export function MetricsEmptyState() {
           Domain Distribution
         </h3>
         <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
-          This chart will show how contributors are distributed across Technology, Fintech, Impact,
+          This chart will show how contributors are distributed across Technology, Finance, Impact,
           and Governance.
         </p>
       </div>

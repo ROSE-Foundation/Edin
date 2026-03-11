@@ -12,7 +12,7 @@ const API_BASE_URL =
 
 const DOMAIN_OPTIONS = [
   { value: DOMAINS.Technology, label: 'Technology' },
-  { value: DOMAINS.Fintech, label: 'Fintech' },
+  { value: DOMAINS.Finance, label: 'Finance' },
   { value: DOMAINS.Impact, label: 'Impact' },
   { value: DOMAINS.Governance, label: 'Governance' },
 ];

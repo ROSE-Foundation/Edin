@@ -6,7 +6,7 @@ import { BuddyOverrideDialog } from './buddy-override-dialog';
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
-  Fintech: { bg: 'bg-domain-fintech', text: 'text-white' },
+  Finance: { bg: 'bg-domain-finance', text: 'text-white' },
   Impact: { bg: 'bg-domain-impact', text: 'text-white' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
 };
@@ -51,7 +51,7 @@ export function BuddyAssignmentList() {
         >
           <option value="">All domains</option>
           <option value="Technology">Technology</option>
-          <option value="Fintech">Fintech</option>
+          <option value="Finance">Finance</option>
           <option value="Impact">Impact</option>
           <option value="Governance">Governance</option>
         </select>

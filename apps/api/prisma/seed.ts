@@ -50,7 +50,7 @@ async function main() {
       submissionFormat: 'GitHub repository link or gist',
     },
     {
-      domain: 'Fintech' as const,
+      domain: 'Finance' as const,
       title: 'Analyze a DeFi protocol risk model',
       description:
         'Select a DeFi protocol of your choice and write a brief analysis of its risk model. Identify at least three risk factors, evaluate current mitigation strategies, and propose one improvement. Ground your analysis in publicly available data.',
@@ -123,8 +123,8 @@ async function main() {
       githubId: 4,
       email: 'buddy2@edin.local',
       name: 'Bob Guide',
-      bio: 'DeFi researcher and fintech enthusiast. Happy to guide new contributors.',
-      domain: 'Fintech',
+      bio: 'DeFi researcher and finance enthusiast. Happy to guide new contributors.',
+      domain: 'Finance',
       role: 'CONTRIBUTOR',
       isActive: true,
       buddyOptIn: true,
@@ -234,10 +234,10 @@ async function main() {
       accentColor: '#3A7D7E', // deep teal
     },
     {
-      name: 'Fintech & Financial Engineering',
+      name: 'Finance & Financial Engineering',
       description:
         'Designing financial models, tokenomics, and payment systems that ensure fair and transparent contributor rewards.',
-      domain: 'Fintech' as const,
+      domain: 'Finance' as const,
       accentColor: '#C49A3C', // warm amber
     },
     {

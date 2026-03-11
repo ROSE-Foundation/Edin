@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const domainEnum = z.enum(['Technology', 'Fintech', 'Impact', 'Governance']);
+const domainEnum = z.enum(['Technology', 'Finance', 'Impact', 'Governance']);
 const taskStatusEnum = z.enum([
   'AVAILABLE',
   'CLAIMED',

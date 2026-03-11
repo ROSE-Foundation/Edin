@@ -3,7 +3,7 @@ import { DOMAINS } from '../constants/domains.js';
 
 const domainEnum = z.enum([
   DOMAINS.Technology,
-  DOMAINS.Fintech,
+  DOMAINS.Finance,
   DOMAINS.Impact,
   DOMAINS.Governance,
 ]);
@@ -66,7 +66,7 @@ export const assignReviewerSchema = z.object({
 export type AssignReviewerDto = z.infer<typeof assignReviewerSchema>;
 
 export const listApplicationsQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Fintech', 'Impact', 'Governance']).optional(),
+  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
   status: z.enum(['PENDING', 'UNDER_REVIEW', 'APPROVED', 'DECLINED']).optional(),
   cursor: z.string().uuid().optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
@@ -131,7 +131,7 @@ export const updateMicroTaskSchema = z.object({
 export type UpdateMicroTaskInput = z.infer<typeof updateMicroTaskSchema>;
 
 export const listMicroTasksQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Fintech', 'Impact', 'Governance']).optional(),
+  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
   isActive: z
     .enum(['true', 'false'])
     .transform((val) => val === 'true')
@@ -163,7 +163,7 @@ export const buddyOptInSchema = z.object({
 export type BuddyOptInDto = z.infer<typeof buddyOptInSchema>;
 
 export const listBuddyAssignmentsQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Fintech', 'Impact', 'Governance']).optional(),
+  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
   isActive: z
     .enum(['true', 'false'])
     .transform((val) => val === 'true')

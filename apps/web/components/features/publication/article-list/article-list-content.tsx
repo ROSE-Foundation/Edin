@@ -6,11 +6,11 @@ import type { PublicArticleListItemDto } from '@edin/shared';
 import { usePublicArticles } from '../../../../hooks/use-article';
 import { PublicArticleCard } from './public-article-card';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'] as const;
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
 
 const DOMAIN_FILTER_COLORS: Record<string, string> = {
   Technology: 'bg-domain-technology text-white',
-  Fintech: 'bg-domain-fintech text-black',
+  Finance: 'bg-domain-finance text-black',
   Impact: 'bg-domain-impact text-black',
   Governance: 'bg-domain-governance text-white',
 };

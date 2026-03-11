@@ -37,7 +37,7 @@ so that I feel recognized for my craft rather than reduced to a number.
 **Then** I see my evaluation score history displayed as a timeline visualization (FR25)
 **And** the timeline shows scores over time with the narrative preview (first sentence) for each evaluation
 **And** trend lines use organic, garden-inspired visual language — growth curves, not stock charts (patient confidence)
-**And** the visualization uses the contributor's domain accent color (teal for Technology, amber for Fintech, rose for Impact, violet for Governance)
+**And** the visualization uses the contributor's domain accent color (teal for Technology, amber for Finance, rose for Impact, violet for Governance)
 **And** the chart meets accessibility requirements: sufficient color contrast (4.5:1 minimum) and alternative text representations for screen readers (NFR-A4)
 
 ### AC4: History Filtering and Pagination
@@ -111,7 +111,7 @@ The evaluation detail page MUST open with the narrative as the hero element. The
 5. Model Footnote (always visible, discrete at bottom)
 
 **Garden-Inspired Visualization:**
-The timeline chart MUST use organic visual language — smooth growth curves (monotone interpolation in Recharts), subtle gradient fills, no harsh grid lines, no bar charts. The intent is "watching a garden develop" not "tracking stock prices." Domain accent colors: Technology=#3A7D7E (teal), Fintech=#C49A3C (amber), Impact=#B06B6B (rose), Governance=#7B6B8A (violet).
+The timeline chart MUST use organic visual language — smooth growth curves (monotone interpolation in Recharts), subtle gradient fills, no harsh grid lines, no bar charts. The intent is "watching a garden develop" not "tracking stock prices." Domain accent colors: Technology=#3A7D7E (teal), Finance=#C49A3C (amber), Impact=#B06B6B (rose), Governance=#7B6B8A (violet).
 
 **Color Constraint (CRITICAL):**
 Red/green are NEVER used for scoring or evaluation. No traffic-light metaphors. Quality is communicated through narrative language and warm descriptive labels only. Use `brand-accent` (#c4956a) for highlights, `brand-secondary` (#6b7b8d) for subtle scores.
@@ -230,7 +230,7 @@ The contributor's domain for chart coloring comes from their primary working gro
 For the chart, use `DOMAIN_HEX_COLORS` from `apps/web/lib/domain-colors.ts`:
 
 - Technology: `#3A7D7E`
-- Fintech: `#C49A3C`
+- Finance: `#C49A3C`
 - Impact: `#B06B6B`
 - Governance: `#7B6B8A`
 

@@ -23,7 +23,7 @@ describe('ArticleLifecycle', () => {
   });
 
   it('shows revision requested indicator', () => {
-    render(<ArticleLifecycle currentStatus="REVISION_REQUESTED" domain="Fintech" />);
+    render(<ArticleLifecycle currentStatus="REVISION_REQUESTED" domain="Finance" />);
 
     expect(screen.getByText('Revision Requested')).toBeDefined();
   });

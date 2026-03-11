@@ -2,7 +2,7 @@
 
 import { DOMAIN_COLORS } from '../../../lib/domain-colors';
 
-const DOMAINS = ['Technology', 'Fintech', 'Impact', 'Governance'] as const;
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
 
 interface RosterFiltersProps {
   activeDomain: string | null;

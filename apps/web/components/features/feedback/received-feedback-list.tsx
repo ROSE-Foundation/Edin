@@ -27,7 +27,7 @@ function AvatarFallback({ name, domain }: { name: string; domain: string | null 
 
   const domainColors: Record<string, string> = {
     Technology: 'bg-[#2D8B8B]',
-    Fintech: 'bg-[#C4956A]',
+    Finance: 'bg-[#C4956A]',
     Impact: 'bg-[#A85A5A]',
     Governance: 'bg-[#6B5B8A]',
   };
