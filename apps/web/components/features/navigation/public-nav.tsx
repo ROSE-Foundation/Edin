@@ -25,7 +25,13 @@ export function PublicNav() {
           href="/"
           className="flex items-center gap-[var(--spacing-sm)] font-serif text-[20px] font-bold text-brand-primary transition-colors duration-[var(--transition-fast)] hover:text-brand-accent"
         >
-          <Image src="/edin-logo.png" alt="" width={28} height={28} className="rounded-full" />
+          <Image
+            src="/edin-logo.png"
+            alt=""
+            width={48}
+            height={48}
+            className="rounded-full brightness-[0.65] contrast-[1.3]"
+          />
           Edin
         </Link>
 

@@ -46,7 +46,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             href="/"
             className="mr-[var(--spacing-md)] flex items-center gap-[var(--spacing-sm)] font-serif text-[18px] font-bold text-brand-primary transition-colors duration-[var(--transition-fast)] hover:text-brand-accent"
           >
-            <Image src="/edin-logo.png" alt="" width={24} height={24} className="rounded-full" />
+            <Image
+              src="/edin-logo.png"
+              alt=""
+              width={48}
+              height={48}
+              className="rounded-full brightness-[0.65] contrast-[1.3]"
+            />
             Edin Admin
           </Link>
           {ADMIN_NAV_ITEMS.map((item) => {

@@ -11,9 +11,9 @@ export function HeroSection() {
         <Image
           src="/edin-logo.png"
           alt="Edin logo"
-          width={80}
-          height={80}
-          className="mx-auto mb-[var(--spacing-lg)] rounded-full"
+          width={200}
+          height={200}
+          className="mx-auto mb-[var(--spacing-lg)] rounded-full brightness-[0.65] contrast-[1.3]"
           priority
         />
         <p className="font-mono text-[13px] font-medium uppercase tracking-[0.15em] text-brand-accent">
