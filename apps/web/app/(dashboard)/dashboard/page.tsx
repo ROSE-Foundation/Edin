@@ -3,12 +3,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useProfile } from '../../../hooks/use-profile';
+import { useWorkingGroups } from '../../../hooks/use-working-groups';
+import { useContributions } from '../../../hooks/use-contributions';
+import { useMyScores } from '../../../hooks/use-scores';
+import { useReceivedFeedback } from '../../../hooks/use-received-feedback';
+import { usePendingAssignments } from '../../../hooks/use-feedback-review';
 import { OnboardingWelcome } from '../../../components/features/onboarding/onboarding-welcome';
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
-  Finance: { bg: 'bg-domain-finance', text: 'text-white' },
-  Impact: { bg: 'bg-domain-impact', text: 'text-white' },
+  Finance: { bg: 'bg-domain-finance', text: 'text-brand-primary' },
+  Impact: { bg: 'bg-domain-impact', text: 'text-brand-primary' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
 };
 
@@ -20,8 +25,26 @@ const ROLE_LABELS: Record<string, string> = {
   ADMIN: 'Admin',
 };
 
+const CONTRIBUTION_TYPE_ICONS: Record<string, string> = {
+  COMMIT: '\u2299',
+  PULL_REQUEST: '\u2443',
+  CODE_REVIEW: '\u25CE',
+};
+
+const TREND_LABELS: Record<string, { label: string; color: string }> = {
+  RISING: { label: 'Rising', color: 'text-semantic-success' },
+  STABLE: { label: 'Stable', color: 'text-brand-secondary' },
+  DECLINING: { label: 'Declining', color: 'text-semantic-error' },
+};
+
 export default function DashboardPage() {
   const { profile, isLoading } = useProfile();
+  const { workingGroups, isLoading: isGroupsLoading } = useWorkingGroups();
+  const joinedGroups = workingGroups.filter((g) => g.isMember);
+  const { contributions, isLoading: isContribLoading } = useContributions();
+  const { summary: scoreSummary, isLoading: isScoresLoading } = useMyScores();
+  const { items: receivedFeedback, isPending: isFeedbackLoading } = useReceivedFeedback();
+  const { data: pendingData, isLoading: isPendingLoading } = usePendingAssignments();
 
   if (isLoading) {
     return (
@@ -106,9 +129,43 @@ export default function DashboardPage() {
                 View Contributions
               </Link>
             </div>
-            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
-              Track your contributions from connected GitHub repositories.
-            </p>
+            {isContribLoading ? (
+              <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
+                <div className="skeleton h-[44px] w-full rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[44px] w-full rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[44px] w-full rounded-[var(--radius-md)]" />
+              </div>
+            ) : contributions.length > 0 ? (
+              <>
+                <p className="mt-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary">
+                  {contributions.length} contribution{contributions.length !== 1 ? 's' : ''} tracked
+                </p>
+                <ul className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
+                  {contributions.slice(0, 3).map((c) => (
+                    <li key={c.id}>
+                      <Link
+                        href="/dashboard/contributions"
+                        className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                      >
+                        <span className="font-mono text-[16px] text-brand-secondary">
+                          {CONTRIBUTION_TYPE_ICONS[c.contributionType] ?? '\u25CB'}
+                        </span>
+                        <span className="flex-1 truncate font-serif text-[14px] text-brand-primary">
+                          {c.title}
+                        </span>
+                        <span className="shrink-0 font-sans text-[12px] text-brand-secondary">
+                          {c.repositoryName}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+                No contributions tracked yet. Connect your GitHub repositories to get started.
+              </p>
+            )}
           </section>
           <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between">
@@ -122,31 +179,141 @@ export default function DashboardPage() {
                 View Working Groups
               </Link>
             </div>
-            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
-              Connect with contributors in your domain and collaborate on shared goals.
-            </p>
+            {isGroupsLoading ? (
+              <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
+                <div className="skeleton h-[48px] w-full rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[48px] w-full rounded-[var(--radius-md)]" />
+              </div>
+            ) : joinedGroups.length > 0 ? (
+              <ul className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
+                {joinedGroups.map((group) => (
+                  <li key={group.id}>
+                    <Link
+                      href={`/dashboard/working-groups/${group.id}`}
+                      className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                    >
+                      <span
+                        className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium ${DOMAIN_COLORS[group.domain] ? `${DOMAIN_COLORS[group.domain].bg} ${DOMAIN_COLORS[group.domain].text}` : 'bg-surface-sunken text-brand-secondary'}`}
+                      >
+                        {group.domain}
+                      </span>
+                      <span className="flex-1 font-serif text-[15px] font-medium text-brand-primary">
+                        {group.name}
+                      </span>
+                      <span className="font-sans text-[13px] text-brand-secondary">
+                        {group.memberCount} {group.memberCount === 1 ? 'member' : 'members'}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+                You haven&apos;t joined any working groups yet. Connect with contributors in your
+                domain and collaborate on shared goals.
+              </p>
+            )}
           </section>
-          <PlaceholderSection
-            title="Evaluation Scores"
-            message="Your evaluation journey will be displayed here as you contribute."
-          />
-          <PlaceholderSection
-            title="Peer Feedback"
-            message="Feedback from your peers will appear here."
-          />
+          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+            <div className="flex items-center justify-between">
+              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+                Evaluation Scores
+              </h2>
+              <Link
+                href="/evaluations"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+              >
+                View Evaluations
+              </Link>
+            </div>
+            {isScoresLoading ? (
+              <div className="mt-[var(--spacing-md)] flex gap-[var(--spacing-lg)]">
+                <div className="skeleton h-[60px] w-[120px] rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[60px] w-[120px] rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[60px] w-[120px] rounded-[var(--radius-md)]" />
+              </div>
+            ) : scoreSummary?.monthlyAggregate ? (
+              <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-lg)]">
+                <div>
+                  <p className="font-sans text-[13px] text-brand-secondary">Monthly Score</p>
+                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                    {Math.round(scoreSummary.monthlyAggregate.aggregatedScore)}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-sans text-[13px] text-brand-secondary">Contributions</p>
+                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                    {scoreSummary.monthlyAggregate.contributionCount}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-sans text-[13px] text-brand-secondary">Trend</p>
+                  <p
+                    className={`font-serif text-[28px] font-bold ${TREND_LABELS[scoreSummary.monthlyAggregate.trend]?.color ?? 'text-brand-secondary'}`}
+                  >
+                    {TREND_LABELS[scoreSummary.monthlyAggregate.trend]?.label ??
+                      scoreSummary.monthlyAggregate.trend}
+                  </p>
+                </div>
+              </div>
+            ) : scoreSummary?.latestSessionScore ? (
+              <div className="mt-[var(--spacing-md)]">
+                <p className="font-sans text-[13px] text-brand-secondary">Latest Score</p>
+                <p className="font-serif text-[28px] font-bold text-brand-primary">
+                  {Math.round(scoreSummary.latestSessionScore.compositeScore)}
+                </p>
+              </div>
+            ) : (
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+                Your evaluation journey will be displayed here as you contribute.
+              </p>
+            )}
+          </section>
+          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+            <div className="flex items-center justify-between">
+              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+                Peer Feedback
+              </h2>
+              <Link
+                href="/dashboard/feedback"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+              >
+                View Feedback
+              </Link>
+            </div>
+            {isFeedbackLoading || isPendingLoading ? (
+              <div className="mt-[var(--spacing-md)] flex gap-[var(--spacing-lg)]">
+                <div className="skeleton h-[60px] w-[140px] rounded-[var(--radius-md)]" />
+                <div className="skeleton h-[60px] w-[140px] rounded-[var(--radius-md)]" />
+              </div>
+            ) : receivedFeedback.length > 0 || (pendingData?.data?.length ?? 0) > 0 ? (
+              <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-lg)]">
+                <div>
+                  <p className="font-sans text-[13px] text-brand-secondary">Feedback Received</p>
+                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                    {receivedFeedback.length}
+                  </p>
+                </div>
+                {(pendingData?.data?.length ?? 0) > 0 && (
+                  <div>
+                    <p className="font-sans text-[13px] text-brand-secondary">Pending Reviews</p>
+                    <Link
+                      href="/dashboard/feedback"
+                      className="font-serif text-[28px] font-bold text-brand-accent hover:underline"
+                    >
+                      {pendingData!.data.length}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+                Feedback from your peers will appear here.
+              </p>
+            )}
+          </section>
         </div>
       </div>
     </main>
-  );
-}
-
-function PlaceholderSection({ title, message }: { title: string; message: string }) {
-  return (
-    <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-      <h2 className="font-sans text-[16px] font-medium text-brand-primary">{title}</h2>
-      <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
-        {message}
-      </p>
-    </section>
   );
 }

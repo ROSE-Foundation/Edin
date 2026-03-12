@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <div className="skeleton h-[32px] w-[300px]" />
         <div className="mt-[var(--spacing-xs)] skeleton h-[16px] w-[250px]" />

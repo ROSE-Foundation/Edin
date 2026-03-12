@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <div role="status" aria-label="Loading buddy assignments">
           {/* Header skeleton */}

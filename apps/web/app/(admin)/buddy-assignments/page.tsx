@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function BuddyAssignmentsPage() {
   return (
     <ToastProvider>
-      <main className="min-h-screen bg-surface-base">
+      <main>
         <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
           <BuddyAssignmentList />
         </div>

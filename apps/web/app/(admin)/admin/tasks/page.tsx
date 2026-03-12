@@ -142,7 +142,7 @@ function AdminTasksContent() {
   };
 
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <h1 className="font-serif text-[28px] font-bold text-brand-primary">Task Management</h1>
         <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-brand-secondary">

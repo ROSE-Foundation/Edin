@@ -2,7 +2,7 @@ import { StatCardSkeleton } from '../../../../components/features/metrics/stat-c
 
 export default function FeedbackMonitoringLoading() {
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <div className="skeleton h-[32px] w-[250px]" />
         <div className="skeleton mt-[var(--spacing-xs)] h-[20px] w-[350px]" />

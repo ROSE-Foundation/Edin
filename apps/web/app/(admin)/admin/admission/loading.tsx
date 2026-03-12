@@ -2,7 +2,7 @@ import { AdmissionQueueSkeleton } from '../../../../components/features/admissio
 
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <AdmissionQueueSkeleton />
       </div>

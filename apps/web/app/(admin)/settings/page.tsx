@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function SettingsPage() {
   return (
     <ToastProvider>
-      <main className="min-h-screen bg-surface-base">
+      <main>
         <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
           <h1 className="mb-[var(--spacing-xl)] font-serif text-[32px] font-bold text-brand-primary">
             Settings

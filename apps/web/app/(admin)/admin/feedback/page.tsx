@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function FeedbackMonitoringPage() {
   return (
     <ToastProvider>
-      <main className="min-h-screen bg-surface-base">
+      <main>
         <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
           <h1 className="font-sans text-[clamp(1.5rem,3vw,2rem)] font-bold leading-[1.2] text-brand-primary">
             Feedback Monitoring

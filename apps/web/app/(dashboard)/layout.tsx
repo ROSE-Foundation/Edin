@@ -85,7 +85,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               href="/"
               className="flex items-center gap-[var(--spacing-sm)] transition-opacity duration-[var(--transition-fast)] hover:opacity-80"
             >
-              <Image src="/edin-logo.png" alt="" width={32} height={32} className="rounded-full" />
+              <Image
+                src="/edin-logo.png"
+                alt=""
+                width={48}
+                height={48}
+                className="rounded-full brightness-125"
+              />
               <p className="font-serif text-[24px] font-bold">Edin</p>
             </Link>
             <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-surface-raised/70">

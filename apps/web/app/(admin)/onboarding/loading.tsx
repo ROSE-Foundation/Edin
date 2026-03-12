@@ -1,6 +1,6 @@
 export default function OnboardingLoading() {
   return (
-    <main className="min-h-screen bg-surface-base">
+    <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <div className="mb-[var(--spacing-lg)] flex items-center justify-between">
           <div className="skeleton h-[32px] w-[250px]" />
