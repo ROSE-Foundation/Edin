@@ -75,7 +75,7 @@ interface ActivityFeedQuery {
   cursor?: string;
   limit: number;
   domain?: string;
-  excludeEventTypes?: string[];
+  excludeEventTypes?: ActivityEventType[];
 }
 
 @Injectable()

@@ -45,7 +45,9 @@ export class ActivityController {
 
     const ability = (req as Request & { ability?: AppAbility }).ability;
     const canReadSprint = ability?.can(Action.Read, 'SprintDashboard') ?? false;
-    const excludeEventTypes = canReadSprint ? [] : [...SPRINT_EVENT_TYPES];
+    const excludeEventTypes: (typeof SPRINT_EVENT_TYPES)[number][] = canReadSprint
+      ? []
+      : [...SPRINT_EVENT_TYPES];
 
     const result = await this.activityService.getFeed({
       ...parsed.data,
@@ -84,10 +86,7 @@ export class ActivityController {
       );
     }
 
-    const result = await this.activityService.getPublicFeed({
-      ...parsed.data,
-      excludeEventTypes: [...SPRINT_EVENT_TYPES],
-    });
+    const result = await this.activityService.getPublicFeed(parsed.data);
 
     return createSuccessResponse(result.items, correlationId, result.pagination);
   }

@@ -125,17 +125,19 @@ export class CodeEvaluationProcessor extends WorkerHost {
             narrative: result.narrative,
             formulaVersion: FORMULA_VERSION,
             modelId: model.id,
-            rawInputs: {
-              formulaVersion: FORMULA_VERSION,
-              weights: DEFAULT_CODE_WEIGHTS,
-              taskComplexityMultiplier,
-              domainNormalizationFactor,
-              modelPromptVersion: input.planningContext
-                ? 'code-eval-v2'
-                : ((model.config as Record<string, unknown>)?.promptVersion ?? 'unknown'),
-              planningContextIncluded: !!planningContext,
-              ...(planningContext ? { planningContext } : {}),
-            },
+            rawInputs: JSON.parse(
+              JSON.stringify({
+                formulaVersion: FORMULA_VERSION,
+                weights: DEFAULT_CODE_WEIGHTS,
+                taskComplexityMultiplier,
+                domainNormalizationFactor,
+                modelPromptVersion: input.planningContext
+                  ? 'code-eval-v2'
+                  : ((model.config as Record<string, unknown>)?.promptVersion ?? 'unknown'),
+                planningContextIncluded: !!planningContext,
+                ...(planningContext ? { planningContext } : {}),
+              }),
+            ) as Record<string, unknown>,
             metadata: {
               rawModelOutput: result.rawModelOutput,
             },

@@ -208,10 +208,12 @@ export class CombinedEvaluationService {
       await this.prisma.evaluation.update({
         where: { id: evaluationId },
         data: {
-          metadata: {
-            ...existingMeta,
-            combinedEvaluation: combinedResult,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              ...existingMeta,
+              combinedEvaluation: combinedResult,
+            }),
+          ) as Record<string, unknown>,
         },
       });
 
