@@ -19,16 +19,16 @@ export function ScalingLawExplainer({ summary }: ScalingLawExplainerProps) {
 
   return (
     <section
-      className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-base p-[var(--spacing-lg)]"
+      className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-base p-[var(--spacing-lg)]"
       aria-label="How your growth compounds"
     >
       {/* Summary insight */}
       {summary && (
         <div className="mb-[var(--spacing-md)]">
-          <p className="font-serif text-[15px] leading-[1.5] text-brand-primary">
+          <p className="font-serif text-[15px] leading-[1.5] text-text-primary">
             {TREND_MESSAGES[summary.overallTrend] ?? TREND_MESSAGES.STABLE}
           </p>
-          <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
             {Math.round(summary.tenureMonths)} month
             {Math.round(summary.tenureMonths) !== 1 ? 's' : ''} of engagement &middot;{' '}
             {summary.currentMultiplier}x current multiplier &middot; {summary.totalContributions}{' '}
@@ -40,7 +40,7 @@ export function ScalingLawExplainer({ summary }: ScalingLawExplainerProps) {
       {/* Expandable explanation */}
       <button
         onClick={() => setExpanded((prev) => !prev)}
-        className="font-sans text-[13px] font-medium text-brand-accent underline underline-offset-2 hover:opacity-80"
+        className="font-sans text-[13px] font-medium text-accent-primary underline underline-offset-2 hover:opacity-80"
         aria-expanded={expanded}
       >
         {expanded ? 'Hide' : 'How'} scaling-law compounding works
@@ -48,14 +48,14 @@ export function ScalingLawExplainer({ summary }: ScalingLawExplainerProps) {
 
       {expanded && (
         <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-md)]">
-          <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+          <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
             Like a garden that grows richer with sustained care, your contributions compound over
             time. Early and consistent engagement creates an accelerating trajectory of recognition.
           </p>
 
           {/* Scaling curve reference */}
           <div>
-            <h4 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary">
+            <h4 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-text-secondary">
               Growth multiplier over time
             </h4>
             <div className="flex flex-wrap gap-[var(--spacing-sm)]">
@@ -64,8 +64,8 @@ export function ScalingLawExplainer({ summary }: ScalingLawExplainerProps) {
                   key={point.month}
                   className="rounded-[var(--radius-sm)] bg-surface-raised px-[var(--spacing-sm)] py-[4px] text-center"
                 >
-                  <p className="font-sans text-[12px] text-brand-secondary">{point.label}</p>
-                  <p className="font-sans text-[14px] font-medium text-brand-primary">
+                  <p className="font-sans text-[12px] text-text-secondary">{point.label}</p>
+                  <p className="font-sans text-[14px] font-medium text-text-primary">
                     {point.multiplier}x
                   </p>
                 </div>
@@ -75,14 +75,14 @@ export function ScalingLawExplainer({ summary }: ScalingLawExplainerProps) {
 
           {/* Formula components */}
           <div>
-            <h4 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary">
+            <h4 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-text-secondary">
               What shapes your score
             </h4>
             <ul className="space-y-[var(--spacing-xs)]">
               {REWARD_METHODOLOGY.formulaComponents.map((component) => (
-                <li key={component.name} className="font-sans text-[13px] text-brand-primary">
+                <li key={component.name} className="font-sans text-[13px] text-text-primary">
                   <span className="font-medium">{component.name}</span>
-                  <span className="text-brand-secondary">
+                  <span className="text-text-secondary">
                     {' '}
                     &mdash; {component.qualitativeWeight}
                   </span>

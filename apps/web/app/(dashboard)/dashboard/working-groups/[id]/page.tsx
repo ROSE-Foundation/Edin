@@ -24,7 +24,7 @@ function WorkingGroupDetailSkeleton() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)]"
+                className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)]"
               >
                 <div className="skeleton h-[40px] w-[40px] rounded-full" />
                 <div className="flex-1">

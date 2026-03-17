@@ -29,7 +29,7 @@ export function ApplicationDetailView({ application }: ApplicationDetailViewProp
     <div className="space-y-[var(--spacing-lg)]">
       {/* Applicant info */}
       <div>
-        <h2 className="font-sans text-[20px] font-semibold text-brand-primary">
+        <h2 className="font-sans text-[20px] font-semibold text-text-primary">
           {application.applicantName}
         </h2>
         <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-sm)]">
@@ -40,7 +40,7 @@ export function ApplicationDetailView({ application }: ApplicationDetailViewProp
               {application.domain}
             </span>
           )}
-          <span className="font-sans text-[13px] text-brand-secondary">
+          <span className="font-sans text-[13px] text-text-secondary">
             Submitted {formatDate(application.createdAt)}
           </span>
         </div>
@@ -48,21 +48,21 @@ export function ApplicationDetailView({ application }: ApplicationDetailViewProp
 
       {/* Statement of Interest */}
       <section>
-        <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+        <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
           Statement of Interest
         </h3>
-        <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+        <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
           {application.statementOfInterest}
         </p>
       </section>
 
       {/* Micro-task Response */}
       <section>
-        <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+        <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
           Micro-task Response ({application.microTaskDomain})
         </h3>
-        <div className="max-h-[400px] overflow-y-auto rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken p-[var(--spacing-md)]">
-          <p className="whitespace-pre-wrap font-sans text-[14px] leading-[1.6] text-brand-primary">
+        <div className="max-h-[400px] overflow-y-auto rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken p-[var(--spacing-md)]">
+          <p className="whitespace-pre-wrap font-sans text-[14px] leading-[1.6] text-text-primary">
             {application.microTaskResponse}
           </p>
         </div>
@@ -71,7 +71,7 @@ export function ApplicationDetailView({ application }: ApplicationDetailViewProp
             href={application.microTaskSubmissionUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-[var(--spacing-xs)] inline-block font-sans text-[13px] text-brand-accent underline hover:text-brand-accent/80"
+            className="mt-[var(--spacing-xs)] inline-block font-sans text-[13px] text-accent-primary underline hover:text-accent-primary/80"
           >
             View submission
           </a>

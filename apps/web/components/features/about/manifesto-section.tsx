@@ -24,25 +24,25 @@ export function ManifestoSection({ manifesto }: ManifestoSectionProps) {
       }}
       aria-label={`${manifesto.title} domain`}
     >
-      <h2 className="font-serif text-[1.5rem] leading-[1.3] font-bold text-brand-primary">
+      <h2 className="font-serif text-[1.5rem] leading-[1.3] font-bold text-text-primary">
         {manifesto.title}
       </h2>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-sans text-[15px] leading-[1.5] font-normal text-text-secondary">
         {manifesto.subtitle}
       </p>
-      <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.6] text-brand-primary">
+      <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.6] text-text-primary">
         {manifesto.content}
       </p>
       <ul className="mt-[var(--spacing-md)] space-y-[var(--spacing-xs)]">
         {manifesto.highlights.map((highlight) => (
           <li
             key={highlight}
-            className="flex items-start gap-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-brand-secondary"
+            className="flex items-start gap-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-text-secondary"
           >
             <span
               className="mt-[6px] block h-[6px] w-[6px] shrink-0 rounded-full"
               style={{
-                backgroundColor: accent ? `var(${accent.bgVar})` : 'var(--color-brand-secondary)',
+                backgroundColor: accent ? `var(${accent.bgVar})` : 'var(--color-text-secondary)',
               }}
               aria-hidden="true"
             />

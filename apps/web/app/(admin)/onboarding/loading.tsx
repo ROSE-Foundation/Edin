@@ -6,9 +6,9 @@ export default function OnboardingLoading() {
           <div className="skeleton h-[32px] w-[250px]" />
           <div className="skeleton h-[40px] w-[160px] rounded-[var(--radius-md)]" />
         </div>
-        <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+        <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
           {/* Header skeleton */}
-          <div className="flex border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+          <div className="flex border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
             {[180, 100, 130, 130, 110, 90].map((w, i) => (
               <div key={i} className={`w-[${w}px]`}>
                 <div className="skeleton h-[14px] w-[80%]" />
@@ -19,7 +19,7 @@ export default function OnboardingLoading() {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center border-b border-surface-border px-[var(--spacing-md)] last:border-b-0"
+              className="flex items-center border-b border-surface-subtle px-[var(--spacing-md)] last:border-b-0"
               style={{ minHeight: '48px' }}
             >
               <div className="w-[180px] skeleton h-[20px]" />

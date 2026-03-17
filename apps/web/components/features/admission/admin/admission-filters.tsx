@@ -30,24 +30,24 @@ export function AdmissionFilters({
         onValueChange={(val) => onDomainChange(val === 'all' ? null : val)}
       >
         <Select.Trigger
-          className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20"
+          className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20"
           aria-label="Filter by domain"
         >
           <Select.Value placeholder="All Domains" />
-          <Select.Icon className="ml-[var(--spacing-xs)] text-brand-secondary">
+          <Select.Icon className="ml-[var(--spacing-xs)] text-text-secondary">
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Content
-            className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-[var(--shadow-modal)]"
+            className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)]"
             position="popper"
             sideOffset={4}
           >
             <Select.Viewport className="p-[var(--spacing-xs)]">
               <Select.Item
                 value="all"
-                className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
               >
                 <Select.ItemText>All Domains</Select.ItemText>
               </Select.Item>
@@ -55,7 +55,7 @@ export function AdmissionFilters({
                 <Select.Item
                   key={d}
                   value={d}
-                  className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                  className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                 >
                   <Select.ItemText>{d}</Select.ItemText>
                 </Select.Item>
@@ -70,24 +70,24 @@ export function AdmissionFilters({
         onValueChange={(val) => onStatusChange(val === 'all' ? null : val)}
       >
         <Select.Trigger
-          className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20"
+          className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20"
           aria-label="Filter by status"
         >
           <Select.Value placeholder="All Statuses" />
-          <Select.Icon className="ml-[var(--spacing-xs)] text-brand-secondary">
+          <Select.Icon className="ml-[var(--spacing-xs)] text-text-secondary">
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Content
-            className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-[var(--shadow-modal)]"
+            className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)]"
             position="popper"
             sideOffset={4}
           >
             <Select.Viewport className="p-[var(--spacing-xs)]">
               <Select.Item
                 value="all"
-                className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
               >
                 <Select.ItemText>All Statuses</Select.ItemText>
               </Select.Item>
@@ -95,7 +95,7 @@ export function AdmissionFilters({
                 <Select.Item
                   key={s.value}
                   value={s.value}
-                  className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                  className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                 >
                   <Select.ItemText>{s.label}</Select.ItemText>
                 </Select.Item>

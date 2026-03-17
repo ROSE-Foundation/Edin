@@ -13,7 +13,7 @@ export default function ZenhubConfigurationPage() {
 
   return (
     <div className="p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         Zenhub Integration Configuration
       </h1>
 
@@ -38,12 +38,12 @@ export default function ZenhubConfigurationPage() {
       {isLoading ? (
         <div className="h-[400px] animate-pulse rounded-[var(--radius-lg)] bg-surface-border" />
       ) : config ? (
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <div className="mb-[var(--spacing-md)]">
-            <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+            <h2 className="font-sans text-[16px] font-semibold text-text-primary">
               Connection Settings
             </h2>
-            <p className="mt-[var(--spacing-xs)] text-[13px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] text-[13px] text-text-secondary">
               Configure the Zenhub API credentials, webhook settings, and polling schedule.
             </p>
           </div>

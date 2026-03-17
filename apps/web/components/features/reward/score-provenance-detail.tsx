@@ -27,7 +27,7 @@ export function ScoreProvenanceDetail({ scores }: ScoreProvenanceDetailProps) {
             className="flex w-full items-center justify-between text-left"
           >
             <div>
-              <p className="font-sans text-[14px] font-medium text-brand-primary">
+              <p className="font-sans text-[14px] font-medium text-text-primary">
                 Score: {score.compositeScore.toFixed(1)}
               </p>
               <p className="font-sans text-[12px] text-neutral-400">

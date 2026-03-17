@@ -85,7 +85,7 @@ export function WgLeadDashboard({
       <DomainHealthCard healthIndicators={healthIndicators} />
 
       <section role="region" aria-label="Member Activity">
-        <h3 className="font-sans text-[16px] font-medium text-brand-primary">Member Activity</h3>
+        <h3 className="font-sans text-[16px] font-medium text-text-primary">Member Activity</h3>
         <div className="mt-[var(--spacing-md)]">
           <MemberList members={members} isLoading={false} />
         </div>
@@ -93,7 +93,7 @@ export function WgLeadDashboard({
 
       {/* Announcements */}
       <section role="region" aria-label="Announcements">
-        <h3 className="font-sans text-[16px] font-medium text-brand-primary">Announcements</h3>
+        <h3 className="font-sans text-[16px] font-medium text-text-primary">Announcements</h3>
         <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-md)]">
           <AnnouncementForm
             onSubmit={handleCreateAnnouncement}
@@ -111,7 +111,7 @@ export function WgLeadDashboard({
 
       {/* Task Priority */}
       <section role="region" aria-label="Task Priority">
-        <h3 className="font-sans text-[16px] font-medium text-brand-primary">Task Priority</h3>
+        <h3 className="font-sans text-[16px] font-medium text-text-primary">Task Priority</h3>
         <div className="mt-[var(--spacing-md)]">
           <TaskPriorityList
             tasks={tasks}
@@ -122,7 +122,7 @@ export function WgLeadDashboard({
       </section>
 
       <section role="region" aria-label="Pending Reviews">
-        <h3 className="font-sans text-[16px] font-medium text-brand-primary">Pending Reviews</h3>
+        <h3 className="font-sans text-[16px] font-medium text-text-primary">Pending Reviews</h3>
         <div className="mt-[var(--spacing-md)]">
           <DomainApplications applications={applications} isPending={isApplicationsLoading} />
         </div>

@@ -24,11 +24,11 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
         >
           {article.domain}
         </span>
-        <h1 className="mt-[var(--spacing-sm)] font-serif text-[1.75rem] font-bold text-brand-primary">
+        <h1 className="mt-[var(--spacing-sm)] font-serif text-[1.75rem] font-bold text-text-primary">
           {article.title}
         </h1>
         {article.publishedAt && (
-          <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">
             Published{' '}
             {new Date(article.publishedAt).toLocaleDateString('en-US', {
               month: 'long',
@@ -44,15 +44,15 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
 
       {/* Embargo State */}
       {metrics?.isEmbargoed && (
-        <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] text-center">
-          <p className="font-serif text-[1.125rem] text-brand-primary">
+        <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] text-center">
+          <p className="font-serif text-[1.125rem] text-text-primary">
             Your article is growing roots.
           </p>
-          <p className="mt-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary">
+          <p className="mt-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary">
             Metrics will bloom 48 hours after publication.
           </p>
           {metrics.embargoEndsAt && (
-            <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
               Available{' '}
               {new Date(metrics.embargoEndsAt).toLocaleDateString('en-US', {
                 month: 'long',
@@ -70,7 +70,7 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
         <>
           {/* Reach */}
           <section>
-            <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-brand-primary">
+            <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-text-primary">
               Reach
             </h2>
             <div className="grid grid-cols-1 gap-[var(--spacing-md)] sm:grid-cols-2">
@@ -82,13 +82,13 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
           {/* Engagement */}
           {(metrics.avgTimeOnPageSeconds !== null || metrics.avgScrollDepthPercent !== null) && (
             <section>
-              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-brand-primary">
+              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-text-primary">
                 Engagement
               </h2>
               <div className="grid grid-cols-1 gap-[var(--spacing-md)] sm:grid-cols-2">
                 {metrics.avgTimeOnPageSeconds !== null && (
-                  <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-                    <p className="font-sans text-[15px] text-brand-primary">
+                  <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+                    <p className="font-sans text-[15px] text-text-primary">
                       Readers spent an average of{' '}
                       <span className="font-semibold">
                         {formatTime(metrics.avgTimeOnPageSeconds)}
@@ -98,8 +98,8 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
                   </div>
                 )}
                 {metrics.avgScrollDepthPercent !== null && (
-                  <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-                    <p className="font-sans text-[15px] text-brand-primary">
+                  <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+                    <p className="font-sans text-[15px] text-text-primary">
                       Readers typically explored{' '}
                       <span className="font-semibold">
                         {Math.round(metrics.avgScrollDepthPercent)}%
@@ -111,7 +111,7 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
                         className="h-2 rounded-full transition-all"
                         style={{
                           width: `${Math.round(metrics.avgScrollDepthPercent)}%`,
-                          backgroundColor: 'var(--color-brand-accent)',
+                          backgroundColor: 'var(--color-accent-primary)',
                         }}
                       />
                     </div>
@@ -124,10 +124,10 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
           {/* Growth Over Time */}
           {metrics.viewsOverTime.length > 0 && (
             <section>
-              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-brand-primary">
+              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-text-primary">
                 Growth Over Time
               </h2>
-              <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+              <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
                 <GrowthCurveChart data={metrics.viewsOverTime} />
               </div>
             </section>
@@ -136,20 +136,20 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
           {/* Referral Sources */}
           {metrics.referralSources.length > 0 && (
             <section>
-              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-brand-primary">
+              <h2 className="mb-[var(--spacing-md)] font-serif text-[1.25rem] font-semibold text-text-primary">
                 Where readers found you
               </h2>
-              <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+              <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
                 <ul className="space-y-[var(--spacing-sm)]">
                   {metrics.referralSources.map((source) => (
                     <li
                       key={source.source}
                       className="flex items-center justify-between font-sans text-[14px]"
                     >
-                      <span className="text-brand-primary">
+                      <span className="text-text-primary">
                         {formatReferralSource(source.source)}
                       </span>
-                      <span className="text-brand-secondary">{source.count} readers</span>
+                      <span className="text-text-secondary">{source.count} readers</span>
                     </li>
                   ))}
                 </ul>
@@ -164,9 +164,9 @@ export function ArticleMetricsView({ article, metrics, allocation }: ArticleMetr
 
 function MetricCard({ value, suffix }: { value: number; suffix: string }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-      <p className="font-sans text-[32px] font-bold text-brand-primary">{value}</p>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">{suffix}</p>
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+      <p className="font-sans text-[32px] font-bold text-text-primary">{value}</p>
+      <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">{suffix}</p>
     </div>
   );
 }

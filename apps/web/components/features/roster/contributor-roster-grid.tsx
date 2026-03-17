@@ -10,7 +10,7 @@ export function ContributorRosterGrid({ contributors, isFiltered }: ContributorR
   if (contributors.length === 0) {
     return (
       <div className="py-[var(--spacing-3xl)] text-center">
-        <p className="font-sans text-[15px] leading-[1.5] text-brand-secondary">
+        <p className="font-sans text-[15px] leading-[1.5] text-text-secondary">
           {isFiltered
             ? 'No contributors found matching your criteria.'
             : 'The community is growing. Check back soon.'}

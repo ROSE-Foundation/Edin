@@ -81,8 +81,8 @@ describe('PublicProfileView', () => {
 
     const badge = screen.getByText('Founding Contributor');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('border-brand-accent');
-    expect(badge).toHaveClass('bg-brand-accent-subtle');
+    expect(badge).toHaveClass('border-accent-primary');
+    expect(badge).toHaveClass('bg-accent-primary-subtle');
   });
 
   it('renders contribution history placeholder section', () => {

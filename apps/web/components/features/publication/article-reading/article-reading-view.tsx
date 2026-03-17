@@ -32,19 +32,19 @@ export function ArticleReadingView({ article }: ArticleReadingViewProps) {
             >
               {article.domain}
             </span>
-            <span className="text-sm text-brand-secondary">
+            <span className="text-sm text-text-secondary">
               {formatPublicationDate(article.publishedAt)}
             </span>
-            <span className="text-sm text-brand-secondary">
+            <span className="text-sm text-text-secondary">
               {article.readingTimeMinutes} min read
             </span>
           </div>
 
-          <h1 className="font-serif text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] font-bold text-brand-primary">
+          <h1 className="font-serif text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] font-bold text-text-primary">
             {article.title}
           </h1>
 
-          <p className="mt-[var(--spacing-lg)] text-lg leading-relaxed italic text-brand-secondary">
+          <p className="mt-[var(--spacing-lg)] text-lg leading-relaxed italic text-text-secondary">
             {article.abstract}
           </p>
 
@@ -64,21 +64,21 @@ export function ArticleReadingView({ article }: ArticleReadingViewProps) {
             className="mb-[var(--spacing-2xl)] rounded-lg bg-surface-sunken p-[var(--spacing-lg)]"
             aria-label="AI Evaluation"
           >
-            <h2 className="mb-[var(--spacing-sm)] font-serif text-lg font-semibold text-brand-primary">
+            <h2 className="mb-[var(--spacing-sm)] font-serif text-lg font-semibold text-text-primary">
               AI Evaluation
             </h2>
-            <p className="text-sm leading-relaxed text-brand-secondary">
+            <p className="text-sm leading-relaxed text-text-secondary">
               {article.evaluationNarrative}
             </p>
             {article.evaluationScore !== null && (
               <div className="mt-3 flex items-center gap-2">
                 <div className="h-2 flex-1 rounded-full bg-surface-border">
                   <div
-                    className="h-2 rounded-full bg-brand-accent"
+                    className="h-2 rounded-full bg-accent-primary"
                     style={{ width: `${Math.min(article.evaluationScore * 10, 100)}%` }}
                   />
                 </div>
-                <span className="text-xs font-medium text-brand-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   {article.evaluationScore.toFixed(1)}/10
                 </span>
               </div>
@@ -87,7 +87,7 @@ export function ArticleReadingView({ article }: ArticleReadingViewProps) {
         )}
 
         {/* Footer */}
-        <footer className="border-t border-surface-border pt-[var(--spacing-xl)]">
+        <footer className="border-t border-surface-subtle pt-[var(--spacing-xl)]">
           {/* Author bio card */}
           {article.author.bio && (
             <div className="mb-[var(--spacing-lg)] flex items-start gap-4">
@@ -97,18 +97,18 @@ export function ArticleReadingView({ article }: ArticleReadingViewProps) {
               <div>
                 <Link
                   href={`/contributors/${article.author.id}`}
-                  className="font-medium text-brand-primary hover:text-brand-accent"
+                  className="font-medium text-text-primary hover:text-accent-primary"
                 >
                   {article.author.name}
                 </Link>
-                <p className="mt-1 text-sm text-brand-secondary">{article.author.bio}</p>
+                <p className="mt-1 text-sm text-text-secondary">{article.author.bio}</p>
               </div>
             </div>
           )}
 
           <Link
             href="/articles"
-            className="inline-flex items-center gap-1 text-sm font-medium text-brand-accent hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-medium text-accent-primary hover:underline"
           >
             ← Back to articles
           </Link>

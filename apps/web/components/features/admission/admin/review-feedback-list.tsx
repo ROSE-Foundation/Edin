@@ -44,7 +44,7 @@ export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
   );
 
   if (submittedReviews.length === 0) {
-    return <p className="font-sans text-[14px] text-brand-secondary">No reviews submitted yet.</p>;
+    return <p className="font-sans text-[14px] text-text-secondary">No reviews submitted yet.</p>;
   }
 
   return (
@@ -52,7 +52,7 @@ export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
       {submittedReviews.map((review) => {
         const recStyle = RECOMMENDATION_STYLES[review.recommendation] ?? {
           bg: 'bg-surface-sunken',
-          text: 'text-brand-secondary',
+          text: 'text-text-secondary',
           label: review.recommendation,
         };
         const domainColor = review.reviewer.domain ? DOMAIN_COLORS[review.reviewer.domain] : null;
@@ -60,7 +60,7 @@ export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
         return (
           <div
             key={review.id}
-            className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+            className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
           >
             <div className="flex items-center gap-[var(--spacing-sm)]">
               {review.reviewer.avatarUrl ? (
@@ -71,13 +71,13 @@ export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
                 />
               ) : (
                 <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-surface-sunken">
-                  <span className="font-sans text-[14px] font-medium text-brand-secondary">
+                  <span className="font-sans text-[14px] font-medium text-text-secondary">
                     {review.reviewer.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
               )}
               <div className="flex-1">
-                <span className="font-sans text-[14px] font-medium text-brand-primary">
+                <span className="font-sans text-[14px] font-medium text-text-primary">
                   {review.reviewer.name}
                 </span>
                 {domainColor && (
@@ -95,10 +95,10 @@ export function ReviewFeedbackList({ reviews }: ReviewFeedbackListProps) {
                 {recStyle.label}
               </span>
             </div>
-            <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.6] text-brand-primary">
+            <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.6] text-text-primary">
               {review.feedback}
             </p>
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               {formatRelativeDate(review.createdAt)}
             </p>
           </div>

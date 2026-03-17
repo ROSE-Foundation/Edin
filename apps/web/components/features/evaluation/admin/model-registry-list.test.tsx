@@ -103,7 +103,7 @@ describe('ModelRegistryList', () => {
     );
 
     const rows = container.querySelectorAll('tbody tr');
-    expect(rows[0].className).toContain('bg-brand-accent/5');
-    expect(rows[1].className).not.toContain('bg-brand-accent/5');
+    expect(rows[0].className).toContain('bg-accent-primary/5');
+    expect(rows[1].className).not.toContain('bg-accent-primary/5');
   });
 });

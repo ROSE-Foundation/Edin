@@ -36,7 +36,7 @@ export function OnboardingWelcome() {
 
   return (
     <section className="space-y-[var(--spacing-md)]">
-      <h2 className="font-serif text-[20px] font-bold text-brand-primary">
+      <h2 className="font-serif text-[20px] font-bold text-text-primary">
         Welcome to the community
       </h2>
 

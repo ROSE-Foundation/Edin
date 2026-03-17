@@ -11,7 +11,7 @@ function MyTasksSkeleton() {
       {Array.from({ length: 3 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+          className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
         >
           <div className="skeleton h-[18px] w-[200px]" />
           <div className="mt-[var(--spacing-xs)] skeleton h-[16px] w-full" />
@@ -57,8 +57,8 @@ export default function MyTasksPage() {
   return (
     <main className="min-h-screen bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[56rem]">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">My Tasks</h1>
-        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-brand-secondary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">My Tasks</h1>
+        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-text-secondary">
           Tasks you have claimed and their progress.
         </p>
 
@@ -66,7 +66,7 @@ export default function MyTasksPage() {
           {isPending ? (
             <MyTasksSkeleton />
           ) : tasks.length === 0 ? (
-            <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-brand-secondary">
+            <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-text-secondary">
               You have not claimed any tasks yet. Browse the contribution menu to find work.
             </p>
           ) : (
@@ -87,7 +87,7 @@ export default function MyTasksPage() {
               <button
                 type="button"
                 onClick={() => fetchNextPage()}
-                className="font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+                className="font-sans text-[14px] text-text-secondary hover:text-text-primary"
               >
                 Load more
               </button>

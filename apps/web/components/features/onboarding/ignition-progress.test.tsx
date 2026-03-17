@@ -64,8 +64,8 @@ describe('IgnitionProgress', () => {
       <IgnitionProgress milestones={completedMilestones} isExpired={false} isLoading={false} />,
     );
 
-    // Two completed dots (bg-brand-accent)
-    const accentDots = container.querySelectorAll('.bg-brand-accent');
+    // Two completed dots (bg-accent-primary)
+    const accentDots = container.querySelectorAll('.bg-accent-primary');
     expect(accentDots.length).toBeGreaterThanOrEqual(2);
   });
 

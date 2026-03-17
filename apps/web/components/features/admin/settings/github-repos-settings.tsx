@@ -58,7 +58,7 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
 
   return (
     <div>
-      <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary">
+      <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary">
         Monitored Repositories
       </h3>
       <div className="mb-[var(--spacing-md)] rounded-[var(--radius-md)] border border-blue-200 bg-blue-50 p-[var(--spacing-md)]">
@@ -87,7 +87,7 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
         </p>
       </div>
       {repos.length === 0 ? (
-        <p className="text-[13px] text-brand-secondary">
+        <p className="text-[13px] text-text-secondary">
           No repositories are currently being monitored. Use the form below to add one.
         </p>
       ) : (
@@ -95,9 +95,9 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
           {repos.map((repo, index) => (
             <li
               key={repo.repoUrl}
-              className="flex items-center justify-between rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]"
+              className="flex items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]"
             >
-              <span className="font-mono text-[13px] text-brand-primary">{repo.repoUrl}</span>
+              <span className="font-mono text-[13px] text-text-primary">{repo.repoUrl}</span>
               <button
                 onClick={() => handleToggle(index)}
                 disabled={isPending}
@@ -114,7 +114,7 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
 
       {/* Add new repository */}
       <div className="mt-[var(--spacing-md)]">
-        <h3 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary">
+        <h3 className="mb-[var(--spacing-xs)] font-sans text-[13px] font-medium text-text-secondary">
           Add Repository
         </h3>
         <div className="flex gap-[var(--spacing-sm)]">
@@ -126,12 +126,12 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
               setAddError(null);
             }}
             placeholder="https://github.com/owner/repo"
-            className="flex-1 rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[13px] text-brand-primary placeholder:text-brand-secondary/50 focus:border-brand-accent focus:outline-none"
+            className="flex-1 rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[13px] text-text-primary placeholder:text-text-secondary/50 focus:border-accent-primary focus:outline-none"
           />
           <button
             onClick={handleAddRepo}
             disabled={isPending || !newRepoUrl.trim()}
-            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[13px] font-medium text-white hover:bg-brand-accent/90 disabled:opacity-50"
+            className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[13px] font-medium text-white hover:bg-accent-primary/90 disabled:opacity-50"
           >
             {isPending ? 'Adding...' : 'Add'}
           </button>
@@ -151,14 +151,14 @@ export function GithubReposSettings({ section, onSave, isPending }: GithubReposS
             <button
               onClick={confirmToggle}
               disabled={isPending}
-              className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[2px] text-[12px] font-medium text-white hover:bg-brand-accent/90 disabled:opacity-50"
+              className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[2px] text-[12px] font-medium text-white hover:bg-accent-primary/90 disabled:opacity-50"
             >
               {isPending ? 'Saving...' : 'Confirm'}
             </button>
             <button
               onClick={() => setPendingToggle(null)}
               disabled={isPending}
-              className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[2px] text-[12px] text-brand-secondary hover:bg-surface-base"
+              className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[2px] text-[12px] text-text-secondary hover:bg-surface-base"
             >
               Cancel
             </button>

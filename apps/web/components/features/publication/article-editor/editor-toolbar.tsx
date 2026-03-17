@@ -118,7 +118,7 @@ const TOOLBAR_GROUPS: ToolbarButton[][] = [
 export function EditorToolbar({ editor }: EditorToolbarProps) {
   return (
     <div
-      className="flex flex-wrap items-center gap-[var(--spacing-xs)] border-b border-surface-border pb-[var(--spacing-sm)]"
+      className="flex flex-wrap items-center gap-[var(--spacing-xs)] border-b border-surface-subtle pb-[var(--spacing-sm)]"
       role="toolbar"
       aria-label="Text formatting"
     >
@@ -136,8 +136,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
                 aria-pressed={active}
                 className={`flex h-[32px] min-w-[32px] items-center justify-center rounded-[var(--radius-sm)] px-[6px] font-sans text-[13px] font-semibold transition-colors ${
                   active
-                    ? 'bg-brand-accent/15 text-brand-accent'
-                    : 'text-brand-secondary hover:bg-surface-sunken hover:text-brand-primary'
+                    ? 'bg-accent-primary/15 text-accent-primary'
+                    : 'text-text-secondary hover:bg-surface-sunken hover:text-text-primary'
                 }`}
               >
                 {btn.icon}

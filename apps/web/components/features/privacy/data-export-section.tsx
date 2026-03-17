@@ -33,9 +33,9 @@ export function DataExportSection() {
   };
 
   return (
-    <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-      <h2 className="font-sans text-[16px] font-semibold text-brand-primary">Export My Data</h2>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+    <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+      <h2 className="font-sans text-[16px] font-semibold text-text-primary">Export My Data</h2>
+      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
         Request a full export of your personal data in machine-readable format. Under GDPR Article
         20, you have the right to receive your data and transfer it to another service.
       </p>
@@ -47,16 +47,16 @@ export function DataExportSection() {
       )}
 
       {exportStatus && (
-        <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-md)]">
+        <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-md)]">
           <div className="flex items-center gap-[var(--spacing-sm)]">
-            <span className="font-sans text-[13px] font-medium text-brand-primary">
+            <span className="font-sans text-[13px] font-medium text-text-primary">
               Export Status:
             </span>
             <StatusBadge status={exportStatus.status} />
           </div>
 
           {(exportStatus.status === 'PENDING' || exportStatus.status === 'PROCESSING') && (
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               Your data export is being prepared. This page will update automatically.
             </p>
           )}
@@ -66,12 +66,12 @@ export function DataExportSection() {
               <a
                 href={exportStatus.downloadUrl}
                 download={exportStatus.fileName ?? 'data-export.zip'}
-                className="inline-flex items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+                className="inline-flex items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-white transition-opacity hover:opacity-90"
               >
                 Download Export
               </a>
               {exportStatus.expiresAt && (
-                <p className="mt-[var(--spacing-xs)] font-sans text-[11px] text-brand-secondary">
+                <p className="mt-[var(--spacing-xs)] font-sans text-[11px] text-text-secondary">
                   Link expires: {new Date(exportStatus.expiresAt).toLocaleString()}
                 </p>
               )}
@@ -79,7 +79,7 @@ export function DataExportSection() {
           )}
 
           {exportStatus.status === 'EXPIRED' && (
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               This export has expired. Please request a new export.
             </p>
           )}
@@ -95,7 +95,7 @@ export function DataExportSection() {
       <button
         onClick={handleRequestExport}
         disabled={exportRequest.isPending}
-        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {exportRequest.isPending ? 'Requesting...' : 'Request Data Export'}
       </button>

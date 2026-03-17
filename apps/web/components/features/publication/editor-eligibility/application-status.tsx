@@ -34,7 +34,7 @@ export function ApplicationStatus({
         {style.label}
       </span>
       {createdAt && (
-        <span className="font-sans text-[12px] text-brand-secondary">
+        <span className="font-sans text-[12px] text-text-secondary">
           Applied{' '}
           {new Date(createdAt).toLocaleDateString('en-US', {
             month: 'short',
@@ -44,7 +44,7 @@ export function ApplicationStatus({
         </span>
       )}
       {reviewedAt && (
-        <span className="font-sans text-[12px] text-brand-secondary">
+        <span className="font-sans text-[12px] text-text-secondary">
           Reviewed{' '}
           {new Date(reviewedAt).toLocaleDateString('en-US', {
             month: 'short',
@@ -54,7 +54,7 @@ export function ApplicationStatus({
         </span>
       )}
       {status === 'REJECTED' && reviewNotes && (
-        <p className="mt-[var(--spacing-xs)] rounded-[var(--radius-sm)] bg-surface-sunken px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] rounded-[var(--radius-sm)] bg-surface-sunken px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
           {reviewNotes}
         </p>
       )}

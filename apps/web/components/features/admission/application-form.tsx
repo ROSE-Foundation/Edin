@@ -92,7 +92,7 @@ export function ApplicationForm() {
         <div>
           <label
             htmlFor="applicantName"
-            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
           >
             Full Name
           </label>
@@ -101,8 +101,8 @@ export function ApplicationForm() {
             id="applicantName"
             type="text"
             autoComplete="name"
-            className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-              errors.applicantName ? 'border-semantic-error' : 'border-surface-border-input'
+            className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+              errors.applicantName ? 'border-semantic-error' : 'border-surface-subtle-input'
             }`}
             aria-describedby={errors.applicantName ? 'applicantName-error' : undefined}
             aria-invalid={errors.applicantName ? 'true' : undefined}
@@ -122,7 +122,7 @@ export function ApplicationForm() {
         <div>
           <label
             htmlFor="applicantEmail"
-            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
           >
             Email Address
           </label>
@@ -131,8 +131,8 @@ export function ApplicationForm() {
             id="applicantEmail"
             type="email"
             autoComplete="email"
-            className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-              errors.applicantEmail ? 'border-semantic-error' : 'border-surface-border-input'
+            className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+              errors.applicantEmail ? 'border-semantic-error' : 'border-surface-subtle-input'
             }`}
             aria-describedby={errors.applicantEmail ? 'applicantEmail-error' : undefined}
             aria-invalid={errors.applicantEmail ? 'true' : undefined}
@@ -168,7 +168,7 @@ export function ApplicationForm() {
         <div>
           <label
             htmlFor="statementOfInterest"
-            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
           >
             Statement of Interest
           </label>
@@ -177,8 +177,8 @@ export function ApplicationForm() {
             id="statementOfInterest"
             rows={3}
             maxLength={300}
-            className={`w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-              errors.statementOfInterest ? 'border-semantic-error' : 'border-surface-border-input'
+            className={`w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+              errors.statementOfInterest ? 'border-semantic-error' : 'border-surface-subtle-input'
             }`}
             aria-describedby={
               errors.statementOfInterest ? 'statementOfInterest-error' : 'statementOfInterest-hint'
@@ -197,12 +197,12 @@ export function ApplicationForm() {
             ) : (
               <span
                 id="statementOfInterest-hint"
-                className="font-sans text-[12px] text-brand-secondary"
+                className="font-sans text-[12px] text-text-secondary"
               >
                 Brief description of why you want to join
               </span>
             )}
-            <span className="font-sans text-[12px] text-brand-secondary">
+            <span className="font-sans text-[12px] text-text-secondary">
               {statementValue?.length || 0}/300
             </span>
           </div>
@@ -214,7 +214,7 @@ export function ApplicationForm() {
             <div>
               <label
                 htmlFor="microTaskResponse"
-                className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+                className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
               >
                 Your Response
               </label>
@@ -222,8 +222,8 @@ export function ApplicationForm() {
                 {...register('microTaskResponse')}
                 id="microTaskResponse"
                 rows={6}
-                className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-                  errors.microTaskResponse ? 'border-semantic-error' : 'border-surface-border-input'
+                className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+                  errors.microTaskResponse ? 'border-semantic-error' : 'border-surface-subtle-input'
                 }`}
                 aria-describedby={errors.microTaskResponse ? 'microTaskResponse-error' : undefined}
                 aria-invalid={errors.microTaskResponse ? 'true' : undefined}
@@ -243,20 +243,20 @@ export function ApplicationForm() {
             <div>
               <label
                 htmlFor="microTaskSubmissionUrl"
-                className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+                className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
               >
                 Submission URL{' '}
-                <span className="font-normal text-brand-secondary/70">(optional)</span>
+                <span className="font-normal text-text-secondary/70">(optional)</span>
               </label>
               <input
                 {...register('microTaskSubmissionUrl')}
                 id="microTaskSubmissionUrl"
                 type="url"
                 placeholder="https://github.com/..."
-                className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
+                className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
                   errors.microTaskSubmissionUrl
                     ? 'border-semantic-error'
-                    : 'border-surface-border-input'
+                    : 'border-surface-subtle-input'
                 }`}
                 aria-describedby={
                   errors.microTaskSubmissionUrl ? 'microTaskSubmissionUrl-error' : undefined
@@ -308,7 +308,7 @@ export function ApplicationForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus:ring-2 focus:ring-brand-accent/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus:ring-2 focus:ring-accent-primary/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? 'Submitting...' : 'Submit Application'}
         </button>

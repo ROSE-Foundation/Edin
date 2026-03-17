@@ -8,13 +8,13 @@ interface FoundingCircleProps {
 export function FoundingCircle({ contributors }: FoundingCircleProps) {
   return (
     <section className="mx-auto max-w-[1200px] px-6 py-20" aria-label="Founding Circle">
-      <h2 className="text-center font-serif text-[2rem] leading-[1.25] font-bold text-brand-primary">
+      <h2 className="text-center font-serif text-[2rem] leading-[1.25] font-bold text-text-primary">
         Founding Circle
       </h2>
 
       {contributors.length === 0 ? (
         <div className="mx-auto mt-[var(--spacing-lg)] max-w-[400px] text-center">
-          <p className="font-sans text-[15px] leading-[1.5] text-brand-secondary">
+          <p className="font-sans text-[15px] leading-[1.5] text-text-secondary">
             The Founding Circle is forming. Serious contributors are building something different.
           </p>
         </div>

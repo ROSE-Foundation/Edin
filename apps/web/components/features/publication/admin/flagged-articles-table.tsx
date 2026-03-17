@@ -80,8 +80,8 @@ export function FlaggedArticlesTable() {
 
   if (!articles || articles.length === 0) {
     return (
-      <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-2xl)] text-center">
-        <p className="font-sans text-[15px] text-brand-secondary">
+      <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-2xl)] text-center">
+        <p className="font-sans text-[15px] text-text-secondary">
           No flagged articles require review
         </p>
       </div>
@@ -90,26 +90,26 @@ export function FlaggedArticlesTable() {
 
   return (
     <>
-      <div className="overflow-hidden rounded-[var(--radius-md)] border border-surface-border">
+      <div className="overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-surface-border bg-surface-raised">
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle bg-surface-raised">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-text-secondary">
                 Article
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-text-secondary">
                 Author
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-text-secondary">
                 Flag Type
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-text-secondary">
                 Confidence
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[13px] font-medium text-text-secondary">
                 Date
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[13px] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[13px] font-medium text-text-secondary">
                 Actions
               </th>
             </tr>
@@ -123,15 +123,15 @@ export function FlaggedArticlesTable() {
               return (
                 <tr
                   key={item.articleId}
-                  className="border-b border-surface-border last:border-b-0 hover:bg-surface-raised/50"
+                  className="border-b border-surface-subtle last:border-b-0 hover:bg-surface-raised/50"
                 >
                   <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-                    <span className="font-sans text-[14px] font-medium text-brand-primary">
+                    <span className="font-sans text-[14px] font-medium text-text-primary">
                       {item.articleTitle}
                     </span>
                   </td>
                   <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-                    <span className="font-sans text-[14px] text-brand-secondary">
+                    <span className="font-sans text-[14px] text-text-secondary">
                       {item.authorName}
                     </span>
                   </td>
@@ -148,17 +148,17 @@ export function FlaggedArticlesTable() {
                     <div className="flex items-center gap-[var(--spacing-xs)]">
                       <div className="h-2 w-16 overflow-hidden rounded-full bg-surface-border">
                         <div
-                          className="h-full rounded-full bg-brand-accent"
+                          className="h-full rounded-full bg-accent-primary"
                           style={{ width: `${confidencePercent}%` }}
                         />
                       </div>
-                      <span className="font-sans text-[13px] text-brand-secondary">
+                      <span className="font-sans text-[13px] text-text-secondary">
                         {confidencePercent}%
                       </span>
                     </div>
                   </td>
                   <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-                    <span className="font-sans text-[13px] text-brand-secondary">
+                    <span className="font-sans text-[13px] text-text-secondary">
                       {new Date(report.createdAt).toLocaleDateString()}
                     </span>
                   </td>
@@ -167,7 +167,7 @@ export function FlaggedArticlesTable() {
                       <button
                         type="button"
                         onClick={() => setSelectedArticle(item)}
-                        className="rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-1 font-sans text-[13px] text-brand-accent hover:bg-brand-accent/10"
+                        className="rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-1 font-sans text-[13px] text-accent-primary hover:bg-accent-primary/10"
                       >
                         View Report
                       </button>
@@ -207,7 +207,7 @@ export function FlaggedArticlesTable() {
             type="button"
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className="rounded-[var(--radius-md)] bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary hover:text-brand-primary disabled:opacity-50"
+            className="rounded-[var(--radius-md)] bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary hover:text-text-primary disabled:opacity-50"
           >
             {isFetchingNextPage ? 'Loading...' : 'Load more'}
           </button>

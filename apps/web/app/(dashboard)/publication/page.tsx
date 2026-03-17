@@ -32,17 +32,17 @@ export default function PublicationPage() {
   return (
     <div className="mx-auto max-w-[960px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mb-[var(--spacing-xl)] flex items-center justify-between">
-        <h1 className="font-serif text-[2rem] font-bold text-brand-primary">Publication</h1>
+        <h1 className="font-serif text-[2rem] font-bold text-text-primary">Publication</h1>
         <div className="flex gap-[var(--spacing-sm)]">
           <Link
             href="/publication/editor-application"
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary transition-colors hover:bg-surface-sunken"
           >
             Editor Application
           </Link>
           <Link
             href="/publication/new"
-            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+            className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
           >
             Write
           </Link>
@@ -68,7 +68,7 @@ export default function PublicationPage() {
       )}
 
       {/* Status filter tabs */}
-      <div className="mb-[var(--spacing-lg)] flex gap-[var(--spacing-xs)] border-b border-surface-border">
+      <div className="mb-[var(--spacing-lg)] flex gap-[var(--spacing-xs)] border-b border-surface-subtle">
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -77,11 +77,11 @@ export default function PublicationPage() {
             style={{
               color:
                 activeTab === tab.id
-                  ? 'var(--color-brand-accent, #C4956A)'
-                  : 'var(--color-brand-secondary, #6B7B8D)',
+                  ? 'var(--color-accent-primary, #C4956A)'
+                  : 'var(--color-text-secondary, #6B7B8D)',
               borderBottom:
                 activeTab === tab.id
-                  ? '2px solid var(--color-brand-accent, #C4956A)'
+                  ? '2px solid var(--color-accent-primary, #C4956A)'
                   : '2px solid transparent',
               fontWeight: activeTab === tab.id ? 600 : 400,
             }}
@@ -107,7 +107,7 @@ export default function PublicationPage() {
         </p>
       ) : articles.length === 0 ? (
         <div className="flex flex-col items-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
-          <p className="font-sans text-[17px] text-brand-secondary">
+          <p className="font-sans text-[17px] text-text-secondary">
             {activeTab === 'all'
               ? 'No articles yet'
               : `No ${selectedTab.label.toLowerCase()} articles`}
@@ -115,7 +115,7 @@ export default function PublicationPage() {
           {activeTab === 'all' || activeTab === 'drafts' ? (
             <Link
               href="/publication/new"
-              className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+              className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
             >
               Start Writing
             </Link>
@@ -133,7 +133,7 @@ export default function PublicationPage() {
               <button
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="rounded-[var(--radius-md)] border border-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-accent transition-colors hover:bg-brand-accent-subtle disabled:opacity-50"
+                className="rounded-[var(--radius-md)] border border-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-accent-primary transition-colors hover:bg-accent-primary-subtle disabled:opacity-50"
               >
                 {isFetchingNextPage ? 'Loading...' : 'Load more'}
               </button>

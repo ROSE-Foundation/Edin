@@ -12,7 +12,7 @@ function ActivityFeedSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+          className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
         >
           <div className="flex gap-[var(--spacing-md)]">
             <div className="skeleton h-[36px] w-[36px] rounded-full" />
@@ -76,8 +76,8 @@ export function ActivityFeed() {
           onClick={() => setDomain('')}
           className={`inline-flex min-h-[36px] items-center rounded-full px-[var(--spacing-md)] font-sans text-[13px] transition-colors duration-200 motion-reduce:transition-none ${
             domain === ''
-              ? 'bg-brand-primary text-surface-raised'
-              : 'border border-surface-border bg-surface-raised text-brand-secondary hover:bg-surface-base'
+              ? 'bg-text-primary text-surface-raised'
+              : 'border border-surface-subtle bg-surface-raised text-text-secondary hover:bg-surface-base'
           }`}
         >
           All
@@ -89,8 +89,8 @@ export function ActivityFeed() {
             onClick={() => setDomain(d)}
             className={`inline-flex min-h-[36px] items-center rounded-full px-[var(--spacing-md)] font-sans text-[13px] transition-colors duration-200 motion-reduce:transition-none ${
               domain === d
-                ? 'bg-brand-primary text-surface-raised'
-                : 'border border-surface-border bg-surface-raised text-brand-secondary hover:bg-surface-base'
+                ? 'bg-text-primary text-surface-raised'
+                : 'border border-surface-subtle bg-surface-raised text-text-secondary hover:bg-surface-base'
             }`}
           >
             {d}
@@ -105,7 +105,7 @@ export function ActivityFeed() {
           Unable to load activity feed. Please try again later.
         </p>
       ) : activities.length === 0 ? (
-        <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-brand-secondary">
+        <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-text-secondary">
           No activity to display yet. Contributions will appear here as they happen.
         </p>
       ) : (

@@ -19,11 +19,11 @@ export function PublicNav() {
   const { user, isAuthenticated, isLoading, login, logout } = useAuth();
 
   return (
-    <nav className="border-b border-surface-border bg-surface-raised" aria-label="Main navigation">
+    <nav className="border-b border-surface-subtle bg-surface-raised" aria-label="Main navigation">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 font-serif text-[20px] font-bold text-brand-primary transition-colors hover:text-brand-accent"
+          className="flex items-center gap-2 font-serif text-[20px] font-bold text-text-primary transition-colors hover:text-accent-primary"
         >
           <Image
             src="/edin-logo.png"
@@ -43,7 +43,7 @@ export function PublicNav() {
                 <Link
                   href={link.href}
                   className={`font-sans text-[14px] font-medium transition-colors ${
-                    isActive ? 'text-brand-accent' : 'text-brand-secondary hover:text-brand-primary'
+                    isActive ? 'text-accent-primary' : 'text-text-secondary hover:text-text-primary'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
@@ -57,7 +57,7 @@ export function PublicNav() {
               <div className="flex items-center gap-6">
                 <Link
                   href="/dashboard"
-                  className="font-sans text-[14px] font-medium text-brand-secondary transition-colors hover:text-brand-primary"
+                  className="font-sans text-[14px] font-medium text-text-secondary transition-colors hover:text-text-primary"
                 >
                   Dashboard
                 </Link>
@@ -66,8 +66,8 @@ export function PublicNav() {
                     href="/admin"
                     className={`font-sans text-[14px] font-medium transition-colors ${
                       pathname.startsWith('/admin')
-                        ? 'text-brand-accent'
-                        : 'text-brand-secondary hover:text-brand-primary'
+                        ? 'text-accent-primary'
+                        : 'text-text-secondary hover:text-text-primary'
                     }`}
                     aria-current={pathname.startsWith('/admin') ? 'page' : undefined}
                   >
@@ -76,7 +76,7 @@ export function PublicNav() {
                 )}
                 <button
                   onClick={logout}
-                  className="rounded-md border border-surface-border px-4 py-1.5 font-sans text-[14px] font-medium text-brand-secondary transition-colors hover:bg-surface-base hover:text-brand-primary"
+                  className="rounded-md border border-surface-subtle px-4 py-1.5 font-sans text-[14px] font-medium text-text-secondary transition-colors hover:bg-surface-base hover:text-text-primary"
                 >
                   Logout
                 </button>

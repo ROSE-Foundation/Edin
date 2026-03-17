@@ -29,8 +29,8 @@ export function EvaluationTimeline({ items, accentColor = '#3A7D7E' }: Evaluatio
 
   if (chartData.length === 0) {
     return (
-      <div className="flex h-[250px] items-center justify-center rounded-[var(--radius-lg)] border border-surface-border bg-surface-base">
-        <p className="font-sans text-[14px] text-brand-secondary">
+      <div className="flex h-[250px] items-center justify-center rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-base">
+        <p className="font-sans text-[14px] text-text-secondary">
           No completed evaluations to display yet.
         </p>
       </div>
@@ -50,13 +50,13 @@ export function EvaluationTimeline({ items, accentColor = '#3A7D7E' }: Evaluatio
             </defs>
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+              tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
               domain={[0, 100]}
-              tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+              tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
               axisLine={false}
               tickLine={false}
             />
@@ -65,15 +65,15 @@ export function EvaluationTimeline({ items, accentColor = '#3A7D7E' }: Evaluatio
                 if (!active || !payload?.[0]) return null;
                 const data = payload[0].payload as (typeof chartData)[0];
                 return (
-                  <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
-                    <p className="font-sans text-[12px] font-medium text-brand-primary">
+                  <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
+                    <p className="font-sans text-[12px] font-medium text-text-primary">
                       {data.title}
                     </p>
-                    <p className="font-sans text-[12px] text-brand-secondary">
+                    <p className="font-sans text-[12px] text-text-secondary">
                       {scoreToLabel(data.score)} ({data.score})
                     </p>
                     {data.narrative && (
-                      <p className="mt-[2px] max-w-[220px] font-serif text-[12px] leading-[1.4] text-brand-secondary">
+                      <p className="mt-[2px] max-w-[220px] font-serif text-[12px] leading-[1.4] text-text-secondary">
                         {data.narrative}
                       </p>
                     )}

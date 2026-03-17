@@ -75,7 +75,7 @@ export function ExportButton({ domain, limit }: ExportButtonProps) {
       <button
         onClick={() => setOpen((prev) => !prev)}
         disabled={downloading}
-        className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-brand-accent hover:bg-brand-accent/10 disabled:opacity-50"
+        className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-accent-primary hover:bg-accent-primary/10 disabled:opacity-50"
         aria-label="Export sprint report"
         aria-expanded={open}
         aria-haspopup="true"
@@ -91,19 +91,19 @@ export function ExportButton({ domain, limit }: ExportButtonProps) {
 
       {open && !error && (
         <div
-          className="absolute right-0 top-full z-10 mt-[var(--spacing-xs)] min-w-[140px] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-lg"
+          className="absolute right-0 top-full z-10 mt-[var(--spacing-xs)] min-w-[140px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-lg"
           role="menu"
         >
           <button
             onClick={() => handleExport('csv')}
-            className="block w-full px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-left text-[14px] text-brand-primary hover:bg-brand-accent/10"
+            className="block w-full px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-left text-[14px] text-text-primary hover:bg-accent-primary/10"
             role="menuitem"
           >
             Download CSV
           </button>
           <button
             onClick={() => handleExport('pdf')}
-            className="block w-full px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-left text-[14px] text-brand-primary hover:bg-brand-accent/10"
+            className="block w-full px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-left text-[14px] text-text-primary hover:bg-accent-primary/10"
             role="menuitem"
           >
             Download PDF

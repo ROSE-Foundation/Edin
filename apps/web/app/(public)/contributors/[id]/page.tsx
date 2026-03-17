@@ -86,15 +86,15 @@ function ProfileNotFound() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-surface-base px-[var(--spacing-lg)]">
       <div className="text-center">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">
           Contributor Not Found
         </h1>
-        <p className="mt-[var(--spacing-md)] font-sans text-[15px] text-brand-secondary">
+        <p className="mt-[var(--spacing-md)] font-sans text-[15px] text-text-secondary">
           The contributor profile you are looking for does not exist or has been removed.
         </p>
         <Link
           href="/"
-          className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
+          className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
         >
           Return Home
         </Link>
@@ -107,8 +107,8 @@ function ProfileUnavailable() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-surface-base px-[var(--spacing-lg)]">
       <div className="text-center">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">Profile Unavailable</h1>
-        <p className="mt-[var(--spacing-md)] font-sans text-[15px] text-brand-secondary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">Profile Unavailable</h1>
+        <p className="mt-[var(--spacing-md)] font-sans text-[15px] text-text-secondary">
           We are unable to load this contributor profile right now. Please try again shortly.
         </p>
       </div>

@@ -33,7 +33,7 @@ export function AutoSaveIndicator({ status }: AutoSaveIndicatorProps) {
     <span
       className={`inline-flex items-center gap-[var(--spacing-xs)] font-sans text-[13px] transition-opacity duration-200 ${
         status === 'saving'
-          ? 'text-brand-secondary'
+          ? 'text-text-secondary'
           : status === 'saved'
             ? 'text-semantic-success'
             : 'text-semantic-error'

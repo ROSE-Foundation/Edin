@@ -52,17 +52,17 @@ export function ModerationActionDialog({
       aria-label={`Confirm ${ACTION_LABELS[action]}`}
     >
       <div className="mx-[var(--spacing-lg)] w-full max-w-[480px] rounded-[var(--radius-lg)] bg-surface-base p-[var(--spacing-xl)] shadow-lg">
-        <h2 className="font-serif text-[18px] font-bold text-brand-primary">
+        <h2 className="font-serif text-[18px] font-bold text-text-primary">
           {ACTION_LABELS[action]}
         </h2>
-        <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">
           {ACTION_DESCRIPTIONS[action]}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-[var(--spacing-lg)]">
           <label
             htmlFor="moderation-reason"
-            className="block font-sans text-[13px] font-medium text-brand-primary"
+            className="block font-sans text-[13px] font-medium text-text-primary"
           >
             Reason <span className="text-red-500">*</span>
           </label>
@@ -71,7 +71,7 @@ export function ModerationActionDialog({
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={4}
-            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary placeholder:text-brand-secondary/50 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
+            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-secondary/50 focus:border-accent-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
             placeholder="Provide a clear reason for this action..."
             required
           />
@@ -80,7 +80,7 @@ export function ModerationActionDialog({
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+              className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary hover:text-text-primary"
               disabled={isLoading}
             >
               Cancel

@@ -31,7 +31,7 @@ export function FeedbackSettings({ section, onSave, isPending }: FeedbackSetting
         <div>
           <label
             htmlFor="sla-hours"
-            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-text-secondary"
           >
             SLA Threshold (hours)
           </label>
@@ -42,14 +42,14 @@ export function FeedbackSettings({ section, onSave, isPending }: FeedbackSetting
             defaultValue={slaHours}
             min={1}
             max={720}
-            className="w-[120px] rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-brand-primary"
+            className="w-[120px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-text-primary"
           />
         </div>
 
         <div>
           <label
             htmlFor="max-concurrent"
-            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-text-secondary"
           >
             Max Concurrent Assignments
           </label>
@@ -60,14 +60,14 @@ export function FeedbackSettings({ section, onSave, isPending }: FeedbackSetting
             defaultValue={maxConcurrent}
             min={1}
             max={20}
-            className="w-[120px] rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-brand-primary"
+            className="w-[120px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-text-primary"
           />
         </div>
 
         <div>
           <label
             htmlFor="auto-reassign"
-            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-text-secondary"
           >
             Auto-Reassignment (hours)
           </label>
@@ -78,7 +78,7 @@ export function FeedbackSettings({ section, onSave, isPending }: FeedbackSetting
             defaultValue={autoReassignHours}
             min={1}
             max={720}
-            className="w-[120px] rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-brand-primary"
+            className="w-[120px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-text-primary"
           />
         </div>
       </div>
@@ -86,7 +86,7 @@ export function FeedbackSettings({ section, onSave, isPending }: FeedbackSetting
       <button
         type="submit"
         disabled={isPending}
-        className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-white hover:bg-brand-accent/90 disabled:opacity-50"
+        className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-white hover:bg-accent-primary/90 disabled:opacity-50"
       >
         {isPending ? 'Saving...' : 'Save Feedback Settings'}
       </button>

@@ -11,7 +11,7 @@ interface DimensionAccordionProps {
 export function DimensionAccordion({ dimensionScores }: DimensionAccordionProps) {
   if (!dimensionScores || Object.keys(dimensionScores).length === 0) {
     return (
-      <p className="font-sans text-[14px] text-brand-secondary">
+      <p className="font-sans text-[14px] text-text-secondary">
         Dimension scores are not available.
       </p>
     );
@@ -30,15 +30,15 @@ export function DimensionAccordion({ dimensionScores }: DimensionAccordionProps)
           <Accordion.Item
             key={key}
             value={key}
-            className="overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-base"
+            className="overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base"
           >
             <Accordion.Header>
               <Accordion.Trigger className="group flex w-full items-center justify-between px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left transition-colors hover:bg-surface-sunken">
-                <span className="font-sans text-[14px] font-medium text-brand-primary">
+                <span className="font-sans text-[14px] font-medium text-text-primary">
                   {qualityLabel} {label.toLowerCase()}
                 </span>
                 <svg
-                  className="h-[16px] w-[16px] shrink-0 text-brand-secondary transition-transform duration-200 group-data-[state=open]:rotate-180"
+                  className="h-[16px] w-[16px] shrink-0 text-text-secondary transition-transform duration-200 group-data-[state=open]:rotate-180"
                   viewBox="0 0 16 16"
                   fill="none"
                   aria-hidden="true"
@@ -57,8 +57,8 @@ export function DimensionAccordion({ dimensionScores }: DimensionAccordionProps)
               <div className="px-[var(--spacing-md)] pb-[var(--spacing-md)]">
                 <div className="mb-[var(--spacing-sm)]">
                   <div className="flex items-center justify-between">
-                    <span className="font-sans text-[13px] text-brand-secondary">{label}</span>
-                    <span className="font-sans text-[13px] text-brand-secondary">
+                    <span className="font-sans text-[13px] text-text-secondary">{label}</span>
+                    <span className="font-sans text-[13px] text-text-secondary">
                       {dimension.score}
                     </span>
                   </div>
@@ -71,12 +71,12 @@ export function DimensionAccordion({ dimensionScores }: DimensionAccordionProps)
                     aria-label={`${label}: ${dimension.score} out of 100`}
                   >
                     <div
-                      className="h-full rounded-full bg-brand-accent transition-all duration-300"
+                      className="h-full rounded-full bg-accent-primary transition-all duration-300"
                       style={{ width: `${progressPercent}%` }}
                     />
                   </div>
                 </div>
-                <p className="font-sans text-[13px] leading-[1.5] text-brand-secondary">
+                <p className="font-sans text-[13px] leading-[1.5] text-text-secondary">
                   {dimension.explanation}
                 </p>
               </div>

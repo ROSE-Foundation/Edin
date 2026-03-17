@@ -32,10 +32,10 @@ export function DraftList() {
   if (drafts.length === 0) {
     return (
       <div className="flex flex-col items-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
-        <p className="font-sans text-[17px] text-brand-secondary">No drafts yet</p>
+        <p className="font-sans text-[17px] text-text-secondary">No drafts yet</p>
         <Link
           href="/publication/new"
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+          className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
         >
           Start Writing
         </Link>
@@ -55,7 +55,7 @@ export function DraftList() {
           <button
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className="rounded-[var(--radius-md)] border border-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-accent transition-colors hover:bg-brand-accent-subtle disabled:opacity-50"
+            className="rounded-[var(--radius-md)] border border-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-accent-primary transition-colors hover:bg-accent-primary-subtle disabled:opacity-50"
           >
             {isFetchingNextPage ? 'Loading...' : 'Load more'}
           </button>

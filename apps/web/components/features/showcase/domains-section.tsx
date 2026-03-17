@@ -32,14 +32,14 @@ export function DomainsSection() {
   return (
     <section className="px-6 py-20" aria-label="Four domains">
       <div className="mx-auto max-w-[1200px]">
-        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-brand-primary">
+        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-text-primary">
           Four Equal Domains
         </h2>
-        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-text-secondary">
           Unlike code-centric platforms, Edin values financial modeling, sustainability research,
           and governance design just as much as engineering.
         </p>
-        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-text-secondary">
           Rose is built by contributors across four complementary domains. Every contribution,
           regardless of domain, advances the Rose mission.
         </p>
@@ -48,7 +48,7 @@ export function DomainsSection() {
           {DOMAINS.map((domain) => (
             <div
               key={domain.name}
-              className="relative overflow-hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+              className="relative overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
             >
               <div
                 className="absolute top-0 left-0 h-[3px] w-full"
@@ -57,7 +57,7 @@ export function DomainsSection() {
               <h3 className="font-sans text-[16px] font-semibold" style={{ color: domain.color }}>
                 {domain.name}
               </h3>
-              <p className="mt-[var(--spacing-xs)] font-sans text-[13px] leading-[1.6] text-brand-secondary">
+              <p className="mt-[var(--spacing-xs)] font-sans text-[13px] leading-[1.6] text-text-secondary">
                 {domain.description}
               </p>
             </div>

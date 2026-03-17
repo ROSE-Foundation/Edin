@@ -28,7 +28,7 @@ export function PublicArticleCard({ article }: PublicArticleCardProps) {
   return (
     <Link
       href={`/articles/${article.slug}`}
-      className="group block rounded-lg border border-surface-border bg-surface-raised p-[var(--spacing-lg)] transition-shadow hover:shadow-[var(--shadow-card)]"
+      className="group block rounded-lg border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] transition-shadow hover:shadow-[var(--shadow-card)]"
       aria-label={`Read article: ${article.title}`}
     >
       <div className="mb-3 flex items-center gap-3">
@@ -37,17 +37,17 @@ export function PublicArticleCard({ article }: PublicArticleCardProps) {
         >
           {article.domain}
         </span>
-        <span className="text-xs text-brand-secondary">
+        <span className="text-xs text-text-secondary">
           {formatRelativeDate(article.publishedAt)}
         </span>
-        <span className="text-xs text-brand-secondary">{article.readingTimeMinutes} min read</span>
+        <span className="text-xs text-text-secondary">{article.readingTimeMinutes} min read</span>
       </div>
 
-      <h2 className="font-serif text-xl leading-snug font-semibold text-brand-primary group-hover:text-brand-accent">
+      <h2 className="font-serif text-xl leading-snug font-semibold text-text-primary group-hover:text-accent-primary">
         {article.title}
       </h2>
 
-      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-brand-secondary">
+      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-text-secondary">
         {article.abstract}
       </p>
 
@@ -55,7 +55,7 @@ export function PublicArticleCard({ article }: PublicArticleCardProps) {
         {article.author.avatarUrl && (
           <img src={article.author.avatarUrl} alt="" className="h-6 w-6 rounded-full" />
         )}
-        <span className="text-sm font-medium text-brand-primary">{article.author.name}</span>
+        <span className="text-sm font-medium text-text-primary">{article.author.name}</span>
       </div>
     </Link>
   );

@@ -82,7 +82,7 @@ export function DomainSelector({
       <div>
         <label
           htmlFor={name}
-          className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary"
+          className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary"
         >
           Primary Domain
         </label>
@@ -93,8 +93,8 @@ export function DomainSelector({
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           onBlur={onBlur}
-          className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-            error ? 'border-semantic-error' : 'border-surface-border-input'
+          className={`w-full rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+            error ? 'border-semantic-error' : 'border-surface-subtle-input'
           }`}
           aria-describedby={error ? `${name}-error` : undefined}
           aria-invalid={error ? 'true' : undefined}
@@ -119,7 +119,7 @@ export function DomainSelector({
 
       {loading && (
         <div
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
           role="status"
           aria-label="Loading micro-task"
         >
@@ -134,7 +134,7 @@ export function DomainSelector({
 
       {!loading && displayedMicroTask && (
         <div className="space-y-[var(--spacing-sm)]">
-          <p className="font-sans text-[13px] font-medium text-brand-secondary">
+          <p className="font-sans text-[13px] font-medium text-text-secondary">
             Show us what you can do
           </p>
           <MicroTaskDisplay microTask={displayedMicroTask} />

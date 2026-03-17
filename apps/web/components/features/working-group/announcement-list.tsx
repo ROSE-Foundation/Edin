@@ -18,7 +18,7 @@ export function AnnouncementList({
   isDeletePending,
 }: AnnouncementListProps) {
   if (announcements.length === 0) {
-    return <p className="font-serif text-[14px] text-brand-secondary">No announcements yet.</p>;
+    return <p className="font-serif text-[14px] text-text-secondary">No announcements yet.</p>;
   }
 
   return (
@@ -30,13 +30,13 @@ export function AnnouncementList({
           <div
             key={announcement.id}
             role="listitem"
-            className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+            className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
           >
-            <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+            <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
               {announcement.content}
             </p>
             <div className="mt-[var(--spacing-xs)] flex items-center justify-between">
-              <p className="font-sans text-[12px] text-brand-secondary">
+              <p className="font-sans text-[12px] text-text-secondary">
                 {announcement.author?.name ?? 'Unknown'} &middot;{' '}
                 {new Date(announcement.createdAt).toLocaleDateString()}
               </p>
@@ -45,7 +45,7 @@ export function AnnouncementList({
                   type="button"
                   onClick={() => onDelete(announcement.id)}
                   disabled={isDeletePending}
-                  className="inline-flex min-h-[36px] min-w-[44px] items-center justify-center rounded-[8px] font-sans text-[12px] text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-50"
+                  className="inline-flex min-h-[36px] min-w-[44px] items-center justify-center rounded-[8px] font-sans text-[12px] text-text-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-50"
                   aria-label={`Delete announcement from ${announcement.author?.name ?? 'Unknown'}`}
                 >
                   Delete

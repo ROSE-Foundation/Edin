@@ -31,16 +31,14 @@ export default function EditorApplicationPage() {
     <div className="mx-auto max-w-[960px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mb-[var(--spacing-xl)] flex items-center justify-between">
         <div>
-          <h1 className="font-serif text-[2rem] font-bold text-brand-primary">
-            Editor Application
-          </h1>
-          <p className="mt-[var(--spacing-xs)] font-sans text-[15px] text-brand-secondary">
+          <h1 className="font-serif text-[2rem] font-bold text-text-primary">Editor Application</h1>
+          <p className="mt-[var(--spacing-xs)] font-sans text-[15px] text-text-secondary">
             Apply to become an editor and help shape the quality of published content.
           </p>
         </div>
         <Link
           href="/publication"
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary transition-colors hover:bg-surface-sunken"
         >
           Back
         </Link>

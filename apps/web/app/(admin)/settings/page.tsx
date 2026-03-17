@@ -14,13 +14,13 @@ export default function SettingsPage() {
     <ToastProvider>
       <main>
         <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
-          <h1 className="mb-[var(--spacing-xl)] font-serif text-[32px] font-bold text-brand-primary">
+          <h1 className="mb-[var(--spacing-xl)] font-serif text-[32px] font-bold text-text-primary">
             Settings
           </h1>
 
           {/* Integrations section (AC1: /admin/settings integration section) */}
           <section>
-            <h2 className="mb-[var(--spacing-md)] font-serif text-[22px] font-semibold text-brand-primary">
+            <h2 className="mb-[var(--spacing-md)] font-serif text-[22px] font-semibold text-text-primary">
               Integrations
             </h2>
             <RepositoryList />

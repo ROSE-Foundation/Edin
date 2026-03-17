@@ -14,10 +14,10 @@ export default function ModerationPage() {
     <ToastProvider>
       <main>
         <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
-          <h1 className="font-sans text-[clamp(1.5rem,3vw,2rem)] font-bold leading-[1.2] text-brand-primary">
+          <h1 className="font-sans text-[clamp(1.5rem,3vw,2rem)] font-bold leading-[1.2] text-text-primary">
             Content Moderation
           </h1>
-          <p className="mt-[var(--spacing-xs)] font-sans text-[15px] text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] font-sans text-[15px] text-text-secondary">
             Review flagged articles for plagiarism and AI-generated content
           </p>
           <div className="mt-[var(--spacing-xl)]">

@@ -88,8 +88,8 @@ export function TrajectoryChart({
 
   if (points.length === 0) {
     return (
-      <div className="flex h-[280px] items-center justify-center rounded-[var(--radius-lg)] border border-surface-border bg-surface-base">
-        <p className="font-sans text-[14px] text-brand-secondary">
+      <div className="flex h-[280px] items-center justify-center rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-base">
+        <p className="font-sans text-[14px] text-text-secondary">
           Your trajectory will appear as contributions accumulate.
         </p>
       </div>
@@ -107,8 +107,8 @@ export function TrajectoryChart({
               onClick={() => onTimeRangeChange(range.value)}
               className={`rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[4px] font-sans text-[13px] transition-colors ${
                 timeRange === range.value
-                  ? 'bg-brand-accent/15 font-medium text-brand-primary'
-                  : 'text-brand-secondary hover:text-brand-primary'
+                  ? 'bg-accent-primary/15 font-medium text-text-primary'
+                  : 'text-text-secondary hover:text-text-primary'
               }`}
               aria-pressed={timeRange === range.value}
             >
@@ -118,7 +118,7 @@ export function TrajectoryChart({
         </div>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -131,44 +131,40 @@ export function TrajectoryChart({
           aria-label="Reward trajectory data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Period</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Score</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
-                Multiplier
-              </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
-                Compounded
-              </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Period</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Score</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Multiplier</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Compounded</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Contributions
               </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Trend</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Trend</th>
             </tr>
           </thead>
           <tbody>
             {allPoints.map((point, i) => (
               <tr
                 key={i}
-                className={`border-b border-surface-border/50 ${point.isProjected ? 'opacity-60' : ''}`}
+                className={`border-b border-surface-subtle/50 ${point.isProjected ? 'opacity-60' : ''}`}
               >
-                <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-text-primary">
                   {formatDate(point.date, timeRange)}
                   {point.isProjected && (
-                    <span className="ml-1 text-[12px] text-brand-secondary">(projected)</span>
+                    <span className="ml-1 text-[12px] text-text-secondary">(projected)</span>
                   )}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{point.rawScore}</td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{point.rawScore}</td>
+                <td className="py-[var(--spacing-sm)] text-text-primary">
                   {point.compoundingMultiplier}x
                 </td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-text-primary">
                   {point.compoundedScore}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-text-primary">
                   {point.contributionCount}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-text-primary">
                   {TREND_LABELS[point.trend] ?? point.trend}
                 </td>
               </tr>
@@ -193,12 +189,12 @@ export function TrajectoryChart({
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-border)" />
                 <XAxis
                   dataKey="label"
-                  tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+                  tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+                  tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
                   axisLine={false}
                   tickLine={false}
                 />
@@ -209,16 +205,16 @@ export function TrajectoryChart({
                       label: string;
                     };
                     return (
-                      <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
-                        <p className="font-sans text-[12px] font-medium text-brand-primary">
+                      <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
+                        <p className="font-sans text-[12px] font-medium text-text-primary">
                           {data.label}
                           {data.isProjected && ' (projected)'}
                         </p>
-                        <p className="font-sans text-[12px] text-brand-secondary">
+                        <p className="font-sans text-[12px] text-text-secondary">
                           Score: {data.rawScore} &times; {data.compoundingMultiplier}x ={' '}
                           {data.compoundedScore}
                         </p>
-                        <p className="font-sans text-[12px] text-brand-secondary">
+                        <p className="font-sans text-[12px] text-text-secondary">
                           {data.contributionCount} contribution
                           {data.contributionCount !== 1 ? 's' : ''} &middot;{' '}
                           {TREND_LABELS[data.trend] ?? data.trend}

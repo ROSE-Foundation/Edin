@@ -57,13 +57,13 @@ export function BuddyOptInToggle({ initialOptIn }: BuddyOptInToggleProps) {
   };
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="font-sans text-[15px] font-medium text-brand-primary">
+          <h3 className="font-sans text-[15px] font-medium text-text-primary">
             Available as a buddy for new contributors
           </h3>
-          <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
             {optIn
               ? 'You may be paired with new contributors in your domain.'
               : 'Toggle on to help welcome new contributors.'}
@@ -73,7 +73,7 @@ export function BuddyOptInToggle({ initialOptIn }: BuddyOptInToggleProps) {
           onClick={handleToggle}
           disabled={mutation.isPending}
           className={`relative h-[28px] w-[52px] shrink-0 rounded-full transition-colors duration-[var(--transition-fast)] ${
-            optIn ? 'bg-brand-accent' : 'bg-surface-sunken'
+            optIn ? 'bg-accent-primary' : 'bg-surface-sunken'
           } ${mutation.isPending ? 'opacity-50' : ''}`}
           role="switch"
           aria-checked={optIn}
@@ -91,30 +91,30 @@ export function BuddyOptInToggle({ initialOptIn }: BuddyOptInToggleProps) {
       {showConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
           <div
-            className="w-full max-w-[400px] rounded-[16px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-lg"
+            className="w-full max-w-[400px] rounded-[16px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-lg"
             role="alertdialog"
             aria-labelledby="buddy-confirm-title"
           >
             <h3
               id="buddy-confirm-title"
-              className="font-serif text-[18px] font-bold text-brand-primary"
+              className="font-serif text-[18px] font-bold text-text-primary"
             >
               Become a buddy
             </h3>
-            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
               You&apos;ll be matched with new contributors in your domain. You can opt out at any
               time.
             </p>
             <div className="mt-[var(--spacing-lg)] flex justify-end gap-[var(--spacing-sm)]">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="min-h-[44px] rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[15px] font-medium text-brand-secondary transition-colors hover:bg-surface-sunken"
+                className="min-h-[44px] rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[15px] font-medium text-text-secondary transition-colors hover:bg-surface-sunken"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmOptIn}
-                className="min-h-[44px] rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
+                className="min-h-[44px] rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
               >
                 Yes, I&apos;d like to help
               </button>

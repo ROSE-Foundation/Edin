@@ -92,7 +92,7 @@ export function ContributorList() {
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search by name or email..."
-          className="min-w-[250px] flex-1 rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary placeholder:text-brand-secondary/50"
+          className="min-w-[250px] flex-1 rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-secondary/50"
           aria-label="Search contributors"
         />
         <select
@@ -101,7 +101,7 @@ export function ContributorList() {
             setRoleFilter(e.target.value);
             setCursor(undefined);
           }}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
           aria-label="Filter by role"
         >
           {ROLE_OPTIONS.map((opt) => (
@@ -116,7 +116,7 @@ export function ContributorList() {
             setDomainFilter(e.target.value);
             setCursor(undefined);
           }}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
           aria-label="Filter by domain"
         >
           {DOMAIN_OPTIONS.map((opt) => (
@@ -135,29 +135,29 @@ export function ContributorList() {
       )}
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-surface-border">
+      <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-surface-subtle">
         <table className="w-full text-left font-sans text-[14px]">
           <thead>
-            <tr className="border-b border-surface-border bg-surface-raised">
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle bg-surface-raised">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Name
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Email
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Role
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Domain
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Joined
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Last Active
               </th>
-              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
                 Actions
               </th>
             </tr>
@@ -167,7 +167,7 @@ export function ContributorList() {
               <tr>
                 <td
                   colSpan={7}
-                  className="px-[var(--spacing-md)] py-[var(--spacing-xl)] text-center text-brand-secondary"
+                  className="px-[var(--spacing-md)] py-[var(--spacing-xl)] text-center text-text-secondary"
                 >
                   Loading contributors...
                 </td>
@@ -177,7 +177,7 @@ export function ContributorList() {
               <tr>
                 <td
                   colSpan={7}
-                  className="px-[var(--spacing-md)] py-[var(--spacing-xl)] text-center text-brand-secondary"
+                  className="px-[var(--spacing-md)] py-[var(--spacing-xl)] text-center text-text-secondary"
                 >
                   No contributors found
                 </td>
@@ -186,32 +186,32 @@ export function ContributorList() {
             {contributors.map((c) => (
               <tr
                 key={c.id}
-                className="border-b border-surface-border last:border-b-0 hover:bg-surface-raised/50"
+                className="border-b border-surface-subtle last:border-b-0 hover:bg-surface-raised/50"
               >
-                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-primary">
+                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-primary">
                   {c.name}
                 </td>
-                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                   {c.email ?? '—'}
                 </td>
                 <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-                  <span className="inline-block rounded-full bg-brand-accent/10 px-[var(--spacing-sm)] py-[2px] text-[12px] font-medium text-brand-accent">
+                  <span className="inline-block rounded-full bg-accent-primary/10 px-[var(--spacing-sm)] py-[2px] text-[12px] font-medium text-accent-primary">
                     {c.role}
                   </span>
                 </td>
-                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                   {c.domain ?? '—'}
                 </td>
-                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                   {new Date(c.createdAt).toLocaleDateString()}
                 </td>
-                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+                <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                   {new Date(c.updatedAt).toLocaleDateString()}
                 </td>
                 <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
                   <button
                     onClick={() => handleRoleChange(c.id, c.name, c.role)}
-                    className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-sm)] py-[2px] text-[12px] font-medium text-brand-accent hover:bg-brand-accent/10"
+                    className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-sm)] py-[2px] text-[12px] font-medium text-accent-primary hover:bg-accent-primary/10"
                   >
                     Manage Role
                   </button>
@@ -227,7 +227,7 @@ export function ContributorList() {
         <div className="mt-[var(--spacing-md)] flex justify-center">
           <button
             onClick={() => setCursor(pagination.cursor ?? undefined)}
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-accent hover:bg-brand-accent/10"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-accent-primary hover:bg-accent-primary/10"
           >
             Next Page
           </button>

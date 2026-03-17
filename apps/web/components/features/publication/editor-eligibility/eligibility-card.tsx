@@ -40,7 +40,7 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
 
   return (
     <div
-      className="overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised"
+      className="overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised"
       data-testid={`eligibility-card-${check.domain}`}
     >
       {/* Domain header */}
@@ -70,7 +70,7 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
 
         {/* Existing application status */}
         {hasExistingApp && check.existingApplication && (
-          <div className="mt-[var(--spacing-md)] border-t border-surface-border pt-[var(--spacing-md)]">
+          <div className="mt-[var(--spacing-md)] border-t border-surface-subtle pt-[var(--spacing-md)]">
             <ApplicationStatus
               status={check.existingApplication.status}
               reviewedAt={check.existingApplication.reviewedAt}
@@ -93,7 +93,7 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
 
         {/* Not eligible message */}
         {!check.eligible && !hasExistingApp && (
-          <p className="mt-[var(--spacing-md)] font-sans text-[13px] text-brand-secondary">
+          <p className="mt-[var(--spacing-md)] font-sans text-[13px] text-text-secondary">
             Meet all criteria above to apply as an editor in this domain.
           </p>
         )}
@@ -101,7 +101,7 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
         {/* Application form */}
         {expanded && (
           <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
-            <label className="block font-sans text-[14px] font-medium text-brand-primary">
+            <label className="block font-sans text-[14px] font-medium text-text-primary">
               Why do you want to be an editor?
             </label>
             <textarea
@@ -111,10 +111,10 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
               }}
               rows={3}
               placeholder="Describe your expertise and motivation..."
-              className="w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary outline-none focus:border-brand-accent"
+              className="w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary outline-none focus:border-accent-primary"
             />
             <div className="flex items-center justify-between">
-              <span className="font-sans text-[12px] text-brand-secondary">
+              <span className="font-sans text-[12px] text-text-secondary">
                 {statement.length} / 300
               </span>
               {validationError && (
@@ -136,7 +136,7 @@ export function EligibilityCard({ check, onApply, isSubmitting }: EligibilityCar
                   setStatement('');
                   setValidationError(null);
                 }}
-                className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+                className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary transition-colors hover:bg-surface-sunken"
               >
                 Cancel
               </button>
@@ -166,7 +166,7 @@ function CriterionRow({
       </span>
       <span
         className="font-sans text-[14px]"
-        style={{ color: met ? '#5A8A6B' : 'var(--color-brand-secondary, #6B7B8D)' }}
+        style={{ color: met ? '#5A8A6B' : 'var(--color-text-secondary, #6B7B8D)' }}
       >
         {label}: {current} / {required} required
       </span>

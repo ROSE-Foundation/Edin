@@ -28,12 +28,12 @@ export default function ReviewDetailPage({ params }: { params: Promise<{ id: str
   if (error || !review) {
     return (
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
-        <p className="font-sans text-[14px] text-brand-secondary">
+        <p className="font-sans text-[14px] text-text-secondary">
           Review not found or could not be loaded.
         </p>
         <Link
           href="/admin/evaluations/review-queue"
-          className="mt-[var(--spacing-sm)] inline-block font-sans text-[14px] text-brand-accent underline"
+          className="mt-[var(--spacing-sm)] inline-block font-sans text-[14px] text-accent-primary underline"
         >
           Back to review queue
         </Link>
@@ -47,22 +47,22 @@ export default function ReviewDetailPage({ params }: { params: Promise<{ id: str
     <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <Link
         href="/admin/evaluations/review-queue"
-        className="mb-[var(--spacing-md)] inline-block font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+        className="mb-[var(--spacing-md)] inline-block font-sans text-[14px] text-text-secondary hover:text-text-primary"
       >
         &larr; Back to review queue
       </Link>
 
-      <h1 className="font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="font-serif text-[24px] font-bold text-text-primary">
         Review: {review.evaluation.contribution.title}
       </h1>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
         Flagged by {review.contributorName} · {new Date(review.flaggedAt).toLocaleDateString()}
       </p>
 
       <div className="mt-[var(--spacing-lg)] grid grid-cols-1 gap-[var(--spacing-lg)] lg:grid-cols-2">
         {/* Left Panel: Evaluation */}
         <div className="flex flex-col gap-[var(--spacing-md)]">
-          <h2 className="font-sans text-[16px] font-medium text-brand-primary">AI Evaluation</h2>
+          <h2 className="font-sans text-[16px] font-medium text-text-primary">AI Evaluation</h2>
           <NarrativeCard
             narrative={review.evaluation.narrative}
             contributionTitle={review.evaluation.contribution.title}
@@ -79,7 +79,7 @@ export default function ReviewDetailPage({ params }: { params: Promise<{ id: str
             }
           />
           {review.evaluation.model && (
-            <p className="font-mono text-[12px] text-brand-secondary">
+            <p className="font-mono text-[12px] text-text-secondary">
               Model: {review.evaluation.model.name} {review.evaluation.model.version}
             </p>
           )}
@@ -87,37 +87,35 @@ export default function ReviewDetailPage({ params }: { params: Promise<{ id: str
 
         {/* Right Panel: Flag + Resolution */}
         <div className="flex flex-col gap-[var(--spacing-md)]">
-          <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+          <h2 className="font-sans text-[16px] font-medium text-text-primary">
             Contributor&apos;s Concern
           </h2>
-          <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-            <p className="font-sans text-[14px] text-brand-primary leading-relaxed">
+          <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+            <p className="font-sans text-[14px] text-text-primary leading-relaxed">
               {review.flagReason}
             </p>
           </div>
 
           {isResolved ? (
-            <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-              <h3 className="font-sans text-[14px] font-medium text-brand-primary">
+            <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+              <h3 className="font-sans text-[14px] font-medium text-text-primary">
                 Resolution: {review.status === 'CONFIRMED' ? 'Confirmed' : 'Overridden'}
               </h3>
               {review.reviewReason && (
-                <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+                <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
                   {review.reviewReason}
                 </p>
               )}
               {review.resolvedAt && (
-                <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+                <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
                   Resolved {new Date(review.resolvedAt).toLocaleDateString()}
                 </p>
               )}
             </div>
           ) : (
             <>
-              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
-                Your Decision
-              </h2>
-              <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+              <h2 className="font-sans text-[16px] font-medium text-text-primary">Your Decision</h2>
+              <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
                 <ReviewResolveForm
                   reviewId={review.id}
                   currentDimensionScores={

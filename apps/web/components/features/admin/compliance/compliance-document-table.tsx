@@ -65,14 +65,14 @@ function ReviewDialog({ doc, onClose }: { doc: ComplianceDocumentDto; onClose: (
   };
 
   return (
-    <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-lg)]">
-      <h3 className="font-sans text-[14px] font-semibold text-brand-primary">
+    <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-lg)]">
+      <h3 className="font-sans text-[14px] font-semibold text-text-primary">
         Review: {DOCUMENT_TYPE_LABELS[doc.documentType] ?? doc.documentType} v{doc.version}
       </h3>
       <form onSubmit={handleSubmit} className="mt-[var(--spacing-md)]">
         <label
           htmlFor="review-notes"
-          className="block font-sans text-[13px] font-medium text-brand-primary"
+          className="block font-sans text-[13px] font-medium text-text-primary"
         >
           Review Notes
         </label>
@@ -82,7 +82,7 @@ function ReviewDialog({ doc, onClose }: { doc: ComplianceDocumentDto; onClose: (
           onChange={(e) => setReviewNotes(e.target.value)}
           rows={4}
           required
-          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary placeholder:text-brand-secondary"
+          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-secondary"
           placeholder="Enter your legal review notes..."
         />
         {reviewMutation.error && (
@@ -94,14 +94,14 @@ function ReviewDialog({ doc, onClose }: { doc: ComplianceDocumentDto; onClose: (
           <button
             type="submit"
             disabled={reviewMutation.isPending || !reviewNotes.trim()}
-            className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {reviewMutation.isPending ? 'Submitting...' : 'Submit Review'}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors hover:bg-surface-base"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-base"
           >
             Cancel
           </button>
@@ -120,7 +120,7 @@ export function ComplianceDocumentTable() {
 
   if (isLoading) {
     return (
-      <div className="py-[var(--spacing-xl)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-xl)] text-center text-text-secondary">
         Loading compliance documents...
       </div>
     );
@@ -136,7 +136,7 @@ export function ComplianceDocumentTable() {
 
   if (documents.length === 0) {
     return (
-      <div className="py-[var(--spacing-xl)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-xl)] text-center text-text-secondary">
         No compliance documents generated yet.
       </div>
     );
@@ -147,7 +147,7 @@ export function ComplianceDocumentTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm" role="table">
           <thead>
-            <tr className="border-b border-surface-border text-xs font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle text-xs font-medium text-text-secondary">
               <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Document Type</th>
               <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Version</th>
               <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Generated</th>
@@ -157,14 +157,14 @@ export function ComplianceDocumentTable() {
           </thead>
           <tbody>
             {documents.map((doc) => (
-              <tr key={doc.id} className="border-b border-surface-border last:border-b-0">
+              <tr key={doc.id} className="border-b border-surface-subtle last:border-b-0">
                 <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)]">
                   <DocumentTypeBadge type={doc.documentType} />
                 </td>
-                <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-mono text-[13px] text-brand-primary">
+                <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-mono text-[13px] text-text-primary">
                   v{doc.version}
                 </td>
-                <td className="whitespace-nowrap px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-brand-secondary">
+                <td className="whitespace-nowrap px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-text-secondary">
                   {new Date(doc.generatedAt).toLocaleString(undefined, {
                     year: 'numeric',
                     month: 'short',
@@ -177,7 +177,7 @@ export function ComplianceDocumentTable() {
                   <ReviewStatusBadge doc={doc} />
                   {doc.legalReviewedBy && (
                     <span
-                      className="ml-1 text-[11px] text-brand-secondary"
+                      className="ml-1 text-[11px] text-text-secondary"
                       title={doc.legalReviewedBy}
                     >
                       by {doc.legalReviewedBy.slice(0, 8)}&hellip;
@@ -188,14 +188,14 @@ export function ComplianceDocumentTable() {
                   <div className="flex gap-[var(--spacing-xs)]">
                     <button
                       onClick={() => setViewingDocId(doc.id)}
-                      className="rounded-[var(--radius-sm)] border border-surface-border px-[var(--spacing-sm)] py-1 text-xs text-brand-accent transition-colors hover:bg-brand-accent/10"
+                      className="rounded-[var(--radius-sm)] border border-surface-subtle px-[var(--spacing-sm)] py-1 text-xs text-accent-primary transition-colors hover:bg-accent-primary/10"
                     >
                       View
                     </button>
                     {!doc.legalReviewedAt && (
                       <button
                         onClick={() => setReviewingDoc(doc)}
-                        className="rounded-[var(--radius-sm)] border border-surface-border px-[var(--spacing-sm)] py-1 text-xs text-brand-accent transition-colors hover:bg-brand-accent/10"
+                        className="rounded-[var(--radius-sm)] border border-surface-subtle px-[var(--spacing-sm)] py-1 text-xs text-accent-primary transition-colors hover:bg-accent-primary/10"
                       >
                         Review
                       </button>
@@ -218,17 +218,17 @@ export function ComplianceDocumentTable() {
         <button
           onClick={() => setCursor(undefined)}
           disabled={!cursor}
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
         >
           First Page
         </button>
-        {isFetching && <span className="text-xs text-brand-secondary">Loading...</span>}
+        {isFetching && <span className="text-xs text-text-secondary">Loading...</span>}
         <button
           onClick={() => {
             if (pagination?.nextCursor) setCursor(pagination.nextCursor);
           }}
           disabled={!pagination?.hasMore}
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
         >
           Next Page
         </button>

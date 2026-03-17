@@ -29,10 +29,10 @@ export default function ApplyPage() {
         aria-label="Application introduction"
       >
         <div className="mx-auto max-w-[1200px] text-center">
-          <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-brand-primary">
+          <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-text-primary">
             Join the Edin Community
           </h1>
-          <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
+          <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-text-secondary">
             We value expertise and thoughtful contribution. Complete the form below and show us what
             you can do through a brief, domain-specific task.
           </p>

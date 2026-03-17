@@ -60,8 +60,8 @@ export function ArticleListContent({ initialArticles, initialTotal }: ArticleLis
           onClick={() => setDomainFilter(undefined)}
           className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             !activeDomain
-              ? 'bg-brand-primary text-white'
-              : 'bg-surface-sunken text-brand-secondary hover:bg-surface-border'
+              ? 'bg-text-primary text-white'
+              : 'bg-surface-sunken text-text-secondary hover:bg-surface-border'
           }`}
           aria-pressed={!activeDomain}
         >
@@ -74,7 +74,7 @@ export function ArticleListContent({ initialArticles, initialTotal }: ArticleLis
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               activeDomain === domain
                 ? DOMAIN_FILTER_COLORS[domain]
-                : 'bg-surface-sunken text-brand-secondary hover:bg-surface-border'
+                : 'bg-surface-sunken text-text-secondary hover:bg-surface-border'
             }`}
             aria-pressed={activeDomain === domain}
           >
@@ -85,13 +85,13 @@ export function ArticleListContent({ initialArticles, initialTotal }: ArticleLis
 
       {/* Article grid */}
       {isPending && articles.length === 0 ? (
-        <div className="py-[var(--spacing-3xl)] text-center text-brand-secondary">
+        <div className="py-[var(--spacing-3xl)] text-center text-text-secondary">
           Loading articles...
         </div>
       ) : displayArticles.length === 0 ? (
         <div className="py-[var(--spacing-3xl)] text-center">
-          <p className="text-lg font-medium text-brand-primary">No articles found</p>
-          <p className="mt-2 text-sm text-brand-secondary">
+          <p className="text-lg font-medium text-text-primary">No articles found</p>
+          <p className="mt-2 text-sm text-text-secondary">
             {activeDomain
               ? `No published articles in ${activeDomain} yet.`
               : 'No published articles yet.'}
@@ -110,7 +110,7 @@ export function ArticleListContent({ initialArticles, initialTotal }: ArticleLis
               <button
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="rounded-lg bg-brand-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:opacity-50"
+                className="rounded-lg bg-text-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:opacity-50"
               >
                 {isFetchingNextPage ? 'Loading...' : 'Load more'}
               </button>

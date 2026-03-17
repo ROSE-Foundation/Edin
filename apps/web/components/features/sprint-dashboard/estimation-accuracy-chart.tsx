@@ -16,7 +16,7 @@ import type { ContributorAccuracyTrend } from '@edin/shared';
 
 // Colors for different contributors — using CSS-safe palette
 const CONTRIBUTOR_COLORS = [
-  'var(--color-brand-accent)',
+  'var(--color-accent-primary)',
   '#e67e22',
   '#2ecc71',
   '#9b59b6',
@@ -35,7 +35,7 @@ export function EstimationAccuracyChart({ data }: EstimationAccuracyChartProps) 
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised">
+      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised">
         <p className="text-[14px] text-text-tertiary">
           No estimation accuracy data available yet. Data will appear once contributor estimations
           are tracked.
@@ -67,12 +67,12 @@ export function EstimationAccuracyChart({ data }: EstimationAccuracyChartProps) 
   return (
     <section aria-label="Estimation accuracy trends">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[18px] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[18px] font-semibold text-text-primary">
           Estimation Accuracy
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -85,18 +85,18 @@ export function EstimationAccuracyChart({ data }: EstimationAccuracyChartProps) 
           aria-label="Estimation accuracy data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Contributor
               </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Sprint</th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Sprint</th>
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Planned
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Delivered
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Accuracy
               </th>
             </tr>
@@ -106,19 +106,19 @@ export function EstimationAccuracyChart({ data }: EstimationAccuracyChartProps) 
               contributor.sprints.map((sprint, idx) => (
                 <tr
                   key={`${contributor.contributorId}-${sprint.sprintId}`}
-                  className="border-b border-surface-border/50"
+                  className="border-b border-surface-subtle/50"
                 >
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-text-primary">
                     {idx === 0 ? contributor.contributorId.slice(0, 8) : ''}
                   </td>
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">{sprint.sprintName}</td>
-                  <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-text-primary">{sprint.sprintName}</td>
+                  <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                     {sprint.plannedPoints}
                   </td>
-                  <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                     {sprint.deliveredPoints}
                   </td>
-                  <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                     {sprint.accuracy != null ? `${sprint.accuracy}%` : '\u2014'}
                   </td>
                 </tr>

@@ -18,7 +18,7 @@ interface BuddyWelcomeCardProps {
 export function BuddyWelcomeCard({ buddy, isLoading }: BuddyWelcomeCardProps) {
   if (isLoading) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
         <div className="flex items-start gap-[var(--spacing-md)]">
           <div className="skeleton h-[72px] w-[72px] shrink-0 rounded-full" />
           <div className="flex-1 space-y-[var(--spacing-sm)]">
@@ -33,9 +33,9 @@ export function BuddyWelcomeCard({ buddy, isLoading }: BuddyWelcomeCardProps) {
 
   if (!buddy) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-        <h3 className="font-sans text-[15px] font-medium text-brand-primary">Your Buddy</h3>
-        <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+        <h3 className="font-sans text-[15px] font-medium text-text-primary">Your Buddy</h3>
+        <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
           We&apos;re finding the right person to welcome you. Your buddy will appear here soon.
         </p>
       </div>
@@ -45,8 +45,8 @@ export function BuddyWelcomeCard({ buddy, isLoading }: BuddyWelcomeCardProps) {
   const domainColor = buddy.domain ? DOMAIN_COLORS[buddy.domain] : null;
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-      <h3 className="font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+      <h3 className="font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
         Your Buddy
       </h3>
       <div className="mt-[var(--spacing-md)] flex items-start gap-[var(--spacing-md)]">
@@ -56,17 +56,17 @@ export function BuddyWelcomeCard({ buddy, isLoading }: BuddyWelcomeCardProps) {
             alt={`${buddy.name}'s photo`}
             width={72}
             height={72}
-            className="h-[72px] w-[72px] shrink-0 rounded-full border border-surface-border object-cover"
+            className="h-[72px] w-[72px] shrink-0 rounded-full border border-surface-subtle object-cover"
           />
         ) : (
-          <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-full border border-surface-border bg-surface-sunken">
-            <span className="font-sans text-[28px] font-medium text-brand-secondary">
+          <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-full border border-surface-subtle bg-surface-sunken">
+            <span className="font-sans text-[28px] font-medium text-text-secondary">
               {buddy.name.charAt(0).toUpperCase()}
             </span>
           </div>
         )}
         <div className="flex-1">
-          <h4 className="font-serif text-[18px] font-bold text-brand-primary">{buddy.name}</h4>
+          <h4 className="font-serif text-[18px] font-bold text-text-primary">{buddy.name}</h4>
           {buddy.domain && domainColor && (
             <span
               className={`mt-[var(--spacing-xs)] inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium ${domainColor.bg} ${domainColor.text}`}
@@ -75,7 +75,7 @@ export function BuddyWelcomeCard({ buddy, isLoading }: BuddyWelcomeCardProps) {
             </span>
           )}
           {buddy.bio && (
-            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+            <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
               {buddy.bio}
             </p>
           )}

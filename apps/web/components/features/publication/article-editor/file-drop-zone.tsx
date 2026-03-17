@@ -100,8 +100,8 @@ export function FileDropZone({
     >
       {children}
       {isDragging && (
-        <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center rounded-[var(--radius-md)] border-2 border-dashed border-brand-accent bg-brand-accent/5">
-          <span className="rounded-[var(--radius-md)] bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-md)] font-sans text-[15px] font-medium text-brand-accent shadow-[var(--shadow-sm)]">
+        <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center rounded-[var(--radius-md)] border-2 border-dashed border-accent-primary bg-accent-primary/5">
+          <span className="rounded-[var(--radius-md)] bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-md)] font-sans text-[15px] font-medium text-accent-primary shadow-[var(--shadow-sm)]">
             Drop file here to import
           </span>
         </div>

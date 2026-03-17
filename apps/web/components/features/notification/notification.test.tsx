@@ -67,7 +67,7 @@ describe('NotificationBadge', () => {
 
     const dot = screen.getByLabelText('New notifications');
     expect(dot).toBeInTheDocument();
-    expect(dot).toHaveClass('bg-brand-accent');
+    expect(dot).toHaveClass('bg-accent-primary');
     expect(dot).toHaveClass('h-[8px]');
     expect(dot).toHaveClass('w-[8px]');
     expect(dot).toHaveClass('rounded-full');

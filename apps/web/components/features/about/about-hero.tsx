@@ -15,10 +15,10 @@ export function AboutHero() {
           className="mx-auto mb-8 rounded-full brightness-[0.65] contrast-[1.3]"
           priority
         />
-        <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-brand-primary">
+        <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-text-primary">
           About Edin
         </h1>
-        <p className="mx-auto mt-6 max-w-[680px] font-sans text-[15px] leading-[1.6] font-normal text-brand-secondary">
+        <p className="mx-auto mt-6 max-w-[680px] font-sans text-[15px] leading-[1.6] font-normal text-text-secondary">
           Named after the Sumerian word for a fertile plain, Edin is a curated contributor platform
           designed to organize, evaluate, and reward collaborative development within the Rose
           decentralized finance ecosystem.

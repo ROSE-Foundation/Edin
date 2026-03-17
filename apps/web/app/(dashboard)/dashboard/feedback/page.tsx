@@ -6,13 +6,13 @@ import { ReceivedFeedbackList } from '../../../../components/features/feedback/r
 export default function FeedbackDashboardPage() {
   return (
     <div className="p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         Feedback
       </h1>
 
       {/* Pending Reviews Section */}
       <section className="mb-[var(--spacing-xl)]">
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-text-primary">
           Pending Reviews
         </h2>
         <PendingReviewList />
@@ -20,7 +20,7 @@ export default function FeedbackDashboardPage() {
 
       {/* Received Feedback Section */}
       <section>
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-text-primary">
           Feedback Received
         </h2>
         <ReceivedFeedbackList />

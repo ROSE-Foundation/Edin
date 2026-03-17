@@ -4,10 +4,10 @@ import { DataDeletionSection } from '../../../../../components/features/privacy/
 export default function PrivacySettingsPage() {
   return (
     <div className="p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xs)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xs)] font-serif text-[24px] font-bold text-text-primary">
         Privacy &amp; Data Rights
       </h1>
-      <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-brand-secondary">
+      <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-text-secondary">
         Manage your personal data. Under GDPR, you have the right to export or delete your data at
         any time.
       </p>

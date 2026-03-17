@@ -21,7 +21,7 @@ export function DomainApplications({ applications, isPending }: DomainApplicatio
         {Array.from({ length: 2 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+            className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
           >
             <div className="skeleton h-[16px] w-[180px]" />
             <div className="mt-[var(--spacing-xs)] skeleton h-[14px] w-[120px]" />
@@ -33,7 +33,7 @@ export function DomainApplications({ applications, isPending }: DomainApplicatio
 
   if (applications.length === 0) {
     return (
-      <p className="font-serif text-[14px] text-brand-secondary">
+      <p className="font-serif text-[14px] text-text-secondary">
         No pending applications for your domain.
       </p>
     );
@@ -45,19 +45,19 @@ export function DomainApplications({ applications, isPending }: DomainApplicatio
         <div
           key={app.id}
           role="listitem"
-          className="flex items-center justify-between rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+          className="flex items-center justify-between rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
         >
           <div>
-            <p className="font-sans text-[14px] font-medium text-brand-primary">
+            <p className="font-sans text-[14px] font-medium text-text-primary">
               {app.applicantName}
             </p>
-            <p className="font-sans text-[12px] text-brand-secondary">
+            <p className="font-sans text-[12px] text-text-secondary">
               {app.domain} &middot; {new Date(app.createdAt).toLocaleDateString()}
             </p>
           </div>
           <Link
             href={`/admin/admission`}
-            className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-border px-[var(--spacing-md)] font-sans text-[13px] font-medium text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken"
+            className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[13px] font-medium text-text-secondary transition-colors duration-200 hover:bg-surface-sunken"
           >
             Review
           </Link>

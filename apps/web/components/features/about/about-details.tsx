@@ -76,16 +76,16 @@ export function AboutDetails() {
       {/* Mission Section */}
       <section className="px-[var(--spacing-lg)] py-[var(--spacing-2xl)]" aria-label="Our Mission">
         <div className="mx-auto max-w-[800px]">
-          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-brand-primary">
+          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-text-primary">
             Our Mission
           </h2>
-          <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.7] text-brand-primary">
+          <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.7] text-text-primary">
             Open-source contributors produce enormous value but receive zero structured
             compensation. Edin exists to change that. We combine three innovations — AI-powered
             objective evaluation, scaling-law reward mathematics, and curated admission — to create
             a platform where expertise is recognized, measured, and rewarded fairly.
           </p>
-          <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.7] text-brand-primary">
+          <p className="mt-[var(--spacing-md)] font-serif text-[15px] leading-[1.7] text-text-primary">
             Edin is not a tool replacement. It is an integration-first platform that connects to the
             workflows contributors already know — GitHub for code, Google Workspace for documents,
             Slack for communication — and layers on evaluation, rewards, and community structure
@@ -100,20 +100,20 @@ export function AboutDetails() {
         aria-label="Core Principles"
       >
         <div className="mx-auto max-w-[800px]">
-          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-brand-primary">
+          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-text-primary">
             What Makes Edin Different
           </h2>
           <div className="mt-[var(--spacing-xl)] flex flex-col gap-[var(--spacing-xl)]">
             {CORE_PRINCIPLES.map((principle) => (
               <div key={principle.title} className="flex gap-[var(--spacing-md)]">
-                <span className="shrink-0 font-mono text-[13px] font-bold text-brand-accent">
+                <span className="shrink-0 font-mono text-[13px] font-bold text-accent-primary">
                   {principle.icon}
                 </span>
                 <div>
-                  <h3 className="font-sans text-[15px] font-semibold text-brand-primary">
+                  <h3 className="font-sans text-[15px] font-semibold text-text-primary">
                     {principle.title}
                   </h3>
-                  <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
+                  <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-text-secondary">
                     {principle.description}
                   </p>
                 </div>
@@ -126,7 +126,7 @@ export function AboutDetails() {
       {/* How It Works */}
       <section className="px-[var(--spacing-lg)] py-[var(--spacing-2xl)]" aria-label="How It Works">
         <div className="mx-auto max-w-[800px]">
-          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-brand-primary">
+          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-text-primary">
             How It Works
           </h2>
           <div className="mt-[var(--spacing-xl)] flex flex-col gap-[var(--spacing-lg)]">
@@ -136,7 +136,7 @@ export function AboutDetails() {
                 className="relative flex gap-[var(--spacing-md)] pl-[var(--spacing-sm)]"
               >
                 <div className="flex flex-col items-center">
-                  <div className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-full bg-brand-accent font-mono text-[12px] font-bold text-surface-raised">
+                  <div className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-full bg-accent-primary font-mono text-[12px] font-bold text-surface-raised">
                     {index + 1}
                   </div>
                   {index < HOW_IT_WORKS_STEPS.length - 1 && (
@@ -144,10 +144,10 @@ export function AboutDetails() {
                   )}
                 </div>
                 <div className="pb-[var(--spacing-md)]">
-                  <h3 className="font-sans text-[15px] font-semibold text-brand-primary">
+                  <h3 className="font-sans text-[15px] font-semibold text-text-primary">
                     {item.step}
                   </h3>
-                  <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
+                  <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-text-secondary">
                     {item.description}
                   </p>
                 </div>
@@ -163,10 +163,10 @@ export function AboutDetails() {
         aria-label="Our Domains"
       >
         <div className="mx-auto max-w-[800px]">
-          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-brand-primary">
+          <h2 className="font-serif text-[1.75rem] leading-[1.3] font-bold text-text-primary">
             Our Four Domains
           </h2>
-          <p className="mt-[var(--spacing-md)] font-sans text-[15px] leading-[1.6] text-brand-secondary">
+          <p className="mt-[var(--spacing-md)] font-sans text-[15px] leading-[1.6] text-text-secondary">
             Edin is built on four equal pillars of expertise. Each domain represents a critical
             dimension of the platform — from the code that powers it to the governance that shapes
             its future.

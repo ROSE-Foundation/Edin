@@ -50,13 +50,13 @@ function StatusIndicator({ status }: { status: string }) {
       );
     case 'REMOVING':
       return (
-        <span className="inline-flex items-center gap-[4px] font-sans text-[13px] text-brand-secondary">
-          <span className="inline-block h-[8px] w-[8px] rounded-full bg-brand-secondary" />
+        <span className="inline-flex items-center gap-[4px] font-sans text-[13px] text-text-secondary">
+          <span className="inline-block h-[8px] w-[8px] rounded-full bg-text-secondary" />
           Removing
         </span>
       );
     default:
-      return <span className="font-sans text-[13px] text-brand-secondary">{status}</span>;
+      return <span className="font-sans text-[13px] text-text-secondary">{status}</span>;
   }
 }
 
@@ -105,13 +105,13 @@ export function RepositoryList() {
     <div>
       {/* Header */}
       <div className="mb-[var(--spacing-lg)] flex flex-col gap-[var(--spacing-md)] sm:flex-row sm:items-center sm:justify-between">
-        <h3 className="font-serif text-[18px] font-semibold text-brand-primary">
+        <h3 className="font-serif text-[18px] font-semibold text-text-primary">
           Repository Monitoring
         </h3>
         <button
           type="button"
           onClick={() => setFormOpen(true)}
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2"
+          className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
         >
           Add Repository
         </button>
@@ -125,21 +125,21 @@ export function RepositoryList() {
           repositories.map((repo) => (
             <div
               key={repo.id}
-              className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+              className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
             >
               <div className="flex items-center justify-between">
-                <span className="font-sans text-[15px] font-medium text-brand-primary">
+                <span className="font-sans text-[15px] font-medium text-text-primary">
                   {repo.fullName}
                 </span>
                 <StatusIndicator status={repo.status} />
               </div>
               <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-md)]">
                 {repo.addedByName && (
-                  <span className="font-sans text-[13px] text-brand-secondary">
+                  <span className="font-sans text-[13px] text-text-secondary">
                     {repo.addedByName}
                   </span>
                 )}
-                <span className="font-sans text-[13px] text-brand-secondary">
+                <span className="font-sans text-[13px] text-text-secondary">
                   Added {formatRelativeDate(repo.createdAt)}
                 </span>
               </div>
@@ -153,41 +153,39 @@ export function RepositoryList() {
         {repositories.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
             {/* Table header */}
-            <div className="grid grid-cols-[1fr_100px_120px_120px_160px] gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
+            <div className="grid grid-cols-[1fr_100px_120px_120px_160px] gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">
                 Repository
               </span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Status</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Status</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">
                 Added by
               </span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Added</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
-                Actions
-              </span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Added</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Actions</span>
             </div>
 
             {/* Table rows */}
             {repositories.map((repo) => (
               <div key={repo.id}>
                 <div
-                  className="grid grid-cols-[1fr_100px_120px_120px_160px] items-center gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
+                  className="grid grid-cols-[1fr_100px_120px_120px_160px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
                   style={{ minHeight: '48px' }}
                 >
                   <button
                     type="button"
                     onClick={() => setExpandedRow(expandedRow === repo.id ? null : repo.id)}
-                    className="truncate text-left font-sans text-[15px] font-medium text-brand-primary hover:text-brand-accent"
+                    className="truncate text-left font-sans text-[15px] font-medium text-text-primary hover:text-accent-primary"
                   >
                     {repo.fullName}
                   </button>
                   <StatusIndicator status={repo.status} />
-                  <span className="truncate font-sans text-[14px] text-brand-secondary">
+                  <span className="truncate font-sans text-[14px] text-text-secondary">
                     {repo.addedByName ?? '—'}
                   </span>
-                  <span className="font-sans text-[14px] text-brand-secondary">
+                  <span className="font-sans text-[14px] text-text-secondary">
                     {formatRelativeDate(repo.createdAt)}
                   </span>
                   <div className="flex gap-[var(--spacing-xs)]">
@@ -196,7 +194,7 @@ export function RepositoryList() {
                         type="button"
                         onClick={() => handleRetry(repo)}
                         disabled={retryWebhook.isPending}
-                        className="rounded-[var(--radius-sm)] border border-surface-border px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-brand-primary transition-colors hover:bg-surface-sunken disabled:opacity-50"
+                        className="rounded-[var(--radius-sm)] border border-surface-subtle px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-text-primary transition-colors hover:bg-surface-sunken disabled:opacity-50"
                       >
                         Retry
                       </button>
@@ -204,7 +202,7 @@ export function RepositoryList() {
                     <button
                       type="button"
                       onClick={() => setRemoveTarget(repo)}
-                      className="rounded-[var(--radius-sm)] border border-surface-border px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+                      className="rounded-[var(--radius-sm)] border border-surface-subtle px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-text-secondary transition-colors hover:bg-surface-sunken"
                     >
                       Remove
                     </button>
@@ -213,8 +211,8 @@ export function RepositoryList() {
 
                 {/* Expanded error detail */}
                 {expandedRow === repo.id && repo.statusMessage && (
-                  <div className="border-b border-surface-border bg-surface-sunken/30 px-[var(--spacing-lg)] py-[var(--spacing-sm)]">
-                    <p className="font-sans text-[13px] text-brand-secondary">
+                  <div className="border-b border-surface-subtle bg-surface-sunken/30 px-[var(--spacing-lg)] py-[var(--spacing-sm)]">
+                    <p className="font-sans text-[13px] text-text-secondary">
                       {repo.statusMessage}
                     </p>
                   </div>
@@ -238,19 +236,19 @@ export function RepositoryList() {
         <AlertDialog.Portal>
           <AlertDialog.Overlay className="fixed inset-0 z-40 bg-black/40" />
           <AlertDialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-[var(--radius-lg)] bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-modal)]">
-            <AlertDialog.Title className="font-serif text-[18px] font-bold text-brand-primary">
+            <AlertDialog.Title className="font-serif text-[18px] font-bold text-text-primary">
               Remove Repository
             </AlertDialog.Title>
-            <AlertDialog.Description className="mt-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary">
+            <AlertDialog.Description className="mt-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary">
               This will stop monitoring{' '}
-              <span className="font-medium text-brand-primary">{removeTarget?.fullName}</span>.
+              <span className="font-medium text-text-primary">{removeTarget?.fullName}</span>.
               Previously ingested contributions will remain.
             </AlertDialog.Description>
             <div className="mt-[var(--spacing-lg)] flex justify-end gap-[var(--spacing-sm)]">
               <AlertDialog.Close asChild>
                 <button
                   type="button"
-                  className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors hover:bg-surface-sunken"
+                  className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-sunken"
                 >
                   Cancel
                 </button>
@@ -273,8 +271,8 @@ export function RepositoryList() {
 
 function EmptyState() {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-3xl)] text-center">
-      <p className="font-sans text-[15px] text-brand-secondary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-3xl)] text-center">
+      <p className="font-sans text-[15px] text-text-secondary">
         No repositories monitored yet. Add a GitHub repository to start tracking contributions.
       </p>
     </div>
@@ -288,8 +286,8 @@ function RepositoryListSkeleton() {
         <div className="skeleton h-[32px] w-[280px]" />
         <div className="skeleton h-[40px] w-[200px]" />
       </div>
-      <div className="hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised md:block">
-        <div className="grid grid-cols-[1fr_100px_120px_120px_160px] gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+      <div className="hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised md:block">
+        <div className="grid grid-cols-[1fr_100px_120px_120px_160px] gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
           <div className="skeleton h-[16px] w-[200px]" />
           <div className="skeleton h-[16px] w-[60px]" />
           <div className="skeleton h-[16px] w-[80px]" />
@@ -299,7 +297,7 @@ function RepositoryListSkeleton() {
         {Array.from({ length: 5 }).map((_, i) => (
           <div
             key={i}
-            className="grid grid-cols-[1fr_100px_120px_120px_160px] items-center gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
+            className="grid grid-cols-[1fr_100px_120px_120px_160px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
             style={{ minHeight: '48px' }}
           >
             <div className="skeleton h-[20px] w-[220px]" />
@@ -314,7 +312,7 @@ function RepositoryListSkeleton() {
         {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+            className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
           >
             <div className="flex items-center justify-between">
               <div className="skeleton h-[20px] w-[180px]" />

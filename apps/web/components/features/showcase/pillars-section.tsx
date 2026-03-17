@@ -65,10 +65,10 @@ export function PillarsSection() {
   return (
     <section className="bg-surface-sunken px-6 py-20" aria-label="What makes Edin different">
       <div className="mx-auto max-w-[1200px]">
-        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-brand-primary">
+        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-text-primary">
           What Makes Edin Different
         </h2>
-        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[520px] text-center font-sans text-[15px] leading-[1.6] text-text-secondary">
           Three innovations combined to create a platform where expertise is recognized, measured,
           and rewarded fairly.
         </p>
@@ -77,15 +77,15 @@ export function PillarsSection() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
+              className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
             >
-              <div className="flex h-[44px] w-[44px] items-center justify-center rounded-[var(--radius-md)] bg-brand-accent-subtle text-brand-accent">
+              <div className="flex h-[44px] w-[44px] items-center justify-center rounded-[var(--radius-md)] bg-accent-primary-subtle text-accent-primary">
                 {pillar.icon}
               </div>
-              <h3 className="mt-[var(--spacing-md)] font-sans text-[16px] font-semibold text-brand-primary">
+              <h3 className="mt-[var(--spacing-md)] font-sans text-[16px] font-semibold text-text-primary">
                 {pillar.title}
               </h3>
-              <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.65] text-brand-secondary">
+              <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.65] text-text-secondary">
                 {pillar.description}
               </p>
             </div>

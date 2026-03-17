@@ -13,10 +13,10 @@ export default function RewardTrajectoryPage() {
   if (isLoading) {
     return (
       <div className="mx-auto max-w-[720px] p-[var(--spacing-xl)]">
-        <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-brand-primary">
+        <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-text-primary">
           Your Growth Trajectory
         </h1>
-        <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-brand-secondary">
+        <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-text-secondary">
           See how sustained engagement compounds your impact over time.
         </p>
         <p className="font-sans text-[14px] text-neutral-400">Loading trajectory...</p>
@@ -27,7 +27,7 @@ export default function RewardTrajectoryPage() {
   if (error) {
     return (
       <div className="mx-auto max-w-[720px] p-[var(--spacing-xl)]">
-        <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-brand-primary">
+        <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-text-primary">
           Your Growth Trajectory
         </h1>
         <p className="font-sans text-[14px] text-red-500">
@@ -39,10 +39,10 @@ export default function RewardTrajectoryPage() {
 
   return (
     <div className="mx-auto max-w-[720px] p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-sm)] font-serif text-[24px] font-bold text-text-primary">
         Your Growth Trajectory
       </h1>
-      <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-brand-secondary">
+      <p className="mb-[var(--spacing-xl)] font-sans text-[14px] text-text-secondary">
         See how sustained engagement compounds your impact over time.
       </p>
 

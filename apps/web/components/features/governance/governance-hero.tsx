@@ -8,7 +8,7 @@ export function GovernanceHero() {
         <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-domain-governance">
           Progressive Decentralization
         </h1>
-        <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
+        <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-text-secondary">
           How governance authority transfers from the founding team to the community — with specific
           milestones, transparent timelines, and no shortcuts.
         </p>

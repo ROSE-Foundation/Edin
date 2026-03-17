@@ -11,7 +11,7 @@ export default function DashboardScoresPage() {
   if (isLoading) {
     return (
       <div className="p-[var(--spacing-xl)]">
-        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
           Contribution Scores
         </h1>
         <p className="font-sans text-[14px] text-neutral-400">Loading scores...</p>
@@ -22,7 +22,7 @@ export default function DashboardScoresPage() {
   if (error) {
     return (
       <div className="p-[var(--spacing-xl)]">
-        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
           Contribution Scores
         </h1>
         <p className="font-sans text-[14px] text-red-500">
@@ -35,7 +35,7 @@ export default function DashboardScoresPage() {
   if (!summary) {
     return (
       <div className="p-[var(--spacing-xl)]">
-        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+        <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
           Contribution Scores
         </h1>
         <p className="font-sans text-[14px] text-neutral-400">
@@ -47,7 +47,7 @@ export default function DashboardScoresPage() {
 
   return (
     <div className="p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         Contribution Scores
       </h1>
 
@@ -58,7 +58,7 @@ export default function DashboardScoresPage() {
 
       {/* Temporal Horizons */}
       <section className="mb-[var(--spacing-lg)]">
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-text-primary">
           Score Horizons
         </h2>
         <TemporalHorizonsPanel aggregates={summary.aggregates} />
@@ -66,7 +66,7 @@ export default function DashboardScoresPage() {
 
       {/* Recent Scores with Provenance */}
       <section>
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[16px] font-semibold text-text-primary">
           Recent Scores
         </h2>
         <ScoreProvenanceDetail scores={summary.recentScores} />

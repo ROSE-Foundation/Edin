@@ -12,7 +12,7 @@ function WorkingGroupsSkeleton() {
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+          className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
         >
           <div className="flex items-start justify-between">
             <div className="skeleton h-[22px] w-[80px] rounded-full" />
@@ -51,10 +51,10 @@ export default function WorkingGroupsPage() {
   return (
     <main className="min-h-screen bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[56rem]">
-        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-brand-primary">
+        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-text-primary">
           Working Groups
         </h1>
-        <p className="mt-[var(--spacing-xs)] font-serif text-[16px] leading-[1.65] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-serif text-[16px] leading-[1.65] text-text-secondary">
           Connect with contributors in your area of expertise and access domain-relevant
           opportunities.
         </p>
@@ -72,8 +72,8 @@ export default function WorkingGroupsPage() {
         </div>
 
         {!isLoading && workingGroups.length === 0 && (
-          <div className="mt-[var(--spacing-xl)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-2xl)] text-center">
-            <p className="font-sans text-[15px] text-brand-secondary">
+          <div className="mt-[var(--spacing-xl)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-2xl)] text-center">
+            <p className="font-sans text-[15px] text-text-secondary">
               No working groups available yet.
             </p>
           </div>

@@ -16,10 +16,10 @@ export function RoseSection() {
           height={200}
           className="mx-auto mb-8 opacity-80"
         />
-        <p className="text-center font-mono text-[13px] font-medium uppercase tracking-[0.15em] text-brand-accent">
+        <p className="text-center font-mono text-[13px] font-medium uppercase tracking-[0.15em] text-accent-primary">
           The Rose Project
         </p>
-        <h2 className="mt-2 text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-brand-primary">
+        <h2 className="mt-2 text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-text-primary">
           A New Financial Infrastructure for a Fairer Economy
         </h2>
         <p className="mx-auto mt-6 max-w-[720px] text-center font-sans text-[16px] leading-[1.7] text-text-secondary">
@@ -29,12 +29,12 @@ export function RoseSection() {
           while developing financial services that channel market energy to foster an equitable,
           knowledge-driven society that benefits everyone.
         </p>
-        <p className="mx-auto mt-4 max-w-[680px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+        <p className="mx-auto mt-4 max-w-[680px] text-center font-sans text-[15px] leading-[1.6] text-text-secondary">
           {ROSE_INTRO}
         </p>
 
         <div className="mx-auto mt-[var(--spacing-xl)] max-w-[680px]">
-          <p className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+          <p className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
             Key Concepts
           </p>
           <Accordion.Root type="single" collapsible>
@@ -42,12 +42,12 @@ export function RoseSection() {
               <Accordion.Item
                 key={concept.title}
                 value={concept.title}
-                className="border-b border-surface-border"
+                className="border-b border-surface-subtle"
               >
-                <Accordion.Trigger className="group flex w-full items-center justify-between py-[var(--spacing-md)] text-left font-sans text-[14px] font-semibold text-brand-primary transition-colors duration-[var(--transition-fast)] hover:text-brand-accent">
+                <Accordion.Trigger className="group flex w-full items-center justify-between py-[var(--spacing-md)] text-left font-sans text-[14px] font-semibold text-text-primary transition-colors duration-[var(--transition-fast)] hover:text-accent-primary">
                   {concept.title}
                   <svg
-                    className="h-[16px] w-[16px] shrink-0 text-brand-secondary transition-transform duration-200 group-data-[state=open]:rotate-180"
+                    className="h-[16px] w-[16px] shrink-0 text-text-secondary transition-transform duration-200 group-data-[state=open]:rotate-180"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={2}
@@ -61,7 +61,7 @@ export function RoseSection() {
                   </svg>
                 </Accordion.Trigger>
                 <Accordion.Content className="accordion-content overflow-hidden">
-                  <p className="pb-[var(--spacing-md)] font-sans text-[14px] leading-[1.65] text-brand-secondary">
+                  <p className="pb-[var(--spacing-md)] font-sans text-[14px] leading-[1.65] text-text-secondary">
                     {concept.shortDescription}
                   </p>
                 </Accordion.Content>
@@ -73,7 +73,7 @@ export function RoseSection() {
         <div className="mt-[var(--spacing-lg)] text-center">
           <Link
             href="/rose"
-            className="font-sans text-[14px] font-semibold text-brand-accent transition-colors duration-[var(--transition-fast)] hover:text-brand-primary"
+            className="font-sans text-[14px] font-semibold text-accent-primary transition-colors duration-[var(--transition-fast)] hover:text-text-primary"
           >
             Learn more about Rose &rarr;
           </Link>

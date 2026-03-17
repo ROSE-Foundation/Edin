@@ -63,13 +63,13 @@ export function RoleChangeDialog({
   return (
     <dialog
       ref={dialogRef}
-      className="w-full max-w-[480px] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] backdrop:bg-black/50"
+      className="w-full max-w-[480px] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] backdrop:bg-black/50"
       onClose={onClose}
       aria-labelledby="role-change-title"
     >
       <h2
         id="role-change-title"
-        className="mb-[var(--spacing-md)] font-serif text-[20px] font-bold text-brand-primary"
+        className="mb-[var(--spacing-md)] font-serif text-[20px] font-bold text-text-primary"
       >
         Change Role for {contributorName}
       </h2>
@@ -78,15 +78,15 @@ export function RoleChangeDialog({
         <div className="mb-[var(--spacing-md)]">
           <label
             htmlFor="role-select"
-            className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-text-secondary"
           >
-            Current Role: <span className="font-bold text-brand-primary">{currentRole}</span>
+            Current Role: <span className="font-bold text-text-primary">{currentRole}</span>
           </label>
           <select
             id="role-select"
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
-            className="w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+            className="w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
             aria-describedby="role-help"
           >
             {ROLE_OPTIONS.map((opt) => (
@@ -95,7 +95,7 @@ export function RoleChangeDialog({
               </option>
             ))}
           </select>
-          <p id="role-help" className="mt-[var(--spacing-xs)] text-[12px] text-brand-secondary">
+          <p id="role-help" className="mt-[var(--spacing-xs)] text-[12px] text-text-secondary">
             Select the new role for this contributor
           </p>
         </div>
@@ -103,7 +103,7 @@ export function RoleChangeDialog({
         <div className="mb-[var(--spacing-lg)]">
           <label
             htmlFor="role-reason"
-            className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-text-secondary"
           >
             Reason for change <span className="text-red-500">*</span>
           </label>
@@ -113,12 +113,12 @@ export function RoleChangeDialog({
             onChange={(e) => setReason(e.target.value)}
             maxLength={500}
             rows={3}
-            className="w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+            className="w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
             placeholder="Explain the reason for this role change..."
             required
             aria-describedby="reason-help"
           />
-          <p id="reason-help" className="mt-[var(--spacing-xs)] text-[12px] text-brand-secondary">
+          <p id="reason-help" className="mt-[var(--spacing-xs)] text-[12px] text-text-secondary">
             {reason.length}/500 characters
           </p>
         </div>
@@ -127,7 +127,7 @@ export function RoleChangeDialog({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary hover:bg-surface-base"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary hover:bg-surface-base"
             disabled={isPending}
           >
             Cancel
@@ -135,7 +135,7 @@ export function RoleChangeDialog({
           <button
             type="submit"
             disabled={!isValid || isPending}
-            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white hover:bg-brand-accent/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white hover:bg-accent-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? 'Updating...' : 'Confirm Role Change'}
           </button>

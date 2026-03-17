@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function CtaSection() {
   return (
-    <section className="bg-brand-primary px-6 py-20" aria-label="Call to action">
+    <section className="bg-text-primary px-6 py-20" aria-label="Call to action">
       <div className="mx-auto max-w-[600px] text-center">
         <h2 className="font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-text-primary">
           Ready to Build Something Different?

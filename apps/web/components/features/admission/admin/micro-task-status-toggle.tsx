@@ -55,10 +55,10 @@ export function MicroTaskStatusToggle({
         <button
           type="button"
           onClick={(e) => e.stopPropagation()}
-          className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium transition-colors duration-[var(--transition-fast)] focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 ${
+          className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium transition-colors duration-[var(--transition-fast)] focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 ${
             isActive
               ? 'bg-semantic-success/10 text-semantic-success hover:bg-semantic-success/20'
-              : 'bg-surface-sunken text-brand-secondary hover:bg-surface-sunken/80'
+              : 'bg-surface-sunken text-text-secondary hover:bg-surface-sunken/80'
           }`}
           aria-label={isActive ? 'Deactivate micro-task' : 'Activate micro-task'}
         >
@@ -69,16 +69,16 @@ export function MicroTaskStatusToggle({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <Dialog.Content
-          className="fixed top-1/2 left-1/2 z-50 w-[90vw] max-w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-[var(--radius-xl)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-modal)] focus:outline-none"
+          className="fixed top-1/2 left-1/2 z-50 w-[90vw] max-w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-[var(--radius-xl)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-modal)] focus:outline-none"
           aria-describedby="status-toggle-description"
           onClick={(e) => e.stopPropagation()}
         >
-          <Dialog.Title className="font-sans text-[18px] font-semibold text-brand-primary">
+          <Dialog.Title className="font-sans text-[18px] font-semibold text-text-primary">
             {title}
           </Dialog.Title>
           <Dialog.Description
             id="status-toggle-description"
-            className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-brand-secondary"
+            className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-text-secondary"
           >
             {description}
           </Dialog.Description>
@@ -87,7 +87,7 @@ export function MicroTaskStatusToggle({
             <Dialog.Close asChild>
               <button
                 type="button"
-                className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2"
+                className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
               >
                 Cancel
               </button>
@@ -96,7 +96,7 @@ export function MicroTaskStatusToggle({
               type="button"
               onClick={handleConfirm}
               disabled={isPending}
-              className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isPending ? 'Processing...' : isActive ? 'Deactivate' : 'Activate'}
             </button>

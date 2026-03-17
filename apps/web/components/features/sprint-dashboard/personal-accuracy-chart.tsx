@@ -30,7 +30,7 @@ export function PersonalAccuracyChart({ data }: PersonalAccuracyChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised">
+      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised">
         <p className="text-[14px] text-text-tertiary">
           No estimation accuracy data available yet. Data will appear after your first sprint.
         </p>
@@ -41,12 +41,12 @@ export function PersonalAccuracyChart({ data }: PersonalAccuracyChartProps) {
   return (
     <section aria-label="Estimation accuracy">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[18px] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[18px] font-semibold text-text-primary">
           Estimation Accuracy
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -59,30 +59,30 @@ export function PersonalAccuracyChart({ data }: PersonalAccuracyChartProps) {
           aria-label="Estimation accuracy data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Sprint</th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Sprint</th>
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Planned
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Delivered
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Accuracy
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.sprintId} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.sprintName}</td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+              <tr key={item.sprintId} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.sprintName}</td>
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.plannedPoints}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.deliveredPoints}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.accuracy != null ? `${item.accuracy}%` : '\u2014'}
                 </td>
               </tr>
@@ -139,7 +139,7 @@ export function PersonalAccuracyChart({ data }: PersonalAccuracyChartProps) {
               <Line
                 type="monotone"
                 dataKey="accuracy"
-                stroke="var(--color-brand-accent)"
+                stroke="var(--color-accent-primary)"
                 strokeWidth={2}
                 dot={{ r: 4 }}
                 connectNulls

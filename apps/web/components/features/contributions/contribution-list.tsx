@@ -18,7 +18,7 @@ function ContributionListSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+          className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
         >
           <div className="skeleton h-[44px] w-[44px] rounded-[var(--radius-md)]" />
           <div className="flex-1 space-y-[var(--spacing-xs)]">
@@ -46,9 +46,9 @@ export function ContributionList({
 
   if (contributions.length === 0) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-2xl)] text-center">
-        <p className="font-sans text-[15px] text-brand-secondary">No contributions yet</p>
-        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-brand-secondary/60">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-2xl)] text-center">
+        <p className="font-sans text-[15px] text-text-secondary">No contributions yet</p>
+        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-text-secondary/60">
           Contributions will appear here as they are ingested from connected repositories.
         </p>
       </div>
@@ -71,7 +71,7 @@ export function ContributionList({
             type="button"
             onClick={onLoadMore}
             disabled={isFetchingNextPage}
-            className="min-h-[44px] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-lg)] font-sans text-[15px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken disabled:opacity-50"
+            className="min-h-[44px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-lg)] font-sans text-[15px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken disabled:opacity-50"
           >
             {isFetchingNextPage ? 'Loading...' : 'Load more'}
           </button>

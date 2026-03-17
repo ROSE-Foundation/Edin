@@ -69,7 +69,7 @@ export function ZenhubConfigForm({ config, onSave, isPending }: ZenhubConfigForm
   };
 
   const inputClasses =
-    'w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-tertiary focus:border-accent-primary focus:outline-none';
+    'w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-tertiary focus:border-accent-primary focus:outline-none';
   const labelClasses =
     'block font-sans text-[13px] font-medium text-text-secondary mb-[var(--spacing-xs)]';
 

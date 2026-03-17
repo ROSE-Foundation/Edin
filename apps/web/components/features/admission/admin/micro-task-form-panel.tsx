@@ -103,25 +103,25 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
   };
 
   const inputClassName =
-    'w-full rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none';
+    'w-full rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none';
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/20 motion-safe:transition-opacity motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=open]:fade-in-0" />
         <Dialog.Content
-          className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[640px] flex-col border-l border-surface-border bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
+          className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[640px] flex-col border-l border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
           aria-describedby={undefined}
         >
           {/* Header */}
-          <div className="flex items-start justify-between border-b border-surface-border p-[var(--spacing-lg)]">
-            <Dialog.Title className="font-sans text-[20px] font-semibold text-brand-primary">
+          <div className="flex items-start justify-between border-b border-surface-subtle p-[var(--spacing-lg)]">
+            <Dialog.Title className="font-sans text-[20px] font-semibold text-text-primary">
               {isEditMode ? 'Edit Micro-Task' : 'Create Micro-Task'}
             </Dialog.Title>
             <Dialog.Close asChild>
               <button
                 type="button"
-                className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-brand-secondary transition-colors hover:text-brand-primary focus-visible:outline-2 focus-visible:outline-brand-accent"
+                className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-accent-primary"
                 aria-label="Close panel"
               >
                 <CloseIcon />
@@ -136,7 +136,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="domain"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Domain
                 </label>
@@ -163,7 +163,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="title"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Title
                 </label>
@@ -185,7 +185,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="description"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Description
                 </label>
@@ -202,17 +202,17 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
                     {errors.description.message}
                   </p>
                 )}
-                <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+                <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
                   Supports rich formatting with Markdown: <code>**bold**</code>,{' '}
                   <code>*italic*</code>, <code>- list items</code>, and <code>`inline code`</code>.
                 </p>
                 {descriptionPreview ? (
-                  <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken p-[var(--spacing-sm)]">
-                    <p className="mb-[var(--spacing-xs)] font-sans text-[12px] font-medium text-brand-secondary">
+                  <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken p-[var(--spacing-sm)]">
+                    <p className="mb-[var(--spacing-xs)] font-sans text-[12px] font-medium text-text-secondary">
                       Preview
                     </p>
                     <div
-                      className="space-y-[var(--spacing-xs)] font-serif text-[14px] leading-[1.6] text-brand-primary [&_code]:rounded-[4px] [&_code]:bg-surface-raised [&_code]:px-[4px] [&_code]:py-[2px] [&_ul]:list-disc [&_ul]:pl-[var(--spacing-lg)]"
+                      className="space-y-[var(--spacing-xs)] font-serif text-[14px] leading-[1.6] text-text-primary [&_code]:rounded-[4px] [&_code]:bg-surface-raised [&_code]:px-[4px] [&_code]:py-[2px] [&_ul]:list-disc [&_ul]:pl-[var(--spacing-lg)]"
                       dangerouslySetInnerHTML={{ __html: descriptionPreview }}
                     />
                   </div>
@@ -223,7 +223,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="expectedDeliverable"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Expected Deliverable
                 </label>
@@ -246,7 +246,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="estimatedEffort"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Estimated Effort
                 </label>
@@ -268,7 +268,7 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
               <div>
                 <label
                   htmlFor="submissionFormat"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-brand-secondary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[13px] font-medium text-text-secondary"
                 >
                   Submission Format
                 </label>
@@ -288,11 +288,11 @@ export function MicroTaskFormPanel({ open, onOpenChange, editTask }: MicroTaskFo
             </div>
 
             {/* Submit button */}
-            <div className="border-t border-surface-border p-[var(--spacing-lg)]">
+            <div className="border-t border-surface-subtle p-[var(--spacing-lg)]">
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isPending ? 'Saving...' : isEditMode ? 'Update Micro-Task' : 'Create Micro-Task'}
               </button>

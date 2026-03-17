@@ -16,14 +16,14 @@ interface DomainFilterProps {
 export function DomainFilter({ value, onChange }: DomainFilterProps) {
   return (
     <div className="flex items-center gap-[var(--spacing-sm)]">
-      <label htmlFor="domain-filter" className="text-[13px] font-medium text-brand-secondary">
+      <label htmlFor="domain-filter" className="text-[13px] font-medium text-text-secondary">
         Domain
       </label>
       <select
         id="domain-filter"
         value={value ?? ''}
         onChange={(e) => onChange(e.target.value || undefined)}
-        className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-accent"
+        className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
       >
         {DOMAIN_OPTIONS.map((opt) => (
           <option key={opt.value} value={opt.value}>

@@ -47,7 +47,7 @@ export function ReviewerAssignment({
 
   if (availableReviewers.length === 0) {
     return (
-      <p className="font-sans text-[13px] text-brand-secondary">
+      <p className="font-sans text-[13px] text-text-secondary">
         No additional reviewers available.
       </p>
     );
@@ -57,17 +57,17 @@ export function ReviewerAssignment({
     <div className="flex gap-[var(--spacing-sm)]">
       <Select.Root value={selectedReviewerId} onValueChange={setSelectedReviewerId}>
         <Select.Trigger
-          className="flex min-h-[40px] flex-1 items-center justify-between rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20"
+          className="flex min-h-[40px] flex-1 items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20"
           aria-label="Select reviewer"
         >
           <Select.Value placeholder="Select a reviewer" />
-          <Select.Icon className="ml-[var(--spacing-xs)] text-brand-secondary">
+          <Select.Icon className="ml-[var(--spacing-xs)] text-text-secondary">
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Content
-            className="z-50 max-h-[240px] overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-[var(--shadow-modal)]"
+            className="z-50 max-h-[240px] overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)]"
             position="popper"
             sideOffset={4}
           >
@@ -76,7 +76,7 @@ export function ReviewerAssignment({
                 <Select.Item
                   key={reviewer.id}
                   value={reviewer.id}
-                  className="flex min-h-[36px] cursor-pointer items-center gap-[var(--spacing-sm)] rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                  className="flex min-h-[36px] cursor-pointer items-center gap-[var(--spacing-sm)] rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                 >
                   <Select.ItemText>
                     {reviewer.name}
@@ -92,7 +92,7 @@ export function ReviewerAssignment({
         type="button"
         onClick={handleAssign}
         disabled={!selectedReviewerId || assignReviewer.isPending}
-        className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[14px] font-medium text-brand-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[14px] font-medium text-text-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {assignReviewer.isPending ? 'Assigning...' : 'Assign'}
       </button>

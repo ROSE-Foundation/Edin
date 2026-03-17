@@ -52,7 +52,7 @@ export function TemporalHorizonsPanel({ aggregates }: TemporalHorizonsPanelProps
             className="flex items-center justify-between px-[var(--spacing-lg)] py-[var(--spacing-md)]"
           >
             <div>
-              <p className="font-sans text-[14px] font-medium text-brand-primary">
+              <p className="font-sans text-[14px] font-medium text-text-primary">
                 {HORIZON_LABELS[agg.horizon] ?? agg.horizon}
               </p>
               <p className="font-sans text-[12px] text-neutral-400">
@@ -60,7 +60,7 @@ export function TemporalHorizonsPanel({ aggregates }: TemporalHorizonsPanelProps
                 {trendLabel(agg.trend)}
               </p>
             </div>
-            <p className="font-serif text-[20px] font-semibold text-brand-primary">
+            <p className="font-serif text-[20px] font-semibold text-text-primary">
               {agg.aggregatedScore.toFixed(1)}
             </p>
           </div>

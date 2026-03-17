@@ -19,7 +19,7 @@ export function EvaluationHistoryList({
 }: EvaluationHistoryListProps) {
   if (items.length === 0) {
     return (
-      <p className="py-[var(--spacing-xl)] text-center font-sans text-[14px] text-brand-secondary">
+      <p className="py-[var(--spacing-xl)] text-center font-sans text-[14px] text-text-secondary">
         No evaluations found for the selected filters.
       </p>
     );
@@ -38,15 +38,15 @@ export function EvaluationHistoryList({
           <Link
             key={item.id}
             href={`/dashboard/evaluations/${item.id}`}
-            className="group rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)] transition-colors hover:border-brand-accent/30 hover:bg-surface-sunken/50"
+            className="group rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)] transition-colors hover:border-accent-primary/30 hover:bg-surface-sunken/50"
           >
             <div className="flex items-start justify-between gap-[var(--spacing-md)]">
               <div className="min-w-0 flex-1">
                 <div className="mb-[var(--spacing-xs)] flex items-center gap-[var(--spacing-sm)]">
-                  <span className="inline-block rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[11px] font-medium text-brand-secondary">
+                  <span className="inline-block rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[11px] font-medium text-text-secondary">
                     {typeLabel(item.contributionType)}
                   </span>
-                  <time className="font-sans text-[12px] text-brand-secondary">
+                  <time className="font-sans text-[12px] text-text-secondary">
                     {new Date(item.completedAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -54,16 +54,16 @@ export function EvaluationHistoryList({
                     })}
                   </time>
                 </div>
-                <p className="font-sans text-[14px] font-medium text-brand-primary">
+                <p className="font-sans text-[14px] font-medium text-text-primary">
                   {item.contributionTitle}
                 </p>
                 {item.narrativePreview && (
-                  <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[13px] leading-[1.5] text-brand-secondary">
+                  <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[13px] leading-[1.5] text-text-secondary">
                     {item.narrativePreview}
                   </p>
                 )}
               </div>
-              <span className="shrink-0 font-sans text-[13px] font-medium text-brand-accent">
+              <span className="shrink-0 font-sans text-[13px] font-medium text-accent-primary">
                 {scoreToLabel(item.compositeScore)}
               </span>
             </div>
@@ -77,7 +77,7 @@ export function EvaluationHistoryList({
             type="button"
             onClick={onLoadMore}
             disabled={isFetchingMore}
-            className="font-sans text-[14px] text-brand-accent hover:underline disabled:opacity-50"
+            className="font-sans text-[14px] text-accent-primary hover:underline disabled:opacity-50"
           >
             {isFetchingMore ? 'Loading...' : 'Load more evaluations'}
           </button>

@@ -20,26 +20,26 @@ export function ContributorScoreSummary({
 
   return (
     <section className="mt-[var(--spacing-2xl)]" aria-label="Evaluation summary">
-      <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+      <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
         Evaluation Summary
       </h2>
-      <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-        <p className="font-serif text-[15px] leading-[1.65] text-brand-primary">
+      <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+        <p className="font-serif text-[15px] leading-[1.65] text-text-primary">
           {scores.narrative}
         </p>
         {scores.recentScores.length > 0 && (
           <div className="mt-[var(--spacing-md)]">
-            <p className="font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <p className="font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Recent Evaluations
             </p>
             <div className="mt-[var(--spacing-xs)] flex flex-wrap gap-[var(--spacing-xs)]">
               {scores.recentScores.slice(0, 5).map((s) => (
                 <span
                   key={s.completedAt}
-                  className="inline-flex items-center gap-[4px] rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-brand-primary"
+                  className="inline-flex items-center gap-[4px] rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] text-text-primary"
                 >
                   <span className="font-medium">{s.score.toFixed(0)}</span>
-                  <span className="text-brand-secondary">{s.contributionType}</span>
+                  <span className="text-text-secondary">{s.contributionType}</span>
                 </span>
               ))}
             </div>

@@ -97,7 +97,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
     <div className="flex flex-col gap-[var(--spacing-lg)]">
       {/* Decision selector */}
       <div>
-        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary">
+        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary">
           Decision
         </label>
         <div className="flex flex-col gap-[var(--spacing-sm)]">
@@ -110,7 +110,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
               style={{
                 borderColor:
                   decision === option.value
-                    ? 'var(--color-brand-accent, #C4956A)'
+                    ? 'var(--color-accent-primary, #C4956A)'
                     : 'var(--color-surface-border, #E8E6E1)',
                 backgroundColor:
                   decision === option.value
@@ -120,10 +120,10 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
             >
               <span className="mt-[2px] font-sans text-[18px]">{option.icon}</span>
               <div>
-                <span className="block font-sans text-[15px] font-semibold text-brand-primary">
+                <span className="block font-sans text-[15px] font-semibold text-text-primary">
                   {option.label}
                 </span>
-                <span className="block font-sans text-[13px] text-brand-secondary">
+                <span className="block font-sans text-[13px] text-text-secondary">
                   {option.description}
                 </span>
               </div>
@@ -134,7 +134,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
 
       {/* Overall assessment */}
       <div>
-        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary">
+        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary">
           Overall Assessment
         </label>
         <textarea
@@ -142,14 +142,14 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
           onChange={(e) => setOverallAssessment(e.target.value)}
           placeholder="Provide your overall assessment of the article..."
           rows={4}
-          className="w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none focus:border-brand-accent"
+          className="w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none focus:border-accent-primary"
         />
       </div>
 
       {/* Revision requests */}
       {decision === 'REQUEST_REVISIONS' && (
         <div>
-          <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary">
+          <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary">
             Revision Requests
           </label>
           <div className="flex flex-col gap-[var(--spacing-sm)]">
@@ -160,7 +160,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
                   onChange={(e) => updateRevisionRequest(index, e.target.value)}
                   placeholder={`Revision request #${index + 1}`}
                   rows={2}
-                  className="flex-1 resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary outline-none focus:border-brand-accent"
+                  className="flex-1 resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary outline-none focus:border-accent-primary"
                 />
                 <button
                   type="button"
@@ -175,7 +175,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
             <button
               type="button"
               onClick={addRevisionRequest}
-              className="self-start rounded-[var(--radius-md)] border border-dashed border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary transition-colors hover:border-brand-accent hover:text-brand-accent"
+              className="self-start rounded-[var(--radius-md)] border border-dashed border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary transition-colors hover:border-accent-primary hover:text-accent-primary"
             >
               + Add revision request
             </button>
@@ -191,7 +191,7 @@ export function EditorialFeedbackForm({ onSubmit, isSubmitting }: EditorialFeedb
         type="button"
         onClick={handleSubmit}
         disabled={isSubmitting || !decision}
-        className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+        className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90 disabled:opacity-50"
       >
         {isSubmitting ? 'Submitting...' : submitLabel}
       </button>

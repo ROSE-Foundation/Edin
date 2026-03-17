@@ -37,7 +37,7 @@ export default function ArticleMetricsPage({ params }: Props) {
         <p className="font-sans text-[15px] text-semantic-error">Article not found.</p>
         <Link
           href="/publication"
-          className="mt-[var(--spacing-md)] inline-block font-sans text-[14px] text-brand-accent hover:underline"
+          className="mt-[var(--spacing-md)] inline-block font-sans text-[14px] text-accent-primary hover:underline"
         >
           Back to Publication
         </Link>
@@ -49,7 +49,7 @@ export default function ArticleMetricsPage({ params }: Props) {
     <div className="mx-auto max-w-[900px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <Link
         href="/publication"
-        className="mb-[var(--spacing-lg)] inline-block font-sans text-[14px] text-brand-secondary hover:text-brand-accent"
+        className="mb-[var(--spacing-lg)] inline-block font-sans text-[14px] text-text-secondary hover:text-accent-primary"
       >
         &larr; Back to Publication
       </Link>

@@ -10,9 +10,9 @@ export default function Loading() {
           </div>
 
           {/* Table skeleton */}
-          <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+          <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
             {/* Table header */}
-            <div className="flex border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+            <div className="flex border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
               <div className="skeleton h-[16px] w-[120px]" />
               <div className="skeleton ml-[var(--spacing-xl)] h-[16px] w-[120px]" />
               <div className="skeleton ml-auto h-[16px] w-[80px]" />
@@ -24,7 +24,7 @@ export default function Loading() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="flex items-center border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
+                className="flex items-center border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
                 style={{ minHeight: '48px' }}
               >
                 <div className="skeleton h-[20px] w-[140px]" />

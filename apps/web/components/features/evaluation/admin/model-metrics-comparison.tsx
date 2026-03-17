@@ -10,7 +10,7 @@ interface ModelMetricsComparisonProps {
 export function ModelMetricsComparison({ metrics, isLoading }: ModelMetricsComparisonProps) {
   if (isLoading) {
     return (
-      <div className="animate-pulse rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+      <div className="animate-pulse rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
         <div className="h-4 w-48 rounded bg-surface-border" />
         <div className="mt-[var(--spacing-md)] grid grid-cols-3 gap-[var(--spacing-md)]">
           {[1, 2, 3].map((i) => (
@@ -23,15 +23,15 @@ export function ModelMetricsComparison({ metrics, isLoading }: ModelMetricsCompa
 
   if (!metrics) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] text-center text-brand-secondary">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] text-center text-text-secondary">
         Select a model to view performance metrics.
       </div>
     );
   }
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-      <h3 className="font-serif text-[16px] font-semibold text-brand-primary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+      <h3 className="font-serif text-[16px] font-semibold text-text-primary">
         {metrics.modelName} — {metrics.modelVersion}
       </h3>
       <div className="mt-[var(--spacing-md)] grid grid-cols-3 gap-[var(--spacing-md)]">
@@ -51,9 +51,9 @@ export function ModelMetricsComparison({ metrics, isLoading }: ModelMetricsCompa
 
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-md)]">
-      <p className="text-[12px] font-medium text-brand-secondary">{label}</p>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[24px] font-bold text-brand-primary">
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-md)]">
+      <p className="text-[12px] font-medium text-text-secondary">{label}</p>
+      <p className="mt-[var(--spacing-xs)] font-serif text-[24px] font-bold text-text-primary">
         {value}
       </p>
     </div>

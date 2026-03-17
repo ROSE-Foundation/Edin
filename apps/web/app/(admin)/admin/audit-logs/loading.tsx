@@ -5,7 +5,7 @@ export default function AuditLogsLoading() {
         <div className="h-8 w-48 animate-pulse rounded bg-surface-border" />
         <div className="mt-[var(--spacing-xs)] h-4 w-96 animate-pulse rounded bg-surface-border" />
       </div>
-      <div className="rounded-lg border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+      <div className="rounded-lg border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
         <div className="space-y-[var(--spacing-md)]">
           <div className="flex gap-[var(--spacing-md)]">
             {[1, 2, 3, 4].map((i) => (

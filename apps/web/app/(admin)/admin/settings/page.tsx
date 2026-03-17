@@ -20,7 +20,7 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         Platform Settings
       </h1>
 
@@ -43,13 +43,13 @@ export default function AdminSettingsPage() {
         <div className="space-y-[var(--spacing-lg)]">
           {/* GitHub Repos */}
           {githubSection && (
-            <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+            <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
               <div className="mb-[var(--spacing-md)] flex items-center justify-between">
-                <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+                <h2 className="font-sans text-[16px] font-semibold text-text-primary">
                   {githubSection.label}
                 </h2>
                 {githubSection.updatedAt && (
-                  <span className="text-[12px] text-brand-secondary">
+                  <span className="text-[12px] text-text-secondary">
                     Last updated: {new Date(githubSection.updatedAt).toLocaleDateString()}
                   </span>
                 )}
@@ -64,13 +64,13 @@ export default function AdminSettingsPage() {
 
           {/* Feedback Rules */}
           {feedbackSection && (
-            <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+            <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
               <div className="mb-[var(--spacing-md)] flex items-center justify-between">
-                <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+                <h2 className="font-sans text-[16px] font-semibold text-text-primary">
                   {feedbackSection.label}
                 </h2>
                 {feedbackSection.updatedAt && (
-                  <span className="text-[12px] text-brand-secondary">
+                  <span className="text-[12px] text-text-secondary">
                     Last updated: {new Date(feedbackSection.updatedAt).toLocaleDateString()}
                   </span>
                 )}
@@ -85,13 +85,13 @@ export default function AdminSettingsPage() {
 
           {/* Onboarding Parameters */}
           {onboardingSection && (
-            <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+            <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
               <div className="mb-[var(--spacing-md)] flex items-center justify-between">
-                <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+                <h2 className="font-sans text-[16px] font-semibold text-text-primary">
                   {onboardingSection.label}
                 </h2>
                 {onboardingSection.updatedAt && (
-                  <span className="text-[12px] text-brand-secondary">
+                  <span className="text-[12px] text-text-secondary">
                     Last updated: {new Date(onboardingSection.updatedAt).toLocaleDateString()}
                   </span>
                 )}
@@ -105,19 +105,19 @@ export default function AdminSettingsPage() {
           )}
 
           {/* Scoring Formula Link */}
-          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+          <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+                <h2 className="font-sans text-[16px] font-semibold text-text-primary">
                   Scoring Formula Configuration
                 </h2>
-                <p className="mt-[var(--spacing-xs)] text-[13px] text-brand-secondary">
+                <p className="mt-[var(--spacing-xs)] text-[13px] text-text-secondary">
                   Manage scoring weights, multipliers, and formula versioning
                 </p>
               </div>
               <Link
                 href="/admin/settings/scoring"
-                className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-brand-accent hover:bg-brand-accent/10"
+                className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-accent-primary hover:bg-accent-primary/10"
               >
                 Open Scoring Settings
               </Link>

@@ -77,7 +77,7 @@ export function ActivityItem({ activity, isNew }: ActivityItemProps) {
   return (
     <div
       role="listitem"
-      className={`relative rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)] transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-surface-base/50 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none ${
+      className={`relative rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)] transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-surface-base/50 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none ${
         isNew ? 'animate-fade-in' : ''
       }`}
       data-testid="activity-item"
@@ -96,18 +96,18 @@ export function ActivityItem({ activity, isNew }: ActivityItemProps) {
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-[var(--spacing-sm)]">
             <div className="min-w-0 flex-1">
-              <p className="font-sans text-[15px] font-medium text-brand-primary">
+              <p className="font-sans text-[15px] font-medium text-text-primary">
                 {activity.title}
               </p>
               {activity.description && (
-                <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-brand-secondary">
+                <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-text-secondary">
                   {activity.description}
                 </p>
               )}
             </div>
             <time
               dateTime={activity.createdAt}
-              className="flex-shrink-0 font-sans text-[12px] text-brand-secondary"
+              className="flex-shrink-0 font-sans text-[12px] text-text-secondary"
             >
               {formatRelativeTime(activity.createdAt)}
             </time>
@@ -120,19 +120,19 @@ export function ActivityItem({ activity, isNew }: ActivityItemProps) {
                 style={{ backgroundColor: accentColor }}
                 aria-hidden="true"
               />
-              <span className="font-sans text-[12px] text-brand-secondary">{activity.domain}</span>
+              <span className="font-sans text-[12px] text-text-secondary">{activity.domain}</span>
             </span>
 
             {activity.contributionType && (
-              <span className="font-sans text-[12px] text-brand-secondary">
+              <span className="font-sans text-[12px] text-text-secondary">
                 {CONTRIBUTION_TYPE_ICONS[activity.contributionType] ?? activity.contributionType}
               </span>
             )}
 
-            <span className="font-sans text-[12px] text-brand-secondary/70">{eventLabel}</span>
+            <span className="font-sans text-[12px] text-text-secondary/70">{eventLabel}</span>
 
             {activity.contributorName && (
-              <span className="font-sans text-[12px] text-brand-secondary">
+              <span className="font-sans text-[12px] text-text-secondary">
                 by {activity.contributorName}
               </span>
             )}

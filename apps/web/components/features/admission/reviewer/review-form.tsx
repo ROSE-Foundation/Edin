@@ -67,7 +67,7 @@ export function ReviewForm({ applicationId, onSuccess }: ReviewFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-[var(--spacing-lg)]">
       {/* Recommendation radio group */}
       <fieldset>
-        <legend className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+        <legend className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
           Your Recommendation
         </legend>
         <div className="space-y-[var(--spacing-sm)]">
@@ -76,21 +76,21 @@ export function ReviewForm({ applicationId, onSuccess }: ReviewFormProps) {
               key={rec.value}
               className={`flex cursor-pointer items-start gap-[var(--spacing-sm)] rounded-[var(--radius-md)] border p-[var(--spacing-md)] transition-[border-color,background-color] duration-[var(--transition-fast)] ${
                 selectedRecommendation === rec.value
-                  ? 'border-brand-accent bg-brand-accent-subtle/30'
-                  : 'border-surface-border hover:border-surface-border-input'
+                  ? 'border-accent-primary bg-accent-primary-subtle/30'
+                  : 'border-surface-subtle hover:border-surface-subtle-input'
               }`}
             >
               <input
                 type="radio"
                 {...register('recommendation')}
                 value={rec.value}
-                className="mt-[2px] h-[18px] w-[18px] shrink-0 accent-brand-accent"
+                className="mt-[2px] h-[18px] w-[18px] shrink-0 accent-accent-primary"
               />
               <div>
-                <span className="font-sans text-[14px] font-medium text-brand-primary">
+                <span className="font-sans text-[14px] font-medium text-text-primary">
                   {rec.label}
                 </span>
-                <p className="mt-[2px] font-sans text-[13px] text-brand-secondary">
+                <p className="mt-[2px] font-sans text-[13px] text-text-secondary">
                   {rec.description}
                 </p>
               </div>
@@ -111,7 +111,7 @@ export function ReviewForm({ applicationId, onSuccess }: ReviewFormProps) {
       <div>
         <label
           htmlFor="review-feedback"
-          className="mb-[var(--spacing-sm)] block font-sans text-[14px] font-semibold text-brand-primary"
+          className="mb-[var(--spacing-sm)] block font-sans text-[14px] font-semibold text-text-primary"
         >
           Feedback
         </label>
@@ -120,8 +120,8 @@ export function ReviewForm({ applicationId, onSuccess }: ReviewFormProps) {
           id="review-feedback"
           rows={5}
           placeholder="Share your assessment (min. 10 characters)..."
-          className={`w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none ${
-            errors.feedback ? 'border-semantic-error' : 'border-surface-border-input'
+          className={`w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-sans text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none ${
+            errors.feedback ? 'border-semantic-error' : 'border-surface-subtle-input'
           }`}
           aria-describedby={errors.feedback ? 'feedback-error' : undefined}
           aria-invalid={errors.feedback ? 'true' : undefined}
@@ -141,7 +141,7 @@ export function ReviewForm({ applicationId, onSuccess }: ReviewFormProps) {
       <button
         type="submit"
         disabled={submitReview.isPending}
-        className="w-full rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus:ring-2 focus:ring-brand-accent/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus:ring-2 focus:ring-accent-primary/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
       >
         {submitReview.isPending ? 'Submitting...' : 'Submit Review'}
       </button>

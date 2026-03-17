@@ -21,7 +21,7 @@ export default function ContributorsPage() {
       <div className="mb-[var(--spacing-lg)] flex items-center justify-between">
         <Link
           href="/admin/sprints"
-          className="text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
         >
           Back to Sprint Dashboard
         </Link>
@@ -31,12 +31,12 @@ export default function ContributorsPage() {
         </div>
       </div>
 
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         Contributor Analytics
       </h1>
 
       <div className="space-y-[var(--spacing-lg)]">
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           {trendsLoading ? (
             <div className="flex h-[350px] items-center justify-center">
               <p className="text-[14px] text-text-tertiary">Loading contributor data...</p>
@@ -46,8 +46,8 @@ export default function ContributorsPage() {
           )}
         </section>
 
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-          <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-semibold text-brand-primary">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+          <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-semibold text-text-primary">
             Combined Sprint &amp; Evaluation Metrics
           </h2>
           {metricsLoading ? (

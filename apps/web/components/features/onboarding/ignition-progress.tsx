@@ -45,13 +45,13 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
   const firstPendingIndex = MILESTONES.findIndex((m) => !completedTypes.has(m.type));
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-      <h3 className="font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+      <h3 className="font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
         Your Journey
       </h3>
 
       {isExpired && (
-        <p className="mt-[var(--spacing-sm)] font-serif text-[14px] leading-[1.65] text-brand-secondary">
+        <p className="mt-[var(--spacing-sm)] font-serif text-[14px] leading-[1.65] text-text-secondary">
           Complete at your own pace — there is no rush.
         </p>
       )}
@@ -72,7 +72,7 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
                     <div
                       className={`h-[2px] flex-1 ${
                         completedTypes.has(MILESTONES[index - 1].type)
-                          ? 'bg-brand-accent'
+                          ? 'bg-accent-primary'
                           : 'bg-surface-border'
                       }`}
                     />
@@ -83,10 +83,10 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
                   <div
                     className={`relative flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-full ${
                       isCompleted
-                        ? 'bg-brand-accent'
+                        ? 'bg-accent-primary'
                         : isCurrent
-                          ? 'border-2 border-brand-accent bg-transparent'
-                          : 'border-2 border-surface-border bg-transparent'
+                          ? 'border-2 border-accent-primary bg-transparent'
+                          : 'border-2 border-surface-subtle bg-transparent'
                     } ${isCurrent && !isExpired ? 'animate-pulse' : ''}`}
                   >
                     {isCompleted && (
@@ -112,7 +112,7 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
                   {index < MILESTONES.length - 1 && (
                     <div
                       className={`h-[2px] flex-1 ${
-                        isCompleted ? 'bg-brand-accent' : 'bg-surface-border'
+                        isCompleted ? 'bg-accent-primary' : 'bg-surface-border'
                       }`}
                     />
                   )}
@@ -123,10 +123,10 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
                 <span
                   className={`mt-[var(--spacing-xs)] text-center font-serif text-[13px] leading-[1.4] ${
                     isCompleted
-                      ? 'text-brand-primary'
+                      ? 'text-text-primary'
                       : isCurrent
-                        ? 'text-brand-primary'
-                        : 'text-brand-secondary/60'
+                        ? 'text-text-primary'
+                        : 'text-text-secondary/60'
                   }`}
                 >
                   {isCompleted ? milestone.label : milestone.pendingLabel}
@@ -148,10 +148,10 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
               key={milestone.type}
               className={`h-[10px] w-[10px] rounded-full ${
                 isCompleted
-                  ? 'bg-brand-accent'
+                  ? 'bg-accent-primary'
                   : isCurrent
-                    ? 'border-2 border-brand-accent animate-pulse'
-                    : 'border-2 border-surface-border'
+                    ? 'border-2 border-accent-primary animate-pulse'
+                    : 'border-2 border-surface-subtle'
               }`}
             />
           );
@@ -163,7 +163,7 @@ export function IgnitionProgress({ milestones, isExpired, isLoading }: IgnitionP
 
 function IgnitionProgressSkeleton() {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
       <div className="skeleton h-[14px] w-[100px]" />
       <div className="mt-[var(--spacing-md)] hidden sm:flex items-center justify-between">
         {Array.from({ length: 5 }).map((_, i) => (

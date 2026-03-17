@@ -87,12 +87,12 @@ export default function AdminEditorManagementPage() {
 
   return (
     <div className="mx-auto max-w-[960px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[2rem] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[2rem] font-bold text-text-primary">
         Editor Management
       </h1>
 
       {/* Tabs */}
-      <div className="mb-[var(--spacing-lg)] flex gap-[var(--spacing-xs)] border-b border-surface-border">
+      <div className="mb-[var(--spacing-lg)] flex gap-[var(--spacing-xs)] border-b border-surface-subtle">
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -101,11 +101,11 @@ export default function AdminEditorManagementPage() {
             style={{
               color:
                 activeTab === tab.id
-                  ? 'var(--color-brand-accent, #C4956A)'
-                  : 'var(--color-brand-secondary, #6B7B8D)',
+                  ? 'var(--color-accent-primary, #C4956A)'
+                  : 'var(--color-text-secondary, #6B7B8D)',
               borderBottom:
                 activeTab === tab.id
-                  ? '2px solid var(--color-brand-accent, #C4956A)'
+                  ? '2px solid var(--color-accent-primary, #C4956A)'
                   : '2px solid transparent',
               fontWeight: activeTab === tab.id ? 600 : 400,
             }}
@@ -128,7 +128,7 @@ export default function AdminEditorManagementPage() {
               ))}
             </div>
           ) : applications.length === 0 ? (
-            <p className="py-[var(--spacing-4xl)] text-center font-sans text-[15px] text-brand-secondary">
+            <p className="py-[var(--spacing-4xl)] text-center font-sans text-[15px] text-text-secondary">
               No pending applications
             </p>
           ) : (
@@ -159,7 +159,7 @@ export default function AdminEditorManagementPage() {
               ))}
             </div>
           ) : editors.length === 0 ? (
-            <p className="py-[var(--spacing-4xl)] text-center font-sans text-[15px] text-brand-secondary">
+            <p className="py-[var(--spacing-4xl)] text-center font-sans text-[15px] text-text-secondary">
               No active editors
             </p>
           ) : (
@@ -169,7 +169,7 @@ export default function AdminEditorManagementPage() {
                 return (
                   <div
                     key={editor.id}
-                    className="flex items-center justify-between rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+                    className="flex items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
                   >
                     <div className="flex items-center gap-[var(--spacing-sm)]">
                       {editor.contributorAvatarUrl && (
@@ -180,10 +180,10 @@ export default function AdminEditorManagementPage() {
                         />
                       )}
                       <div>
-                        <span className="font-sans text-[15px] font-medium text-brand-primary">
+                        <span className="font-sans text-[15px] font-medium text-text-primary">
                           {editor.contributorName}
                         </span>
-                        <div className="flex items-center gap-[var(--spacing-sm)] font-sans text-[12px] text-brand-secondary">
+                        <div className="flex items-center gap-[var(--spacing-sm)] font-sans text-[12px] text-text-secondary">
                           <span
                             className="rounded-full px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-surface-raised"
                             style={{ backgroundColor: domainColor }}
@@ -216,10 +216,10 @@ export default function AdminEditorManagementPage() {
           {revokeTarget && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
               <div className="w-full max-w-[420px] rounded-[var(--radius-md)] bg-surface-raised p-[var(--spacing-xl)]">
-                <h3 className="font-sans text-[17px] font-semibold text-brand-primary">
+                <h3 className="font-sans text-[17px] font-semibold text-text-primary">
                   Revoke Editor Status
                 </h3>
-                <p className="mt-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary">
+                <p className="mt-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary">
                   Revoke editor status from <strong>{revokeTarget.name}</strong>?
                 </p>
                 <textarea
@@ -227,7 +227,7 @@ export default function AdminEditorManagementPage() {
                   onChange={(e) => setRevokeReason(e.target.value)}
                   rows={3}
                   placeholder="Reason for revocation (min. 10 characters)..."
-                  className="mt-[var(--spacing-md)] w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary outline-none focus:border-brand-accent"
+                  className="mt-[var(--spacing-md)] w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary outline-none focus:border-accent-primary"
                 />
                 <div className="mt-[var(--spacing-md)] flex justify-end gap-[var(--spacing-sm)]">
                   <button
@@ -235,7 +235,7 @@ export default function AdminEditorManagementPage() {
                       setRevokeTarget(null);
                       setRevokeReason('');
                     }}
-                    className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+                    className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary transition-colors hover:bg-surface-sunken"
                   >
                     Cancel
                   </button>

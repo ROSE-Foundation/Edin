@@ -20,11 +20,11 @@ export default function FeedbackMonitoringLoading() {
 
         <div className="mt-[var(--spacing-xl)]">
           <div className="skeleton mb-[var(--spacing-md)] h-[24px] w-[160px]" />
-          <div className="rounded-[12px] border border-surface-border bg-surface-raised">
+          <div className="rounded-[12px] border border-surface-subtle bg-surface-raised">
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="flex items-center gap-[var(--spacing-md)] border-b border-surface-border p-[var(--spacing-md)] last:border-b-0"
+                className="flex items-center gap-[var(--spacing-md)] border-b border-surface-subtle p-[var(--spacing-md)] last:border-b-0"
               >
                 <div className="skeleton h-[16px] w-[120px]" />
                 <div className="skeleton h-[16px] flex-1" />

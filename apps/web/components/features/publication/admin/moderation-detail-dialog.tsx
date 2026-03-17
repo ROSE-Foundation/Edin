@@ -39,17 +39,15 @@ export function ModerationDetailDialog({
       <div className="mx-[var(--spacing-lg)] max-h-[80vh] w-full max-w-[640px] overflow-y-auto rounded-[var(--radius-lg)] bg-surface-base p-[var(--spacing-xl)] shadow-lg">
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="font-serif text-[20px] font-bold text-brand-primary">
+            <h2 className="font-serif text-[20px] font-bold text-text-primary">
               Moderation Report
             </h2>
-            <p className="mt-1 font-sans text-[14px] text-brand-secondary">
-              {article.articleTitle}
-            </p>
+            <p className="mt-1 font-sans text-[14px] text-text-secondary">{article.articleTitle}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-[var(--radius-sm)] p-1 text-brand-secondary hover:text-brand-primary"
+            className="rounded-[var(--radius-sm)] p-1 text-text-secondary hover:text-text-primary"
             aria-label="Close"
           >
             &times;
@@ -58,19 +56,19 @@ export function ModerationDetailDialog({
 
         <div className="mt-[var(--spacing-lg)] space-y-[var(--spacing-md)]">
           <div className="grid grid-cols-2 gap-[var(--spacing-md)]">
-            <div className="rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)]">
-              <p className="font-sans text-[12px] font-medium uppercase text-brand-secondary">
+            <div className="rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-md)]">
+              <p className="font-sans text-[12px] font-medium uppercase text-text-secondary">
                 Plagiarism Score
               </p>
-              <p className="mt-1 font-sans text-[24px] font-bold text-brand-primary">
+              <p className="mt-1 font-sans text-[24px] font-bold text-text-primary">
                 {Math.round(report.plagiarismScore * 100)}%
               </p>
             </div>
-            <div className="rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)]">
-              <p className="font-sans text-[12px] font-medium uppercase text-brand-secondary">
+            <div className="rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-md)]">
+              <p className="font-sans text-[12px] font-medium uppercase text-text-secondary">
                 AI Content Score
               </p>
-              <p className="mt-1 font-sans text-[24px] font-bold text-brand-primary">
+              <p className="mt-1 font-sans text-[24px] font-bold text-text-primary">
                 {Math.round(report.aiContentScore * 100)}%
               </p>
             </div>
@@ -86,14 +84,14 @@ export function ModerationDetailDialog({
 
           {passages.length > 0 && (
             <div>
-              <h3 className="font-sans text-[14px] font-medium text-brand-primary">
+              <h3 className="font-sans text-[14px] font-medium text-text-primary">
                 Flagged Passages
               </h3>
               <div className="mt-[var(--spacing-sm)] space-y-[var(--spacing-sm)]">
                 {passages.map((passage: FlaggedPassage, idx: number) => (
                   <div
                     key={idx}
-                    className="rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-sm)]"
+                    className="rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-sm)]"
                   >
                     <div className="flex items-center gap-[var(--spacing-xs)]">
                       <span
@@ -106,12 +104,12 @@ export function ModerationDetailDialog({
                         {passage.type === 'PLAGIARISM' ? 'Plagiarism' : 'AI Content'}
                       </span>
                       {passage.source && (
-                        <span className="font-sans text-[11px] text-brand-secondary">
+                        <span className="font-sans text-[11px] text-text-secondary">
                           Source: {passage.source}
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 font-sans text-[13px] italic text-brand-secondary">
+                    <p className="mt-1 font-sans text-[13px] italic text-text-secondary">
                       &ldquo;{passage.text.slice(0, 200)}
                       {passage.text.length > 200 ? '...' : ''}&rdquo;
                     </p>
@@ -121,8 +119,8 @@ export function ModerationDetailDialog({
             </div>
           )}
 
-          <div className="flex items-center gap-[var(--spacing-sm)] border-t border-surface-border pt-[var(--spacing-md)]">
-            <p className="font-sans text-[13px] text-brand-secondary">
+          <div className="flex items-center gap-[var(--spacing-sm)] border-t border-surface-subtle pt-[var(--spacing-md)]">
+            <p className="font-sans text-[13px] text-text-secondary">
               Author: {article.authorName} &middot; Domain: {article.domain}
             </p>
           </div>

@@ -46,7 +46,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
         </p>
         <button
           onClick={() => router.push('/publication')}
-          className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+          className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary transition-colors hover:bg-surface-sunken"
         >
           Back to Publication
         </button>
@@ -74,13 +74,13 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
   if (submitted) {
     return (
       <div className="flex flex-col items-center justify-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
-        <h2 className="font-serif text-[24px] font-bold text-brand-primary">Feedback Submitted</h2>
-        <p className="max-w-[480px] text-center font-sans text-[15px] text-brand-secondary">
+        <h2 className="font-serif text-[24px] font-bold text-text-primary">Feedback Submitted</h2>
+        <p className="max-w-[480px] text-center font-sans text-[15px] text-text-secondary">
           Your editorial feedback has been recorded. The author will be notified.
         </p>
         <button
           onClick={() => router.push('/publication')}
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+          className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
         >
           Back to Publication
         </button>
@@ -95,7 +95,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
         <div className="mb-[var(--spacing-md)] flex items-center justify-between">
           <button
             onClick={() => router.push('/publication')}
-            className="font-sans text-[14px] text-brand-secondary transition-colors hover:text-brand-primary"
+            className="font-sans text-[14px] text-text-secondary transition-colors hover:text-text-primary"
           >
             &larr; Back to Publication
           </button>
@@ -106,7 +106,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
             onSelectVersion={setSelectedVersion}
           />
         </div>
-        <h1 className="font-serif text-[2rem] font-bold text-brand-primary">{article.title}</h1>
+        <h1 className="font-serif text-[2rem] font-bold text-text-primary">{article.title}</h1>
         <div className="mt-[var(--spacing-sm)] flex items-center gap-[var(--spacing-md)]">
           <span
             className="rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-surface-raised"
@@ -117,7 +117,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
           <ArticleLifecycle currentStatus={article.status} domain={article.domain} />
         </div>
         {article.abstract && (
-          <p className="mt-[var(--spacing-md)] font-sans text-[15px] leading-[1.5] text-brand-secondary">
+          <p className="mt-[var(--spacing-md)] font-sans text-[15px] leading-[1.5] text-text-secondary">
             {article.abstract}
           </p>
         )}
@@ -127,7 +127,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
       <div className="grid grid-cols-1 gap-[var(--spacing-xl)] lg:grid-cols-[1fr_380px]">
         {/* Left: Article content */}
         <div
-          className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)]"
+          className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)]"
           style={{ borderTop: `3px solid ${domainColor}` }}
         >
           <TiptapEditor content={displayBody} onChange={() => {}} placeholder="" editable={false} />
@@ -135,8 +135,8 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
 
         {/* Right: Editorial panel */}
         <div className="lg:sticky lg:top-[var(--spacing-xl)] lg:self-start">
-          <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-            <h2 className="mb-[var(--spacing-lg)] font-sans text-[16px] font-semibold text-brand-primary">
+          <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+            <h2 className="mb-[var(--spacing-lg)] font-sans text-[16px] font-semibold text-text-primary">
               Editorial Feedback
             </h2>
 
@@ -151,7 +151,7 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
                 isSubmitting={submitFeedback.isPending}
               />
             ) : (
-              <p className="font-sans text-[14px] text-brand-secondary">
+              <p className="font-sans text-[14px] text-text-secondary">
                 This article is currently in &quot;{article.status}&quot; status and cannot receive
                 feedback.
               </p>
@@ -160,8 +160,8 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
 
           {/* Feedback history */}
           {feedbackHistory.length > 0 && (
-            <div className="mt-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-              <h3 className="mb-[var(--spacing-md)] font-sans text-[14px] font-semibold text-brand-primary">
+            <div className="mt-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+              <h3 className="mb-[var(--spacing-md)] font-sans text-[14px] font-semibold text-text-primary">
                 Previous Feedback ({feedbackHistory.length})
               </h3>
               <div className="flex flex-col gap-[var(--spacing-md)]">
@@ -174,28 +174,28 @@ export default function EditorialReviewPage({ params }: { params: Promise<{ id: 
                   return (
                     <div
                       key={fb.id}
-                      className="rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)]"
+                      className="rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-md)]"
                     >
                       <div className="mb-[var(--spacing-xs)] flex items-center justify-between">
-                        <span className="font-sans text-[13px] font-medium text-brand-primary">
+                        <span className="font-sans text-[13px] font-medium text-text-primary">
                           {fb.decision === 'APPROVE'
                             ? 'Approved'
                             : fb.decision === 'REQUEST_REVISIONS'
                               ? 'Revisions Requested'
                               : 'Rejected'}
                         </span>
-                        <span className="font-sans text-[11px] text-brand-secondary">
+                        <span className="font-sans text-[11px] text-text-secondary">
                           v{fb.articleVersion} &middot; {date}
                         </span>
                       </div>
-                      <p className="font-sans text-[13px] leading-[1.5] text-brand-secondary">
+                      <p className="font-sans text-[13px] leading-[1.5] text-text-secondary">
                         {fb.overallAssessment.length > 150
                           ? `${fb.overallAssessment.slice(0, 150)}...`
                           : fb.overallAssessment}
                       </p>
                       {fb.inlineComments.length > 0 && (
                         <div className="mt-[var(--spacing-sm)]">
-                          <span className="font-sans text-[11px] text-brand-secondary">
+                          <span className="font-sans text-[11px] text-text-secondary">
                             {fb.inlineComments.length} inline comment
                             {fb.inlineComments.length !== 1 ? 's' : ''}
                           </span>

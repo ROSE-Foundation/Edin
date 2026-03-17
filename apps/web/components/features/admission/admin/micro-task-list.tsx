@@ -56,7 +56,7 @@ export function MicroTaskList() {
     <div>
       {/* Header */}
       <div className="mb-[var(--spacing-lg)] flex flex-col gap-[var(--spacing-md)] sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">
           Micro-Task Configuration
         </h1>
         <div className="flex flex-wrap gap-[var(--spacing-sm)]">
@@ -66,24 +66,24 @@ export function MicroTaskList() {
             onValueChange={(val) => setDomain(val === 'all' ? null : val)}
           >
             <Select.Trigger
-              className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20"
+              className="flex min-h-[40px] min-w-[160px] items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20"
               aria-label="Filter by domain"
             >
               <Select.Value placeholder="All Domains" />
-              <Select.Icon className="ml-[var(--spacing-xs)] text-brand-secondary">
+              <Select.Icon className="ml-[var(--spacing-xs)] text-text-secondary">
                 <ChevronDownIcon />
               </Select.Icon>
             </Select.Trigger>
             <Select.Portal>
               <Select.Content
-                className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-[var(--shadow-modal)]"
+                className="z-50 overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)]"
                 position="popper"
                 sideOffset={4}
               >
                 <Select.Viewport className="p-[var(--spacing-xs)]">
                   <Select.Item
                     value="all"
-                    className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                    className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                   >
                     <Select.ItemText>All Domains</Select.ItemText>
                   </Select.Item>
@@ -91,7 +91,7 @@ export function MicroTaskList() {
                     <Select.Item
                       key={d}
                       value={d}
-                      className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                      className="flex min-h-[36px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                     >
                       <Select.ItemText>{d}</Select.ItemText>
                     </Select.Item>
@@ -105,7 +105,7 @@ export function MicroTaskList() {
           <button
             type="button"
             onClick={handleCreate}
-            className="hidden rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 md:inline-flex"
+            className="hidden rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 md:inline-flex"
           >
             Create Micro-Task
           </button>
@@ -124,7 +124,7 @@ export function MicroTaskList() {
               return (
                 <div
                   key={task.id}
-                  className="flex w-full items-center gap-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)] text-left"
+                  className="flex w-full items-center gap-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)] text-left"
                 >
                   {domainColor && (
                     <span
@@ -133,7 +133,7 @@ export function MicroTaskList() {
                       {task.domain}
                     </span>
                   )}
-                  <span className="flex-1 truncate font-sans text-[15px] font-medium text-brand-primary">
+                  <span className="flex-1 truncate font-sans text-[15px] font-medium text-text-primary">
                     {task.title}
                   </span>
                 </div>
@@ -141,7 +141,7 @@ export function MicroTaskList() {
             })
         )}
         {sortedTasks.length > 0 ? (
-          <p className="font-sans text-[12px] text-brand-secondary">
+          <p className="font-sans text-[12px] text-text-secondary">
             Use a desktop viewport to create, edit, activate, or deactivate micro-tasks.
           </p>
         ) : null}
@@ -152,15 +152,13 @@ export function MicroTaskList() {
         {sortedTasks.length === 0 ? (
           <EmptyState domain={domain} />
         ) : (
-          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
             {/* Table header */}
-            <div className="grid grid-cols-[120px_1fr_100px_120px] gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Domain</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Title</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Status</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
-                Created
-              </span>
+            <div className="grid grid-cols-[120px_1fr_100px_120px] gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Domain</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Title</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Status</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Created</span>
             </div>
 
             {/* Table rows */}
@@ -179,8 +177,8 @@ export function MicroTaskList() {
                       handleRowClick(task);
                     }
                   }}
-                  className={`grid w-full grid-cols-[120px_1fr_100px_120px] items-center gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] last:border-b-0 hover:bg-surface-sunken/50 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-[-2px] ${
-                    task.isActive ? 'border-l-2 border-l-brand-accent' : ''
+                  className={`grid w-full grid-cols-[120px_1fr_100px_120px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] last:border-b-0 hover:bg-surface-sunken/50 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-[-2px] ${
+                    task.isActive ? 'border-l-2 border-l-accent-primary' : ''
                   }`}
                   style={{ minHeight: '48px' }}
                   aria-label={`Edit ${task.title}`}
@@ -192,11 +190,9 @@ export function MicroTaskList() {
                       {task.domain}
                     </span>
                   ) : (
-                    <span className="font-sans text-[14px] text-brand-secondary">
-                      {task.domain}
-                    </span>
+                    <span className="font-sans text-[14px] text-text-secondary">{task.domain}</span>
                   )}
-                  <span className="truncate font-sans text-[15px] font-medium text-brand-primary">
+                  <span className="truncate font-sans text-[15px] font-medium text-text-primary">
                     {task.title}
                   </span>
                   <MicroTaskStatusToggle
@@ -204,7 +200,7 @@ export function MicroTaskList() {
                     isActive={task.isActive}
                     domain={task.domain}
                   />
-                  <span className="font-sans text-[14px] text-brand-secondary">
+                  <span className="font-sans text-[14px] text-text-secondary">
                     {formatRelativeDate(task.createdAt)}
                   </span>
                 </div>
@@ -222,8 +218,8 @@ export function MicroTaskList() {
 
 function EmptyState({ domain }: { domain: string | null }) {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-3xl)] text-center">
-      <p className="font-sans text-[15px] text-brand-secondary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-3xl)] text-center">
+      <p className="font-sans text-[15px] text-text-secondary">
         {domain
           ? `No micro-tasks configured for ${domain}. Create one to enable applications.`
           : 'No micro-tasks configured yet. Create one to enable applicant demonstrations.'}
@@ -242,8 +238,8 @@ function MicroTaskListSkeleton() {
           <div className="skeleton h-[40px] w-[160px]" />
         </div>
       </div>
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
-        <div className="flex border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
+        <div className="flex border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
           <div className="skeleton h-[16px] w-[80px]" />
           <div className="skeleton ml-[var(--spacing-xl)] h-[16px] w-[200px]" />
           <div className="skeleton ml-auto h-[16px] w-[80px]" />
@@ -252,7 +248,7 @@ function MicroTaskListSkeleton() {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="flex items-center border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
+            className="flex items-center border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
             style={{ minHeight: '48px' }}
           >
             <div className="skeleton h-[24px] w-[80px] rounded-full" />

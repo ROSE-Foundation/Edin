@@ -50,7 +50,7 @@ export function FormulaHistory() {
         <tbody className="divide-y divide-neutral-100">
           {formulas.map((formula) => (
             <tr key={formula.id}>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-primary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-primary">
                 v{formula.version}
               </td>
               <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-neutral-600">

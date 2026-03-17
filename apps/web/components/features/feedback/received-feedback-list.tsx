@@ -32,7 +32,7 @@ function AvatarFallback({ name, domain }: { name: string; domain: string | null 
     Governance: 'bg-[#6B5B8A]',
   };
 
-  const bgColor = domain ? (domainColors[domain] ?? 'bg-brand-secondary') : 'bg-brand-secondary';
+  const bgColor = domain ? (domainColors[domain] ?? 'bg-text-secondary') : 'bg-text-secondary';
 
   return (
     <div
@@ -68,7 +68,7 @@ function FeedbackCard({ feedback }: FeedbackCardProps) {
         : 'Code Review';
 
   return (
-    <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
+    <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
       {/* Reviewer info */}
       <div className="flex items-center gap-[var(--spacing-sm)]">
         {feedback.reviewer.avatarUrl ? (
@@ -81,11 +81,11 @@ function FeedbackCard({ feedback }: FeedbackCardProps) {
           <AvatarFallback name={feedback.reviewer.name} domain={feedback.reviewer.domain} />
         )}
         <div className="min-w-0">
-          <p className="truncate font-sans text-[14px] font-medium text-brand-primary">
+          <p className="truncate font-sans text-[14px] font-medium text-text-primary">
             {feedback.reviewer.name}
           </p>
           {feedback.reviewer.domain && (
-            <span className="font-sans text-[12px] text-brand-secondary">
+            <span className="font-sans text-[12px] text-text-secondary">
               {feedback.reviewer.domain}
             </span>
           )}
@@ -94,16 +94,16 @@ function FeedbackCard({ feedback }: FeedbackCardProps) {
 
       {/* Contribution reference */}
       <div className="mt-[var(--spacing-sm)] flex items-center gap-[var(--spacing-sm)]">
-        <span className="inline-flex rounded-[var(--radius-sm)] bg-brand-accent-subtle px-[var(--spacing-xs)] py-[1px] font-sans text-[11px] font-medium text-brand-accent">
+        <span className="inline-flex rounded-[var(--radius-sm)] bg-accent-primary-subtle px-[var(--spacing-xs)] py-[1px] font-sans text-[11px] font-medium text-accent-primary">
           {typeLabel}
         </span>
-        <span className="truncate font-sans text-[13px] text-brand-secondary">
+        <span className="truncate font-sans text-[13px] text-text-secondary">
           {feedback.contribution.title}
         </span>
       </div>
 
       {feedback.submittedAt && (
-        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary/70">
+        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary/70">
           {formatDate(feedback.submittedAt)}
         </p>
       )}
@@ -113,14 +113,14 @@ function FeedbackCard({ feedback }: FeedbackCardProps) {
         {visibleResponses.map((response) => (
           <div key={response.questionId}>
             <div className="flex items-baseline gap-[var(--spacing-sm)]">
-              <span className="font-sans text-[13px] font-medium text-brand-primary">
+              <span className="font-sans text-[13px] font-medium text-text-primary">
                 {QUESTION_LABELS[response.questionId] ?? response.questionId}
               </span>
-              <span className="font-sans text-[13px] text-brand-secondary">
+              <span className="font-sans text-[13px] text-text-secondary">
                 {response.rating} &mdash; {RATING_LABELS[response.rating] ?? ''}
               </span>
             </div>
-            <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-relaxed text-brand-primary">
+            <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-relaxed text-text-primary">
               {response.comment}
             </p>
           </div>
@@ -131,16 +131,16 @@ function FeedbackCard({ feedback }: FeedbackCardProps) {
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
-          className="mt-[var(--spacing-sm)] font-sans text-[13px] font-medium text-brand-accent hover:underline"
+          className="mt-[var(--spacing-sm)] font-sans text-[13px] font-medium text-accent-primary hover:underline"
         >
           {expanded ? 'Show less' : 'See full feedback'}
         </button>
       )}
 
       {feedback.comments && (
-        <div className="mt-[var(--spacing-md)] border-t border-surface-border pt-[var(--spacing-md)]">
-          <p className="font-sans text-[12px] font-medium text-brand-secondary">Overall Comment</p>
-          <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-relaxed text-brand-primary">
+        <div className="mt-[var(--spacing-md)] border-t border-surface-subtle pt-[var(--spacing-md)]">
+          <p className="font-sans text-[12px] font-medium text-text-secondary">Overall Comment</p>
+          <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-relaxed text-text-primary">
             {feedback.comments}
           </p>
         </div>
@@ -159,7 +159,7 @@ export function ReceivedFeedbackList() {
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="h-[200px] animate-pulse rounded-[12px] border border-surface-border bg-surface-raised"
+            className="h-[200px] animate-pulse rounded-[12px] border border-surface-subtle bg-surface-raised"
           />
         ))}
       </div>
@@ -174,7 +174,7 @@ export function ReceivedFeedbackList() {
 
   if (items.length === 0) {
     return (
-      <p className="font-sans text-[14px] text-brand-secondary">
+      <p className="font-sans text-[14px] text-text-secondary">
         No feedback received yet. Feedback will appear here as reviewers complete their reviews.
       </p>
     );
@@ -192,7 +192,7 @@ export function ReceivedFeedbackList() {
             type="button"
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[13px] font-medium text-brand-primary transition-[background-color] duration-[var(--transition-fast)] hover:bg-surface-base disabled:opacity-50 motion-reduce:transition-none"
+            className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[13px] font-medium text-text-primary transition-[background-color] duration-[var(--transition-fast)] hover:bg-surface-base disabled:opacity-50 motion-reduce:transition-none"
           >
             {isFetchingNextPage ? 'Loading...' : 'Load more'}
           </button>

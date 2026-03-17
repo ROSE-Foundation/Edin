@@ -15,17 +15,17 @@ function getStatusDisplay(status: string): { label: string; className: string } 
     case 'ATTRIBUTED':
       return {
         label: 'Awaiting evaluation',
-        className: 'bg-surface-sunken text-brand-secondary border-surface-border',
+        className: 'bg-surface-sunken text-text-secondary border-surface-subtle',
       };
     case 'EVALUATED':
       return {
         label: 'Evaluated',
-        className: 'bg-brand-accent/10 text-brand-accent border-brand-accent/20',
+        className: 'bg-accent-primary/10 text-accent-primary border-accent-primary/20',
       };
     default:
       return {
         label: status,
-        className: 'bg-surface-sunken text-brand-secondary border-surface-border',
+        className: 'bg-surface-sunken text-text-secondary border-surface-subtle',
       };
   }
 }
@@ -84,29 +84,29 @@ export function ContributionListItem({ contribution, onSelect }: ContributionLis
     <button
       type="button"
       onClick={() => onSelect(contribution.id)}
-      className="flex w-full items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
+      className="flex w-full items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus:outline-none focus:ring-2 focus:ring-accent-primary/40"
       aria-label={`${typeInfo.label}: ${contribution.title}`}
     >
       <div
-        className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken"
+        className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken"
         aria-hidden="true"
       >
-        <span className="font-sans text-[18px] text-brand-secondary">{typeInfo.icon}</span>
+        <span className="font-sans text-[18px] text-text-secondary">{typeInfo.icon}</span>
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate font-sans text-[15px] font-medium text-brand-primary">
+        <p className="truncate font-sans text-[15px] font-medium text-text-primary">
           {contribution.title}
         </p>
         <div className="mt-[2px] flex items-center gap-[var(--spacing-sm)]">
-          <span className="font-sans text-[13px] text-brand-secondary">
+          <span className="font-sans text-[13px] text-text-secondary">
             {contribution.repositoryName}
           </span>
-          <span className="font-sans text-[13px] text-brand-secondary/60" aria-hidden="true">
+          <span className="font-sans text-[13px] text-text-secondary/60" aria-hidden="true">
             ·
           </span>
           <time
-            className="font-sans text-[13px] text-brand-secondary/60"
+            className="font-sans text-[13px] text-text-secondary/60"
             dateTime={contribution.normalizedAt}
           >
             {formatRelativeTime(contribution.normalizedAt)}
@@ -114,7 +114,7 @@ export function ContributionListItem({ contribution, onSelect }: ContributionLis
         </div>
         {collaborationLabel && (
           <p
-            className="mt-[2px] font-sans text-[12px] text-brand-secondary/70"
+            className="mt-[2px] font-sans text-[12px] text-text-secondary/70"
             aria-label={`Collaboration: ${collaborationLabel}`}
           >
             {collaborationLabel}

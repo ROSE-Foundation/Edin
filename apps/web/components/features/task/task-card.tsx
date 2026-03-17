@@ -29,12 +29,12 @@ export function TaskCard({ task, onClaim, isClaimPending }: TaskCardProps) {
   return (
     <div
       role="listitem"
-      className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)] transition-all duration-200 ease-out hover:-translate-y-[2px] hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none"
+      className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)] transition-all duration-200 ease-out hover:-translate-y-[2px] hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none"
     >
       <div className="flex flex-col gap-[var(--spacing-sm)] sm:flex-row sm:items-start sm:justify-between">
         <div className="flex-1">
-          <h3 className="font-sans text-[15px] font-medium text-brand-primary">{task.title}</h3>
-          <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-brand-secondary">
+          <h3 className="font-sans text-[15px] font-medium text-text-primary">{task.title}</h3>
+          <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-text-secondary">
             {task.description}
           </p>
         </div>
@@ -44,7 +44,7 @@ export function TaskCard({ task, onClaim, isClaimPending }: TaskCardProps) {
               type="button"
               onClick={() => onClaim(task.id)}
               disabled={isClaimPending}
-              className="inline-flex min-h-[44px] items-center rounded-[8px] bg-brand-accent px-[var(--spacing-md)] font-sans text-[14px] font-medium text-white transition-colors duration-200 hover:bg-brand-accent/90 disabled:opacity-50 motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center rounded-[8px] bg-accent-primary px-[var(--spacing-md)] font-sans text-[14px] font-medium text-white transition-colors duration-200 hover:bg-accent-primary/90 disabled:opacity-50 motion-reduce:transition-none"
               aria-label={`Claim task: ${task.title}`}
             >
               {isClaimPending ? 'Claiming...' : 'Claim'}
@@ -67,7 +67,7 @@ export function TaskCard({ task, onClaim, isClaimPending }: TaskCardProps) {
         >
           {DIFFICULTY_LABELS[task.difficulty] ?? task.difficulty}
         </span>
-        <span className="font-sans text-[12px] text-brand-secondary">{task.estimatedEffort}</span>
+        <span className="font-sans text-[12px] text-text-secondary">{task.estimatedEffort}</span>
       </div>
     </div>
   );

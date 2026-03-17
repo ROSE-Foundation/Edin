@@ -42,12 +42,12 @@ export function RoadmapTimeline({ phases }: RoadmapTimelineProps) {
       aria-label="Decentralization roadmap timeline"
     >
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-text-primary">
           Governance Phases
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show timeline view' : 'Show data table view'}
         >
           {showTable ? 'Show timeline' : 'Show data table'}
@@ -60,11 +60,11 @@ export function RoadmapTimeline({ phases }: RoadmapTimelineProps) {
           aria-label="Governance phases data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Phase</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Timeline</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Status</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Phase</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Timeline</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Status</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Capabilities
               </th>
             </tr>
@@ -73,15 +73,15 @@ export function RoadmapTimeline({ phases }: RoadmapTimelineProps) {
             {phases.map((phase) => {
               const colors = STATUS_COLORS[phase.status] ?? STATUS_COLORS.planned;
               return (
-                <tr key={phase.id} className="border-b border-surface-border/50">
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">
+                <tr key={phase.id} className="border-b border-surface-subtle/50">
+                  <td className="py-[var(--spacing-sm)] text-text-primary">
                     Phase {phase.id}: {phase.name}
                   </td>
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-text-primary">
                     {phase.timelineRange}
                   </td>
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">{colors.label}</td>
-                  <td className="py-[var(--spacing-sm)] text-brand-primary">
+                  <td className="py-[var(--spacing-sm)] text-text-primary">{colors.label}</td>
+                  <td className="py-[var(--spacing-sm)] text-text-primary">
                     {phase.milestones.map((m) => m.capability).join(', ')}
                   </td>
                 </tr>

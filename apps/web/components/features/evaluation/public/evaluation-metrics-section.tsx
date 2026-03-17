@@ -23,10 +23,10 @@ export function EvaluationMetricsSection({ initialData }: EvaluationMetricsSecti
 
   return (
     <section className="mx-auto max-w-[64rem] px-6 py-20" aria-label="Evaluation intelligence">
-      <h2 className="font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.2] font-bold text-brand-primary">
+      <h2 className="font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.2] font-bold text-text-primary">
         Evaluation Intelligence
       </h2>
-      <p className="mt-[var(--spacing-sm)] max-w-[42rem] font-sans text-[15px] leading-[1.65] text-brand-secondary">
+      <p className="mt-[var(--spacing-sm)] max-w-[42rem] font-sans text-[15px] leading-[1.65] text-text-secondary">
         Every contribution is evaluated by AI for quality, rigor, and impact. Here is how the
         community performs across domains.
       </p>
@@ -59,28 +59,26 @@ export function EvaluationMetricsSection({ initialData }: EvaluationMetricsSecti
       {/* Domain Scores */}
       {metrics.byDomain.length > 0 && (
         <div className="mt-[var(--spacing-xl)]">
-          <h3 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+          <h3 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
             Scores by Domain
           </h3>
           <div className="mt-[var(--spacing-sm)] grid grid-cols-1 gap-[var(--spacing-sm)] sm:grid-cols-2">
             {metrics.byDomain.map((d) => (
               <div
                 key={d.domain}
-                className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+                className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
               >
                 <div
                   className="h-[40px] w-[4px] shrink-0 rounded-full"
                   style={{
-                    backgroundColor: DOMAIN_HEX_COLORS[d.domain] ?? 'var(--color-brand-secondary)',
+                    backgroundColor: DOMAIN_HEX_COLORS[d.domain] ?? 'var(--color-text-secondary)',
                   }}
                 />
                 <div className="flex-1">
-                  <p className="font-sans text-[14px] font-medium text-brand-primary">{d.domain}</p>
-                  <p className="font-sans text-[12px] text-brand-secondary">
-                    {d.count} evaluations
-                  </p>
+                  <p className="font-sans text-[14px] font-medium text-text-primary">{d.domain}</p>
+                  <p className="font-sans text-[12px] text-text-secondary">{d.count} evaluations</p>
                 </div>
-                <span className="font-serif text-[24px] font-bold text-brand-primary">
+                <span className="font-serif text-[24px] font-bold text-text-primary">
                   {d.averageScore.toFixed(1)}
                 </span>
               </div>
@@ -91,10 +89,10 @@ export function EvaluationMetricsSection({ initialData }: EvaluationMetricsSecti
 
       {/* Score Distribution */}
       <div className="mt-[var(--spacing-xl)]">
-        <h3 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+        <h3 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
           Score Distribution
         </h3>
-        <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <div className="mt-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <ScoreDistributionChart distribution={metrics.scoreDistribution} />
         </div>
       </div>

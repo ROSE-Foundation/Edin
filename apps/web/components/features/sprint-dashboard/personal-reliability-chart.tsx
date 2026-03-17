@@ -35,7 +35,7 @@ export function PersonalReliabilityChart({
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised">
+      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised">
         <p className="text-[14px] text-text-tertiary">
           No planning reliability data available yet. Data will appear after sprint estimations are
           tracked.
@@ -53,12 +53,12 @@ export function PersonalReliabilityChart({
   return (
     <section aria-label="Planning reliability">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[18px] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[18px] font-semibold text-text-primary">
           Planning Reliability
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -69,13 +69,13 @@ export function PersonalReliabilityChart({
       <div className="mt-[var(--spacing-sm)] flex gap-[var(--spacing-lg)] font-sans text-[13px] text-text-secondary">
         <span>
           Avg. Delivery Ratio:{' '}
-          <strong className="text-brand-primary">
+          <strong className="text-text-primary">
             {averageDeliveryRatio != null ? `${Math.round(averageDeliveryRatio * 100)}%` : '\u2014'}
           </strong>
         </span>
         <span>
           Avg. Estimation Variance:{' '}
-          <strong className="text-brand-primary">
+          <strong className="text-text-primary">
             {averageEstimationVariance != null
               ? `${Math.round(averageEstimationVariance)}%`
               : '\u2014'}
@@ -89,26 +89,26 @@ export function PersonalReliabilityChart({
           aria-label="Planning reliability data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Sprint</th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Sprint</th>
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Delivery Ratio
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Est. Variance
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.sprintId} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.sprintName}</td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+              <tr key={item.sprintId} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.sprintName}</td>
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.deliveryRatio != null
                     ? `${Math.round(item.deliveryRatio * 100)}%`
                     : '\u2014'}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.estimationVariance != null
                     ? `${Math.round(item.estimationVariance)}%`
                     : '\u2014'}
@@ -167,7 +167,7 @@ export function PersonalReliabilityChart({
               <Line
                 type="monotone"
                 dataKey="deliveryRatioPct"
-                stroke="var(--color-brand-accent)"
+                stroke="var(--color-accent-primary)"
                 strokeWidth={2}
                 dot={{ r: 4 }}
                 connectNulls

@@ -46,28 +46,28 @@ function ConflictDetail({ detail }: { detail: ZenhubSyncConflictDetail }) {
   return (
     <div className="space-y-1 text-xs font-mono">
       <div>
-        <span className="font-semibold text-brand-secondary">Edin Status:</span>{' '}
-        <span className="text-brand-primary">{detail.edinStatus}</span>
+        <span className="font-semibold text-text-secondary">Edin Status:</span>{' '}
+        <span className="text-text-primary">{detail.edinStatus}</span>
       </div>
       <div>
-        <span className="font-semibold text-brand-secondary">Zenhub Pipeline:</span>{' '}
-        <span className="text-brand-primary">{detail.zenhubPipeline}</span>
+        <span className="font-semibold text-text-secondary">Zenhub Pipeline:</span>{' '}
+        <span className="text-text-primary">{detail.zenhubPipeline}</span>
       </div>
       {detail.zenhubMappedStatus && (
         <div>
-          <span className="font-semibold text-brand-secondary">Mapped Status:</span>{' '}
-          <span className="text-brand-primary">{detail.zenhubMappedStatus}</span>
+          <span className="font-semibold text-text-secondary">Mapped Status:</span>{' '}
+          <span className="text-text-primary">{detail.zenhubMappedStatus}</span>
         </div>
       )}
       {detail.appliedStatus && (
         <div>
-          <span className="font-semibold text-brand-secondary">Applied:</span>{' '}
-          <span className="text-brand-primary">{detail.appliedStatus}</span>
+          <span className="font-semibold text-text-secondary">Applied:</span>{' '}
+          <span className="text-text-primary">{detail.appliedStatus}</span>
         </div>
       )}
       <div>
-        <span className="font-semibold text-brand-secondary">Task:</span>{' '}
-        <span className="text-brand-primary">{detail.taskId.slice(0, 8)}...</span>
+        <span className="font-semibold text-text-secondary">Task:</span>{' '}
+        <span className="text-text-primary">{detail.taskId.slice(0, 8)}...</span>
       </div>
     </div>
   );
@@ -104,18 +104,18 @@ function ResolvePanel({
     'rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-xs)] text-xs font-medium transition-colors disabled:opacity-50';
 
   return (
-    <div className="mt-[var(--spacing-sm)] space-y-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-md)]">
+    <div className="mt-[var(--spacing-sm)] space-y-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-md)]">
       {detail && <ConflictDetail detail={detail} />}
 
       {!detail && entry.outcome && (
-        <div className="text-xs text-brand-secondary font-mono">{entry.outcome}</div>
+        <div className="text-xs text-text-secondary font-mono">{entry.outcome}</div>
       )}
 
       <div className="flex flex-wrap items-center gap-[var(--spacing-sm)] pt-[var(--spacing-xs)]">
         <button
           onClick={handleKeepEdin}
           disabled={resolveConflict.isPending}
-          className={`${btnBase} border border-surface-border text-brand-secondary hover:text-brand-primary`}
+          className={`${btnBase} border border-surface-subtle text-text-secondary hover:text-text-primary`}
         >
           Keep Edin State
         </button>
@@ -124,7 +124,7 @@ function ResolvePanel({
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-xs text-brand-primary"
+            className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-xs text-text-primary"
             aria-label="Select status to apply"
           >
             <option value="">
@@ -141,7 +141,7 @@ function ResolvePanel({
           <button
             onClick={handleApplyStatus}
             disabled={resolveConflict.isPending || (!selectedStatus && !detail?.zenhubMappedStatus)}
-            className={`${btnBase} bg-brand-accent text-white hover:opacity-90`}
+            className={`${btnBase} bg-accent-primary text-white hover:opacity-90`}
           >
             Apply Status
           </button>
@@ -167,7 +167,7 @@ function DetailRow({ entry }: { entry: ZenhubSyncConflictEntry }) {
       <div className="flex items-center gap-[var(--spacing-sm)]">
         <button
           onClick={() => setShowResolve(!showResolve)}
-          className="cursor-pointer text-xs text-brand-accent hover:underline"
+          className="cursor-pointer text-xs text-accent-primary hover:underline"
         >
           {showResolve ? 'Hide details' : 'View details'}
         </button>
@@ -189,12 +189,12 @@ function DetailRow({ entry }: { entry: ZenhubSyncConflictEntry }) {
             {detail ? (
               <ConflictDetail detail={detail} />
             ) : entry.outcome ? (
-              <div className="text-xs text-brand-primary font-mono">{entry.outcome}</div>
+              <div className="text-xs text-text-primary font-mono">{entry.outcome}</div>
             ) : null}
             {entry.syncId && (
               <div className="text-xs font-mono">
-                <span className="font-semibold text-brand-secondary">Sync ID:</span>{' '}
-                <span className="text-brand-primary">{entry.syncId}</span>
+                <span className="font-semibold text-text-secondary">Sync ID:</span>{' '}
+                <span className="text-text-primary">{entry.syncId}</span>
               </div>
             )}
           </div>
@@ -220,9 +220,9 @@ export function SyncConflictsTable() {
   });
 
   const selectClass =
-    'rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary';
+    'rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary';
   const inputClass =
-    'rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary';
+    'rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary';
 
   return (
     <div className="space-y-[var(--spacing-lg)]">
@@ -266,11 +266,11 @@ export function SyncConflictsTable() {
       </div>
 
       {isLoading ? (
-        <div className="py-[var(--spacing-xl)] text-center text-brand-secondary">
+        <div className="py-[var(--spacing-xl)] text-center text-text-secondary">
           Loading sync conflicts...
         </div>
       ) : conflicts.length === 0 ? (
-        <div className="py-[var(--spacing-xl)] text-center text-brand-secondary">
+        <div className="py-[var(--spacing-xl)] text-center text-text-secondary">
           No sync conflicts found.
         </div>
       ) : (
@@ -278,7 +278,7 @@ export function SyncConflictsTable() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm" role="table">
               <thead>
-                <tr className="border-b border-surface-border text-xs font-medium text-brand-secondary">
+                <tr className="border-b border-surface-subtle text-xs font-medium text-text-secondary">
                   <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Timestamp</th>
                   <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Type</th>
                   <th className="px-[var(--spacing-sm)] py-[var(--spacing-xs)]">Entity</th>
@@ -289,20 +289,20 @@ export function SyncConflictsTable() {
               </thead>
               <tbody>
                 {conflicts.map((entry) => (
-                  <tr key={entry.id} className="border-b border-surface-border last:border-b-0">
-                    <td className="whitespace-nowrap px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-brand-secondary">
+                  <tr key={entry.id} className="border-b border-surface-subtle last:border-b-0">
+                    <td className="whitespace-nowrap px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-text-secondary">
                       {formatTimestamp(entry.occurredAt)}
                     </td>
-                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-brand-primary">
+                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-text-primary">
                       {entry.conflictType}
                     </td>
-                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-brand-primary">
+                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-text-primary">
                       {entry.affectedEntity}
                     </td>
                     <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)]">
                       <ResolutionBadge resolution={entry.resolution} />
                     </td>
-                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-brand-secondary">
+                    <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)] text-xs text-text-secondary">
                       {entry.resolvedBy ? entry.resolvedBy.slice(0, 8) + '...' : 'System'}
                     </td>
                     <td className="px-[var(--spacing-sm)] py-[var(--spacing-sm)]">
@@ -318,17 +318,17 @@ export function SyncConflictsTable() {
             <button
               onClick={() => setCursor(undefined)}
               disabled={!cursor}
-              className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
+              className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
             >
               First Page
             </button>
-            {isFetching && <span className="text-xs text-brand-secondary">Loading...</span>}
+            {isFetching && <span className="text-xs text-text-secondary">Loading...</span>}
             <button
               onClick={() => {
                 if (pagination?.cursor) setCursor(pagination.cursor);
               }}
               disabled={!pagination?.hasMore}
-              className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
+              className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] text-sm text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
             >
               Next Page
             </button>

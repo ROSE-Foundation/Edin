@@ -54,13 +54,13 @@ export function NotificationToast({ notification }: NotificationToastProps) {
       }`}
     >
       <div className="flex items-start justify-between gap-[var(--spacing-sm)]">
-        <p className="font-sans text-[15px] font-medium text-brand-primary">{notification.title}</p>
-        <time className="shrink-0 font-sans text-[13px] text-brand-secondary">
+        <p className="font-sans text-[15px] font-medium text-text-primary">{notification.title}</p>
+        <time className="shrink-0 font-sans text-[13px] text-text-secondary">
           {formatRelativeTime(notification.createdAt)}
         </time>
       </div>
       {description && (
-        <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
           {description}
         </p>
       )}

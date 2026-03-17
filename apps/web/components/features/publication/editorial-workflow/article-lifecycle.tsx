@@ -85,7 +85,7 @@ export function ArticleLifecycle({ currentStatus, domain }: ArticleLifecycleProp
                       ? accentColor
                       : isCompleted
                         ? '#5A8A6B'
-                        : 'var(--color-brand-secondary, #6B7B8D)',
+                        : 'var(--color-text-secondary, #6B7B8D)',
                     fontWeight: isCurrent ? 600 : 400,
                   }}
                 >
@@ -121,7 +121,7 @@ export function StatusBadge({
   const colors: Record<string, { bg: string; text: string }> = {
     DRAFT: {
       bg: 'var(--color-surface-sunken, #F2F0EB)',
-      text: 'var(--color-brand-secondary, #6B7B8D)',
+      text: 'var(--color-text-secondary, #6B7B8D)',
     },
     SUBMITTED: { bg: '#E8EDF2', text: '#4A6FA5' },
     EDITORIAL_REVIEW: { bg: '#E8EDF2', text: '#4A6FA5' },

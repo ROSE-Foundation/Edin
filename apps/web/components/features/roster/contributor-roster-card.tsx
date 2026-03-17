@@ -24,7 +24,7 @@ export function ContributorRosterCard({ contributor }: ContributorRosterCardProp
   return (
     <Link
       href={`/contributors/${contributor.id}`}
-      className="group block rounded-[12px] border border-[#E8E6E1] bg-surface-raised p-[var(--spacing-md)] shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-[var(--transition-fast)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-[2px] focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      className="group block rounded-[12px] border border-[#E8E6E1] bg-surface-raised p-[var(--spacing-md)] shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-[var(--transition-fast)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-[2px] focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       aria-label={`View ${contributor.name}'s profile`}
     >
       <div className="flex items-start gap-[var(--spacing-md)]">
@@ -35,15 +35,15 @@ export function ContributorRosterCard({ contributor }: ContributorRosterCardProp
             alt={contributor.name}
             width={64}
             height={64}
-            className="h-[64px] w-[64px] shrink-0 rounded-full border-2 border-surface-border object-cover"
+            className="h-[64px] w-[64px] shrink-0 rounded-full border-2 border-surface-subtle object-cover"
           />
         ) : (
           <div
-            className={`flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full border-2 ${domainColor ? `${domainColor.bg} ${domainColor.border}` : 'border-surface-border bg-surface-sunken'}`}
+            className={`flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full border-2 ${domainColor ? `${domainColor.bg} ${domainColor.border}` : 'border-surface-subtle bg-surface-sunken'}`}
             aria-hidden="true"
           >
             <span
-              className={`font-sans text-[24px] font-medium ${domainColor ? domainColor.text : 'text-brand-secondary'}`}
+              className={`font-sans text-[24px] font-medium ${domainColor ? domainColor.text : 'text-text-secondary'}`}
             >
               {contributor.name.charAt(0).toUpperCase()}
             </span>
@@ -53,7 +53,7 @@ export function ContributorRosterCard({ contributor }: ContributorRosterCardProp
         {/* Content */}
         <div className="min-w-0 flex-1">
           {/* Name */}
-          <h3 className="font-sans text-[1.25rem] leading-[1.3] font-semibold text-brand-primary">
+          <h3 className="font-sans text-[1.25rem] leading-[1.3] font-semibold text-text-primary">
             {contributor.name}
           </h3>
 
@@ -66,14 +66,14 @@ export function ContributorRosterCard({ contributor }: ContributorRosterCardProp
                 {contributor.domain}
               </span>
             )}
-            <span className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-brand-secondary">
+            <span className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-text-secondary">
               {roleLabel}
             </span>
           </div>
 
           {/* Bio */}
           {contributor.bio && (
-            <p className="mt-[var(--spacing-sm)] line-clamp-2 font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
+            <p className="mt-[var(--spacing-sm)] line-clamp-2 font-sans text-[15px] leading-[1.5] font-normal text-text-secondary">
               {contributor.bio}
             </p>
           )}

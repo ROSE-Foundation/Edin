@@ -87,24 +87,24 @@ function TaskFilterSelect({
       onValueChange={(nextValue) => onChange(nextValue === 'all' ? '' : nextValue)}
     >
       <Select.Trigger
-        className="flex min-h-[44px] min-w-[170px] items-center justify-between rounded-[12px] border border-surface-border bg-surface-raised px-[var(--spacing-md)] font-sans text-[14px] text-brand-primary outline-none transition-[border-color] duration-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20"
+        className="flex min-h-[44px] min-w-[170px] items-center justify-between rounded-[12px] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] font-sans text-[14px] text-text-primary outline-none transition-[border-color] duration-200 focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20"
         aria-label={label}
       >
         <Select.Value placeholder={placeholder} />
-        <Select.Icon className="ml-[var(--spacing-xs)] text-brand-secondary">
+        <Select.Icon className="ml-[var(--spacing-xs)] text-text-secondary">
           <ChevronDownIcon />
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
         <Select.Content
-          className="z-50 overflow-hidden rounded-[12px] border border-surface-border bg-surface-raised shadow-[var(--shadow-modal)]"
+          className="z-50 overflow-hidden rounded-[12px] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)]"
           position="popper"
           sideOffset={4}
         >
           <Select.Viewport className="p-[var(--spacing-xs)]">
             <Select.Item
               value="all"
-              className="flex min-h-[36px] cursor-pointer items-center rounded-[8px] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+              className="flex min-h-[36px] cursor-pointer items-center rounded-[8px] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
             >
               <Select.ItemText>{allLabel}</Select.ItemText>
             </Select.Item>
@@ -112,7 +112,7 @@ function TaskFilterSelect({
               <Select.Item
                 key={option.value}
                 value={option.value}
-                className="flex min-h-[36px] cursor-pointer items-center rounded-[8px] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                className="flex min-h-[36px] cursor-pointer items-center rounded-[8px] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
               >
                 <Select.ItemText>{option.label}</Select.ItemText>
               </Select.Item>

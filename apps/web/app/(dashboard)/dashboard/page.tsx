@@ -12,8 +12,8 @@ import { OnboardingWelcome } from '../../../components/features/onboarding/onboa
 
 const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Technology: { bg: 'bg-domain-technology', text: 'text-white' },
-  Finance: { bg: 'bg-domain-finance', text: 'text-brand-primary' },
-  Impact: { bg: 'bg-domain-impact', text: 'text-brand-primary' },
+  Finance: { bg: 'bg-domain-finance', text: 'text-text-primary' },
+  Impact: { bg: 'bg-domain-impact', text: 'text-text-primary' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
 };
 
@@ -33,7 +33,7 @@ const CONTRIBUTION_TYPE_ICONS: Record<string, string> = {
 
 const TREND_LABELS: Record<string, { label: string; color: string }> = {
   RISING: { label: 'Rising', color: 'text-semantic-success' },
-  STABLE: { label: 'Stable', color: 'text-brand-secondary' },
+  STABLE: { label: 'Stable', color: 'text-text-secondary' },
   DECLINING: { label: 'Declining', color: 'text-semantic-error' },
 };
 
@@ -60,34 +60,32 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen w-full bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[56rem]">
-        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-brand-primary">
+        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-text-primary">
           Welcome to Edin
         </h1>
 
         {/* Profile Summary Card */}
         {profile && (
-          <div className="mt-[var(--spacing-lg)] flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+          <div className="mt-[var(--spacing-lg)] flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             {profile.avatarUrl ? (
               <Image
                 src={profile.avatarUrl}
                 alt={`${profile.name}'s profile photo`}
                 width={64}
                 height={64}
-                className="h-[64px] w-[64px] shrink-0 rounded-full border border-surface-border object-cover"
+                className="h-[64px] w-[64px] shrink-0 rounded-full border border-surface-subtle object-cover"
               />
             ) : (
-              <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full border border-surface-border bg-surface-sunken">
-                <span className="font-sans text-[24px] font-medium text-brand-secondary">
+              <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full border border-surface-subtle bg-surface-sunken">
+                <span className="font-sans text-[24px] font-medium text-text-secondary">
                   {profile.name.charAt(0).toUpperCase()}
                 </span>
               </div>
             )}
             <div className="flex-1">
-              <h2 className="font-serif text-[20px] font-bold text-brand-primary">
-                {profile.name}
-              </h2>
+              <h2 className="font-serif text-[20px] font-bold text-text-primary">{profile.name}</h2>
               <div className="mt-[var(--spacing-xs)] flex flex-wrap items-center gap-[var(--spacing-xs)]">
-                <span className="inline-flex items-center rounded-[var(--radius-sm)] border border-surface-border bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-brand-secondary">
+                <span className="inline-flex items-center rounded-[var(--radius-sm)] border border-surface-subtle bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-text-secondary">
                   {ROLE_LABELS[profile.role] || profile.role}
                 </span>
                 {profile.domain && DOMAIN_COLORS[profile.domain] && (
@@ -101,7 +99,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/dashboard/profile"
-              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
+              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90"
             >
               Edit Profile
             </Link>
@@ -117,14 +115,14 @@ export default function DashboardPage() {
 
         {/* Dashboard Sections */}
         <div className="mt-[var(--spacing-2xl)] space-y-[var(--spacing-lg)]">
-          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+          <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between">
-              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+              <h2 className="font-sans text-[16px] font-medium text-text-primary">
                 Contribution History
               </h2>
               <Link
                 href="/dashboard/contributions"
-                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[14px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
               >
                 View Contributions
               </Link>
@@ -137,7 +135,7 @@ export default function DashboardPage() {
               </div>
             ) : contributions.length > 0 ? (
               <>
-                <p className="mt-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary">
+                <p className="mt-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary">
                   {contributions.length} contribution{contributions.length !== 1 ? 's' : ''} tracked
                 </p>
                 <ul className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
@@ -145,15 +143,15 @@ export default function DashboardPage() {
                     <li key={c.id}>
                       <Link
                         href="/dashboard/contributions"
-                        className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                        className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
                       >
-                        <span className="font-mono text-[16px] text-brand-secondary">
+                        <span className="font-mono text-[16px] text-text-secondary">
                           {CONTRIBUTION_TYPE_ICONS[c.contributionType] ?? '\u25CB'}
                         </span>
-                        <span className="flex-1 truncate font-serif text-[14px] text-brand-primary">
+                        <span className="flex-1 truncate font-serif text-[14px] text-text-primary">
                           {c.title}
                         </span>
-                        <span className="shrink-0 font-sans text-[12px] text-brand-secondary">
+                        <span className="shrink-0 font-sans text-[12px] text-text-secondary">
                           {c.repositoryName}
                         </span>
                       </Link>
@@ -162,19 +160,19 @@ export default function DashboardPage() {
                 </ul>
               </>
             ) : (
-              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
                 No contributions tracked yet. Connect your GitHub repositories to get started.
               </p>
             )}
           </section>
-          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+          <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between">
-              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+              <h2 className="font-sans text-[16px] font-medium text-text-primary">
                 Working Groups
               </h2>
               <Link
                 href="/dashboard/working-groups"
-                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[14px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
               >
                 View Working Groups
               </Link>
@@ -190,17 +188,17 @@ export default function DashboardPage() {
                   <li key={group.id}>
                     <Link
                       href={`/dashboard/working-groups/${group.id}`}
-                      className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                      className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle p-[var(--spacing-md)] transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
                     >
                       <span
-                        className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium ${DOMAIN_COLORS[group.domain] ? `${DOMAIN_COLORS[group.domain].bg} ${DOMAIN_COLORS[group.domain].text}` : 'bg-surface-sunken text-brand-secondary'}`}
+                        className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium ${DOMAIN_COLORS[group.domain] ? `${DOMAIN_COLORS[group.domain].bg} ${DOMAIN_COLORS[group.domain].text}` : 'bg-surface-sunken text-text-secondary'}`}
                       >
                         {group.domain}
                       </span>
-                      <span className="flex-1 font-serif text-[15px] font-medium text-brand-primary">
+                      <span className="flex-1 font-serif text-[15px] font-medium text-text-primary">
                         {group.name}
                       </span>
-                      <span className="font-sans text-[13px] text-brand-secondary">
+                      <span className="font-sans text-[13px] text-text-secondary">
                         {group.memberCount} {group.memberCount === 1 ? 'member' : 'members'}
                       </span>
                     </Link>
@@ -208,20 +206,20 @@ export default function DashboardPage() {
                 ))}
               </ul>
             ) : (
-              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
                 You haven&apos;t joined any working groups yet. Connect with contributors in your
                 domain and collaborate on shared goals.
               </p>
             )}
           </section>
-          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+          <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between">
-              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
+              <h2 className="font-sans text-[16px] font-medium text-text-primary">
                 Evaluation Scores
               </h2>
               <Link
                 href="/evaluations"
-                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[14px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
               >
                 View Evaluations
               </Link>
@@ -235,21 +233,21 @@ export default function DashboardPage() {
             ) : scoreSummary?.monthlyAggregate ? (
               <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-lg)]">
                 <div>
-                  <p className="font-sans text-[13px] text-brand-secondary">Monthly Score</p>
-                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                  <p className="font-sans text-[13px] text-text-secondary">Monthly Score</p>
+                  <p className="font-serif text-[28px] font-bold text-text-primary">
                     {Math.round(scoreSummary.monthlyAggregate.aggregatedScore)}
                   </p>
                 </div>
                 <div>
-                  <p className="font-sans text-[13px] text-brand-secondary">Contributions</p>
-                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                  <p className="font-sans text-[13px] text-text-secondary">Contributions</p>
+                  <p className="font-serif text-[28px] font-bold text-text-primary">
                     {scoreSummary.monthlyAggregate.contributionCount}
                   </p>
                 </div>
                 <div>
-                  <p className="font-sans text-[13px] text-brand-secondary">Trend</p>
+                  <p className="font-sans text-[13px] text-text-secondary">Trend</p>
                   <p
-                    className={`font-serif text-[28px] font-bold ${TREND_LABELS[scoreSummary.monthlyAggregate.trend]?.color ?? 'text-brand-secondary'}`}
+                    className={`font-serif text-[28px] font-bold ${TREND_LABELS[scoreSummary.monthlyAggregate.trend]?.color ?? 'text-text-secondary'}`}
                   >
                     {TREND_LABELS[scoreSummary.monthlyAggregate.trend]?.label ??
                       scoreSummary.monthlyAggregate.trend}
@@ -258,25 +256,23 @@ export default function DashboardPage() {
               </div>
             ) : scoreSummary?.latestSessionScore ? (
               <div className="mt-[var(--spacing-md)]">
-                <p className="font-sans text-[13px] text-brand-secondary">Latest Score</p>
-                <p className="font-serif text-[28px] font-bold text-brand-primary">
+                <p className="font-sans text-[13px] text-text-secondary">Latest Score</p>
+                <p className="font-serif text-[28px] font-bold text-text-primary">
                   {Math.round(scoreSummary.latestSessionScore.compositeScore)}
                 </p>
               </div>
             ) : (
-              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
                 Your evaluation journey will be displayed here as you contribute.
               </p>
             )}
           </section>
-          <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+          <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between">
-              <h2 className="font-sans text-[16px] font-medium text-brand-primary">
-                Peer Feedback
-              </h2>
+              <h2 className="font-sans text-[16px] font-medium text-text-primary">Peer Feedback</h2>
               <Link
                 href="/dashboard/feedback"
-                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] font-sans text-[14px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken"
               >
                 View Feedback
               </Link>
@@ -289,17 +285,17 @@ export default function DashboardPage() {
             ) : receivedFeedback.length > 0 || (pendingData?.data?.length ?? 0) > 0 ? (
               <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-lg)]">
                 <div>
-                  <p className="font-sans text-[13px] text-brand-secondary">Feedback Received</p>
-                  <p className="font-serif text-[28px] font-bold text-brand-primary">
+                  <p className="font-sans text-[13px] text-text-secondary">Feedback Received</p>
+                  <p className="font-serif text-[28px] font-bold text-text-primary">
                     {receivedFeedback.length}
                   </p>
                 </div>
                 {(pendingData?.data?.length ?? 0) > 0 && (
                   <div>
-                    <p className="font-sans text-[13px] text-brand-secondary">Pending Reviews</p>
+                    <p className="font-sans text-[13px] text-text-secondary">Pending Reviews</p>
                     <Link
                       href="/dashboard/feedback"
-                      className="font-serif text-[28px] font-bold text-brand-accent hover:underline"
+                      className="font-serif text-[28px] font-bold text-accent-primary hover:underline"
                     >
                       {pendingData!.data.length}
                     </Link>
@@ -307,7 +303,7 @@ export default function DashboardPage() {
                 )}
               </div>
             ) : (
-              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+              <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
                 Feedback from your peers will appear here.
               </p>
             )}

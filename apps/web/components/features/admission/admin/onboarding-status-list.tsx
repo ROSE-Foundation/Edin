@@ -44,7 +44,7 @@ function getStatusInfo(status: {
     return { label: 'At Risk', className: 'text-amber-700 bg-amber-50' };
   }
   if (status.isExpired) {
-    return { label: 'Expired', className: 'text-brand-secondary bg-surface-sunken' };
+    return { label: 'Expired', className: 'text-text-secondary bg-surface-sunken' };
   }
   return { label: 'In Progress', className: 'text-blue-700 bg-blue-50' };
 }
@@ -58,11 +58,11 @@ export function OnboardingStatusList() {
   return (
     <div>
       <div className="mb-[var(--spacing-lg)] flex items-center justify-between">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">Onboarding Status</h1>
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">Onboarding Status</h1>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="min-h-[40px] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] font-sans text-[15px] text-brand-primary"
+          className="min-h-[40px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] font-sans text-[15px] text-text-primary"
         >
           <option value="">All statuses</option>
           <option value="at-risk">At Risk</option>
@@ -72,25 +72,25 @@ export function OnboardingStatusList() {
         </select>
       </div>
 
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
         {/* Table header */}
-        <div className="flex border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-          <span className="w-[180px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+        <div className="flex border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+          <span className="w-[180px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Contributor
           </span>
-          <span className="w-[100px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+          <span className="w-[100px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Domain
           </span>
-          <span className="w-[130px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+          <span className="w-[130px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Ignition Started
           </span>
-          <span className="w-[130px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+          <span className="w-[130px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Milestones
           </span>
-          <span className="w-[110px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+          <span className="w-[110px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Time Elapsed
           </span>
-          <span className="w-[90px] font-sans text-[13px] font-medium uppercase tracking-wide text-brand-secondary">
+          <span className="w-[90px] font-sans text-[13px] font-medium uppercase tracking-wide text-text-secondary">
             Status
           </span>
         </div>
@@ -100,7 +100,7 @@ export function OnboardingStatusList() {
           Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center border-b border-surface-border px-[var(--spacing-md)] last:border-b-0"
+              className="flex items-center border-b border-surface-subtle px-[var(--spacing-md)] last:border-b-0"
               style={{ minHeight: '48px' }}
             >
               <div className="w-[180px] skeleton h-[20px]" />
@@ -128,12 +128,12 @@ export function OnboardingStatusList() {
             return (
               <div
                 key={status.contributorId}
-                className={`flex items-center border-b border-surface-border px-[var(--spacing-md)] last:border-b-0 ${
+                className={`flex items-center border-b border-surface-subtle px-[var(--spacing-md)] last:border-b-0 ${
                   status.isAtRisk ? 'border-l-[3px] border-l-amber-400' : ''
                 }`}
                 style={{ minHeight: '48px' }}
               >
-                <span className="w-[180px] truncate font-sans text-[15px] text-brand-primary">
+                <span className="w-[180px] truncate font-sans text-[15px] text-text-primary">
                   {status.contributorName}
                 </span>
                 <span className="w-[100px]">
@@ -144,10 +144,10 @@ export function OnboardingStatusList() {
                       {status.contributorDomain}
                     </span>
                   ) : (
-                    <span className="font-sans text-[13px] text-brand-secondary">—</span>
+                    <span className="font-sans text-[13px] text-text-secondary">—</span>
                   )}
                 </span>
-                <span className="w-[130px] font-sans text-[13px] text-brand-secondary">
+                <span className="w-[130px] font-sans text-[13px] text-text-secondary">
                   {status.ignitionStartedAt ? formatRelativeDate(status.ignitionStartedAt) : '—'}
                 </span>
                 <span className="w-[130px]">
@@ -157,15 +157,15 @@ export function OnboardingStatusList() {
                         key={type}
                         className={`h-[10px] w-[10px] rounded-full ${
                           completedTypes.has(type)
-                            ? 'bg-brand-accent'
-                            : 'border-2 border-surface-border'
+                            ? 'bg-accent-primary'
+                            : 'border-2 border-surface-subtle'
                         }`}
                         title={type.replace(/_/g, ' ').toLowerCase()}
                       />
                     ))}
                   </div>
                 </span>
-                <span className="w-[110px] font-sans text-[13px] text-brand-secondary">
+                <span className="w-[110px] font-sans text-[13px] text-text-secondary">
                   {status.hoursElapsed !== null
                     ? status.hoursElapsed < 24
                       ? `${Math.round(status.hoursElapsed)}h`
@@ -186,7 +186,7 @@ export function OnboardingStatusList() {
         {/* Empty state */}
         {!isLoading && statuses.length === 0 && (
           <div className="px-[var(--spacing-md)] py-[var(--spacing-2xl)] text-center">
-            <p className="font-serif text-[15px] text-brand-secondary">
+            <p className="font-serif text-[15px] text-text-secondary">
               No onboarding records found.
             </p>
           </div>
@@ -195,7 +195,7 @@ export function OnboardingStatusList() {
 
       {/* Pagination info */}
       {pagination && (
-        <div className="mt-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+        <div className="mt-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
           Showing {statuses.length} of {pagination.total} contributors
         </div>
       )}

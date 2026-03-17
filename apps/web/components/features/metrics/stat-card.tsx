@@ -6,14 +6,12 @@ interface StatCardProps {
 
 export function StatCard({ label, value, context }: StatCardProps) {
   return (
-    <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
-      <p className="font-sans text-[14px] leading-[1.4] font-medium text-brand-secondary">
-        {label}
-      </p>
-      <p className="mt-[var(--spacing-sm)] font-serif text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.1] font-bold text-brand-primary">
+    <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]">
+      <p className="font-sans text-[14px] leading-[1.4] font-medium text-text-secondary">{label}</p>
+      <p className="mt-[var(--spacing-sm)] font-serif text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.1] font-bold text-text-primary">
         {value}
       </p>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] leading-[1.4] text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] leading-[1.4] text-text-secondary">
         {context}
       </p>
     </div>
@@ -23,7 +21,7 @@ export function StatCard({ label, value, context }: StatCardProps) {
 export function StatCardSkeleton() {
   return (
     <div
-      className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
+      className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
       role="status"
       aria-label="Loading metric"
     >

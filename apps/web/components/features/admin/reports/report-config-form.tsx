@@ -36,10 +36,10 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+      className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
     >
-      <h2 className="font-serif text-[18px] font-bold text-brand-primary">Generate Report</h2>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-brand-secondary">
+      <h2 className="font-serif text-[18px] font-bold text-text-primary">Generate Report</h2>
+      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-text-secondary">
         Select a date range, KPIs, and output format.
       </p>
 
@@ -47,7 +47,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
         <div>
           <label
             htmlFor="start-date"
-            className="block font-sans text-[13px] font-medium text-brand-primary"
+            className="block font-sans text-[13px] font-medium text-text-primary"
           >
             Start Date
           </label>
@@ -56,7 +56,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
             required
             aria-describedby="start-date-desc"
           />
@@ -67,7 +67,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
         <div>
           <label
             htmlFor="end-date"
-            className="block font-sans text-[13px] font-medium text-brand-primary"
+            className="block font-sans text-[13px] font-medium text-text-primary"
           >
             End Date
           </label>
@@ -76,7 +76,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+            className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
             required
             aria-describedby="end-date-desc"
           />
@@ -87,13 +87,11 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
       </div>
 
       <fieldset className="mt-[var(--spacing-lg)]">
-        <legend className="font-sans text-[13px] font-medium text-brand-primary">
-          Select KPIs
-        </legend>
+        <legend className="font-sans text-[13px] font-medium text-text-primary">Select KPIs</legend>
         <button
           type="button"
           onClick={selectAll}
-          className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-accent underline underline-offset-2"
+          className="mt-[var(--spacing-xs)] font-sans text-[12px] text-accent-primary underline underline-offset-2"
         >
           Select all
         </button>
@@ -101,28 +99,28 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
           {KPI_DEFINITIONS.map((kpi) => (
             <label
               key={kpi.id}
-              className="flex items-center gap-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary"
+              className="flex items-center gap-[var(--spacing-xs)] font-sans text-[13px] text-text-primary"
             >
               <input
                 type="checkbox"
                 checked={selectedKpis.includes(kpi.id)}
                 onChange={() => toggleKpi(kpi.id)}
-                className="rounded border-surface-border"
+                className="rounded border-surface-subtle"
               />
               {kpi.label}
-              <span className="text-[11px] text-brand-secondary">({kpi.category})</span>
+              <span className="text-[11px] text-text-secondary">({kpi.category})</span>
             </label>
           ))}
         </div>
       </fieldset>
 
       <div className="mt-[var(--spacing-lg)]">
-        <label className="block font-sans text-[13px] font-medium text-brand-primary">Format</label>
+        <label className="block font-sans text-[13px] font-medium text-text-primary">Format</label>
         <div className="mt-[var(--spacing-xs)] flex gap-[var(--spacing-md)]">
           {(['csv', 'json'] as const).map((f) => (
             <label
               key={f}
-              className="flex items-center gap-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary"
+              className="flex items-center gap-[var(--spacing-xs)] font-sans text-[13px] text-text-primary"
             >
               <input
                 type="radio"
@@ -130,7 +128,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
                 value={f}
                 checked={format === f}
                 onChange={() => setFormat(f)}
-                className="border-surface-border"
+                className="border-surface-subtle"
               />
               {f.toUpperCase()}
             </label>
@@ -141,7 +139,7 @@ export function ReportConfigForm({ onSubmit, isPending }: ReportConfigFormProps)
       <button
         type="submit"
         disabled={!isValid || isPending}
-        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {isPending ? 'Generating...' : 'Generate Report'}
       </button>

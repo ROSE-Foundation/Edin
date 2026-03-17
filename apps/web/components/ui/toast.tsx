@@ -60,11 +60,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
           duration={4000}
           className={`rounded-[var(--radius-md)] border px-[var(--spacing-md)] py-[var(--spacing-sm)] shadow-[var(--shadow-card)] ${variantStyles}`}
         >
-          <ToastPrimitive.Title className="font-sans text-[14px] font-medium text-brand-primary">
+          <ToastPrimitive.Title className="font-sans text-[14px] font-medium text-text-primary">
             {state.title}
           </ToastPrimitive.Title>
           {state.description && (
-            <ToastPrimitive.Description className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+            <ToastPrimitive.Description className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
               {state.description}
             </ToastPrimitive.Description>
           )}

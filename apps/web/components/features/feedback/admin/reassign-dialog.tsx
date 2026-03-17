@@ -54,18 +54,18 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/20 motion-safe:transition-opacity motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=open]:fade-in-0" />
         <Dialog.Content
-          className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[480px] flex-col border-l border-surface-border bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
+          className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[480px] flex-col border-l border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
           aria-describedby={undefined}
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-surface-border p-[var(--spacing-lg)]">
-            <Dialog.Title className="font-sans text-[18px] font-semibold text-brand-primary">
+          <div className="flex items-center justify-between border-b border-surface-subtle p-[var(--spacing-lg)]">
+            <Dialog.Title className="font-sans text-[18px] font-semibold text-text-primary">
               Reassign Review
             </Dialog.Title>
             <Dialog.Close asChild>
               <button
                 type="button"
-                className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-brand-secondary transition-colors hover:text-brand-primary focus-visible:outline-2 focus-visible:outline-brand-accent"
+                className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-accent-primary"
                 aria-label="Close panel"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -85,15 +85,15 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
             <div className="flex-1 overflow-y-auto p-[var(--spacing-lg)]">
               {/* Current assignment info */}
               {review && (
-                <div className="mb-[var(--spacing-lg)] rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken p-[var(--spacing-md)]">
-                  <p className="font-sans text-[13px] text-brand-secondary">Current reviewer</p>
-                  <p className="font-sans text-[14px] font-medium text-brand-primary">
+                <div className="mb-[var(--spacing-lg)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken p-[var(--spacing-md)]">
+                  <p className="font-sans text-[13px] text-text-secondary">Current reviewer</p>
+                  <p className="font-sans text-[14px] font-medium text-text-primary">
                     {review.reviewerName}
                   </p>
-                  <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+                  <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
                     {review.contributionTitle}
                   </p>
-                  <p className="font-sans text-[13px] text-brand-secondary">
+                  <p className="font-sans text-[13px] text-text-secondary">
                     {review.hoursElapsed.toFixed(1)}h elapsed
                   </p>
                 </div>
@@ -103,7 +103,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
               <div className="mb-[var(--spacing-lg)]">
                 <label
                   htmlFor="reviewer-select"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-brand-primary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-text-primary"
                 >
                   New Reviewer
                 </label>
@@ -122,7 +122,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
                     id="reviewer-select"
                     value={selectedReviewerId}
                     onChange={(e) => setSelectedReviewerId(e.target.value)}
-                    className="min-h-[40px] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary focus:border-brand-accent focus:outline-none"
+                    className="min-h-[40px] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] font-sans text-[14px] text-text-primary focus:border-accent-primary focus:outline-none"
                   >
                     <option value="">Select a reviewer...</option>
                     {reviewers.map((reviewer) => {
@@ -146,7 +146,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
                     const domainColor = DOMAIN_COLORS[selected.domain];
                     return (
                       <div className="flex items-center gap-[var(--spacing-sm)]">
-                        <span className="font-sans text-[14px] text-brand-primary">
+                        <span className="font-sans text-[14px] text-text-primary">
                           {selected.name}
                         </span>
                         {domainColor && (
@@ -156,7 +156,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
                             {selected.domain}
                           </span>
                         )}
-                        <span className="font-sans text-[12px] text-brand-secondary">
+                        <span className="font-sans text-[12px] text-text-secondary">
                           {selected.pendingReviewCount} pending reviews
                         </span>
                       </div>
@@ -169,7 +169,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
               <div>
                 <label
                   htmlFor="reassign-reason"
-                  className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-brand-primary"
+                  className="mb-[var(--spacing-xs)] block font-sans text-[14px] font-medium text-text-primary"
                 >
                   Reason for reassignment
                 </label>
@@ -179,7 +179,7 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="Explain why this review is being reassigned..."
                   rows={4}
-                  className="w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary placeholder:text-brand-secondary/50 focus:border-brand-accent focus:outline-none"
+                  className="w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-secondary/50 focus:border-accent-primary focus:outline-none"
                 />
                 {reason.length > 0 && reason.length < 10 && (
                   <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-semantic-warning">
@@ -190,18 +190,18 @@ export function ReassignDialog({ feedbackId, review, open, onOpenChange }: Reass
             </div>
 
             {/* Actions */}
-            <div className="flex gap-[var(--spacing-sm)] border-t border-surface-border p-[var(--spacing-lg)]">
+            <div className="flex gap-[var(--spacing-sm)] border-t border-surface-subtle p-[var(--spacing-lg)]">
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="flex-1 rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+                className="flex-1 rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-colors hover:bg-accent-primary/90 disabled:opacity-50"
               >
                 {reassign.isPending ? 'Reassigning...' : 'Reassign'}
               </button>
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-secondary transition-colors hover:text-brand-primary"
+                className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-secondary transition-colors hover:text-text-primary"
               >
                 Cancel
               </button>

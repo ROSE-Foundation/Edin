@@ -45,14 +45,14 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
   if (resubmitted) {
     return (
       <div className="flex flex-col items-center justify-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
-        <h2 className="font-serif text-[24px] font-bold text-brand-primary">Article Resubmitted</h2>
-        <p className="max-w-[480px] text-center font-sans text-[15px] text-brand-secondary">
+        <h2 className="font-serif text-[24px] font-bold text-text-primary">Article Resubmitted</h2>
+        <p className="max-w-[480px] text-center font-sans text-[15px] text-text-secondary">
           Your revised article has been resubmitted for editorial review. You&apos;ll receive a
           notification when the editor has reviewed your changes.
         </p>
         <button
           onClick={() => router.push('/publication')}
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+          className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
         >
           Back to Publication
         </button>
@@ -85,8 +85,8 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
           {/* Left: Editor (or read-only version view) */}
           <div>
             {selectedVersion !== null && versionData?.body ? (
-              <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)]">
-                <p className="mb-[var(--spacing-md)] font-sans text-[13px] text-brand-secondary">
+              <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)]">
+                <p className="mb-[var(--spacing-md)] font-sans text-[13px] text-text-secondary">
                   Viewing version {selectedVersion} (read-only)
                 </p>
                 <TiptapEditor content={versionData.body} onChange={() => {}} editable={false} />
@@ -106,8 +106,8 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
 
           {/* Right: Revision sidebar */}
           <div className="lg:sticky lg:top-[var(--spacing-xl)] lg:self-start">
-            <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-              <h2 className="mb-[var(--spacing-lg)] font-sans text-[16px] font-semibold text-brand-primary">
+            <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+              <h2 className="mb-[var(--spacing-lg)] font-sans text-[16px] font-semibold text-text-primary">
                 Editorial Feedback
               </h2>
               <RevisionSidebar

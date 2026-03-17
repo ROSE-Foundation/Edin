@@ -16,10 +16,10 @@ export function RoseHero() {
           className="mx-auto mb-10 opacity-80"
           priority
         />
-        <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-brand-primary">
+        <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-text-primary">
           About Rose
         </h1>
-        <p className="mx-auto mt-6 max-w-[680px] font-sans text-[15px] leading-[1.6] font-normal text-brand-secondary">
+        <p className="mx-auto mt-6 max-w-[680px] font-sans text-[15px] leading-[1.6] font-normal text-text-secondary">
           {ROSE_INTRO}
         </p>
       </div>

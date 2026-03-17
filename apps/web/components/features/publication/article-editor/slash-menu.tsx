@@ -126,7 +126,7 @@ export function SlashMenu({ editor, isOpen, onClose, position }: SlashMenuProps)
   return (
     <div
       ref={menuRef}
-      className="fixed z-50 w-[240px] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-lg"
+      className="fixed z-50 w-[240px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-lg"
       style={{ top: position.top, left: position.left }}
       role="listbox"
       aria-label="Insert block"
@@ -135,18 +135,18 @@ export function SlashMenu({ editor, isOpen, onClose, position }: SlashMenuProps)
         <button
           key={item.label}
           className={`flex w-full flex-col px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left transition-colors ${
-            index === selectedIndex ? 'bg-brand-accent-subtle' : 'hover:bg-surface-sunken'
+            index === selectedIndex ? 'bg-accent-primary-subtle' : 'hover:bg-surface-sunken'
           }`}
           onClick={() => handleSelect(item)}
           role="option"
           aria-selected={index === selectedIndex}
         >
-          <span className="font-sans text-[14px] font-medium text-brand-primary">{item.label}</span>
-          <span className="font-sans text-[12px] text-brand-secondary">{item.description}</span>
+          <span className="font-sans text-[14px] font-medium text-text-primary">{item.label}</span>
+          <span className="font-sans text-[12px] text-text-secondary">{item.description}</span>
         </button>
       ))}
       {filteredItems.length === 0 && (
-        <div className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+        <div className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
           No matching blocks
         </div>
       )}

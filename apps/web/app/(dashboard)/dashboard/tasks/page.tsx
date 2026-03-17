@@ -12,7 +12,7 @@ function TaskListSkeleton() {
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+          className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
@@ -66,8 +66,8 @@ export default function TasksPage() {
   return (
     <main className="min-h-screen bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[56rem]">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">Contribution Menu</h1>
-        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-brand-secondary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">Contribution Menu</h1>
+        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-text-secondary">
           Browse available tasks and find work matched to your skills.
         </p>
 

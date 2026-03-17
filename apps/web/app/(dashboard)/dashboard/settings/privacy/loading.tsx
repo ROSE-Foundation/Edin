@@ -6,7 +6,7 @@ export default function PrivacySettingsLoading() {
 
       <div className="mt-[var(--spacing-xl)] space-y-[var(--spacing-lg)]">
         {/* Export section skeleton */}
-        <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <div className="skeleton h-[18px] w-[140px]" />
           <div className="mt-[var(--spacing-xs)] skeleton h-[14px] w-full" />
           <div className="mt-[var(--spacing-xs)] skeleton h-[14px] w-[75%]" />
@@ -14,7 +14,7 @@ export default function PrivacySettingsLoading() {
         </div>
 
         {/* Deletion section skeleton */}
-        <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <div className="skeleton h-[18px] w-[180px]" />
           <div className="mt-[var(--spacing-xs)] skeleton h-[14px] w-full" />
           <div className="mt-[var(--spacing-xs)] skeleton h-[14px] w-[65%]" />

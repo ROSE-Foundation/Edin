@@ -30,7 +30,7 @@ export function ApplicationReviewCard({
 
   return (
     <div
-      className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+      className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
       data-testid={`review-card-${application.id}`}
     >
       <div className="flex items-start justify-between gap-[var(--spacing-md)]">
@@ -44,10 +44,10 @@ export function ApplicationReviewCard({
               />
             )}
             <div>
-              <h4 className="font-sans text-[15px] font-semibold text-brand-primary">
+              <h4 className="font-sans text-[15px] font-semibold text-text-primary">
                 {application.contributorName}
               </h4>
-              <span className="font-sans text-[12px] text-brand-secondary">
+              <span className="font-sans text-[12px] text-text-secondary">
                 Applied{' '}
                 {new Date(application.createdAt).toLocaleDateString('en-US', {
                   month: 'short',
@@ -66,7 +66,7 @@ export function ApplicationReviewCard({
         </span>
       </div>
 
-      <p className="mt-[var(--spacing-md)] font-sans text-[14px] text-brand-primary">
+      <p className="mt-[var(--spacing-md)] font-sans text-[14px] text-text-primary">
         {application.applicationStatement}
       </p>
 
@@ -93,7 +93,7 @@ export function ApplicationReviewCard({
         </div>
       ) : (
         <div className="mt-[var(--spacing-md)] space-y-[var(--spacing-sm)]">
-          <label className="block font-sans text-[14px] font-medium text-brand-primary">
+          <label className="block font-sans text-[14px] font-medium text-text-primary">
             {reviewAction === 'REJECTED' ? 'Reason for rejection' : 'Review notes (optional)'}
           </label>
           <textarea
@@ -103,7 +103,7 @@ export function ApplicationReviewCard({
             placeholder={
               reviewAction === 'REJECTED' ? 'Provide reason for rejection...' : 'Optional notes...'
             }
-            className="w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary outline-none focus:border-brand-accent"
+            className="w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary outline-none focus:border-accent-primary"
           />
           <div className="flex gap-[var(--spacing-sm)]">
             <button
@@ -122,7 +122,7 @@ export function ApplicationReviewCard({
                 setReviewAction(null);
                 setReviewNotes('');
               }}
-              className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+              className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary transition-colors hover:bg-surface-sunken"
             >
               Cancel
             </button>

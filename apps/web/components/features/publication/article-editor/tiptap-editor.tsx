@@ -122,7 +122,7 @@ export function TiptapEditor({
       {editable && <EditorToolbar editor={editor} />}
       <EditorContent
         editor={editor}
-        className="mt-[var(--spacing-md)] min-h-[400px] font-serif text-[17px] leading-[1.65] text-brand-primary"
+        className="mt-[var(--spacing-md)] min-h-[400px] font-serif text-[17px] leading-[1.65] text-text-primary"
       />
       <SlashMenu
         editor={editor}
@@ -163,11 +163,11 @@ export function TiptapEditor({
           margin-bottom: 1rem;
         }
         .prose-editor blockquote {
-          border-left: 3px solid var(--color-brand-accent, #C4956A);
+          border-left: 3px solid var(--color-accent-primary, #C4956A);
           padding-left: 1rem;
           margin: 1.5rem 0;
           font-style: italic;
-          color: var(--color-brand-secondary, #6B7B8D);
+          color: var(--color-text-secondary, #6B7B8D);
         }
         .prose-editor pre {
           background: var(--color-surface-sunken, #F2F0EB);
@@ -196,7 +196,7 @@ export function TiptapEditor({
           margin: 1.5rem 0;
         }
         .prose-editor a {
-          color: var(--color-brand-accent, #C4956A);
+          color: var(--color-accent-primary, #C4956A);
           text-decoration: underline;
         }
         .prose-editor ul, .prose-editor ol {
@@ -212,7 +212,7 @@ export function TiptapEditor({
           margin: 2rem 0;
         }
         .prose-editor .is-editor-empty:first-child::before {
-          color: var(--color-brand-secondary, #6B7B8D);
+          color: var(--color-text-secondary, #6B7B8D);
           content: attr(data-placeholder);
           float: left;
           height: 0;

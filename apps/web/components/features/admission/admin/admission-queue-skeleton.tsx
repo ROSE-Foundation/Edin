@@ -13,8 +13,8 @@ export function AdmissionQueueSkeleton() {
       </div>
 
       {/* Table header skeleton */}
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
-        <div className="flex border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
+        <div className="flex border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
           <div className="skeleton h-[16px] w-[120px]" />
           <div className="skeleton ml-auto h-[16px] w-[80px]" />
           <div className="skeleton ml-[var(--spacing-xl)] h-[16px] w-[100px]" />
@@ -26,7 +26,7 @@ export function AdmissionQueueSkeleton() {
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
-            className="flex items-center border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)]"
+            className="flex items-center border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)]"
           >
             <div className="skeleton h-[20px] w-[180px]" />
             <div className="skeleton ml-auto h-[24px] w-[80px] rounded-full" />

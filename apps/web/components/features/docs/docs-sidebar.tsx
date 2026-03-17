@@ -35,13 +35,13 @@ export function DocsSidebar() {
 
   return (
     <aside
-      className="w-[240px] shrink-0 border-r border-surface-border pr-[var(--spacing-lg)]"
+      className="w-[240px] shrink-0 border-r border-surface-subtle pr-[var(--spacing-lg)]"
       aria-label="Documentation navigation"
     >
       <nav className="sticky top-[var(--spacing-lg)]">
         {DOC_SECTIONS.map((section) => (
           <div key={section.title} className="mb-[var(--spacing-lg)]">
-            <h3 className="font-sans text-[11px] font-bold tracking-[0.05em] text-brand-secondary uppercase">
+            <h3 className="font-sans text-[11px] font-bold tracking-[0.05em] text-text-secondary uppercase">
               {section.title}
             </h3>
             <ul className="mt-[var(--spacing-sm)] flex flex-col gap-[var(--spacing-xs)]">
@@ -53,8 +53,8 @@ export function DocsSidebar() {
                       href={link.href}
                       className={`block rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[14px] transition-colors duration-[var(--transition-fast)] ${
                         isActive
-                          ? 'bg-brand-accent-subtle font-medium text-brand-primary'
-                          : 'text-brand-secondary hover:bg-surface-sunken hover:text-brand-primary'
+                          ? 'bg-accent-primary-subtle font-medium text-text-primary'
+                          : 'text-text-secondary hover:bg-surface-sunken hover:text-text-primary'
                       }`}
                       aria-current={isActive ? 'page' : undefined}
                     >

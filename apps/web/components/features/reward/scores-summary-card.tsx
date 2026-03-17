@@ -28,14 +28,14 @@ export function ScoresSummaryCard({ summary }: ScoresSummaryCardProps) {
       <div className="flex items-baseline justify-between">
         <div>
           <p className="font-sans text-[13px] text-neutral-500">Latest Score</p>
-          <p className="font-serif text-[32px] font-bold text-brand-primary">
+          <p className="font-serif text-[32px] font-bold text-text-primary">
             {latestScore !== undefined && latestScore !== null ? latestScore.toFixed(1) : '—'}
           </p>
         </div>
         {monthlyScore !== undefined && monthlyScore !== null && (
           <div className="text-right">
             <p className="font-sans text-[13px] text-neutral-500">This month</p>
-            <p className="font-serif text-[20px] font-semibold text-brand-primary">
+            <p className="font-serif text-[20px] font-semibold text-text-primary">
               {monthlyScore.toFixed(1)}
             </p>
             <p className="font-sans text-[12px] text-neutral-400">

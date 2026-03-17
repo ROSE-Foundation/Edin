@@ -24,7 +24,7 @@ export function MilestoneCard({ phase, colors }: MilestoneCardProps) {
           >
             <div className="flex w-full items-center justify-between gap-[var(--spacing-sm)]">
               <div className="flex items-center gap-[var(--spacing-sm)]">
-                <span className="font-serif text-[17px] font-semibold text-brand-primary">
+                <span className="font-serif text-[17px] font-semibold text-text-primary">
                   Phase {phase.id}: {phase.name}
                 </span>
                 <span
@@ -40,16 +40,16 @@ export function MilestoneCard({ phase, colors }: MilestoneCardProps) {
                 </span>
               </div>
               <span
-                className="shrink-0 text-[12px] text-brand-secondary transition-transform duration-300 group-data-[state=open]:rotate-180"
+                className="shrink-0 text-[12px] text-text-secondary transition-transform duration-300 group-data-[state=open]:rotate-180"
                 aria-hidden="true"
               >
                 &#9660;
               </span>
             </div>
-            <span className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+            <span className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
               {phase.timelineRange}
             </span>
-            <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.5] text-brand-primary/80">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.5] text-text-primary/80">
               {phase.summary}
             </p>
           </Accordion.Trigger>
@@ -60,26 +60,26 @@ export function MilestoneCard({ phase, colors }: MilestoneCardProps) {
         <div
           className={`mt-[var(--spacing-sm)] rounded-b-[12px] border ${colors.border} border-t-0 px-[var(--spacing-md)] py-[var(--spacing-md)]`}
         >
-          <p className="font-sans text-[13px] font-medium text-brand-secondary">Governance model</p>
-          <p className="mt-[var(--spacing-xs)] font-serif text-[15px] leading-[1.5] text-brand-primary">
+          <p className="font-sans text-[13px] font-medium text-text-secondary">Governance model</p>
+          <p className="mt-[var(--spacing-xs)] font-serif text-[15px] leading-[1.5] text-text-primary">
             {phase.governanceModel}
           </p>
 
-          <p className="mt-[var(--spacing-md)] font-sans text-[13px] font-medium text-brand-secondary">
+          <p className="mt-[var(--spacing-md)] font-sans text-[13px] font-medium text-text-secondary">
             Key metrics
           </p>
           <ul className="mt-[var(--spacing-xs)] space-y-[var(--spacing-xs)]">
             {phase.keyMetrics.map((metric) => (
               <li
                 key={metric.label}
-                className="font-sans text-[13px] leading-[1.5] text-brand-primary"
+                className="font-sans text-[13px] leading-[1.5] text-text-primary"
               >
                 <span className="font-semibold">{metric.label}:</span> {metric.value}
               </li>
             ))}
           </ul>
 
-          <p className="mt-[var(--spacing-md)] font-sans text-[13px] font-medium text-brand-secondary">
+          <p className="mt-[var(--spacing-md)] font-sans text-[13px] font-medium text-text-secondary">
             Governance capabilities
           </p>
           <ul className="mt-[var(--spacing-xs)] space-y-[var(--spacing-sm)]">
@@ -90,10 +90,10 @@ export function MilestoneCard({ phase, colors }: MilestoneCardProps) {
                   aria-hidden="true"
                 />
                 <div>
-                  <span className="font-sans text-[14px] font-semibold text-brand-primary">
+                  <span className="font-sans text-[14px] font-semibold text-text-primary">
                     {milestone.capability}
                   </span>
-                  <p className="font-sans text-[13px] leading-[1.5] text-brand-secondary">
+                  <p className="font-sans text-[13px] leading-[1.5] text-text-secondary">
                     {milestone.description}
                   </p>
                 </div>

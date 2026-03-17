@@ -104,17 +104,14 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-[var(--spacing-lg)]">
       {/* Display Name */}
       <div>
-        <label
-          htmlFor="name"
-          className="block font-sans text-[14px] font-medium text-brand-primary"
-        >
+        <label htmlFor="name" className="block font-sans text-[14px] font-medium text-text-primary">
           Display Name
         </label>
         <input
           id="name"
           type="text"
           {...register('name')}
-          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent"
+          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary"
         />
         {errors.name && (
           <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-semantic-error">
@@ -125,7 +122,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
 
       {/* Bio */}
       <div>
-        <label htmlFor="bio" className="block font-sans text-[14px] font-medium text-brand-primary">
+        <label htmlFor="bio" className="block font-sans text-[14px] font-medium text-text-primary">
           Bio
         </label>
         <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-xs)]">
@@ -133,7 +130,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             type="button"
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => applyBioFormat('bold')}
-            className="min-h-[36px] rounded-[var(--radius-sm)] border border-surface-border-input px-[var(--spacing-sm)] font-sans text-[13px] font-medium text-brand-primary"
+            className="min-h-[36px] rounded-[var(--radius-sm)] border border-surface-subtle-input px-[var(--spacing-sm)] font-sans text-[13px] font-medium text-text-primary"
             aria-label="Bold"
           >
             B
@@ -142,7 +139,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             type="button"
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => applyBioFormat('italic')}
-            className="min-h-[36px] rounded-[var(--radius-sm)] border border-surface-border-input px-[var(--spacing-sm)] font-sans text-[13px] italic text-brand-primary"
+            className="min-h-[36px] rounded-[var(--radius-sm)] border border-surface-subtle-input px-[var(--spacing-sm)] font-sans text-[13px] italic text-text-primary"
             aria-label="Italic"
           >
             I
@@ -154,7 +151,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
           contentEditable
           role="textbox"
           aria-multiline="true"
-          className="mt-[var(--spacing-xs)] min-h-[120px] w-full rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent"
+          className="mt-[var(--spacing-xs)] min-h-[120px] w-full rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary"
           onInput={(e) => {
             const nextValue = sanitizeBioHtml(e.currentTarget.innerHTML);
             setValue('bio', nextValue, { shouldValidate: true, shouldDirty: true });
@@ -167,7 +164,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
           ) : (
             <span />
           )}
-          <span className="font-sans text-[12px] text-brand-secondary">
+          <span className="font-sans text-[12px] text-text-secondary">
             {getBioTextLength(bio)}/{MAX_BIO}
           </span>
         </div>
@@ -175,7 +172,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
 
       {/* Primary Domain */}
       <div>
-        <label className="block font-sans text-[14px] font-medium text-brand-primary">
+        <label className="block font-sans text-[14px] font-medium text-text-primary">
           Primary Domain
         </label>
         <Select.Root
@@ -185,17 +182,17 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
           }
         >
           <Select.Trigger
-            className="mt-[var(--spacing-xs)] flex min-h-[44px] w-full items-center justify-between rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent"
+            className="mt-[var(--spacing-xs)] flex min-h-[44px] w-full items-center justify-between rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary"
             aria-label="Primary Domain"
           >
             <Select.Value placeholder="Select a domain" />
-            <Select.Icon className="text-brand-secondary">
+            <Select.Icon className="text-text-secondary">
               <ChevronDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
             <Select.Content
-              className="overflow-hidden rounded-[var(--radius-md)] border border-surface-border bg-surface-raised shadow-[var(--shadow-card)]"
+              className="overflow-hidden rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-card)]"
               position="popper"
               sideOffset={4}
             >
@@ -204,7 +201,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
                   <Select.Item
                     key={d}
                     value={d}
-                    className="flex min-h-[44px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[15px] text-brand-primary outline-none data-[highlighted]:bg-surface-sunken"
+                    className="flex min-h-[44px] cursor-pointer items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[15px] text-text-primary outline-none data-[highlighted]:bg-surface-sunken"
                   >
                     <Select.ItemText>{d}</Select.ItemText>
                   </Select.Item>
@@ -224,7 +221,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
       <div>
         <label
           htmlFor="skill-input"
-          className="block font-sans text-[14px] font-medium text-brand-primary"
+          className="block font-sans text-[14px] font-medium text-text-primary"
         >
           Skill Areas
         </label>
@@ -243,13 +240,13 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             maxLength={MAX_TAG_LENGTH}
             placeholder="Add a skill..."
             disabled={skillAreas.length >= MAX_TAGS}
-            className="flex-1 rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent disabled:opacity-50"
+            className="flex-1 rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary disabled:opacity-50"
           />
           <button
             type="button"
             onClick={addTag}
             disabled={skillAreas.length >= MAX_TAGS || !tagInput.trim()}
-            className="min-h-[44px] rounded-[var(--radius-md)] bg-brand-primary px-[var(--spacing-md)] font-sans text-[14px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
+            className="min-h-[44px] rounded-[var(--radius-md)] bg-text-primary px-[var(--spacing-md)] font-sans text-[14px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
           >
             Add
           </button>
@@ -259,14 +256,14 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             {skillAreas.map((tag, i) => (
               <span
                 key={`${tag}-${i}`}
-                className="inline-flex items-center gap-[var(--spacing-xs)] rounded-[var(--radius-lg)] bg-brand-accent-subtle px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary"
+                className="inline-flex items-center gap-[var(--spacing-xs)] rounded-[var(--radius-lg)] bg-accent-primary-subtle px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[13px] text-text-primary"
               >
                 {tag}
                 <button
                   type="button"
                   onClick={() => removeTag(i)}
                   aria-label={`Remove ${tag}`}
-                  className="ml-[2px] inline-flex h-[20px] w-[20px] items-center justify-center rounded-full text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-brand-accent hover:text-surface-raised"
+                  className="ml-[2px] inline-flex h-[20px] w-[20px] items-center justify-center rounded-full text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-accent-primary hover:text-surface-raised"
                 >
                   &times;
                 </button>
@@ -274,7 +271,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
             ))}
           </div>
         )}
-        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
           {skillAreas.length}/{MAX_TAGS} skills (press Enter or click Add)
         </p>
         {errors.skillAreas && (
@@ -290,11 +287,11 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
       <div>
         <label
           htmlFor="avatarUrl"
-          className="block font-sans text-[14px] font-medium text-brand-primary"
+          className="block font-sans text-[14px] font-medium text-text-primary"
         >
           Profile Photo URL
         </label>
-        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
           Synced from GitHub by default. Provide a URL to override.
         </p>
         <input
@@ -302,7 +299,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
           type="url"
           {...register('avatarUrl')}
           placeholder="https://..."
-          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-brand-accent"
+          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none transition-[border-color] duration-[var(--transition-fast)] focus:border-accent-primary"
         />
         {errors.avatarUrl && (
           <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-semantic-error">
@@ -315,7 +312,7 @@ export function ProfileForm({ defaultValues }: ProfileFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="min-h-[44px] rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-xl)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
+        className="min-h-[44px] rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-xl)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-opacity duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
       >
         {isSubmitting ? 'Saving...' : 'Save Profile'}
       </button>

@@ -30,8 +30,8 @@ export function RosterFilters({
           onClick={() => onDomainChange(null)}
           className={`shrink-0 rounded-full px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium transition-colors duration-[var(--transition-fast)] ${
             activeDomain === null
-              ? 'bg-brand-accent text-white'
-              : 'bg-surface-sunken text-brand-secondary hover:bg-surface-border'
+              ? 'bg-accent-primary text-white'
+              : 'bg-surface-sunken text-text-secondary hover:bg-surface-border'
           }`}
           aria-pressed={activeDomain === null}
         >
@@ -48,7 +48,7 @@ export function RosterFilters({
               className={`shrink-0 rounded-full px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium transition-colors duration-[var(--transition-fast)] ${
                 isActive
                   ? `${colors.bg} ${colors.text}`
-                  : 'bg-surface-sunken text-brand-secondary hover:bg-surface-border'
+                  : 'bg-surface-sunken text-text-secondary hover:bg-surface-border'
               }`}
               aria-pressed={isActive}
             >
@@ -64,7 +64,7 @@ export function RosterFilters({
           Search contributors by name
         </label>
         <svg
-          className="absolute top-1/2 left-[var(--spacing-sm)] h-[18px] w-[18px] -translate-y-1/2 text-brand-secondary"
+          className="absolute top-1/2 left-[var(--spacing-sm)] h-[18px] w-[18px] -translate-y-1/2 text-text-secondary"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ export function RosterFilters({
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search contributors by name..."
-          className="w-full rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised py-[var(--spacing-sm)] pr-[var(--spacing-md)] pl-[36px] font-sans text-[15px] text-brand-primary placeholder:text-brand-secondary focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
+          className="w-full rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised py-[var(--spacing-sm)] pr-[var(--spacing-md)] pl-[36px] font-sans text-[15px] text-text-primary placeholder:text-text-secondary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary focus:outline-none"
           aria-describedby="roster-search-hint"
         />
         <span id="roster-search-hint" className="sr-only">

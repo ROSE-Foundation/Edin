@@ -57,7 +57,7 @@ export function AdmissionQueue() {
     <div>
       {/* Header with filters */}
       <div className="mb-[var(--spacing-lg)] flex flex-col gap-[var(--spacing-md)] sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">Admission Queue</h1>
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">Admission Queue</h1>
         <AdmissionFilters
           activeDomain={domain}
           activeStatus={status}
@@ -83,26 +83,26 @@ export function AdmissionQueue() {
       {/* Desktop data table */}
       <div className="hidden md:block">
         {applications.length === 0 ? (
-          <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-3xl)] text-center">
-            <p className="font-sans text-[15px] text-brand-secondary">
+          <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-3xl)] text-center">
+            <p className="font-sans text-[15px] text-text-secondary">
               No applications pending review.
             </p>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised">
+          <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised">
             {/* Table header */}
-            <div className="grid grid-cols-[1fr_120px_120px_140px_120px] gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
+            <div className="grid grid-cols-[1fr_120px_120px_140px_120px] gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">
                 Applicant
               </span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Domain</span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Domain</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">
                 Submitted
               </span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">
+              <span className="font-sans text-[13px] font-medium text-text-secondary">
                 Reviewers
               </span>
-              <span className="font-sans text-[13px] font-medium text-brand-secondary">Status</span>
+              <span className="font-sans text-[13px] font-medium text-text-secondary">Status</span>
             </div>
 
             {/* Table rows */}
@@ -110,7 +110,7 @@ export function AdmissionQueue() {
               const domainColor = DOMAIN_COLORS[app.domain];
               const statusStyle = STATUS_STYLES[app.status] ?? {
                 bg: 'bg-surface-sunken',
-                text: 'text-brand-secondary',
+                text: 'text-text-secondary',
                 label: app.status,
               };
 
@@ -119,11 +119,11 @@ export function AdmissionQueue() {
                   key={app.id}
                   type="button"
                   onClick={() => handleRowClick(app)}
-                  className="grid w-full grid-cols-[1fr_120px_120px_140px_120px] items-center gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] last:border-b-0 hover:bg-surface-sunken/50 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-[-2px]"
+                  className="grid w-full grid-cols-[1fr_120px_120px_140px_120px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] text-left transition-colors duration-[var(--transition-fast)] last:border-b-0 hover:bg-surface-sunken/50 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-[-2px]"
                   style={{ minHeight: '48px' }}
                   aria-label={`View ${app.applicantName}'s application`}
                 >
-                  <span className="truncate font-sans text-[15px] font-medium text-brand-primary">
+                  <span className="truncate font-sans text-[15px] font-medium text-text-primary">
                     {app.applicantName}
                   </span>
                   {domainColor ? (
@@ -133,12 +133,12 @@ export function AdmissionQueue() {
                       {app.domain}
                     </span>
                   ) : (
-                    <span className="font-sans text-[14px] text-brand-secondary">{app.domain}</span>
+                    <span className="font-sans text-[14px] text-text-secondary">{app.domain}</span>
                   )}
-                  <span className="font-sans text-[14px] text-brand-secondary">
+                  <span className="font-sans text-[14px] text-text-secondary">
                     {formatRelativeDate(app.createdAt)}
                   </span>
-                  <span className="font-sans text-[14px] text-brand-secondary">
+                  <span className="font-sans text-[14px] text-text-secondary">
                     {app.reviews.length > 0
                       ? app.reviews.map((r) => r.reviewer.name).join(', ')
                       : 'None'}
@@ -160,7 +160,7 @@ export function AdmissionQueue() {
               type="button"
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
-              className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isFetchingNextPage ? 'Loading more...' : 'Load more'}
             </button>
@@ -188,8 +188,8 @@ function MobileStatusCard({
   style: { bg: string; text: string };
 }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
-      <p className="font-sans text-[13px] text-brand-secondary">{label}</p>
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
+      <p className="font-sans text-[13px] text-text-secondary">{label}</p>
       <p className={`mt-[var(--spacing-xs)] font-sans text-[24px] font-semibold ${style.text}`}>
         {count}
       </p>

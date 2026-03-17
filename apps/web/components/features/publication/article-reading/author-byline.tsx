@@ -23,7 +23,7 @@ export function AuthorByline({ author, editor }: AuthorBylineProps) {
           <div className="flex items-center gap-2">
             <Link
               href={`/contributors/${author.id}`}
-              className="text-[15px] font-medium text-brand-primary hover:text-brand-accent"
+              className="text-[15px] font-medium text-text-primary hover:text-accent-primary"
             >
               {author.name}
             </Link>
@@ -36,11 +36,11 @@ export function AuthorByline({ author, editor }: AuthorBylineProps) {
             )}
           </div>
           {editor && (
-            <p className="text-[13px] text-brand-secondary">
+            <p className="text-[13px] text-text-secondary">
               Reviewed by{' '}
               <Link
                 href={`/contributors/${editor.id}`}
-                className="font-medium hover:text-brand-accent"
+                className="font-medium hover:text-accent-primary"
               >
                 {editor.name}
               </Link>

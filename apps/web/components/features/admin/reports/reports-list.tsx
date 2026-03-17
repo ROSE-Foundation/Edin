@@ -16,7 +16,7 @@ const STATUS_STYLES: Record<string, string> = {
 export function ReportsList({ reports }: ReportsListProps) {
   if (reports.length === 0) {
     return (
-      <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-brand-secondary">
+      <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-text-secondary">
         No reports generated yet.
       </p>
     );
@@ -27,11 +27,11 @@ export function ReportsList({ reports }: ReportsListProps) {
       {reports.map((report) => (
         <div
           key={report.id}
-          className="flex flex-col gap-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)] sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-[var(--spacing-sm)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)] sm:flex-row sm:items-center sm:justify-between"
         >
           <div className="flex-1">
             <div className="flex items-center gap-[var(--spacing-sm)]">
-              <span className="font-sans text-[14px] font-medium text-brand-primary">
+              <span className="font-sans text-[14px] font-medium text-text-primary">
                 Report #{report.id.slice(0, 8)}
               </span>
               <span
@@ -39,15 +39,15 @@ export function ReportsList({ reports }: ReportsListProps) {
               >
                 {report.status}
               </span>
-              <span className="font-sans text-[11px] text-brand-secondary uppercase">
+              <span className="font-sans text-[11px] text-text-secondary uppercase">
                 {report.config.format}
               </span>
             </div>
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               {report.config.startDate} — {report.config.endDate} | {report.config.kpiIds.length}{' '}
               KPIs
             </p>
-            <p className="mt-[2px] font-sans text-[11px] text-brand-secondary opacity-60">
+            <p className="mt-[2px] font-sans text-[11px] text-text-secondary opacity-60">
               Created: {new Date(report.createdAt).toLocaleString()}
               {report.completedAt &&
                 ` | Completed: ${new Date(report.completedAt).toLocaleString()}`}
@@ -56,7 +56,7 @@ export function ReportsList({ reports }: ReportsListProps) {
           {report.status === 'completed' && report.downloadUrl && (
             <a
               href={report.downloadUrl}
-              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] font-sans text-[13px] font-medium text-brand-accent transition-colors hover:bg-surface-sunken"
+              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] font-sans text-[13px] font-medium text-accent-primary transition-colors hover:bg-surface-sunken"
               download
             >
               Download

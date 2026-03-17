@@ -35,12 +35,12 @@ export default function EvaluationDetailPage({ params }: { params: Promise<{ id:
   if (error || !evaluation) {
     return (
       <div className="mx-auto max-w-[800px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
-        <p className="font-sans text-[14px] text-brand-secondary">
+        <p className="font-sans text-[14px] text-text-secondary">
           Evaluation not found or could not be loaded.
         </p>
         <Link
           href="/dashboard/evaluations"
-          className="mt-[var(--spacing-sm)] inline-block font-sans text-[14px] text-brand-accent underline"
+          className="mt-[var(--spacing-sm)] inline-block font-sans text-[14px] text-accent-primary underline"
         >
           Back to evaluations
         </Link>
@@ -52,7 +52,7 @@ export default function EvaluationDetailPage({ params }: { params: Promise<{ id:
     <div className="mx-auto max-w-[800px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <Link
         href="/dashboard/evaluations"
-        className="mb-[var(--spacing-md)] inline-block font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+        className="mb-[var(--spacing-md)] inline-block font-sans text-[14px] text-text-secondary hover:text-text-primary"
       >
         &larr; Back to evaluations
       </Link>
@@ -67,7 +67,7 @@ export default function EvaluationDetailPage({ params }: { params: Promise<{ id:
         />
 
         <section aria-label="Quality dimensions">
-          <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-secondary">
+          <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-secondary">
             Quality Dimensions
           </h3>
           <DimensionAccordion
@@ -97,7 +97,7 @@ export default function EvaluationDetailPage({ params }: { params: Promise<{ id:
           </div>
         )}
 
-        <footer className="border-t border-surface-border pt-[var(--spacing-md)]">
+        <footer className="border-t border-surface-subtle pt-[var(--spacing-md)]">
           <ModelFootnote model={evaluation.model ?? null} />
         </footer>
       </div>

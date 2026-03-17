@@ -15,18 +15,18 @@ export default function SprintsPage() {
   return (
     <div className="p-[var(--spacing-xl)]">
       <div className="mb-[var(--spacing-xl)] flex items-center justify-between">
-        <h1 className="font-serif text-[24px] font-bold text-brand-primary">Sprint Dashboard</h1>
+        <h1 className="font-serif text-[24px] font-bold text-text-primary">Sprint Dashboard</h1>
         <div className="flex items-center gap-[var(--spacing-lg)]">
           <DomainFilter value={domain} onChange={setDomain} />
           <Link
             href="/admin/sprints/contributors"
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-brand-accent hover:bg-brand-accent/10"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-accent-primary hover:bg-accent-primary/10"
           >
             Contributors
           </Link>
           <Link
             href="/admin/sprints/monitoring"
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-brand-accent hover:bg-brand-accent/10"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-accent-primary hover:bg-accent-primary/10"
           >
             Monitoring
           </Link>
@@ -35,26 +35,26 @@ export default function SprintsPage() {
       </div>
 
       <div className="space-y-[var(--spacing-lg)]">
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+              <h2 className="font-sans text-[16px] font-semibold text-text-primary">
                 Zenhub Integration
               </h2>
-              <p className="mt-[var(--spacing-xs)] text-[13px] text-brand-secondary">
+              <p className="mt-[var(--spacing-xs)] text-[13px] text-text-secondary">
                 Configure API credentials, webhook settings, and workspace mapping
               </p>
             </div>
             <Link
               href="/admin/sprints/configuration"
-              className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-brand-accent hover:bg-brand-accent/10"
+              className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-accent-primary hover:bg-accent-primary/10"
             >
               Configure
             </Link>
           </div>
         </section>
 
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           {velocityLoading ? (
             <div className="flex h-[300px] items-center justify-center">
               <p className="text-[14px] text-text-tertiary">Loading velocity data...</p>
@@ -64,10 +64,8 @@ export default function SprintsPage() {
           )}
         </section>
 
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-          <h2 className="font-serif text-[18px] font-semibold text-brand-primary">
-            Sprint History
-          </h2>
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+          <h2 className="font-serif text-[18px] font-semibold text-text-primary">Sprint History</h2>
 
           {sprintsLoading ? (
             <p className="mt-[var(--spacing-md)] text-[14px] text-text-tertiary">
@@ -84,20 +82,16 @@ export default function SprintsPage() {
               aria-label="Sprint history"
             >
               <thead>
-                <tr className="border-b border-surface-border">
-                  <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
-                    Sprint
-                  </th>
-                  <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
-                    Period
-                  </th>
-                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+                <tr className="border-b border-surface-subtle">
+                  <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Sprint</th>
+                  <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Period</th>
+                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                     Committed
                   </th>
-                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                     Delivered
                   </th>
-                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+                  <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                     Velocity
                   </th>
                   <th className="pb-[var(--spacing-sm)]" />
@@ -105,26 +99,26 @@ export default function SprintsPage() {
               </thead>
               <tbody>
                 {sprints.map((sprint) => (
-                  <tr key={sprint.id} className="border-b border-surface-border/50">
-                    <td className="py-[var(--spacing-sm)] text-brand-primary">
+                  <tr key={sprint.id} className="border-b border-surface-subtle/50">
+                    <td className="py-[var(--spacing-sm)] text-text-primary">
                       {sprint.sprintName}
                     </td>
-                    <td className="py-[var(--spacing-sm)] text-brand-primary">
+                    <td className="py-[var(--spacing-sm)] text-text-primary">
                       {sprint.sprintStart.split('T')[0]} — {sprint.sprintEnd.split('T')[0]}
                     </td>
-                    <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                    <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                       {sprint.committedPoints}
                     </td>
-                    <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                    <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                       {sprint.deliveredPoints}
                     </td>
-                    <td className="py-[var(--spacing-sm)] text-right font-medium text-brand-primary">
+                    <td className="py-[var(--spacing-sm)] text-right font-medium text-text-primary">
                       {sprint.velocity}
                     </td>
                     <td className="py-[var(--spacing-sm)] text-right">
                       <Link
                         href={`/admin/sprints/${sprint.id}`}
-                        className="text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+                        className="text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
                       >
                         Details
                       </Link>

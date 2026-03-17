@@ -19,7 +19,7 @@ export function PersonalVelocityChart({ data }: PersonalVelocityChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised">
+      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised">
         <p className="text-[14px] text-text-tertiary">
           No velocity data available yet. Data will appear after your first sprint.
         </p>
@@ -30,12 +30,12 @@ export function PersonalVelocityChart({ data }: PersonalVelocityChartProps) {
   return (
     <section aria-label="Personal velocity">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[18px] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[18px] font-semibold text-text-primary">
           Personal Velocity
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -48,20 +48,20 @@ export function PersonalVelocityChart({ data }: PersonalVelocityChartProps) {
           aria-label="Personal velocity data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Sprint</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">End Date</th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Sprint</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">End Date</th>
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Delivered Points
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.sprintId} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.sprintName}</td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.sprintEnd}</td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+              <tr key={item.sprintId} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.sprintName}</td>
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.sprintEnd}</td>
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.deliveredPoints}
                 </td>
               </tr>
@@ -106,7 +106,7 @@ export function PersonalVelocityChart({ data }: PersonalVelocityChartProps) {
               />
               <Bar
                 dataKey="deliveredPoints"
-                fill="var(--color-brand-accent)"
+                fill="var(--color-accent-primary)"
                 radius={[4, 4, 0, 0]}
                 name="Delivered"
               />

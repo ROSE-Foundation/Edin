@@ -20,15 +20,15 @@ export function NotificationInlineList({ category }: NotificationInlineListProps
 
   return (
     <div
-      className="mb-[var(--spacing-md)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+      className="mb-[var(--spacing-md)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
       aria-live="polite"
     >
       <div className="mb-[var(--spacing-sm)] flex items-center justify-between">
-        <p className="font-sans text-[13px] font-medium text-brand-secondary">New updates</p>
+        <p className="font-sans text-[13px] font-medium text-text-secondary">New updates</p>
         <button
           type="button"
           onClick={() => markAllRead.mutate(category)}
-          className="font-sans text-[13px] text-brand-accent hover:underline"
+          className="font-sans text-[13px] text-accent-primary hover:underline"
           disabled={markAllRead.isPending}
         >
           Dismiss all

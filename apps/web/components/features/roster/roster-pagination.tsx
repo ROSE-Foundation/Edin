@@ -21,7 +21,7 @@ export function RosterPagination({
 
   return (
     <div className="mt-[var(--spacing-xl)] text-center">
-      <p className="font-sans text-[14px] text-brand-secondary">
+      <p className="font-sans text-[14px] text-text-secondary">
         Showing {loadedCount} of {total} contributors
       </p>
       {hasMore && (
@@ -29,7 +29,7 @@ export function RosterPagination({
           type="button"
           onClick={onLoadMore}
           disabled={isFetchingNextPage}
-          className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-xl)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-brand-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-xl)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-text-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           aria-label={`Load more contributors. Currently showing ${loadedCount} of ${total}`}
         >
           {isFetchingNextPage ? 'Loading...' : 'Load more'}

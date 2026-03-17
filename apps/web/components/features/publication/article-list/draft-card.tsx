@@ -29,15 +29,15 @@ export function DraftCard({ article }: DraftCardProps) {
   return (
     <Link
       href={getCardLink(article)}
-      className="group block rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] transition-shadow hover:shadow-md"
+      className="group block rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] transition-shadow hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-[var(--spacing-md)]">
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-serif text-[17px] font-semibold text-brand-primary group-hover:text-brand-accent">
+          <h3 className="truncate font-serif text-[17px] font-semibold text-text-primary group-hover:text-accent-primary">
             {article.title || 'Untitled'}
           </h3>
           {article.abstract && (
-            <p className="mt-[var(--spacing-xs)] line-clamp-2 font-sans text-[14px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] line-clamp-2 font-sans text-[14px] text-text-secondary">
               {article.abstract}
             </p>
           )}
@@ -49,7 +49,7 @@ export function DraftCard({ article }: DraftCardProps) {
           {article.domain}
         </span>
       </div>
-      <div className="mt-[var(--spacing-md)] flex items-center gap-[var(--spacing-md)] font-sans text-[12px] text-brand-secondary">
+      <div className="mt-[var(--spacing-md)] flex items-center gap-[var(--spacing-md)] font-sans text-[12px] text-text-secondary">
         <span>Last edited {updatedDate}</span>
         <StatusBadge status={article.status} domain={article.domain} />
         {isRevisionRequested && (
@@ -61,7 +61,7 @@ export function DraftCard({ article }: DraftCardProps) {
           <Link
             href={`/publication/${article.id}/metrics`}
             onClick={(e) => e.stopPropagation()}
-            className="rounded-[4px] px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-brand-accent hover:underline"
+            className="rounded-[4px] px-[var(--spacing-xs)] py-[1px] text-[11px] font-medium text-accent-primary hover:underline"
           >
             View Metrics
           </Link>

@@ -21,15 +21,15 @@ export function RetentionChart({ retention }: RetentionChartProps) {
   const accentColor = '#C4956A';
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
       <div className="flex items-center justify-between">
-        <h3 className="font-serif text-[14px] font-bold text-brand-primary">Retention Rate</h3>
-        <span className="text-[28px] font-bold text-brand-primary">
+        <h3 className="font-serif text-[14px] font-bold text-text-primary">Retention Rate</h3>
+        <span className="text-[28px] font-bold text-text-primary">
           {retention.value}
-          <span className="ml-1 text-[14px] font-normal text-brand-secondary">%</span>
+          <span className="ml-1 text-[14px] font-normal text-text-secondary">%</span>
         </span>
       </div>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-text-secondary">
         {retention.editorialContext}
       </p>
       {retention.trend.length > 0 && (
@@ -46,12 +46,12 @@ export function RetentionChart({ retention }: RetentionChartProps) {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-surface-border)" />
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+                  tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+                  tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
                   axisLine={false}
                   tickLine={false}
                   unit="%"
@@ -62,9 +62,9 @@ export function RetentionChart({ retention }: RetentionChartProps) {
                     if (!active || !payload?.[0]) return null;
                     const point = payload[0].payload as { date: string; value: number };
                     return (
-                      <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
-                        <p className="font-sans text-[12px] text-brand-primary">{point.date}</p>
-                        <p className="font-sans text-[12px] font-medium text-brand-primary">
+                      <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
+                        <p className="font-sans text-[12px] text-text-primary">{point.date}</p>
+                        <p className="font-sans text-[12px] font-medium text-text-primary">
                           {point.value}% retention
                         </p>
                       </div>

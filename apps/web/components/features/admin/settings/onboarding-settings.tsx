@@ -35,7 +35,7 @@ export function OnboardingSettings({ section, onSave, isPending }: OnboardingSet
         <div>
           <label
             htmlFor="ignition-hours"
-            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-text-secondary"
           >
             72-Hour Ignition Timeline (hours)
           </label>
@@ -46,14 +46,14 @@ export function OnboardingSettings({ section, onSave, isPending }: OnboardingSet
             defaultValue={ignitionHours}
             min={1}
             max={720}
-            className="w-[120px] rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-brand-primary"
+            className="w-[120px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-text-primary"
           />
         </div>
 
         <div>
           <label
             htmlFor="buddy-max"
-            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-brand-secondary"
+            className="mb-[var(--spacing-xs)] block text-[13px] font-medium text-text-secondary"
           >
             Max Buddy Assignments per Buddy
           </label>
@@ -64,7 +64,7 @@ export function OnboardingSettings({ section, onSave, isPending }: OnboardingSet
             defaultValue={buddyRules.maxAssignments}
             min={1}
             max={20}
-            className="w-[120px] rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-brand-primary"
+            className="w-[120px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] text-[14px] text-text-primary"
           />
         </div>
 
@@ -74,9 +74,9 @@ export function OnboardingSettings({ section, onSave, isPending }: OnboardingSet
             name="buddy_domain_match"
             type="checkbox"
             defaultChecked={buddyRules.domainMatch}
-            className="h-4 w-4 rounded border-surface-border"
+            className="h-4 w-4 rounded border-surface-subtle"
           />
-          <label htmlFor="buddy-domain" className="text-[13px] font-medium text-brand-secondary">
+          <label htmlFor="buddy-domain" className="text-[13px] font-medium text-text-secondary">
             Require domain match for buddy assignment
           </label>
         </div>
@@ -85,7 +85,7 @@ export function OnboardingSettings({ section, onSave, isPending }: OnboardingSet
       <button
         type="submit"
         disabled={isPending}
-        className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-white hover:bg-brand-accent/90 disabled:opacity-50"
+        className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] text-[14px] font-medium text-white hover:bg-accent-primary/90 disabled:opacity-50"
       >
         {isPending ? 'Saving...' : 'Save Onboarding Settings'}
       </button>

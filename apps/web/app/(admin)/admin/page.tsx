@@ -14,7 +14,7 @@ function DashboardSkeleton() {
       {Array.from({ length: 3 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+          className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
         >
           <div className="flex items-center justify-between">
             <div className="skeleton h-[16px] w-[140px]" />
@@ -23,7 +23,7 @@ function DashboardSkeleton() {
           <div className="mt-[var(--spacing-sm)] skeleton h-[14px] w-full" />
         </div>
       ))}
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
         <div className="skeleton h-[16px] w-[120px]" />
         <div className="mt-[var(--spacing-md)] skeleton h-[200px] w-full" />
       </div>
@@ -33,7 +33,7 @@ function DashboardSkeleton() {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+              className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
             >
               <div className="skeleton h-[14px] w-[100px]" />
               <div className="mt-[var(--spacing-sm)] skeleton h-[24px] w-[60px]" />
@@ -54,10 +54,10 @@ export default function AdminDashboardPage() {
   return (
     <main>
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">
           Community Health Dashboard
         </h1>
-        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-brand-secondary">
+        <p className="mt-[var(--spacing-xs)] font-serif text-[14px] text-text-secondary">
           Real-time community vitals, KPIs, and system health.
         </p>
 
@@ -77,7 +77,7 @@ export default function AdminDashboardPage() {
           <div className="mt-[var(--spacing-2xl)] space-y-[var(--spacing-2xl)]">
             {/* Community Vitals */}
             <section aria-label="Community vitals">
-              <h2 className="font-serif text-[18px] font-bold text-brand-primary">
+              <h2 className="font-serif text-[18px] font-bold text-text-primary">
                 Community Vitals
               </h2>
               <div className="mt-[var(--spacing-md)] grid gap-[var(--spacing-md)] sm:grid-cols-2">
@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
               <KpiGrid title="Lagging Indicators" kpis={metrics.laggingKpis} />
             </section>
 
-            <p className="font-sans text-[12px] text-brand-secondary opacity-60">
+            <p className="font-sans text-[12px] text-text-secondary opacity-60">
               Last updated: {new Date(metrics.generatedAt).toLocaleString()}
             </p>
           </div>

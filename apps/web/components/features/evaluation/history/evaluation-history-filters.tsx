@@ -30,7 +30,7 @@ export function EvaluationHistoryFilters({
 }: EvaluationHistoryFiltersProps) {
   return (
     <div className="flex flex-wrap items-center gap-[var(--spacing-md)]">
-      <div className="flex rounded-[var(--radius-md)] border border-surface-border bg-surface-base">
+      <div className="flex rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base">
         {CONTRIBUTION_TYPES.map((type) => (
           <button
             key={type.value}
@@ -38,8 +38,8 @@ export function EvaluationHistoryFilters({
             onClick={() => onContributionTypeChange(type.value)}
             className={`px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] transition-colors first:rounded-l-[var(--radius-md)] last:rounded-r-[var(--radius-md)] ${
               contributionType === type.value
-                ? 'bg-brand-accent text-white'
-                : 'text-brand-secondary hover:bg-surface-sunken hover:text-brand-primary'
+                ? 'bg-accent-primary text-white'
+                : 'text-text-secondary hover:bg-surface-sunken hover:text-text-primary'
             }`}
             aria-pressed={contributionType === type.value}
           >
@@ -51,7 +51,7 @@ export function EvaluationHistoryFilters({
       <select
         value={timePeriod}
         onChange={(e) => onTimePeriodChange(e.target.value)}
-        className="rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary"
+        className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] text-text-primary"
         aria-label="Time period filter"
       >
         {TIME_PERIODS.map((period) => (

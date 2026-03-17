@@ -19,10 +19,10 @@ export function AnnouncementBanner({ announcement, accentColor }: AnnouncementBa
       role="region"
       aria-label="Latest announcement"
     >
-      <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+      <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
         {announcement.content}
       </p>
-      <p className="mt-[var(--spacing-sm)] font-sans text-[12px] text-brand-secondary">
+      <p className="mt-[var(--spacing-sm)] font-sans text-[12px] text-text-secondary">
         {announcement.author?.name ?? 'Unknown'} &middot;{' '}
         {new Date(announcement.createdAt).toLocaleDateString()}
       </p>

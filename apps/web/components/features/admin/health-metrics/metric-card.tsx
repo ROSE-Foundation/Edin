@@ -17,26 +17,26 @@ export function MetricCard({ metric }: MetricCardProps) {
       ? metric.value >= metric.target
         ? 'text-green-700'
         : metric.value >= metric.target * 0.8
-          ? 'text-brand-primary'
+          ? 'text-text-primary'
           : 'text-red-700'
-      : 'text-brand-primary';
+      : 'text-text-primary';
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
       <div className="flex items-center justify-between">
-        <h3 className="font-serif text-[14px] font-bold text-brand-primary">{metric.label}</h3>
+        <h3 className="font-serif text-[14px] font-bold text-text-primary">{metric.label}</h3>
         <span className={`text-[28px] font-bold ${statusColor}`}>
           {metric.value}
           {metric.unit && (
-            <span className="ml-1 text-[14px] font-normal text-brand-secondary">{metric.unit}</span>
+            <span className="ml-1 text-[14px] font-normal text-text-secondary">{metric.unit}</span>
           )}
         </span>
       </div>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-text-secondary">
         {metric.editorialContext}
       </p>
       <details className="mt-[var(--spacing-md)]">
-        <summary className="cursor-pointer font-sans text-[13px] font-medium text-brand-accent">
+        <summary className="cursor-pointer font-sans text-[13px] font-medium text-accent-primary">
           View trend
         </summary>
         <div className="mt-[var(--spacing-sm)]">
@@ -56,9 +56,9 @@ export function MetricCard({ metric }: MetricCardProps) {
                         if (!active || !payload?.[0]) return null;
                         const point = payload[0].payload as { date: string; value: number };
                         return (
-                          <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
-                            <p className="font-sans text-[12px] text-brand-primary">{point.date}</p>
-                            <p className="font-sans text-[12px] font-medium text-brand-primary">
+                          <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
+                            <p className="font-sans text-[12px] text-text-primary">{point.date}</p>
+                            <p className="font-sans text-[12px] font-medium text-text-primary">
                               {point.value} {metric.unit}
                             </p>
                           </div>
@@ -97,7 +97,7 @@ export function MetricCard({ metric }: MetricCardProps) {
               </table>
             </>
           ) : (
-            <p className="font-sans text-[13px] text-brand-secondary">
+            <p className="font-sans text-[13px] text-text-secondary">
               No trend data available yet.
             </p>
           )}

@@ -44,18 +44,18 @@ export function FlagEvaluationDialog({
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center gap-[var(--spacing-xs)] rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary transition-colors hover:border-brand-accent hover:text-brand-primary disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-[var(--spacing-xs)] rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary transition-colors hover:border-accent-primary hover:text-text-primary disabled:cursor-not-allowed disabled:opacity-50"
         >
           Request Human Review
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/30 data-[state=open]:animate-fade-in" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)]">
-          <Dialog.Title className="font-serif text-[18px] font-bold text-brand-primary">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)]">
+          <Dialog.Title className="font-serif text-[18px] font-bold text-text-primary">
             Help us improve
           </Dialog.Title>
-          <Dialog.Description className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">
+          <Dialog.Description className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">
             Tell us what you think was missed or evaluated incorrectly. Your feedback helps refine
             our evaluation process.
           </Dialog.Description>
@@ -67,10 +67,10 @@ export function FlagEvaluationDialog({
               placeholder="Describe your concern in detail (minimum 50 characters)..."
               rows={5}
               maxLength={2000}
-              className="w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary placeholder:text-brand-secondary/50 focus:border-brand-accent focus:outline-none"
+              className="w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary placeholder:text-text-secondary/50 focus:border-accent-primary focus:outline-none"
               aria-label="Reason for review request"
             />
-            <div className="mt-[var(--spacing-xs)] flex justify-between font-sans text-[12px] text-brand-secondary">
+            <div className="mt-[var(--spacing-xs)] flex justify-between font-sans text-[12px] text-text-secondary">
               <span>
                 {charCount < MIN_REASON_LENGTH
                   ? `${MIN_REASON_LENGTH - charCount} more characters needed`
@@ -84,7 +84,7 @@ export function FlagEvaluationDialog({
             <Dialog.Close asChild>
               <button
                 type="button"
-                className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+                className="rounded-[var(--radius-md)] px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-secondary hover:text-text-primary"
               >
                 Cancel
               </button>
@@ -93,7 +93,7 @@ export function FlagEvaluationDialog({
               type="button"
               disabled={!isValid || isPending}
               onClick={handleSubmit}
-              className="rounded-[var(--radius-md)] bg-brand-secondary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-[var(--radius-md)] bg-text-secondary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isPending ? 'Submitting...' : 'Submit Review Request'}
             </button>

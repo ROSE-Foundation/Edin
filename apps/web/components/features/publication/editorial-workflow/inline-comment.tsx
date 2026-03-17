@@ -50,14 +50,12 @@ export function InlineCommentHighlight({
 
       {expanded && (
         <div
-          className="absolute left-0 top-full z-10 mt-[var(--spacing-xs)] w-[280px] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)] shadow-md"
+          className="absolute left-0 top-full z-10 mt-[var(--spacing-xs)] w-[280px] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)] shadow-md"
           onClick={(e) => e.stopPropagation()}
         >
-          <p className="font-sans text-[14px] leading-[1.5] text-brand-primary">
-            {comment.content}
-          </p>
+          <p className="font-sans text-[14px] leading-[1.5] text-text-primary">{comment.content}</p>
           <div className="mt-[var(--spacing-sm)] flex items-center justify-between">
-            <span className="font-sans text-[11px] text-brand-secondary">{formattedDate}</span>
+            <span className="font-sans text-[11px] text-text-secondary">{formattedDate}</span>
             {comment.resolved && (
               <span className="font-sans text-[11px] text-semantic-success">Resolved</span>
             )}
@@ -82,15 +80,15 @@ export function InlineCommentCard({ comment, index }: InlineCommentCardProps) {
   });
 
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
       <div className="mb-[var(--spacing-xs)] flex items-center justify-between">
-        <span className="font-sans text-[12px] font-medium text-brand-secondary">
+        <span className="font-sans text-[12px] font-medium text-text-secondary">
           Comment #{index + 1}
         </span>
-        <span className="font-sans text-[11px] text-brand-secondary">{formattedDate}</span>
+        <span className="font-sans text-[11px] text-text-secondary">{formattedDate}</span>
       </div>
-      <p className="font-sans text-[14px] leading-[1.5] text-brand-primary">{comment.content}</p>
-      <div className="mt-[var(--spacing-xs)] font-sans text-[11px] text-brand-secondary">
+      <p className="font-sans text-[14px] leading-[1.5] text-text-primary">{comment.content}</p>
+      <div className="mt-[var(--spacing-xs)] font-sans text-[11px] text-text-secondary">
         Position: {comment.highlightStart}-{comment.highlightEnd}
       </div>
     </div>

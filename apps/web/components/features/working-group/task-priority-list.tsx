@@ -56,7 +56,7 @@ export function TaskPriorityList({ tasks, onReorder, isPending }: TaskPriorityLi
   };
 
   if (tasks.length === 0) {
-    return <p className="font-serif text-[14px] text-brand-secondary">No tasks to prioritize.</p>;
+    return <p className="font-serif text-[14px] text-text-secondary">No tasks to prioritize.</p>;
   }
 
   return (
@@ -66,12 +66,12 @@ export function TaskPriorityList({ tasks, onReorder, isPending }: TaskPriorityLi
           <div
             key={task.id}
             role="listitem"
-            className="flex items-center gap-[var(--spacing-md)] rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-sm)]"
+            className="flex items-center gap-[var(--spacing-md)] rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)]"
           >
-            <span className="w-[32px] text-center font-sans text-[14px] font-medium text-brand-secondary">
+            <span className="w-[32px] text-center font-sans text-[14px] font-medium text-text-secondary">
               {index + 1}
             </span>
-            <span className="flex-1 font-sans text-[14px] text-brand-primary">{task.title}</span>
+            <span className="flex-1 font-sans text-[14px] text-text-primary">{task.title}</span>
             <span
               className={`inline-flex items-center rounded-full px-[var(--spacing-sm)] py-[2px] font-sans text-[11px] font-medium ${STATUS_BADGE[task.status] ?? 'bg-gray-100 text-gray-800'}`}
             >
@@ -82,7 +82,7 @@ export function TaskPriorityList({ tasks, onReorder, isPending }: TaskPriorityLi
                 type="button"
                 onClick={() => moveTask(index, 'up')}
                 disabled={index === 0}
-                className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] border border-surface-border font-sans text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-30"
+                className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] border border-surface-subtle font-sans text-text-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-30"
                 aria-label={`Move ${task.title} up`}
               >
                 &#9650;
@@ -91,7 +91,7 @@ export function TaskPriorityList({ tasks, onReorder, isPending }: TaskPriorityLi
                 type="button"
                 onClick={() => moveTask(index, 'down')}
                 disabled={index === orderedTasks.length - 1}
-                className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] border border-surface-border font-sans text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-30"
+                className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[8px] border border-surface-subtle font-sans text-text-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-30"
                 aria-label={`Move ${task.title} down`}
               >
                 &#9660;
@@ -105,7 +105,7 @@ export function TaskPriorityList({ tasks, onReorder, isPending }: TaskPriorityLi
           type="button"
           onClick={handleSave}
           disabled={isPending}
-          className="mt-[var(--spacing-md)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] font-sans text-[14px] font-medium text-white transition-colors duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
+          className="mt-[var(--spacing-md)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] font-sans text-[14px] font-medium text-white transition-colors duration-[var(--transition-fast)] hover:opacity-90 disabled:opacity-50"
         >
           {isPending ? 'Saving...' : 'Save Order'}
         </button>

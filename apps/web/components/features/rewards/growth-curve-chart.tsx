@@ -25,19 +25,19 @@ export function GrowthCurveChart({ data }: GrowthCurveChartProps) {
       aria-label="Growth curve visualization"
     >
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-text-primary">
           Your Garden is Growing
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'Show data table'}
         </button>
       </div>
 
-      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-brand-secondary">
+      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-text-secondary">
         See how sustained engagement compounds your reward multiplier over time.
       </p>
 
@@ -47,20 +47,20 @@ export function GrowthCurveChart({ data }: GrowthCurveChartProps) {
           aria-label="Growth curve data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Time Horizon
               </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Reward Multiplier
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((point) => (
-              <tr key={point.month} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{point.label}</td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{point.multiplier}x</td>
+              <tr key={point.month} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{point.label}</td>
+                <td className="py-[var(--spacing-sm)] text-text-primary">{point.multiplier}x</td>
               </tr>
             ))}
           </tbody>
@@ -85,7 +85,7 @@ export function GrowthCurveChart({ data }: GrowthCurveChartProps) {
                 tick={{
                   fontSize: 13,
                   fontFamily: 'var(--font-sans)',
-                  fill: 'var(--color-brand-secondary)',
+                  fill: 'var(--color-text-secondary)',
                 }}
                 tickLine={false}
                 axisLine={{ stroke: 'var(--color-surface-border)' }}
@@ -94,7 +94,7 @@ export function GrowthCurveChart({ data }: GrowthCurveChartProps) {
                 tick={{
                   fontSize: 13,
                   fontFamily: 'var(--font-sans)',
-                  fill: 'var(--color-brand-secondary)',
+                  fill: 'var(--color-text-secondary)',
                 }}
                 tickLine={false}
                 axisLine={{ stroke: 'var(--color-surface-border)' }}

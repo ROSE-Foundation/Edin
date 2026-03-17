@@ -15,13 +15,13 @@ export default function ContributionsPage() {
   return (
     <main className="min-h-screen bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[56rem]">
-        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-brand-primary">
+        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-text-primary">
           My Contributions
         </h1>
 
         {isReconnecting && (
           <div
-            className="mt-[var(--spacing-sm)] inline-flex items-center gap-[var(--spacing-xs)] rounded-full border border-surface-border bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] text-brand-secondary"
+            className="mt-[var(--spacing-sm)] inline-flex items-center gap-[var(--spacing-xs)] rounded-full border border-surface-subtle bg-surface-sunken px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] text-text-secondary"
             role="status"
             aria-live="polite"
           >

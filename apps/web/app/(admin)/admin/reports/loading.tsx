@@ -4,7 +4,7 @@ export default function Loading() {
       <div className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-2xl)]">
         <div className="skeleton h-[32px] w-[200px]" />
         <div className="mt-[var(--spacing-xs)] skeleton h-[16px] w-[300px]" />
-        <div className="mt-[var(--spacing-2xl)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <div className="mt-[var(--spacing-2xl)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           <div className="skeleton h-[20px] w-[160px]" />
           <div className="mt-[var(--spacing-lg)] grid gap-[var(--spacing-md)] sm:grid-cols-2">
             <div className="skeleton h-[40px] w-full" />

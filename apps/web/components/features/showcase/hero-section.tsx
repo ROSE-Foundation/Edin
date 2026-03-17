@@ -16,15 +16,15 @@ export function HeroSection() {
           className="mx-auto mb-8 rounded-full brightness-[0.65] contrast-[1.3]"
           priority
         />
-        <p className="font-mono text-[13px] font-medium uppercase tracking-[0.15em] text-brand-accent">
+        <p className="font-mono text-[13px] font-medium uppercase tracking-[0.15em] text-accent-primary">
           Contributor Platform for Rose
         </p>
-        <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.15] font-bold text-brand-primary">
+        <h1 className="mt-4 font-serif text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.15] font-bold text-text-primary">
           Where Expertise Becomes
           <br />
           Publication
         </h1>
-        <p className="mx-auto mt-6 max-w-[560px] font-sans text-[16px] leading-[1.65] font-normal text-brand-secondary">
+        <p className="mx-auto mt-6 max-w-[560px] font-sans text-[16px] leading-[1.65] font-normal text-text-secondary">
           The contributor platform powering Rose, a new financial infrastructure for a fairer
           economy. Every contribution is evaluated by AI, rewarded through scaling-law economics,
           and published by the community.
@@ -32,19 +32,19 @@ export function HeroSection() {
         <div className="mt-10 flex items-center justify-center gap-4">
           <Link
             href="/admission"
-            className="inline-flex items-center rounded-md bg-brand-primary px-6 py-2.5 font-sans text-[14px] font-semibold text-surface-raised transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-md bg-text-primary px-6 py-2.5 font-sans text-[14px] font-semibold text-surface-raised transition-opacity hover:opacity-90"
           >
             Apply to Join
           </Link>
           <Link
             href="/rose"
-            className="inline-flex items-center rounded-md border border-surface-border bg-surface-raised px-6 py-2.5 font-sans text-[14px] font-semibold text-brand-primary transition-all hover:border-brand-secondary"
+            className="inline-flex items-center rounded-md border border-surface-subtle bg-surface-raised px-6 py-2.5 font-sans text-[14px] font-semibold text-text-primary transition-all hover:border-text-secondary"
           >
             Discover Rose
           </Link>
           <Link
             href="/about"
-            className="inline-flex items-center rounded-md border border-surface-border bg-surface-raised px-6 py-2.5 font-sans text-[14px] font-semibold text-brand-primary transition-all hover:border-brand-secondary"
+            className="inline-flex items-center rounded-md border border-surface-subtle bg-surface-raised px-6 py-2.5 font-sans text-[14px] font-semibold text-text-primary transition-all hover:border-text-secondary"
           >
             Learn More
           </Link>

@@ -44,8 +44,8 @@ export function RatingInput({ name, value, onChange, error }: RatingInputProps) 
             onKeyDown={(e) => handleKeyDown(e, rating)}
             className={`flex min-h-[44px] min-w-[44px] flex-col items-center justify-center rounded-[var(--radius-md)] border px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[13px] transition-all duration-200 motion-reduce:transition-none ${
               isSelected
-                ? 'border-brand-accent bg-brand-accent text-white'
-                : 'border-surface-border bg-surface-raised text-brand-primary hover:border-surface-border-input hover:shadow-sm'
+                ? 'border-accent-primary bg-accent-primary text-white'
+                : 'border-surface-subtle bg-surface-raised text-text-primary hover:border-surface-subtle-input hover:shadow-sm'
             } ${error ? 'border-semantic-error' : ''}`}
           >
             <span className="text-[16px] font-semibold">{rating}</span>

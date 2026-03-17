@@ -27,15 +27,15 @@ function StatusIndicator({ status }: { status: 'healthy' | 'degraded' | 'down' }
   return (
     <div className="flex items-center gap-[var(--spacing-xs)]">
       <span className={`inline-block h-3 w-3 rounded-full ${colors[status]}`} aria-hidden="true" />
-      <span className="text-sm font-medium text-brand-primary">{labels[status]}</span>
+      <span className="text-sm font-medium text-text-primary">{labels[status]}</span>
     </div>
   );
 }
 
 function MetricCard({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
-      <p className="text-xs font-medium text-brand-secondary">{label}</p>
+    <div className="rounded-lg border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
+      <p className="text-xs font-medium text-text-secondary">{label}</p>
       <div className="mt-[var(--spacing-xs)]">{children}</div>
     </div>
   );
@@ -46,7 +46,7 @@ export function IntegrationHealthPanel() {
 
   if (isLoading) {
     return (
-      <div className="py-[var(--spacing-lg)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-lg)] text-center text-text-secondary">
         Loading integration health...
       </div>
     );
@@ -54,7 +54,7 @@ export function IntegrationHealthPanel() {
 
   if (!health) {
     return (
-      <div className="py-[var(--spacing-lg)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-lg)] text-center text-text-secondary">
         Unable to load integration health data.
       </div>
     );
@@ -68,13 +68,13 @@ export function IntegrationHealthPanel() {
         </MetricCard>
 
         <MetricCard label="Last Successful Poll">
-          <p className="text-sm font-medium text-brand-primary">
+          <p className="text-sm font-medium text-text-primary">
             {health.lastSuccessfulPoll ? formatRelativeTime(health.lastSuccessfulPoll) : 'Never'}
           </p>
         </MetricCard>
 
         <MetricCard label="Last Successful Webhook">
-          <p className="text-sm font-medium text-brand-primary">
+          <p className="text-sm font-medium text-text-primary">
             {health.lastSuccessfulWebhook
               ? formatRelativeTime(health.lastSuccessfulWebhook)
               : 'Never'}
@@ -82,11 +82,11 @@ export function IntegrationHealthPanel() {
         </MetricCard>
 
         <MetricCard label="Webhook Success Rate (24h)">
-          <p className="text-sm font-medium text-brand-primary">{health.webhookSuccessRate}%</p>
+          <p className="text-sm font-medium text-text-primary">{health.webhookSuccessRate}%</p>
         </MetricCard>
 
         <MetricCard label="Webhooks (24h)">
-          <p className="text-sm font-medium text-brand-primary">
+          <p className="text-sm font-medium text-text-primary">
             {health.webhookTotalLast24h} total
             {health.webhookFailedLast24h > 0 && (
               <span className="ml-1 text-red-600">({health.webhookFailedLast24h} failed)</span>
@@ -95,7 +95,7 @@ export function IntegrationHealthPanel() {
         </MetricCard>
 
         <MetricCard label="Avg Polling Duration">
-          <p className="text-sm font-medium text-brand-primary">
+          <p className="text-sm font-medium text-text-primary">
             {health.pollingAvgDurationMs != null
               ? `${(health.pollingAvgDurationMs / 1000).toFixed(1)}s`
               : 'N/A'}

@@ -47,17 +47,17 @@ export function ComplianceDocumentGenerator() {
   return (
     <form
       onSubmit={handleGenerate}
-      className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+      className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
     >
-      <h2 className="font-serif text-[18px] font-bold text-brand-primary">Generate Document</h2>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+      <h2 className="font-serif text-[18px] font-bold text-text-primary">Generate Document</h2>
+      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
         Generate an EU AI Act compliance document from current platform data.
       </p>
 
       <div className="mt-[var(--spacing-lg)]">
         <label
           htmlFor="document-type"
-          className="block font-sans text-[13px] font-medium text-brand-primary"
+          className="block font-sans text-[13px] font-medium text-text-primary"
         >
           Document Type
         </label>
@@ -65,7 +65,7 @@ export function ComplianceDocumentGenerator() {
           id="document-type"
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value as ComplianceDocumentTypeValue | '')}
-          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary"
+          className="mt-[var(--spacing-xs)] w-full rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary"
           required
         >
           <option value="">Select a document type...</option>
@@ -78,7 +78,7 @@ export function ComplianceDocumentGenerator() {
       </div>
 
       {selectedTypeInfo && (
-        <p className="mt-[var(--spacing-sm)] font-sans text-[12px] text-brand-secondary">
+        <p className="mt-[var(--spacing-sm)] font-sans text-[12px] text-text-secondary">
           {selectedTypeInfo.description}
         </p>
       )}
@@ -98,7 +98,7 @@ export function ComplianceDocumentGenerator() {
       <button
         type="submit"
         disabled={!selectedType || generateMutation.isPending}
-        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="mt-[var(--spacing-lg)] inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {generateMutation.isPending ? 'Generating...' : 'Generate Document'}
       </button>

@@ -35,7 +35,7 @@ export default function SprintDetailPage({ params }: { params: Promise<{ sprintI
       <div className="mb-[var(--spacing-lg)] flex items-center justify-between">
         <Link
           href="/admin/sprints"
-          className="text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
         >
           Back to Sprint Dashboard
         </Link>
@@ -45,7 +45,7 @@ export default function SprintDetailPage({ params }: { params: Promise<{ sprintI
         </div>
       </div>
 
-      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-xl)] font-serif text-[24px] font-bold text-text-primary">
         {detailLoading ? 'Loading...' : sprintName}
       </h1>
 
@@ -74,14 +74,14 @@ export default function SprintDetailPage({ params }: { params: Promise<{ sprintI
       )}
 
       {!detailLoading && sprintStart && sprintEnd && (
-        <p className="mb-[var(--spacing-lg)] text-[13px] text-brand-secondary">
+        <p className="mb-[var(--spacing-lg)] text-[13px] text-text-secondary">
           {new Date(sprintStart).toISOString().split('T')[0]} —{' '}
           {new Date(sprintEnd).toISOString().split('T')[0]}
         </p>
       )}
 
       <div className="space-y-[var(--spacing-lg)]">
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
           {burndownLoading ? (
             <div className="flex h-[300px] items-center justify-center">
               <p className="text-[14px] text-text-tertiary">Loading burndown data...</p>
@@ -91,8 +91,8 @@ export default function SprintDetailPage({ params }: { params: Promise<{ sprintI
           )}
         </section>
 
-        <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-          <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-semibold text-brand-primary">
+        <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+          <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-semibold text-text-primary">
             Scope Changes
           </h2>
           {scopeLoading ? (
@@ -116,9 +116,9 @@ function MetricCard({
   unit: string;
 }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
-      <p className="text-[12px] font-medium text-brand-secondary">{label}</p>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[24px] font-bold text-brand-primary">
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
+      <p className="text-[12px] font-medium text-text-secondary">{label}</p>
+      <p className="mt-[var(--spacing-xs)] font-serif text-[24px] font-bold text-text-primary">
         {value}
         {unit && (
           <span className="ml-[var(--spacing-xs)] text-[12px] font-normal text-text-tertiary">

@@ -29,8 +29,8 @@ const DOMAIN_TINT: Record<string, string> = {
 
 const DOMAIN_BADGE: Record<string, string> = {
   Technology: 'bg-domain-technology text-white',
-  Finance: 'bg-domain-finance text-brand-primary',
-  Impact: 'bg-domain-impact text-brand-primary',
+  Finance: 'bg-domain-finance text-text-primary',
+  Impact: 'bg-domain-impact text-text-primary',
   Governance: 'bg-domain-governance text-white',
 };
 
@@ -151,11 +151,11 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
           <div>
             <Link
               href="/dashboard/working-groups"
-              className="font-sans text-[14px] text-brand-secondary hover:text-brand-primary"
+              className="font-sans text-[14px] text-text-secondary hover:text-text-primary"
             >
               &larr; Back to Working Groups
             </Link>
-            <h1 className="mt-[var(--spacing-sm)] font-serif text-[32px] leading-[1.25] font-bold text-brand-primary">
+            <h1 className="mt-[var(--spacing-sm)] font-serif text-[32px] leading-[1.25] font-bold text-text-primary">
               {group.name}
             </h1>
             <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-sm)]">
@@ -164,7 +164,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
               >
                 {group.domain}
               </span>
-              <span className="font-sans text-[13px] text-brand-secondary">
+              <span className="font-sans text-[13px] text-text-secondary">
                 {group.memberCount} {group.memberCount === 1 ? 'member' : 'members'}
               </span>
             </div>
@@ -175,7 +175,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
               type="button"
               onClick={() => leaveMutation.mutate(group.id)}
               disabled={leaveMutation.isPending}
-              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] font-sans text-[14px] font-medium text-brand-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] font-sans text-[14px] font-medium text-text-secondary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken disabled:opacity-50"
               aria-label={`Leave ${group.name} working group`}
             >
               {leaveMutation.isPending ? 'Leaving...' : 'Leave Group'}
@@ -183,7 +183,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
           )}
         </div>
 
-        <p className="mt-[var(--spacing-md)] font-serif text-[16px] leading-[1.65] text-brand-secondary">
+        <p className="mt-[var(--spacing-md)] font-serif text-[16px] leading-[1.65] text-text-secondary">
           {group.description}
         </p>
 
@@ -196,7 +196,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
 
         {/* Members Section */}
         <section className="mt-[var(--spacing-2xl)]">
-          <h2 className="font-sans text-[18px] font-medium text-brand-primary">Members</h2>
+          <h2 className="font-sans text-[18px] font-medium text-text-primary">Members</h2>
           <div className="mt-[var(--spacing-md)]">
             <MemberList members={group.members} isLoading={isLoading} />
           </div>
@@ -204,12 +204,12 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
 
         {/* Recent Contributions Section */}
         <section className="mt-[var(--spacing-2xl)]">
-          <h2 className="font-sans text-[18px] font-medium text-brand-primary">
+          <h2 className="font-sans text-[18px] font-medium text-text-primary">
             Recent Contributions
           </h2>
           <div className="mt-[var(--spacing-md)]">
             {group.recentContributions.length === 0 ? (
-              <p className="font-serif text-[14px] text-brand-secondary">
+              <p className="font-serif text-[14px] text-text-secondary">
                 No contributions from group members yet.
               </p>
             ) : (
@@ -222,19 +222,19 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
                   <div
                     key={c.id}
                     role="listitem"
-                    className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)]"
+                    className="flex items-center gap-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)]"
                   >
                     <div className="flex-1">
-                      <p className="font-sans text-[14px] font-medium text-brand-primary">
+                      <p className="font-sans text-[14px] font-medium text-text-primary">
                         {c.title}
                       </p>
-                      <p className="font-sans text-[12px] text-brand-secondary">
+                      <p className="font-sans text-[12px] text-text-secondary">
                         {c.contributor.name} &middot;{' '}
                         {TYPE_LABELS[c.contributionType] ?? c.contributionType} &middot;{' '}
                         {c.repository.fullName}
                       </p>
                     </div>
-                    <span className="font-sans text-[12px] text-brand-secondary">
+                    <span className="font-sans text-[12px] text-text-secondary">
                       {new Date(c.createdAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -245,7 +245,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
         </section>
 
         <section className="mt-[var(--spacing-2xl)]">
-          <h2 className="font-sans text-[18px] font-medium text-brand-primary">Active Tasks</h2>
+          <h2 className="font-sans text-[18px] font-medium text-text-primary">Active Tasks</h2>
           <div className="mt-[var(--spacing-md)]">
             {canManageTasks ? (
               <div className="mb-[var(--spacing-lg)]">
@@ -281,7 +281,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
                 {Array.from({ length: 2 }).map((_, i) => (
                   <div
                     key={i}
-                    className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]"
+                    className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]"
                   >
                     <div className="skeleton h-[18px] w-[200px]" />
                     <div className="mt-[var(--spacing-xs)] skeleton h-[16px] w-full" />
@@ -293,7 +293,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
                 ))}
               </div>
             ) : domainTasks.length === 0 ? (
-              <p className="font-serif text-[14px] text-brand-secondary">
+              <p className="font-serif text-[14px] text-text-secondary">
                 No active tasks are tagged for this domain yet.
               </p>
             ) : (
@@ -305,7 +305,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
                         <button
                           type="button"
                           onClick={() => setEditingTaskId(task.id)}
-                          className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-border px-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken"
+                          className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-subtle px-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary transition-colors duration-200 hover:bg-surface-sunken"
                         >
                           Edit
                         </button>
@@ -314,7 +314,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
                             type="button"
                             onClick={() => handleTaskRetire(task.id)}
                             disabled={retireTaskMutation.isPending}
-                            className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-border px-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-50"
+                            className="inline-flex min-h-[36px] items-center rounded-[8px] border border-surface-subtle px-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary transition-colors duration-200 hover:bg-surface-sunken disabled:opacity-50"
                           >
                             Retire
                           </button>
@@ -336,7 +336,7 @@ export function WorkingGroupDetail({ group, isLoading }: WorkingGroupDetailProps
         {/* WG Lead Dashboard (shown only for the assigned lead) */}
         {isGroupLead && dashboard && (
           <section className="mt-[var(--spacing-2xl)]">
-            <h2 className="font-sans text-[18px] font-medium text-brand-primary">Lead Dashboard</h2>
+            <h2 className="font-sans text-[18px] font-medium text-text-primary">Lead Dashboard</h2>
             <div className="mt-[var(--spacing-md)]">
               <WgLeadDashboard
                 workingGroupId={group.id}

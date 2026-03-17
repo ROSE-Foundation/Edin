@@ -23,10 +23,10 @@ export function HowItWorksSection() {
   return (
     <section className="px-6 py-20" aria-label="How it works">
       <div className="mx-auto max-w-[1200px]">
-        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-brand-primary">
+        <h2 className="text-center font-serif text-[clamp(1.5rem,3vw,2rem)] leading-[1.25] font-bold text-text-primary">
           How It Works
         </h2>
-        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[480px] text-center font-sans text-[15px] leading-[1.6] text-brand-secondary">
+        <p className="mx-auto mt-[var(--spacing-sm)] max-w-[480px] text-center font-sans text-[15px] leading-[1.6] text-text-secondary">
           From contribution to publication in three steps.
         </p>
 
@@ -37,13 +37,13 @@ export function HowItWorksSection() {
               {index < STEPS.length - 1 && (
                 <div className="absolute top-[20px] right-0 hidden h-[1px] w-[var(--spacing-lg)] translate-x-full bg-surface-border md:block" />
               )}
-              <span className="font-mono text-[32px] font-bold leading-none text-brand-accent-subtle">
+              <span className="font-mono text-[32px] font-bold leading-none text-accent-primary-subtle">
                 {step.number}
               </span>
-              <h3 className="mt-[var(--spacing-sm)] font-sans text-[16px] font-semibold text-brand-primary">
+              <h3 className="mt-[var(--spacing-sm)] font-sans text-[16px] font-semibold text-text-primary">
                 {step.title}
               </h3>
-              <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-brand-secondary">
+              <p className="mt-[var(--spacing-xs)] font-sans text-[14px] leading-[1.6] text-text-secondary">
                 {step.description}
               </p>
             </div>

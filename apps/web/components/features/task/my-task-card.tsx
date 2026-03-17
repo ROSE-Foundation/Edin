@@ -23,12 +23,12 @@ export function MyTaskCard({ task, onStartWorking, isUpdatePending }: MyTaskCard
   return (
     <div
       role="listitem"
-      className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
+      className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-[var(--shadow-card)]"
     >
       <div className="flex flex-col gap-[var(--spacing-sm)] sm:flex-row sm:items-start sm:justify-between">
         <div className="flex-1">
-          <h3 className="font-sans text-[15px] font-medium text-brand-primary">{task.title}</h3>
-          <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-brand-secondary">
+          <h3 className="font-sans text-[15px] font-medium text-text-primary">{task.title}</h3>
+          <p className="mt-[var(--spacing-xs)] line-clamp-2 font-serif text-[14px] leading-[1.65] text-text-secondary">
             {task.description}
           </p>
         </div>
@@ -44,34 +44,34 @@ export function MyTaskCard({ task, onStartWorking, isUpdatePending }: MyTaskCard
         >
           {task.domain}
         </span>
-        <span className="font-sans text-[12px] text-brand-secondary">
+        <span className="font-sans text-[12px] text-text-secondary">
           {DIFFICULTY_LABELS[task.difficulty] ?? task.difficulty}
         </span>
-        <span className="font-sans text-[12px] text-brand-secondary">{task.estimatedEffort}</span>
+        <span className="font-sans text-[12px] text-text-secondary">{task.estimatedEffort}</span>
       </div>
 
       {/* Status progression */}
       <div className="mt-[var(--spacing-md)] flex items-center gap-[var(--spacing-sm)]">
         <span
-          className={`font-sans text-[12px] ${task.status === 'CLAIMED' || task.status === 'IN_PROGRESS' || task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-brand-primary' : 'text-brand-secondary/50'}`}
+          className={`font-sans text-[12px] ${task.status === 'CLAIMED' || task.status === 'IN_PROGRESS' || task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-text-primary' : 'text-text-secondary/50'}`}
         >
           Claimed
         </span>
-        <span className="text-brand-secondary/30">&rarr;</span>
+        <span className="text-text-secondary/30">&rarr;</span>
         <span
-          className={`font-sans text-[12px] ${task.status === 'IN_PROGRESS' || task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-brand-primary' : 'text-brand-secondary/50'}`}
+          className={`font-sans text-[12px] ${task.status === 'IN_PROGRESS' || task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-text-primary' : 'text-text-secondary/50'}`}
         >
           In Progress
         </span>
-        <span className="text-brand-secondary/30">&rarr;</span>
+        <span className="text-text-secondary/30">&rarr;</span>
         <span
-          className={`font-sans text-[12px] ${task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-brand-primary' : 'text-brand-secondary/50'}`}
+          className={`font-sans text-[12px] ${task.status === 'COMPLETED' || task.status === 'EVALUATED' ? 'font-medium text-text-primary' : 'text-text-secondary/50'}`}
         >
           Completed
         </span>
-        <span className="text-brand-secondary/30">&rarr;</span>
+        <span className="text-text-secondary/30">&rarr;</span>
         <span
-          className={`font-sans text-[12px] ${task.status === 'EVALUATED' ? 'font-medium text-brand-primary' : 'text-brand-secondary/50'}`}
+          className={`font-sans text-[12px] ${task.status === 'EVALUATED' ? 'font-medium text-text-primary' : 'text-text-secondary/50'}`}
         >
           Evaluated
         </span>
@@ -83,7 +83,7 @@ export function MyTaskCard({ task, onStartWorking, isUpdatePending }: MyTaskCard
             type="button"
             onClick={() => onStartWorking(task.id)}
             disabled={isUpdatePending}
-            className="inline-flex min-h-[44px] items-center rounded-[8px] bg-brand-accent px-[var(--spacing-md)] font-sans text-[14px] font-medium text-white transition-colors duration-200 hover:bg-brand-accent/90 disabled:opacity-50 motion-reduce:transition-none"
+            className="inline-flex min-h-[44px] items-center rounded-[8px] bg-accent-primary px-[var(--spacing-md)] font-sans text-[14px] font-medium text-white transition-colors duration-200 hover:bg-accent-primary/90 disabled:opacity-50 motion-reduce:transition-none"
             aria-label={`Start working on: ${task.title}`}
           >
             {isUpdatePending ? 'Updating...' : 'Start Working'}

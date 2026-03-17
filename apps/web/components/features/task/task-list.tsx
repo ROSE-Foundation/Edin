@@ -44,7 +44,7 @@ export function TaskList({
 
   if (tasks.length === 0) {
     return (
-      <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-brand-secondary">
+      <p className="py-[var(--spacing-2xl)] text-center font-serif text-[14px] text-text-secondary">
         Available tasks will appear here as they are created by Working Group Leads
       </p>
     );

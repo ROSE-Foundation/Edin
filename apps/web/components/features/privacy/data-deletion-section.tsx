@@ -111,11 +111,11 @@ export function DataDeletionSection() {
   }, [deletionRequest?.status, deletionRequest?.coolingOffEndsAt]);
 
   return (
-    <section className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-      <h2 className="font-sans text-[16px] font-semibold text-brand-primary">
+    <section className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+      <h2 className="font-sans text-[16px] font-semibold text-text-primary">
         Request Data Deletion
       </h2>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+      <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
         Under GDPR Article 17, you have the right to request erasure of your personal data. A
         cooling-off period applies before deletion is finalized.
       </p>
@@ -168,7 +168,7 @@ export function DataDeletionSection() {
             </button>
             <button
               onClick={() => setShowConfirmDialog(false)}
-              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors hover:bg-surface-base"
+              className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-base"
             >
               Cancel
             </button>
@@ -178,9 +178,9 @@ export function DataDeletionSection() {
 
       {/* Active Deletion Request */}
       {deletionRequest && (
-        <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-md)]">
+        <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-md)]">
           <div className="flex items-center gap-[var(--spacing-sm)]">
-            <span className="font-sans text-[13px] font-medium text-brand-primary">
+            <span className="font-sans text-[13px] font-medium text-text-primary">
               Deletion Request:
             </span>
             <StatusBadge status={deletionRequest.status} />
@@ -201,7 +201,7 @@ export function DataDeletionSection() {
                   <button
                     onClick={handleCancelDeletion}
                     disabled={cancelDeletion.isPending}
-                    className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors hover:bg-surface-base disabled:opacity-50"
+                    className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-base disabled:opacity-50"
                   >
                     {cancelDeletion.isPending ? 'Cancelling...' : 'Cancel Request'}
                   </button>
@@ -211,7 +211,7 @@ export function DataDeletionSection() {
                   <button
                     onClick={handleCancelDeletion}
                     disabled={cancelDeletion.isPending}
-                    className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-primary transition-colors hover:bg-surface-base disabled:opacity-50"
+                    className="inline-flex min-h-[44px] items-center rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-base disabled:opacity-50"
                   >
                     {cancelDeletion.isPending ? 'Cancelling...' : 'Cancel Request'}
                   </button>
@@ -227,7 +227,7 @@ export function DataDeletionSection() {
           )}
 
           {deletionRequest.status === 'COMPLETED' && (
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               Data deletion has been completed.
               {deletionRequest.completedAt && (
                 <> Completed on {new Date(deletionRequest.completedAt).toLocaleString()}.</>
@@ -236,7 +236,7 @@ export function DataDeletionSection() {
           )}
 
           {deletionRequest.status === 'CANCELLED' && (
-            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-brand-secondary">
+            <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary">
               Deletion request was cancelled.
               {deletionRequest.cancelledAt && (
                 <> Cancelled on {new Date(deletionRequest.cancelledAt).toLocaleString()}.</>

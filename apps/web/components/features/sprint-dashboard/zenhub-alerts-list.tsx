@@ -41,19 +41,17 @@ function AlertCard({
         <div className="flex-1">
           <div className="flex items-center gap-[var(--spacing-sm)]">
             <SeverityBadge severity={alert.severity} />
-            <span className="text-xs text-brand-secondary">
-              {formatTimestamp(alert.occurredAt)}
-            </span>
+            <span className="text-xs text-text-secondary">{formatTimestamp(alert.occurredAt)}</span>
           </div>
-          <p className="mt-[var(--spacing-xs)] text-sm text-brand-primary">{alert.message}</p>
-          <p className="mt-[var(--spacing-xs)] text-xs text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] text-sm text-text-primary">{alert.message}</p>
+          <p className="mt-[var(--spacing-xs)] text-xs text-text-secondary">
             Current: {alert.currentValue} | Threshold: {alert.threshold}
           </p>
         </div>
         <button
           onClick={onDismiss}
           disabled={isDismissing}
-          className="ml-[var(--spacing-md)] shrink-0 rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-xs text-brand-secondary transition-colors hover:text-brand-primary disabled:opacity-50"
+          className="ml-[var(--spacing-md)] shrink-0 rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-xs text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
           aria-label={`Dismiss ${alert.type} alert`}
         >
           {isDismissing ? 'Dismissing...' : 'Dismiss'}
@@ -69,7 +67,7 @@ export function ZenhubAlertsList() {
 
   if (isLoading) {
     return (
-      <div className="py-[var(--spacing-md)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-md)] text-center text-text-secondary">
         Loading alerts...
       </div>
     );
@@ -79,7 +77,7 @@ export function ZenhubAlertsList() {
 
   if (activeAlerts.length === 0) {
     return (
-      <div className="py-[var(--spacing-md)] text-center text-brand-secondary">
+      <div className="py-[var(--spacing-md)] text-center text-text-secondary">
         No active Zenhub alerts.
       </div>
     );

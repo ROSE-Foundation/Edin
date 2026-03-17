@@ -50,10 +50,10 @@ export function MethodologyCalculator() {
       className="mx-auto max-w-[720px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]"
       aria-label="Interactive reward calculator"
     >
-      <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-brand-primary">
+      <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-text-primary">
         Explore Your Potential
       </h2>
-      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-brand-secondary">
+      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-text-secondary">
         Adjust the inputs below to see how different contribution patterns affect your reward
         trajectory.
       </p>
@@ -63,10 +63,10 @@ export function MethodologyCalculator() {
         <div>
           <label
             htmlFor="calc-contributions"
-            className="flex items-center justify-between font-sans text-[14px] font-medium text-brand-primary"
+            className="flex items-center justify-between font-sans text-[14px] font-medium text-text-primary"
           >
             Monthly contributions
-            <span className="text-brand-accent">{monthlyContributions}</span>
+            <span className="text-accent-primary">{monthlyContributions}</span>
           </label>
           <input
             id="calc-contributions"
@@ -75,7 +75,7 @@ export function MethodologyCalculator() {
             max={50}
             value={monthlyContributions}
             onChange={(e) => setMonthlyContributions(Number(e.target.value))}
-            className="mt-[var(--spacing-xs)] w-full accent-brand-accent"
+            className="mt-[var(--spacing-xs)] w-full accent-accent-primary"
             aria-valuemin={1}
             aria-valuemax={50}
             aria-valuenow={monthlyContributions}
@@ -86,10 +86,10 @@ export function MethodologyCalculator() {
         <div>
           <label
             htmlFor="calc-quality"
-            className="flex items-center justify-between font-sans text-[14px] font-medium text-brand-primary"
+            className="flex items-center justify-between font-sans text-[14px] font-medium text-text-primary"
           >
             Average quality score
-            <span className="text-brand-accent">{avgQualityScore}</span>
+            <span className="text-accent-primary">{avgQualityScore}</span>
           </label>
           <input
             id="calc-quality"
@@ -98,7 +98,7 @@ export function MethodologyCalculator() {
             max={100}
             value={avgQualityScore}
             onChange={(e) => setAvgQualityScore(Number(e.target.value))}
-            className="mt-[var(--spacing-xs)] w-full accent-brand-accent"
+            className="mt-[var(--spacing-xs)] w-full accent-accent-primary"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={avgQualityScore}
@@ -109,10 +109,10 @@ export function MethodologyCalculator() {
         <div>
           <label
             htmlFor="calc-months"
-            className="flex items-center justify-between font-sans text-[14px] font-medium text-brand-primary"
+            className="flex items-center justify-between font-sans text-[14px] font-medium text-text-primary"
           >
             Engagement duration
-            <span className="text-brand-accent">
+            <span className="text-accent-primary">
               {months} month{months !== 1 ? 's' : ''}
             </span>
           </label>
@@ -123,7 +123,7 @@ export function MethodologyCalculator() {
             max={36}
             value={months}
             onChange={(e) => setMonths(Number(e.target.value))}
-            className="mt-[var(--spacing-xs)] w-full accent-brand-accent"
+            className="mt-[var(--spacing-xs)] w-full accent-accent-primary"
             aria-valuemin={1}
             aria-valuemax={36}
             aria-valuenow={months}
@@ -132,15 +132,15 @@ export function MethodologyCalculator() {
 
         {/* Domain */}
         <fieldset>
-          <legend className="font-sans text-[14px] font-medium text-brand-primary">Domain</legend>
+          <legend className="font-sans text-[14px] font-medium text-text-primary">Domain</legend>
           <div className="mt-[var(--spacing-xs)] flex flex-wrap gap-[var(--spacing-sm)]">
             {DOMAINS.map((d) => (
               <label
                 key={d.value}
                 className={`cursor-pointer rounded-full border px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] transition-colors ${
                   domain === d.value
-                    ? 'border-brand-accent bg-brand-accent/10 text-brand-accent'
-                    : 'border-surface-border text-brand-secondary hover:border-brand-accent/50'
+                    ? 'border-accent-primary bg-accent-primary/10 text-accent-primary'
+                    : 'border-surface-subtle text-text-secondary hover:border-accent-primary/50'
                 }`}
               >
                 <input
@@ -204,7 +204,7 @@ export function MethodologyCalculator() {
                     tick={{
                       fontSize: 12,
                       fontFamily: 'var(--font-sans)',
-                      fill: 'var(--color-brand-secondary)',
+                      fill: 'var(--color-text-secondary)',
                     }}
                     tickLine={false}
                     axisLine={false}
@@ -214,7 +214,7 @@ export function MethodologyCalculator() {
                     tick={{
                       fontSize: 12,
                       fontFamily: 'var(--font-sans)',
-                      fill: 'var(--color-brand-secondary)',
+                      fill: 'var(--color-text-secondary)',
                     }}
                     tickLine={false}
                     axisLine={false}
@@ -251,9 +251,9 @@ export function MethodologyCalculator() {
 
 function SummaryStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] text-center">
-      <div className="font-sans text-[12px] text-brand-secondary">{label}</div>
-      <div className="font-sans text-[15px] font-semibold text-brand-primary">{value}</div>
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] text-center">
+      <div className="font-sans text-[12px] text-text-secondary">{label}</div>
+      <div className="font-sans text-[15px] font-semibold text-text-primary">{value}</div>
     </div>
   );
 }

@@ -26,36 +26,36 @@ export function ModelRegistryList({
 }: ModelRegistryListProps) {
   if (models.length === 0) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] text-center text-brand-secondary">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] text-center text-text-secondary">
         No evaluation models registered yet.
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-border">
+    <div className="overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle">
       <table className="w-full text-left font-sans text-[14px]">
         <thead>
-          <tr className="border-b border-surface-border bg-surface-raised">
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+          <tr className="border-b border-surface-subtle bg-surface-raised">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Name
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               API Model
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Type
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Version
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Status
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Evaluations
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-secondary">
               Deployed
             </th>
           </tr>
@@ -65,14 +65,14 @@ export function ModelRegistryList({
             <tr
               key={model.id}
               onClick={() => onSelectModel(model.id)}
-              className={`cursor-pointer border-b border-surface-border transition-colors hover:bg-surface-raised/50 ${
-                selectedModelId === model.id ? 'bg-brand-accent/5' : ''
+              className={`cursor-pointer border-b border-surface-subtle transition-colors hover:bg-surface-raised/50 ${
+                selectedModelId === model.id ? 'bg-accent-primary/5' : ''
               }`}
             >
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-brand-primary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-medium text-text-primary">
                 {model.name}
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[12px] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[12px] text-text-secondary">
                 {model.apiModelId}
               </td>
               <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
@@ -84,7 +84,7 @@ export function ModelRegistryList({
                   {model.evaluationType}
                 </span>
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[13px] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-mono text-[13px] text-text-secondary">
                 {model.version}
               </td>
               <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">
@@ -96,10 +96,10 @@ export function ModelRegistryList({
                   {model.status}
                 </span>
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                 {model.evaluationCount}
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-text-secondary">
                 {model.deployedAt ? new Date(model.deployedAt).toLocaleDateString() : '—'}
               </td>
             </tr>

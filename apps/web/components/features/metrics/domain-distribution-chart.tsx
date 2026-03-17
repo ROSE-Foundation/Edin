@@ -20,12 +20,12 @@ export function DomainDistributionChart({ data }: DomainDistributionChartProps) 
   return (
     <section className="mt-[var(--spacing-xl)]" aria-label="Domain distribution">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-brand-primary">
+        <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-text-primary">
           Domain Distribution
         </h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'Show data table'}
@@ -38,20 +38,20 @@ export function DomainDistributionChart({ data }: DomainDistributionChartProps) 
           aria-label="Domain distribution data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Domain</th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Domain</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">
                 Contributors
               </th>
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Share</th>
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Share</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.domain} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.domain}</td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.count}</td>
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.percentage}%</td>
+              <tr key={item.domain} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.domain}</td>
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.count}</td>
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.percentage}%</td>
               </tr>
             ))}
           </tbody>

@@ -235,14 +235,14 @@ export function ArticleEditor({
   if (submitted) {
     return (
       <div className="flex flex-col items-center justify-center gap-[var(--spacing-lg)] py-[var(--spacing-4xl)]">
-        <h2 className="font-serif text-[24px] font-bold text-brand-primary">Article Submitted</h2>
-        <p className="max-w-[480px] text-center font-sans text-[15px] text-brand-secondary">
+        <h2 className="font-serif text-[24px] font-bold text-text-primary">Article Submitted</h2>
+        <p className="max-w-[480px] text-center font-sans text-[15px] text-text-secondary">
           Your article has been submitted for editorial review. You&apos;ll receive a notification
           when an editor has been assigned.
         </p>
         <button
           onClick={() => router.push('/publication')}
-          className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90"
+          className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90"
         >
           Back to Publication
         </button>
@@ -276,7 +276,7 @@ export function ArticleEditor({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isImporting}
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary transition-colors hover:bg-surface-sunken hover:text-brand-primary disabled:opacity-50"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-text-secondary transition-colors hover:bg-surface-sunken hover:text-text-primary disabled:opacity-50"
         >
           {isImporting ? 'Importing...' : 'Import from file'}
         </button>
@@ -284,7 +284,7 @@ export function ArticleEditor({
           type="button"
           onClick={save}
           disabled={saveStatus === 'saving' || !domain || !isDirty}
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-brand-secondary transition-colors hover:bg-surface-sunken hover:text-brand-primary disabled:opacity-50"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-xs)] font-sans text-[13px] font-medium text-text-secondary transition-colors hover:bg-surface-sunken hover:text-text-primary disabled:opacity-50"
         >
           Save Draft
         </button>
@@ -300,13 +300,13 @@ export function ArticleEditor({
         }}
         placeholder="Article title"
         disabled={isImporting}
-        className="mb-[var(--spacing-lg)] w-full border-none bg-transparent font-serif text-[2.5rem] font-bold leading-[1.2] text-brand-primary outline-none placeholder:text-brand-secondary/40 disabled:opacity-50"
+        className="mb-[var(--spacing-lg)] w-full border-none bg-transparent font-serif text-[2.5rem] font-bold leading-[1.2] text-text-primary outline-none placeholder:text-text-secondary/40 disabled:opacity-50"
         aria-label="Article title"
       />
 
       {/* Domain selector */}
       <div className="mb-[var(--spacing-lg)]">
-        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary">
+        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary">
           Domain
         </label>
         <select
@@ -316,7 +316,7 @@ export function ArticleEditor({
             markDirty();
           }}
           disabled={isImporting}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none focus:border-brand-accent disabled:opacity-50"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none focus:border-accent-primary disabled:opacity-50"
           aria-label="Article domain"
         >
           <option value="">Select domain...</option>
@@ -330,7 +330,7 @@ export function ArticleEditor({
 
       {/* Abstract */}
       <div className="mb-[var(--spacing-xl)]">
-        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-brand-secondary">
+        <label className="mb-[var(--spacing-sm)] block font-sans text-[13px] font-medium text-text-secondary">
           Abstract
         </label>
         <textarea
@@ -344,10 +344,10 @@ export function ArticleEditor({
           placeholder="Brief summary of your article (50-300 characters)"
           rows={3}
           disabled={isImporting}
-          className="w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-primary outline-none focus:border-brand-accent disabled:opacity-50"
+          className="w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-primary outline-none focus:border-accent-primary disabled:opacity-50"
           aria-label="Article abstract"
         />
-        <span className="mt-[var(--spacing-xs)] block text-right font-sans text-[12px] text-brand-secondary">
+        <span className="mt-[var(--spacing-xs)] block text-right font-sans text-[12px] text-text-secondary">
           {abstract.length} / 300
         </span>
       </div>
@@ -372,12 +372,12 @@ export function ArticleEditor({
         </FileDropZone>
         {isImporting && (
           <div className="absolute inset-0 z-30 flex items-center justify-center rounded-[var(--radius-md)] bg-surface-raised/80">
-            <span className="font-sans text-[15px] font-medium text-brand-secondary">
+            <span className="font-sans text-[15px] font-medium text-text-secondary">
               Importing file...
             </span>
           </div>
         )}
-        <div className="mt-[var(--spacing-sm)] flex items-center justify-end gap-[var(--spacing-md)] font-sans text-[12px] text-brand-secondary">
+        <div className="mt-[var(--spacing-sm)] flex items-center justify-end gap-[var(--spacing-md)] font-sans text-[12px] text-text-secondary">
           <span>{wordCount.words.toLocaleString()} words</span>
           <span>{wordCount.characters.toLocaleString()} characters</span>
         </div>
@@ -392,7 +392,7 @@ export function ArticleEditor({
       <div className="flex items-center justify-end gap-[var(--spacing-md)]">
         <button
           onClick={() => router.push('/publication')}
-          className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-brand-secondary transition-colors hover:bg-surface-sunken"
+          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] text-text-secondary transition-colors hover:bg-surface-sunken"
         >
           Back to Drafts
         </button>
@@ -403,7 +403,7 @@ export function ArticleEditor({
               await onResubmit(body);
             }}
             disabled={isResubmitting}
-            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+            className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90 disabled:opacity-50"
           >
             {isResubmitting ? 'Resubmitting...' : 'Resubmit for Review'}
           </button>
@@ -411,7 +411,7 @@ export function ArticleEditor({
           <button
             onClick={handleSubmit}
             disabled={submitArticle.isPending}
-            className="rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-brand-accent/90 disabled:opacity-50"
+            className="rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[15px] font-medium text-surface-raised transition-colors hover:bg-accent-primary/90 disabled:opacity-50"
           >
             {submitArticle.isPending ? 'Submitting...' : 'Submit for Review'}
           </button>

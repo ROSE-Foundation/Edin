@@ -51,10 +51,10 @@ export function WorkedExamples() {
       className="mx-auto max-w-[720px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]"
       aria-label="Worked examples of contribution patterns"
     >
-      <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-brand-primary">
+      <h2 className="font-serif text-[clamp(1.25rem,3vw,1.5rem)] leading-[1.3] font-semibold text-text-primary">
         Patterns in the Garden
       </h2>
-      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-brand-secondary">
+      <p className="mt-[var(--spacing-sm)] font-sans text-[14px] leading-[1.5] text-text-secondary">
         See how different contribution approaches produce different reward trajectories.
       </p>
 
@@ -82,14 +82,14 @@ function ExampleCard({ example }: { example: WorkedExample }) {
       : 1;
 
   return (
-    <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
+    <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
       <div className="flex items-start justify-between gap-[var(--spacing-md)]">
         <div className="min-w-0 flex-1">
-          <h3 className="font-sans text-[15px] font-semibold text-brand-primary">{example.name}</h3>
-          <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-[1.5] text-brand-secondary">
+          <h3 className="font-sans text-[15px] font-semibold text-text-primary">{example.name}</h3>
+          <p className="mt-[var(--spacing-xs)] font-serif text-[14px] leading-[1.5] text-text-secondary">
             {example.description}
           </p>
-          <div className="mt-[var(--spacing-sm)] flex flex-wrap gap-[var(--spacing-sm)] font-sans text-[12px] text-brand-secondary">
+          <div className="mt-[var(--spacing-sm)] flex flex-wrap gap-[var(--spacing-sm)] font-sans text-[12px] text-text-secondary">
             <span>{example.monthlyContributions} contributions/mo</span>
             <span aria-hidden="true">&middot;</span>
             <span>{example.avgQualityScore} avg quality</span>
@@ -99,13 +99,13 @@ function ExampleCard({ example }: { example: WorkedExample }) {
             </span>
           </div>
           <div className="mt-[var(--spacing-xs)] font-sans text-[13px]">
-            <span className="text-brand-secondary">Result: </span>
-            <span className="font-medium text-brand-accent">
+            <span className="text-text-secondary">Result: </span>
+            <span className="font-medium text-accent-primary">
               {total.toLocaleString()} reward units
             </span>
-            <span className="text-brand-secondary"> at </span>
-            <span className="font-medium text-brand-accent">{finalMultiplier}x</span>
-            <span className="text-brand-secondary"> multiplier</span>
+            <span className="text-text-secondary"> at </span>
+            <span className="font-medium text-accent-primary">{finalMultiplier}x</span>
+            <span className="text-text-secondary"> multiplier</span>
           </div>
         </div>
 

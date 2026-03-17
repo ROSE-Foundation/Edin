@@ -31,9 +31,9 @@ export function ComplianceDocumentViewer({
         if (e.key === 'Escape') onClose();
       }}
     >
-      <div className="mx-[var(--spacing-lg)] max-h-[80vh] w-full max-w-[800px] overflow-y-auto rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] shadow-lg">
+      <div className="mx-[var(--spacing-lg)] max-h-[80vh] w-full max-w-[800px] overflow-y-auto rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] shadow-lg">
         <div className="flex items-start justify-between">
-          <h2 id="viewer-title" className="font-serif text-[18px] font-bold text-brand-primary">
+          <h2 id="viewer-title" className="font-serif text-[18px] font-bold text-text-primary">
             {document
               ? `${DOCUMENT_TYPE_LABELS[document.documentType] ?? document.documentType} v${document.version}`
               : 'Document'}
@@ -41,14 +41,14 @@ export function ComplianceDocumentViewer({
           <button
             onClick={onClose}
             aria-label="Close document viewer"
-            className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-sm)] py-1 text-xs text-brand-secondary transition-colors hover:text-brand-primary"
+            className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-sm)] py-1 text-xs text-text-secondary transition-colors hover:text-text-primary"
           >
             Close
           </button>
         </div>
 
         {isLoading && (
-          <div className="mt-[var(--spacing-lg)] text-center text-brand-secondary">
+          <div className="mt-[var(--spacing-lg)] text-center text-text-secondary">
             Loading document...
           </div>
         )}
@@ -61,7 +61,7 @@ export function ComplianceDocumentViewer({
 
         {document && (
           <>
-            <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-sm)] text-xs text-brand-secondary">
+            <div className="mt-[var(--spacing-md)] flex flex-wrap gap-[var(--spacing-sm)] text-xs text-text-secondary">
               <span>Generated: {new Date(document.generatedAt).toLocaleString()}</span>
               {document.legalReviewedAt ? (
                 <span className="rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800">
@@ -75,19 +75,19 @@ export function ComplianceDocumentViewer({
             </div>
 
             {document.reviewNotes && (
-              <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-sm)]">
-                <span className="block text-xs font-medium text-brand-secondary">Review Notes</span>
-                <p className="mt-1 font-sans text-[13px] text-brand-primary">
+              <div className="mt-[var(--spacing-md)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-sm)]">
+                <span className="block text-xs font-medium text-text-secondary">Review Notes</span>
+                <p className="mt-1 font-sans text-[13px] text-text-primary">
                   {document.reviewNotes}
                 </p>
               </div>
             )}
 
             <div className="mt-[var(--spacing-lg)]">
-              <span className="block text-xs font-medium text-brand-secondary">
+              <span className="block text-xs font-medium text-text-secondary">
                 Document Content
               </span>
-              <pre className="mt-[var(--spacing-xs)] max-h-[400px] overflow-auto rounded-[var(--radius-md)] border border-surface-border bg-surface-base p-[var(--spacing-md)] font-mono text-[12px] text-brand-primary">
+              <pre className="mt-[var(--spacing-xs)] max-h-[400px] overflow-auto rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base p-[var(--spacing-md)] font-mono text-[12px] text-text-primary">
                 {typeof document.content === 'string'
                   ? document.content
                   : JSON.stringify(document.content, null, 2)}

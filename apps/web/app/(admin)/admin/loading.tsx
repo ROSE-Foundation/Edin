@@ -8,7 +8,7 @@ export default function Loading() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+              className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
             >
               <div className="flex items-center justify-between">
                 <div className="skeleton h-[16px] w-[140px]" />

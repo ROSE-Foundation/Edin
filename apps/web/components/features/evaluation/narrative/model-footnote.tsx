@@ -8,7 +8,7 @@ export function ModelFootnote({ model }: ModelFootnoteProps) {
   if (!model) return null;
 
   return (
-    <p className="font-sans text-[12px] text-brand-secondary">
+    <p className="font-sans text-[12px] text-text-secondary">
       Evaluated by{' '}
       <span className="font-mono">
         {model.name} {model.version}

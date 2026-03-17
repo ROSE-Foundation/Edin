@@ -15,7 +15,7 @@ export function NarrativeCard({
   contributionType,
   sourceRef,
   completedAt,
-  domainAccentColor = 'var(--color-brand-accent)',
+  domainAccentColor = 'var(--color-accent-primary)',
 }: NarrativeCardProps) {
   const formattedDate = completedAt
     ? new Date(completedAt).toLocaleDateString('en-US', {
@@ -36,7 +36,7 @@ export function NarrativeCard({
     <article
       role="article"
       aria-label={`AI evaluation for ${contributionTitle}`}
-      className="relative overflow-hidden rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised shadow-[var(--shadow-card)]"
+      className="relative overflow-hidden rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised shadow-[var(--shadow-card)]"
     >
       <div
         className="absolute left-0 top-0 h-full w-[4px]"
@@ -45,16 +45,16 @@ export function NarrativeCard({
       />
       <div className="p-[var(--spacing-xl)] pl-[calc(var(--spacing-xl)+8px)]">
         <div className="mb-[var(--spacing-md)] flex items-baseline gap-[var(--spacing-sm)]">
-          <span className="font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+          <span className="font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
             {typeLabel}
           </span>
           {formattedDate && (
             <>
-              <span className="text-[12px] text-brand-secondary" aria-hidden="true">
+              <span className="text-[12px] text-text-secondary" aria-hidden="true">
                 &middot;
               </span>
               <time
-                className="font-sans text-[12px] text-brand-secondary"
+                className="font-sans text-[12px] text-text-secondary"
                 dateTime={completedAt ?? undefined}
               >
                 {formattedDate}
@@ -63,19 +63,19 @@ export function NarrativeCard({
           )}
         </div>
 
-        <h2 className="mb-[var(--spacing-md)] font-serif text-[20px] font-bold leading-[1.3] text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-serif text-[20px] font-bold leading-[1.3] text-text-primary">
           {contributionTitle}
         </h2>
 
         {narrative ? (
-          <p className="font-serif text-[17px] leading-[1.65] text-brand-primary">{narrative}</p>
+          <p className="font-serif text-[17px] leading-[1.65] text-text-primary">{narrative}</p>
         ) : (
-          <p className="font-sans text-[15px] italic text-brand-secondary">
+          <p className="font-sans text-[15px] italic text-text-secondary">
             Evaluation narrative is not available.
           </p>
         )}
 
-        <p className="mt-[var(--spacing-md)] font-mono text-[13px] text-brand-secondary">
+        <p className="mt-[var(--spacing-md)] font-mono text-[13px] text-text-secondary">
           {sourceRef}
         </p>
       </div>

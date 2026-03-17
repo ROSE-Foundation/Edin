@@ -20,7 +20,7 @@ function formatRelativeDate(dateString: string): string {
 function getElapsedColor(hoursElapsed: number, slaHours: number): string {
   if (hoursElapsed > slaHours * 2) return 'text-semantic-error';
   if (hoursElapsed > slaHours * 1.5) return 'text-semantic-warning';
-  return 'text-brand-primary';
+  return 'text-text-primary';
 }
 
 export function OverdueReviewsTable() {
@@ -34,7 +34,7 @@ export function OverdueReviewsTable() {
   if (error) {
     return (
       <div>
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-text-primary">
           Overdue Reviews
         </h2>
         <div className="rounded-[12px] border border-semantic-error/30 bg-surface-raised p-[var(--spacing-xl)] text-center">
@@ -49,14 +49,14 @@ export function OverdueReviewsTable() {
   if (isLoading) {
     return (
       <div role="status" aria-label="Loading overdue reviews">
-        <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-brand-primary">
+        <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-text-primary">
           Overdue Reviews
         </h2>
-        <div className="rounded-[12px] border border-surface-border bg-surface-raised">
+        <div className="rounded-[12px] border border-surface-subtle bg-surface-raised">
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center gap-[var(--spacing-md)] border-b border-surface-border p-[var(--spacing-md)] last:border-b-0"
+              className="flex items-center gap-[var(--spacing-md)] border-b border-surface-subtle p-[var(--spacing-md)] last:border-b-0"
             >
               <div className="skeleton h-[16px] w-[120px]" />
               <div className="skeleton h-[16px] flex-1" />
@@ -70,38 +70,38 @@ export function OverdueReviewsTable() {
 
   return (
     <div>
-      <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-brand-primary">
+      <h2 className="mb-[var(--spacing-md)] font-sans text-[18px] font-semibold text-text-primary">
         Overdue Reviews
       </h2>
 
       {reviews.length === 0 ? (
-        <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] text-center">
-          <p className="font-sans text-[14px] text-brand-secondary">
+        <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] text-center">
+          <p className="font-sans text-[14px] text-text-secondary">
             No overdue reviews. All feedback is within SLA.
           </p>
         </div>
       ) : (
         <>
           {/* Desktop table */}
-          <div className="hidden rounded-[12px] border border-surface-border bg-surface-raised md:block">
+          <div className="hidden rounded-[12px] border border-surface-subtle bg-surface-raised md:block">
             {/* Header */}
-            <div className="grid grid-cols-[200px_1fr_120px_140px_120px_100px] gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)]">
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+            <div className="grid grid-cols-[200px_1fr_120px_140px_120px_100px] gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)]">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Reviewer
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Contribution
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Domain
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Assigned
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Elapsed
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-brand-secondary">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
                 Action
               </span>
             </div>
@@ -113,16 +113,16 @@ export function OverdueReviewsTable() {
               return (
                 <div
                   key={review.id}
-                  className="grid min-h-[48px] grid-cols-[200px_1fr_120px_140px_120px_100px] items-center gap-[var(--spacing-sm)] border-b border-surface-border px-[var(--spacing-md)] py-[var(--spacing-sm)] last:border-b-0 hover:bg-surface-sunken/50"
+                  className="grid min-h-[48px] grid-cols-[200px_1fr_120px_140px_120px_100px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)] last:border-b-0 hover:bg-surface-sunken/50"
                 >
-                  <span className="truncate font-sans text-[14px] text-brand-primary">
+                  <span className="truncate font-sans text-[14px] text-text-primary">
                     {review.reviewerName}
                   </span>
                   <div className="min-w-0">
-                    <span className="block truncate font-sans text-[14px] text-brand-primary">
+                    <span className="block truncate font-sans text-[14px] text-text-primary">
                       {review.contributionTitle}
                     </span>
-                    <span className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[1px] font-sans text-[11px] text-brand-secondary">
+                    <span className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[1px] font-sans text-[11px] text-text-secondary">
                       {review.contributionType}
                     </span>
                   </div>
@@ -134,12 +134,12 @@ export function OverdueReviewsTable() {
                         {review.domain}
                       </span>
                     ) : (
-                      <span className="font-sans text-[13px] text-brand-secondary">
+                      <span className="font-sans text-[13px] text-text-secondary">
                         {review.domain}
                       </span>
                     )}
                   </span>
-                  <span className="font-sans text-[13px] text-brand-secondary">
+                  <span className="font-sans text-[13px] text-text-secondary">
                     {formatRelativeDate(review.assignedAt)}
                   </span>
                   <span className={`font-sans text-[14px] font-medium ${elapsedColor}`}>
@@ -148,7 +148,7 @@ export function OverdueReviewsTable() {
                   <button
                     type="button"
                     onClick={() => setReassignId(review.id)}
-                    className="font-sans text-[13px] font-medium text-brand-accent transition-colors hover:text-brand-accent/80"
+                    className="font-sans text-[13px] font-medium text-accent-primary transition-colors hover:text-accent-primary/80"
                     aria-label={`Reassign review for ${review.contributionTitle}`}
                   >
                     Reassign
@@ -167,21 +167,21 @@ export function OverdueReviewsTable() {
               return (
                 <div
                   key={review.id}
-                  className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-md)]"
+                  className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
                 >
                   <div className="flex items-start justify-between">
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-sans text-[14px] font-medium text-brand-primary">
+                      <p className="truncate font-sans text-[14px] font-medium text-text-primary">
                         {review.reviewerName}
                       </p>
-                      <p className="mt-[var(--spacing-xs)] truncate font-sans text-[13px] text-brand-secondary">
+                      <p className="mt-[var(--spacing-xs)] truncate font-sans text-[13px] text-text-secondary">
                         {review.contributionTitle}
                       </p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setReassignId(review.id)}
-                      className="ml-[var(--spacing-sm)] font-sans text-[13px] font-medium text-brand-accent"
+                      className="ml-[var(--spacing-sm)] font-sans text-[13px] font-medium text-accent-primary"
                       aria-label={`Reassign review for ${review.contributionTitle}`}
                     >
                       Reassign
@@ -195,7 +195,7 @@ export function OverdueReviewsTable() {
                         {review.domain}
                       </span>
                     )}
-                    <span className="font-sans text-[12px] text-brand-secondary">
+                    <span className="font-sans text-[12px] text-text-secondary">
                       {formatRelativeDate(review.assignedAt)}
                     </span>
                     <span className={`font-sans text-[13px] font-medium ${elapsedColor}`}>
@@ -214,7 +214,7 @@ export function OverdueReviewsTable() {
                 type="button"
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="rounded-[var(--radius-md)] border border-surface-border px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-secondary transition-colors hover:bg-surface-sunken disabled:opacity-50"
+                className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-secondary transition-colors hover:bg-surface-sunken disabled:opacity-50"
               >
                 {isFetchingNextPage ? 'Loading...' : 'Load more'}
               </button>

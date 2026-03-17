@@ -5,10 +5,8 @@ export default function AdminCompliancePage() {
   return (
     <main className="mx-auto max-w-[1200px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mb-[var(--spacing-lg)]">
-        <h1 className="font-serif text-[28px] font-bold text-brand-primary">
-          EU AI Act Compliance
-        </h1>
-        <p className="mt-[var(--spacing-xs)] text-sm text-brand-secondary">
+        <h1 className="font-serif text-[28px] font-bold text-text-primary">EU AI Act Compliance</h1>
+        <p className="mt-[var(--spacing-xs)] text-sm text-text-secondary">
           Generate, review, and manage compliance documentation required under the EU AI Act.
         </p>
       </div>
@@ -17,8 +15,8 @@ export default function AdminCompliancePage() {
         <ComplianceDocumentGenerator />
       </div>
 
-      <div className="rounded-lg border border-surface-border bg-surface-raised p-[var(--spacing-lg)]">
-        <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-bold text-brand-primary">
+      <div className="rounded-lg border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)]">
+        <h2 className="mb-[var(--spacing-md)] font-serif text-[18px] font-bold text-text-primary">
           Generated Documents
         </h2>
         <ComplianceDocumentTable />

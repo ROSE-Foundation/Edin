@@ -35,7 +35,7 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
   return (
     <article className="mx-auto max-w-[48rem]">
       {/* Profile Header */}
-      <div className="flex flex-col items-center gap-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)] md:flex-row md:items-start">
+      <div className="flex flex-col items-center gap-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)] md:flex-row md:items-start">
         {/* Avatar */}
         {profile.avatarUrl ? (
           <Image
@@ -43,14 +43,14 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
             alt={`${profile.name}'s profile photo`}
             width={120}
             height={120}
-            className="h-[120px] w-[120px] shrink-0 rounded-full border-2 border-surface-border object-cover"
+            className="h-[120px] w-[120px] shrink-0 rounded-full border-2 border-surface-subtle object-cover"
           />
         ) : (
           <div
-            className="flex h-[120px] w-[120px] shrink-0 items-center justify-center rounded-full border-2 border-surface-border bg-surface-sunken"
+            className="flex h-[120px] w-[120px] shrink-0 items-center justify-center rounded-full border-2 border-surface-subtle bg-surface-sunken"
             aria-label={`${profile.name}'s profile photo placeholder`}
           >
-            <span className="font-sans text-[40px] font-medium text-brand-secondary">
+            <span className="font-sans text-[40px] font-medium text-text-secondary">
               {profile.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -58,7 +58,7 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
 
         {/* Name, Role, Domain */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="font-serif text-[28px] leading-[1.3] font-bold text-brand-primary">
+          <h1 className="font-serif text-[28px] leading-[1.3] font-bold text-text-primary">
             {profile.name}
           </h1>
 
@@ -67,13 +67,13 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
             <span
               className={`inline-flex items-center rounded-[var(--radius-sm)] px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] font-medium ${
                 isFoundingContributor
-                  ? 'border border-brand-accent bg-brand-accent-subtle text-brand-primary'
-                  : 'border border-surface-border bg-surface-sunken text-brand-secondary'
+                  ? 'border border-accent-primary bg-accent-primary-subtle text-text-primary'
+                  : 'border border-surface-subtle bg-surface-sunken text-text-secondary'
               }`}
             >
               {isFoundingContributor && (
                 <svg
-                  className="mr-[4px] h-[14px] w-[14px] text-brand-accent"
+                  className="mr-[4px] h-[14px] w-[14px] text-accent-primary"
                   viewBox="0 0 16 16"
                   fill="currentColor"
                   aria-hidden="true"
@@ -95,7 +95,7 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
           </div>
 
           {/* Member Since */}
-          <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+          <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
             Member since {memberSince}
           </p>
         </div>
@@ -104,10 +104,10 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
       {/* Bio Section */}
       {profile.bio && (
         <section className="mt-[var(--spacing-2xl)]" aria-label="Biography">
-          <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+          <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
             About
           </h2>
-          <p className="mt-[var(--spacing-sm)] font-serif text-[17px] leading-[1.65] text-brand-primary">
+          <p className="mt-[var(--spacing-sm)] font-serif text-[17px] leading-[1.65] text-text-primary">
             {profile.bio}
           </p>
         </section>
@@ -116,14 +116,14 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
       {/* Skill Areas */}
       {profile.skillAreas.length > 0 && (
         <section className="mt-[var(--spacing-2xl)]" aria-label="Skill areas">
-          <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+          <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
             Skills
           </h2>
           <div className="mt-[var(--spacing-sm)] flex flex-wrap gap-[var(--spacing-xs)]">
             {profile.skillAreas.map((skill) => (
               <span
                 key={skill}
-                className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[13px] text-brand-primary"
+                className="inline-flex items-center rounded-full bg-surface-sunken px-[var(--spacing-sm)] py-[var(--spacing-xs)] font-sans text-[13px] text-text-primary"
               >
                 {skill}
               </span>
@@ -139,10 +139,10 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
       />
 
       <section className="mt-[var(--spacing-2xl)]" aria-label="Contribution history">
-        <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-brand-secondary">
+        <h2 className="font-sans text-[14px] font-medium uppercase tracking-wider text-text-secondary">
           Contribution History
         </h2>
-        <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-brand-secondary">
+        <p className="mt-[var(--spacing-sm)] font-serif text-[15px] leading-[1.65] text-text-secondary">
           Contribution history will appear here once repository integrations are connected.
         </p>
       </section>
@@ -154,7 +154,7 @@ export function PublicProfileSkeleton() {
   return (
     <div className="mx-auto max-w-[48rem]" role="status" aria-label="Loading profile">
       {/* Header Skeleton */}
-      <div className="flex flex-col items-center gap-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)] md:flex-row md:items-start">
+      <div className="flex flex-col items-center gap-[var(--spacing-lg)] rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] shadow-[var(--shadow-card)] md:flex-row md:items-start">
         <div className="skeleton h-[120px] w-[120px] shrink-0 rounded-full" />
         <div className="flex-1 space-y-[var(--spacing-sm)]">
           <div className="skeleton mx-auto h-[32px] w-[200px] md:mx-0" />

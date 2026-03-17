@@ -20,16 +20,16 @@ export function DomainDistributionChart({ distribution }: DomainDistributionChar
 
   if (distribution.length === 0) {
     return (
-      <p className="py-[var(--spacing-lg)] text-center font-sans text-[13px] text-brand-secondary">
+      <p className="py-[var(--spacing-lg)] text-center font-sans text-[13px] text-text-secondary">
         No domain data available.
       </p>
     );
   }
 
   return (
-    <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-md)]">
-      <h3 className="font-serif text-[14px] font-bold text-brand-primary">Domain Balance</h3>
-      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-brand-secondary">
+    <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]">
+      <h3 className="font-serif text-[14px] font-bold text-text-primary">Domain Balance</h3>
+      <p className="mt-[var(--spacing-xs)] font-serif text-[13px] text-text-secondary">
         Contributor distribution across working domains.
       </p>
       <div
@@ -41,12 +41,12 @@ export function DomainDistributionChart({ distribution }: DomainDistributionChar
           <BarChart data={distribution} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
             <XAxis
               dataKey="domain"
-              tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+              tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+              tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
               axisLine={false}
               tickLine={false}
               unit="%"
@@ -56,11 +56,11 @@ export function DomainDistributionChart({ distribution }: DomainDistributionChar
                 if (!active || !payload?.[0]) return null;
                 const d = payload[0].payload as DomainDistributionMetric;
                 return (
-                  <div className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
-                    <p className="font-sans text-[12px] font-medium text-brand-primary">
+                  <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-sm)] shadow-lg">
+                    <p className="font-sans text-[12px] font-medium text-text-primary">
                       {d.domain}
                     </p>
-                    <p className="font-sans text-[12px] text-brand-secondary">
+                    <p className="font-sans text-[12px] text-text-secondary">
                       {d.count} contributors ({d.percentage}%)
                     </p>
                   </div>

@@ -30,7 +30,7 @@ export function FormulaEditor() {
       onSubmit={handleSubmit}
       className="rounded-lg border border-neutral-200 bg-white p-[var(--spacing-lg)]"
     >
-      <h3 className="mb-[var(--spacing-md)] font-sans text-[14px] font-semibold text-brand-primary">
+      <h3 className="mb-[var(--spacing-md)] font-sans text-[14px] font-semibold text-text-primary">
         Create New Formula Version
       </h3>
 
@@ -71,7 +71,7 @@ export function FormulaEditor() {
         <button
           type="submit"
           disabled={!isValid || createFormula.isPending}
-          className="rounded bg-brand-primary px-4 py-2 font-sans text-[13px] text-white disabled:opacity-50"
+          className="rounded bg-text-primary px-4 py-2 font-sans text-[13px] text-white disabled:opacity-50"
         >
           {createFormula.isPending ? 'Creating...' : 'Create Version'}
         </button>

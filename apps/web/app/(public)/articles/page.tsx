@@ -67,10 +67,10 @@ export default async function ArticlesPage() {
         aria-label="Published articles"
       >
         <div className="mx-auto max-w-[1200px] text-center">
-          <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-brand-primary">
+          <h1 className="font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.2] font-bold text-text-primary">
             Articles
           </h1>
-          <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-brand-secondary">
+          <p className="mx-auto mt-[var(--spacing-lg)] max-w-[560px] font-sans text-[15px] leading-[1.5] font-normal text-text-secondary">
             Explore insights and analysis from our community of contributors across Technology,
             Finance, Impact, and Governance.
           </p>

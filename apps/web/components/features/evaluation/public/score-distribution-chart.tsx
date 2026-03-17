@@ -14,7 +14,7 @@ export function ScoreDistributionChart({ distribution }: ScoreDistributionChartP
 
   if (total === 0) {
     return (
-      <p className="font-sans text-[13px] text-brand-secondary">
+      <p className="font-sans text-[13px] text-text-secondary">
         Score distribution data will appear as evaluations accumulate.
       </p>
     );
@@ -26,12 +26,12 @@ export function ScoreDistributionChart({ distribution }: ScoreDistributionChartP
         <BarChart data={distribution} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
           <XAxis
             dataKey="range"
-            tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+            tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
-            tick={{ fontSize: 12, fill: 'var(--color-brand-secondary)' }}
+            tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
             axisLine={false}
             tickLine={false}
             allowDecimals={false}

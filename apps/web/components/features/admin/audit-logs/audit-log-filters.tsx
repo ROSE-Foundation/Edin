@@ -39,14 +39,14 @@ export function AuditLogFilters({
   return (
     <div className="flex flex-wrap items-end gap-[var(--spacing-md)]">
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="event-type-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="event-type-filter" className="text-xs font-medium text-text-secondary">
           Event Type
         </label>
         <select
           id="event-type-filter"
           value={eventType}
           onChange={(e) => onEventTypeChange(e.target.value)}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary"
         >
           {EVENT_TYPE_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -57,7 +57,7 @@ export function AuditLogFilters({
       </div>
 
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="actor-id-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="actor-id-filter" className="text-xs font-medium text-text-secondary">
           Actor ID
         </label>
         <input
@@ -66,12 +66,12 @@ export function AuditLogFilters({
           value={actorId}
           onChange={(e) => onActorIdChange(e.target.value)}
           placeholder="Search by actor ID"
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary placeholder:text-brand-tertiary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary placeholder:text-text-tertiary"
         />
       </div>
 
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="target-id-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="target-id-filter" className="text-xs font-medium text-text-secondary">
           Target ID
         </label>
         <input
@@ -80,12 +80,12 @@ export function AuditLogFilters({
           value={targetId}
           onChange={(e) => onTargetIdChange(e.target.value)}
           placeholder="Search by target ID"
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary placeholder:text-brand-tertiary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary placeholder:text-text-tertiary"
         />
       </div>
 
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="start-date-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="start-date-filter" className="text-xs font-medium text-text-secondary">
           Start Date
         </label>
         <input
@@ -93,12 +93,12 @@ export function AuditLogFilters({
           type="date"
           value={startDate}
           onChange={(e) => onStartDateChange(e.target.value)}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary"
         />
       </div>
 
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="end-date-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="end-date-filter" className="text-xs font-medium text-text-secondary">
           End Date
         </label>
         <input
@@ -106,12 +106,12 @@ export function AuditLogFilters({
           type="date"
           value={endDate}
           onChange={(e) => onEndDateChange(e.target.value)}
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary"
         />
       </div>
 
       <div className="flex flex-col gap-[var(--spacing-xs)]">
-        <label htmlFor="correlation-filter" className="text-xs font-medium text-brand-secondary">
+        <label htmlFor="correlation-filter" className="text-xs font-medium text-text-secondary">
           Correlation ID
         </label>
         <input
@@ -120,7 +120,7 @@ export function AuditLogFilters({
           value={correlationId}
           onChange={(e) => onCorrelationIdChange(e.target.value)}
           placeholder="Search by correlation ID"
-          className="rounded-[var(--radius-md)] border border-surface-border bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-brand-primary placeholder:text-brand-tertiary"
+          className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised px-[var(--spacing-sm)] py-[var(--spacing-xs)] text-sm text-text-primary placeholder:text-text-tertiary"
         />
       </div>
     </div>

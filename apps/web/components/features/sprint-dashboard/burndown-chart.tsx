@@ -23,7 +23,7 @@ export function BurndownChart({ data, sprintName }: BurndownChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-border bg-surface-raised">
+      <div className="flex h-[200px] items-center justify-center rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised">
         <p className="text-[14px] text-text-tertiary">
           No burndown data available for this sprint.
         </p>
@@ -36,10 +36,10 @@ export function BurndownChart({ data, sprintName }: BurndownChartProps) {
   return (
     <section aria-label={title}>
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-[18px] font-semibold text-brand-primary">{title}</h2>
+        <h2 className="font-serif text-[18px] font-semibold text-text-primary">{title}</h2>
         <button
           onClick={() => setShowTable((prev) => !prev)}
-          className="font-sans text-[13px] text-brand-accent underline underline-offset-2 hover:opacity-80"
+          className="font-sans text-[13px] text-accent-primary underline underline-offset-2 hover:opacity-80"
           aria-label={showTable ? 'Show chart view' : 'Show data table view'}
         >
           {showTable ? 'Show chart' : 'View as table'}
@@ -52,24 +52,24 @@ export function BurndownChart({ data, sprintName }: BurndownChartProps) {
           aria-label="Sprint burndown data"
         >
           <thead>
-            <tr className="border-b border-surface-border">
-              <th className="pb-[var(--spacing-sm)] font-medium text-brand-secondary">Date</th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+            <tr className="border-b border-surface-subtle">
+              <th className="pb-[var(--spacing-sm)] font-medium text-text-secondary">Date</th>
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Remaining
               </th>
-              <th className="pb-[var(--spacing-sm)] text-right font-medium text-brand-secondary">
+              <th className="pb-[var(--spacing-sm)] text-right font-medium text-text-secondary">
                 Ideal
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.date} className="border-b border-surface-border/50">
-                <td className="py-[var(--spacing-sm)] text-brand-primary">{item.date}</td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+              <tr key={item.date} className="border-b border-surface-subtle/50">
+                <td className="py-[var(--spacing-sm)] text-text-primary">{item.date}</td>
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {item.remainingPoints}
                 </td>
-                <td className="py-[var(--spacing-sm)] text-right text-brand-primary">
+                <td className="py-[var(--spacing-sm)] text-right text-text-primary">
                   {Math.round(item.idealPoints * 10) / 10}
                 </td>
               </tr>
@@ -115,7 +115,7 @@ export function BurndownChart({ data, sprintName }: BurndownChartProps) {
               <Line
                 type="monotone"
                 dataKey="remainingPoints"
-                stroke="var(--color-brand-accent)"
+                stroke="var(--color-accent-primary)"
                 strokeWidth={2}
                 dot={{ r: 3 }}
                 name="Actual"

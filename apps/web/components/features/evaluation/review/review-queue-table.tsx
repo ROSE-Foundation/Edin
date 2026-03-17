@@ -52,8 +52,8 @@ export function ReviewQueueTable({ items, isLoading }: ReviewQueueTableProps) {
 
   if (items.length === 0) {
     return (
-      <div className="rounded-[var(--radius-lg)] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] text-center">
-        <p className="font-sans text-[14px] text-brand-secondary">
+      <div className="rounded-[var(--radius-lg)] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] text-center">
+        <p className="font-sans text-[14px] text-text-secondary">
           No flagged evaluations in the review queue.
         </p>
       </div>
@@ -61,29 +61,29 @@ export function ReviewQueueTable({ items, isLoading }: ReviewQueueTableProps) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-surface-border">
+    <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-surface-subtle">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-surface-border bg-surface-sunken">
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+          <tr className="border-b border-surface-subtle bg-surface-sunken">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Contributor
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Contribution
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Domain
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               AI Score
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Reason
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Flagged
             </th>
-            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-brand-secondary">
+            <th className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-left font-sans text-[12px] font-medium uppercase tracking-wider text-text-secondary">
               Status
             </th>
           </tr>
@@ -92,29 +92,29 @@ export function ReviewQueueTable({ items, isLoading }: ReviewQueueTableProps) {
           {items.map((item) => (
             <tr
               key={item.id}
-              className="border-b border-surface-border transition-colors last:border-0 hover:bg-surface-sunken/50"
+              className="border-b border-surface-subtle transition-colors last:border-0 hover:bg-surface-sunken/50"
             >
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary">
                 {item.contributorName}
               </td>
-              <td className="max-w-[200px] truncate px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary">
+              <td className="max-w-[200px] truncate px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary">
                 <Link
                   href={`/admin/evaluations/review-queue/${item.id}`}
-                  className="text-brand-accent hover:underline"
+                  className="text-accent-primary hover:underline"
                 >
                   {item.contributionTitle}
                 </Link>
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
                 {item.domain ?? '—'}
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[14px] text-brand-primary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] text-right font-sans text-[14px] text-text-primary">
                 {item.originalScore}
               </td>
-              <td className="max-w-[200px] truncate px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+              <td className="max-w-[200px] truncate px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
                 {item.flagReason}
               </td>
-              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+              <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
                 {formatRelativeTime(item.flaggedAt)}
               </td>
               <td className="px-[var(--spacing-md)] py-[var(--spacing-sm)]">

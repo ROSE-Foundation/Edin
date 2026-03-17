@@ -31,7 +31,7 @@ export default function FeedbackReviewPage() {
       <div className="mx-auto max-w-[800px] p-[var(--spacing-xl)]">
         <div className="space-y-[var(--spacing-lg)]">
           <div className="h-[24px] w-[200px] animate-pulse rounded-[var(--radius-sm)] bg-surface-border" />
-          <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
+          <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
             <div className="space-y-[var(--spacing-md)]">
               <div className="h-[16px] w-3/4 animate-pulse rounded-[var(--radius-sm)] bg-surface-border" />
               <div className="h-[16px] w-1/2 animate-pulse rounded-[var(--radius-sm)] bg-surface-border" />
@@ -60,8 +60,8 @@ export default function FeedbackReviewPage() {
   if (error || !data) {
     return (
       <div className="mx-auto max-w-[800px] p-[var(--spacing-xl)]">
-        <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] text-center">
-          <p className="font-sans text-[14px] text-brand-secondary">
+        <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] text-center">
+          <p className="font-sans text-[14px] text-text-secondary">
             {error?.message ?? 'Feedback assignment not found.'}
           </p>
         </div>
@@ -74,8 +74,8 @@ export default function FeedbackReviewPage() {
   if (assignment.status === 'COMPLETED') {
     return (
       <div className="mx-auto max-w-[800px] p-[var(--spacing-xl)]">
-        <div className="rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-xl)] text-center">
-          <p className="font-sans text-[14px] text-brand-secondary">
+        <div className="rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-xl)] text-center">
+          <p className="font-sans text-[14px] text-text-secondary">
             You have already submitted feedback for this contribution.
           </p>
         </div>
@@ -92,32 +92,32 @@ export default function FeedbackReviewPage() {
 
   return (
     <div className="mx-auto max-w-[800px] p-[var(--spacing-xl)]">
-      <h1 className="mb-[var(--spacing-lg)] font-serif text-[24px] font-bold text-brand-primary">
+      <h1 className="mb-[var(--spacing-lg)] font-serif text-[24px] font-bold text-text-primary">
         Review Contribution
       </h1>
 
       {/* Contribution context card */}
-      <div className="mb-[var(--spacing-xl)] rounded-[12px] border border-surface-border bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
+      <div className="mb-[var(--spacing-xl)] rounded-[12px] border border-surface-subtle bg-surface-raised p-[var(--spacing-lg)] shadow-sm">
         <div className="flex items-start gap-[var(--spacing-md)]">
-          <span className="inline-flex rounded-[var(--radius-sm)] bg-brand-accent-subtle px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-brand-accent">
+          <span className="inline-flex rounded-[var(--radius-sm)] bg-accent-primary-subtle px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-accent-primary">
             {typeLabel}
           </span>
           {assignment.contributorDomain && (
-            <span className="inline-flex rounded-[var(--radius-sm)] bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-brand-secondary">
+            <span className="inline-flex rounded-[var(--radius-sm)] bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[12px] font-medium text-text-secondary">
               {assignment.contributorDomain}
             </span>
           )}
         </div>
-        <h2 className="mt-[var(--spacing-sm)] font-sans text-[16px] font-semibold text-brand-primary">
+        <h2 className="mt-[var(--spacing-sm)] font-sans text-[16px] font-semibold text-text-primary">
           {assignment.contribution.title}
         </h2>
         {assignment.contribution.description && (
-          <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">
+          <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">
             {assignment.contribution.description}
           </p>
         )}
         {assignment.contributorName && (
-          <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-brand-secondary">
+          <p className="mt-[var(--spacing-sm)] font-sans text-[13px] text-text-secondary">
             By {assignment.contributorName}
           </p>
         )}

@@ -73,7 +73,7 @@ export function ReviewResolveForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-[var(--spacing-md)]">
       <fieldset className="flex flex-col gap-[var(--spacing-sm)]">
-        <legend className="font-sans text-[14px] font-medium text-brand-primary">Resolution</legend>
+        <legend className="font-sans text-[14px] font-medium text-text-primary">Resolution</legend>
         <label className="flex items-center gap-[var(--spacing-sm)] cursor-pointer">
           <input
             type="radio"
@@ -81,9 +81,9 @@ export function ReviewResolveForm({
             value="confirm"
             checked={action === 'confirm'}
             onChange={() => setAction('confirm')}
-            className="accent-brand-accent"
+            className="accent-accent-primary"
           />
-          <span className="font-sans text-[14px] text-brand-primary">Confirm AI evaluation</span>
+          <span className="font-sans text-[14px] text-text-primary">Confirm AI evaluation</span>
         </label>
         <label className="flex items-center gap-[var(--spacing-sm)] cursor-pointer">
           <input
@@ -92,9 +92,9 @@ export function ReviewResolveForm({
             value="override"
             checked={action === 'override'}
             onChange={() => setAction('override')}
-            className="accent-brand-accent"
+            className="accent-accent-primary"
           />
-          <span className="font-sans text-[14px] text-brand-primary">
+          <span className="font-sans text-[14px] text-text-primary">
             Override with adjusted scores
           </span>
         </label>
@@ -103,7 +103,7 @@ export function ReviewResolveForm({
       <div>
         <label
           htmlFor="review-reason"
-          className="block font-sans text-[13px] font-medium text-brand-secondary"
+          className="block font-sans text-[13px] font-medium text-text-secondary"
         >
           Reason for decision (min 10 characters)
         </label>
@@ -112,21 +112,19 @@ export function ReviewResolveForm({
           value={reviewReason}
           onChange={(e) => setReviewReason(e.target.value)}
           rows={3}
-          className="mt-[var(--spacing-xs)] w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-brand-primary focus:border-brand-accent focus:outline-none"
+          className="mt-[var(--spacing-xs)] w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] text-text-primary focus:border-accent-primary focus:outline-none"
           placeholder="Explain your decision..."
         />
       </div>
 
       {action === 'override' && (
-        <div className="flex flex-col gap-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken p-[var(--spacing-md)]">
-          <h4 className="font-sans text-[13px] font-medium text-brand-secondary">
-            Override Scores
-          </h4>
+        <div className="flex flex-col gap-[var(--spacing-sm)] rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken p-[var(--spacing-md)]">
+          <h4 className="font-sans text-[13px] font-medium text-text-secondary">Override Scores</h4>
 
           <div>
             <label
               htmlFor="composite-score"
-              className="block font-sans text-[12px] text-brand-secondary"
+              className="block font-sans text-[12px] text-text-secondary"
             >
               Composite Score (0-100)
             </label>
@@ -137,7 +135,7 @@ export function ReviewResolveForm({
               max={100}
               value={compositeScore}
               onChange={(e) => setCompositeScore(e.target.value)}
-              className="mt-[2px] w-[120px] rounded-[var(--radius-sm)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[14px] text-brand-primary focus:border-brand-accent focus:outline-none"
+              className="mt-[2px] w-[120px] rounded-[var(--radius-sm)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[14px] text-text-primary focus:border-accent-primary focus:outline-none"
             />
           </div>
 
@@ -145,7 +143,7 @@ export function ReviewResolveForm({
             const current = currentDimensionScores?.[key];
             return (
               <div key={key} className="flex items-center gap-[var(--spacing-sm)]">
-                <label className="w-[180px] font-sans text-[12px] text-brand-secondary">
+                <label className="w-[180px] font-sans text-[12px] text-text-secondary">
                   {key}
                   <span className="ml-[4px] text-[11px] opacity-70">
                     (current: {current?.score ?? '—'})
@@ -167,7 +165,7 @@ export function ReviewResolveForm({
                       },
                     }))
                   }
-                  className="w-[80px] rounded-[var(--radius-sm)] border border-surface-border bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] text-brand-primary focus:border-brand-accent focus:outline-none"
+                  className="w-[80px] rounded-[var(--radius-sm)] border border-surface-subtle bg-surface-base px-[var(--spacing-sm)] py-[2px] font-sans text-[13px] text-text-primary focus:border-accent-primary focus:outline-none"
                 />
               </div>
             );
@@ -176,7 +174,7 @@ export function ReviewResolveForm({
           <div>
             <label
               htmlFor="override-narrative"
-              className="block font-sans text-[12px] text-brand-secondary"
+              className="block font-sans text-[12px] text-text-secondary"
             >
               Updated Narrative (optional)
             </label>
@@ -185,7 +183,7 @@ export function ReviewResolveForm({
               value={overrideNarrative}
               onChange={(e) => setOverrideNarrative(e.target.value)}
               rows={3}
-              className="mt-[2px] w-full resize-none rounded-[var(--radius-md)] border border-surface-border bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-brand-primary focus:border-brand-accent focus:outline-none"
+              className="mt-[2px] w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle bg-surface-base px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[13px] text-text-primary focus:border-accent-primary focus:outline-none"
             />
           </div>
         </div>
@@ -203,7 +201,7 @@ export function ReviewResolveForm({
                 Number(compositeScore) < 0 ||
                 Number(compositeScore) > 100))
           }
-          className="rounded-[var(--radius-md)] bg-brand-secondary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-[var(--radius-md)] bg-text-secondary px-[var(--spacing-lg)] py-[var(--spacing-sm)] font-sans text-[14px] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending
             ? 'Processing...'

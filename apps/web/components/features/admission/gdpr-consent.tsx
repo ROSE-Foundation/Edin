@@ -30,19 +30,17 @@ export function GdprConsent({
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
           onBlur={onBlur}
-          className="mt-[4px] h-[18px] w-[18px] shrink-0 cursor-pointer rounded-[var(--radius-sm)] border border-surface-border-input accent-brand-accent focus:ring-2 focus:ring-brand-accent focus:outline-none"
+          className="mt-[4px] h-[18px] w-[18px] shrink-0 cursor-pointer rounded-[var(--radius-sm)] border border-surface-subtle-input accent-accent-primary focus:ring-2 focus:ring-accent-primary focus:outline-none"
           aria-describedby={error ? `${name}-error` : `${name}-description`}
           aria-invalid={error ? 'true' : undefined}
         />
         <label
           htmlFor={name}
           id={`${name}-description`}
-          className="cursor-pointer font-sans text-[13px] leading-[1.5] text-brand-secondary"
+          className="cursor-pointer font-sans text-[13px] leading-[1.5] text-text-secondary"
         >
           I agree to the processing of my personal data in accordance with the{' '}
-          <span className="font-medium text-brand-primary underline">
-            Data Processing Agreement
-          </span>{' '}
+          <span className="font-medium text-text-primary underline">Data Processing Agreement</span>{' '}
           (Version 1.0). My data will be used solely for the purpose of evaluating my application
           and, if approved, managing my contributor account. I understand that I can request
           deletion of my data at any time.

@@ -47,7 +47,7 @@ export function ApplicationDetailPanel({
   const statusStyle = application
     ? (STATUS_STYLES[application.status] ?? {
         bg: 'bg-surface-sunken',
-        text: 'text-brand-secondary',
+        text: 'text-text-secondary',
         label: application.status,
       })
     : null;
@@ -63,7 +63,7 @@ export function ApplicationDetailPanel({
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-40 bg-black/20 motion-safe:transition-opacity motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=open]:fade-in-0" />
           <Dialog.Content
-            className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[640px] flex-col border-l border-surface-border bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
+            className="fixed top-0 right-0 z-40 flex h-full w-full max-w-[640px] flex-col border-l border-surface-subtle bg-surface-raised shadow-[var(--shadow-modal)] focus:outline-none motion-safe:transition-transform motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:slide-out-to-right motion-safe:data-[state=open]:slide-in-from-right"
             aria-describedby={undefined}
           >
             {isLoading || !application ? (
@@ -81,9 +81,9 @@ export function ApplicationDetailPanel({
             ) : (
               <>
                 {/* Header */}
-                <div className="flex items-start justify-between border-b border-surface-border p-[var(--spacing-lg)]">
+                <div className="flex items-start justify-between border-b border-surface-subtle p-[var(--spacing-lg)]">
                   <div>
-                    <Dialog.Title className="font-sans text-[20px] font-semibold text-brand-primary">
+                    <Dialog.Title className="font-sans text-[20px] font-semibold text-text-primary">
                       {application.applicantName}
                     </Dialog.Title>
                     <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-sm)]">
@@ -103,17 +103,17 @@ export function ApplicationDetailPanel({
                         </span>
                       )}
                     </div>
-                    <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-brand-secondary">
+                    <p className="mt-[var(--spacing-xs)] font-sans text-[13px] text-text-secondary">
                       {application.applicantEmail}
                     </p>
-                    <p className="font-sans text-[13px] text-brand-secondary">
+                    <p className="font-sans text-[13px] text-text-secondary">
                       Submitted {formatDate(application.createdAt)}
                     </p>
                   </div>
                   <Dialog.Close asChild>
                     <button
                       type="button"
-                      className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-brand-secondary transition-colors hover:text-brand-primary focus-visible:outline-2 focus-visible:outline-brand-accent"
+                      className="rounded-[var(--radius-sm)] p-[var(--spacing-xs)] text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-accent-primary"
                       aria-label="Close panel"
                     >
                       <CloseIcon />
@@ -125,21 +125,21 @@ export function ApplicationDetailPanel({
                 <div className="flex-1 overflow-y-auto p-[var(--spacing-lg)]">
                   {/* Statement of Interest */}
                   <section className="mb-[var(--spacing-lg)]">
-                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
                       Statement of Interest
                     </h3>
-                    <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+                    <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
                       {application.statementOfInterest}
                     </p>
                   </section>
 
                   {/* Micro-task Response */}
                   <section className="mb-[var(--spacing-lg)]">
-                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
                       Micro-task Response ({application.microTaskDomain})
                     </h3>
-                    <div className="max-h-[300px] overflow-y-auto rounded-[var(--radius-md)] border border-surface-border bg-surface-sunken p-[var(--spacing-md)]">
-                      <p className="whitespace-pre-wrap font-sans text-[14px] leading-[1.6] text-brand-primary">
+                    <div className="max-h-[300px] overflow-y-auto rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken p-[var(--spacing-md)]">
+                      <p className="whitespace-pre-wrap font-sans text-[14px] leading-[1.6] text-text-primary">
                         {application.microTaskResponse}
                       </p>
                     </div>
@@ -148,7 +148,7 @@ export function ApplicationDetailPanel({
                         href={application.microTaskSubmissionUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-[var(--spacing-xs)] inline-block font-sans text-[13px] text-brand-accent underline hover:text-brand-accent/80"
+                        className="mt-[var(--spacing-xs)] inline-block font-sans text-[13px] text-accent-primary underline hover:text-accent-primary/80"
                       >
                         View submission
                       </a>
@@ -157,7 +157,7 @@ export function ApplicationDetailPanel({
 
                   {/* Reviewers */}
                   <section className="mb-[var(--spacing-lg)]">
-                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-brand-primary">
+                    <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-text-primary">
                       Reviewers
                     </h3>
                     {(application.status === 'PENDING' ||
@@ -179,7 +179,7 @@ export function ApplicationDetailPanel({
                       <h3 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-semibold text-semantic-error">
                         Decline Reason
                       </h3>
-                      <p className="font-sans text-[14px] leading-[1.6] text-brand-primary">
+                      <p className="font-sans text-[14px] leading-[1.6] text-text-primary">
                         {application.declineReason}
                       </p>
                     </section>
@@ -188,18 +188,18 @@ export function ApplicationDetailPanel({
 
                 {/* Action buttons (only for UNDER_REVIEW) */}
                 {canTakeAction && (
-                  <div className="flex gap-[var(--spacing-sm)] border-t border-surface-border p-[var(--spacing-lg)]">
+                  <div className="flex gap-[var(--spacing-sm)] border-t border-surface-subtle p-[var(--spacing-lg)]">
                     <button
                       type="button"
                       onClick={() => setActionDialog({ open: true, action: 'APPROVED' })}
-                      className="flex-1 rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2"
+                      className="flex-1 rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
                     >
                       Approve
                     </button>
                     <button
                       type="button"
                       onClick={() => setActionDialog({ open: true, action: 'REQUEST_MORE_INFO' })}
-                      className="rounded-[var(--radius-md)] border border-brand-accent px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-accent transition-colors duration-[var(--transition-fast)] hover:bg-brand-accent/5 focus-visible:outline-2 focus-visible:outline-brand-accent focus-visible:outline-offset-2"
+                      className="rounded-[var(--radius-md)] border border-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-accent-primary transition-colors duration-[var(--transition-fast)] hover:bg-accent-primary/5 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
                     >
                       Request Info
                     </button>

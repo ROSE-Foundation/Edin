@@ -53,10 +53,10 @@ export function FeedbackRubricForm({
 
         return (
           <fieldset key={question.id} className="space-y-[var(--spacing-md)]">
-            <legend className="font-sans text-[13px] font-medium text-brand-primary">
+            <legend className="font-sans text-[13px] font-medium text-text-primary">
               {question.text}
             </legend>
-            <p className="font-sans text-[13px] text-brand-secondary">{question.description}</p>
+            <p className="font-sans text-[13px] text-text-secondary">{question.description}</p>
 
             <input
               type="hidden"
@@ -86,8 +86,8 @@ export function FeedbackRubricForm({
               {...register(`responses.${index}.comment`)}
               placeholder={`Share your thoughts (min. ${MIN_COMMENT_LENGTH} characters)...`}
               rows={3}
-              className={`field-sizing-content min-h-[80px] w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-serif text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none motion-reduce:transition-none ${
-                commentError ? 'border-semantic-error' : 'border-surface-border-input'
+              className={`field-sizing-content min-h-[80px] w-full resize-none rounded-[var(--radius-md)] border bg-surface-raised px-[var(--spacing-md)] py-[12px] font-serif text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none motion-reduce:transition-none ${
+                commentError ? 'border-semantic-error' : 'border-surface-subtle-input'
               }`}
               aria-describedby={commentError ? errorId : undefined}
               aria-invalid={commentError ? 'true' : undefined}
@@ -105,7 +105,7 @@ export function FeedbackRubricForm({
       <div className="space-y-[var(--spacing-sm)]">
         <label
           htmlFor="overall-comment"
-          className="font-sans text-[13px] font-medium text-brand-primary"
+          className="font-sans text-[13px] font-medium text-text-primary"
         >
           Overall Comment (optional)
         </label>
@@ -114,14 +114,14 @@ export function FeedbackRubricForm({
           id="overall-comment"
           placeholder="Any additional thoughts about this contribution..."
           rows={3}
-          className="field-sizing-content min-h-[80px] w-full resize-none rounded-[var(--radius-md)] border border-surface-border-input bg-surface-raised px-[var(--spacing-md)] py-[12px] font-serif text-[14px] text-brand-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 focus:outline-none motion-reduce:transition-none"
+          className="field-sizing-content min-h-[80px] w-full resize-none rounded-[var(--radius-md)] border border-surface-subtle-input bg-surface-raised px-[var(--spacing-md)] py-[12px] font-serif text-[14px] text-text-primary transition-[border-color,box-shadow] duration-[var(--transition-fast)] focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 focus:outline-none motion-reduce:transition-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting || !isValid}
-        className="w-full rounded-[var(--radius-md)] bg-brand-accent px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-brand-accent/90 focus:ring-2 focus:ring-brand-accent/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+        className="w-full rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-lg)] py-[12px] font-sans text-[14px] font-medium text-white transition-[background-color,opacity] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus:ring-2 focus:ring-accent-primary/20 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
       >
         {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
       </button>

@@ -39,10 +39,10 @@ export default function ProfilePage() {
   return (
     <main className="min-h-screen bg-surface-base px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
       <div className="mx-auto max-w-[42rem]">
-        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-brand-primary">
+        <h1 className="font-serif text-[32px] leading-[1.25] font-bold text-text-primary">
           Edit Profile
         </h1>
-        <p className="mt-[var(--spacing-sm)] font-sans text-[15px] leading-[1.5] text-brand-secondary">
+        <p className="mt-[var(--spacing-sm)] font-sans text-[15px] leading-[1.5] text-text-secondary">
           Update your profile information visible to other contributors.
         </p>
 

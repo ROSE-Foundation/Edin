@@ -30,8 +30,8 @@ export default function EvaluationsPage() {
 
   return (
     <div className="mx-auto max-w-[1000px] px-[var(--spacing-lg)] py-[var(--spacing-xl)]">
-      <h1 className="font-serif text-[24px] font-bold text-brand-primary">Evaluations</h1>
-      <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-brand-secondary">
+      <h1 className="font-serif text-[24px] font-bold text-text-primary">Evaluations</h1>
+      <p className="mt-[var(--spacing-xs)] font-sans text-[14px] text-text-secondary">
         Your evaluation journey over time
       </p>
 
@@ -59,7 +59,7 @@ export default function EvaluationsPage() {
             <EvaluationTimeline items={items} />
 
             <div className="mt-[var(--spacing-xl)]">
-              <h2 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-brand-secondary">
+              <h2 className="mb-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-secondary">
                 All Evaluations
               </h2>
               <EvaluationHistoryList
