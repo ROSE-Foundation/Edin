@@ -70,6 +70,14 @@ enum RepositoryStatus {
   @@schema("core")
 }
 
+enum RepositoryVisibility {
+  PUBLIC
+  PRIVATE
+  UNKNOWN
+
+  @@schema("core")
+}
+
 enum ContributionSource {
   GITHUB
 
@@ -431,17 +439,18 @@ model OnboardingMilestone {
 }
 
 model MonitoredRepository {
-  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id             String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   owner          String
   repo           String
-  fullName       String           @unique @map("full_name")
-  webhookId      Int?             @map("webhook_id")
-  webhookSecret  String           @map("webhook_secret")
-  status         RepositoryStatus @default(PENDING)
-  statusMessage  String?          @map("status_message")
-  addedById      String           @map("added_by_id") @db.Uuid
-  createdAt      DateTime         @default(now()) @map("created_at")
-  updatedAt      DateTime         @updatedAt @map("updated_at")
+  fullName       String               @unique @map("full_name")
+  webhookId      Int?                 @map("webhook_id")
+  webhookSecret  String               @map("webhook_secret")
+  status         RepositoryStatus     @default(PENDING)
+  statusMessage  String?              @map("status_message")
+  visibility     RepositoryVisibility @default(UNKNOWN)
+  addedById      String               @map("added_by_id") @db.Uuid
+  createdAt      DateTime             @default(now()) @map("created_at")
+  updatedAt      DateTime             @updatedAt @map("updated_at")
 
   addedBy            Contributor         @relation(fields: [addedById], references: [id])
   contributions      Contribution[]

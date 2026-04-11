@@ -14,13 +14,27 @@ interface PullRequestCommit {
   message: string;
 }
 
+export type RepositoryVisibility = 'public' | 'private';
+
+export type VerifyRepositoryFailureReason =
+  | 'not_found_or_no_access'
+  | 'token_missing_or_insufficient_scope'
+  | 'rate_limited'
+  | 'unknown';
+
+export type VerifyRepositoryResult =
+  | { ok: true; visibility: RepositoryVisibility }
+  | { ok: false; reason: VerifyRepositoryFailureReason; message: string };
+
 @Injectable()
 export class GitHubApiService {
   private readonly logger = new Logger(GitHubApiService.name);
   private readonly octokit: Octokit;
+  private readonly hasToken: boolean;
 
   constructor(private readonly configService: ConfigService<AppConfig, true>) {
     const token = this.configService.get('GITHUB_APP_TOKEN', { infer: true });
+    this.hasToken = Boolean(token);
     this.octokit = new Octokit({ auth: token || undefined });
   }
 
@@ -128,31 +142,89 @@ export class GitHubApiService {
     }
   }
 
-  async verifyRepository(owner: string, repo: string, correlationId?: string): Promise<boolean> {
+  async verifyRepository(
+    owner: string,
+    repo: string,
+    correlationId?: string,
+  ): Promise<VerifyRepositoryResult> {
     this.logger.debug('Verifying GitHub repository', { owner, repo, correlationId });
+
+    if (!this.hasToken) {
+      this.logger.warn('GITHUB_APP_TOKEN is not configured; cannot verify repository', {
+        owner,
+        repo,
+        correlationId,
+      });
+      return {
+        ok: false,
+        reason: 'token_missing_or_insufficient_scope',
+        message:
+          'GITHUB_APP_TOKEN is not configured. EDIN cannot call the GitHub API without a token.',
+      };
+    }
 
     const startTime = Date.now();
     try {
-      await this.octokit.repos.get({ owner, repo });
+      const response = await this.withRateLimitRetry(() => this.octokit.repos.get({ owner, repo }));
+
+      const visibility: RepositoryVisibility = response.data.private ? 'private' : 'public';
 
       this.logger.debug('GitHub repository verified', {
         owner,
         repo,
+        visibility,
         responseTimeMs: Date.now() - startTime,
         correlationId,
       });
 
-      return true;
+      return { ok: true, visibility };
     } catch (error: unknown) {
-      this.logger.debug('GitHub repository verification failed', {
+      const responseTimeMs = Date.now() - startTime;
+      const status = this.getErrorStatus(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+
+      this.logger.warn('GitHub repository verification failed', {
         owner,
         repo,
-        responseTimeMs: Date.now() - startTime,
-        error: error instanceof Error ? error.message : String(error),
+        status,
+        responseTimeMs,
+        error: errorMessage,
         correlationId,
       });
 
-      return false;
+      if (status === 404) {
+        return {
+          ok: false,
+          reason: 'not_found_or_no_access',
+          message:
+            'Repository not found, or the EDIN bot account does not have access. ' +
+            'If the repository is private, ask the owner to add the EDIN bot account as a Collaborator with Read access.',
+        };
+      }
+
+      if (status === 401 || status === 403) {
+        return {
+          ok: false,
+          reason: 'token_missing_or_insufficient_scope',
+          message:
+            'GitHub refused the request. The EDIN token is missing or lacks the required scopes ' +
+            '(need `repo` for private repositories and `admin:repo_hook` to register webhooks).',
+        };
+      }
+
+      if (this.isRateLimited(error)) {
+        return {
+          ok: false,
+          reason: 'rate_limited',
+          message: 'GitHub API rate limit exceeded. Please retry later.',
+        };
+      }
+
+      return {
+        ok: false,
+        reason: 'unknown',
+        message: errorMessage || 'Failed to verify repository against GitHub.',
+      };
     }
   }
 
@@ -271,6 +343,16 @@ export class GitHubApiService {
       return (error as { status: number }).status === 429;
     }
     return false;
+  }
+
+  private getErrorStatus(error: unknown): number | null {
+    if (error && typeof error === 'object' && 'status' in error) {
+      const status = (error as { status: unknown }).status;
+      if (typeof status === 'number') {
+        return status;
+      }
+    }
+    return null;
   }
 }
 

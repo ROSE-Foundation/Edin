@@ -24,6 +24,42 @@ function formatRelativeDate(dateString: string): string {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
+function VisibilityBadge({ visibility }: { visibility: string }) {
+  const baseClasses =
+    'inline-flex items-center rounded-[var(--radius-sm)] px-[6px] py-[1px] font-sans text-[11px] font-medium uppercase tracking-[0.04em]';
+  switch (visibility) {
+    case 'PRIVATE':
+      return (
+        <span
+          className={`${baseClasses} border border-[#B07545]/40 bg-[#B07545]/10 text-[#B07545]`}
+          aria-label="Private repository"
+          title="Private repository — requires bot collaborator access"
+        >
+          Private
+        </span>
+      );
+    case 'PUBLIC':
+      return (
+        <span
+          className={`${baseClasses} border border-surface-subtle text-text-secondary`}
+          aria-label="Public repository"
+        >
+          Public
+        </span>
+      );
+    default:
+      return (
+        <span
+          className={`${baseClasses} border border-surface-subtle/60 text-text-secondary/70`}
+          aria-label="Unknown visibility"
+          title="Visibility unknown — added before this feature shipped"
+        >
+          Unknown
+        </span>
+      );
+  }
+}
+
 function StatusIndicator({ status }: { status: string }) {
   switch (status) {
     case 'ACTIVE':
@@ -128,9 +164,12 @@ export function RepositoryList() {
               className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-raised p-[var(--spacing-md)]"
             >
               <div className="flex items-center justify-between">
-                <span className="font-sans text-[15px] font-medium text-text-primary">
-                  {repo.fullName}
-                </span>
+                <div className="flex min-w-0 items-center gap-[var(--spacing-xs)]">
+                  <span className="truncate font-sans text-[15px] font-medium text-text-primary">
+                    {repo.fullName}
+                  </span>
+                  <VisibilityBadge visibility={repo.visibility} />
+                </div>
                 <StatusIndicator status={repo.status} />
               </div>
               <div className="mt-[var(--spacing-xs)] flex items-center gap-[var(--spacing-md)]">
@@ -174,13 +213,16 @@ export function RepositoryList() {
                   className="grid grid-cols-[1fr_100px_120px_120px_160px] items-center gap-[var(--spacing-sm)] border-b border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-md)] last:border-b-0"
                   style={{ minHeight: '48px' }}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setExpandedRow(expandedRow === repo.id ? null : repo.id)}
-                    className="truncate text-left font-sans text-[15px] font-medium text-text-primary hover:text-accent-primary"
-                  >
-                    {repo.fullName}
-                  </button>
+                  <div className="flex min-w-0 items-center gap-[var(--spacing-xs)]">
+                    <button
+                      type="button"
+                      onClick={() => setExpandedRow(expandedRow === repo.id ? null : repo.id)}
+                      className="truncate text-left font-sans text-[15px] font-medium text-text-primary hover:text-accent-primary"
+                    >
+                      {repo.fullName}
+                    </button>
+                    <VisibilityBadge visibility={repo.visibility} />
+                  </div>
                   <StatusIndicator status={repo.status} />
                   <span className="truncate font-sans text-[14px] text-text-secondary">
                     {repo.addedByName ?? '—'}

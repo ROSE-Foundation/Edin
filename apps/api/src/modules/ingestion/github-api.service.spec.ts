@@ -128,20 +128,98 @@ describe('GitHubApiService', () => {
   // ─── verifyRepository ──────────────────────────────────────────────────
 
   describe('verifyRepository', () => {
-    it('should return true for existing repository', async () => {
-      mockGetRepo.mockResolvedValue({ data: { full_name: 'org/repo' } });
+    it('should return ok with public visibility for a public repository', async () => {
+      mockGetRepo.mockResolvedValue({
+        data: { full_name: 'org/repo', private: false },
+      });
 
       const result = await service.verifyRepository('org', 'repo');
 
-      expect(result).toBe(true);
+      expect(result).toEqual({ ok: true, visibility: 'public' });
     });
 
-    it('should return false for non-existing repository', async () => {
-      mockGetRepo.mockRejectedValue(new Error('Not found'));
+    it('should return ok with private visibility when the bot can see the private repo', async () => {
+      mockGetRepo.mockResolvedValue({
+        data: { full_name: 'org/secret', private: true },
+      });
+
+      const result = await service.verifyRepository('org', 'secret');
+
+      expect(result).toEqual({ ok: true, visibility: 'private' });
+    });
+
+    it('should return not_found_or_no_access on 404', async () => {
+      mockGetRepo.mockRejectedValue({ status: 404, message: 'Not Found' });
 
       const result = await service.verifyRepository('org', 'nonexistent');
 
-      expect(result).toBe(false);
+      expect(result).toMatchObject({
+        ok: false,
+        reason: 'not_found_or_no_access',
+      });
+    });
+
+    it('should return token_missing_or_insufficient_scope on 401', async () => {
+      mockGetRepo.mockRejectedValue({ status: 401, message: 'Bad credentials' });
+
+      const result = await service.verifyRepository('org', 'repo');
+
+      expect(result).toMatchObject({
+        ok: false,
+        reason: 'token_missing_or_insufficient_scope',
+      });
+    });
+
+    it('should return token_missing_or_insufficient_scope on 403', async () => {
+      mockGetRepo.mockRejectedValue({ status: 403, message: 'Forbidden' });
+
+      const result = await service.verifyRepository('org', 'repo');
+
+      expect(result).toMatchObject({
+        ok: false,
+        reason: 'token_missing_or_insufficient_scope',
+      });
+    });
+
+    it('should return rate_limited after exhausting retries on 429', async () => {
+      mockGetRepo.mockRejectedValue({ status: 429, message: 'Rate limited' });
+
+      const result = await service.verifyRepository('org', 'repo');
+
+      expect(result).toMatchObject({
+        ok: false,
+        reason: 'rate_limited',
+      });
+    });
+
+    it('should return token_missing_or_insufficient_scope when GITHUB_APP_TOKEN is unset', async () => {
+      // Rebuild the service with a config where the token is missing.
+      mockConfigService.get.mockImplementation((key: string) => {
+        if (key === 'GITHUB_APP_TOKEN') return undefined;
+        if (key === 'INGESTION_WEBHOOK_BASE_URL') return 'https://api.edin.dev';
+        return undefined;
+      });
+
+      const module = await Test.createTestingModule({
+        providers: [GitHubApiService, { provide: ConfigService, useValue: mockConfigService }],
+      }).compile();
+      const tokenlessService = module.get(GitHubApiService);
+
+      const result = await tokenlessService.verifyRepository('org', 'repo');
+
+      expect(result).toMatchObject({
+        ok: false,
+        reason: 'token_missing_or_insufficient_scope',
+      });
+      // Octokit should not have been called at all.
+      expect(mockGetRepo).not.toHaveBeenCalled();
+
+      // Restore default for subsequent tests.
+      mockConfigService.get.mockImplementation((key: string) => {
+        if (key === 'GITHUB_APP_TOKEN') return 'test-token';
+        if (key === 'INGESTION_WEBHOOK_BASE_URL') return 'https://api.edin.dev';
+        return undefined;
+      });
     });
   });
 });

@@ -3,11 +3,14 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectQueue } from '@nestjs/bullmq';
 import type { Queue } from 'bullmq';
 import { randomBytes, createHmac, timingSafeEqual } from 'crypto';
+import { ConfigService } from '@nestjs/config';
 import { ERROR_CODES } from '@edin/shared';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { AuditService } from '../compliance/audit/audit.service.js';
 import { GitHubApiService, GitHubApiError, GitHubRateLimitError } from './github-api.service.js';
+import type { VerifyRepositoryResult } from './github-api.service.js';
+import type { AppConfig } from '../../config/app.config.js';
 import type { AddRepositoryDto } from './dto/add-repository.dto.js';
 import type { ListRepositoriesQueryDto } from './dto/list-repositories-query.dto.js';
 
@@ -20,6 +23,7 @@ export class IngestionService {
     private readonly eventEmitter: EventEmitter2,
     private readonly auditService: AuditService,
     private readonly gitHubApiService: GitHubApiService,
+    private readonly configService: ConfigService<AppConfig, true>,
     @InjectQueue('github-ingestion') private readonly githubIngestionQueue: Queue,
   ) {}
 
@@ -32,6 +36,21 @@ export class IngestionService {
     });
 
     const fullName = `${input.owner}/${input.repo}`;
+
+    // Pre-flight: verify the repository is reachable BEFORE persisting anything.
+    // This blocks orphan PENDING rows for repos EDIN cannot see (private repos
+    // where the bot account is not a Collaborator, or token/scope issues).
+    const verifyResult = await this.gitHubApiService.verifyRepository(
+      input.owner,
+      input.repo,
+      correlationId,
+    );
+
+    if (!verifyResult.ok) {
+      this.throwVerifyFailure(verifyResult, fullName);
+    }
+
+    const visibility = verifyResult.visibility === 'private' ? 'PRIVATE' : 'PUBLIC';
     const webhookSecret = randomBytes(32).toString('hex');
 
     let repository;
@@ -44,6 +63,7 @@ export class IngestionService {
             fullName,
             webhookSecret,
             status: 'PENDING',
+            visibility,
             addedById: adminId,
           },
         });
@@ -54,7 +74,7 @@ export class IngestionService {
             action: 'ingestion.repository.added',
             entityType: 'MonitoredRepository',
             entityId: created.id,
-            details: { owner: input.owner, repo: input.repo, fullName },
+            details: { owner: input.owner, repo: input.repo, fullName, visibility },
             correlationId,
           },
           tx,
@@ -95,6 +115,7 @@ export class IngestionService {
       this.logger.log('Repository added and webhook registered', {
         repositoryId: repository.id,
         fullName,
+        visibility,
         webhookId: result.webhookId,
         correlationId,
       });
@@ -131,6 +152,47 @@ export class IngestionService {
     });
 
     return this.toResponse(repository);
+  }
+
+  /**
+   * Translate a failed verifyRepository result into a DomainException with an
+   * actionable message. Never returns.
+   */
+  private throwVerifyFailure(
+    result: Extract<VerifyRepositoryResult, { ok: false }>,
+    fullName: string,
+  ): never {
+    const botUsername = this.configService.get('GITHUB_BOT_USERNAME', { infer: true });
+    const botLabel = botUsername ? `@${botUsername}` : 'the EDIN bot account';
+
+    switch (result.reason) {
+      case 'not_found_or_no_access':
+        throw new DomainException(
+          ERROR_CODES.REPOSITORY_NOT_FOUND_OR_NO_ACCESS,
+          `Repository ${fullName} not found, or EDIN does not have access. ` +
+            `If it is private, ask the owner to add ${botLabel} as a Collaborator with Read access, then retry.`,
+          HttpStatus.NOT_FOUND,
+        );
+      case 'token_missing_or_insufficient_scope':
+        throw new DomainException(
+          ERROR_CODES.GITHUB_TOKEN_MISSING_OR_INSUFFICIENT_SCOPE,
+          result.message,
+          HttpStatus.BAD_GATEWAY,
+        );
+      case 'rate_limited':
+        throw new DomainException(
+          ERROR_CODES.GITHUB_RATE_LIMITED,
+          result.message,
+          HttpStatus.SERVICE_UNAVAILABLE,
+        );
+      case 'unknown':
+      default:
+        throw new DomainException(
+          ERROR_CODES.GITHUB_API_ERROR,
+          result.message,
+          HttpStatus.BAD_GATEWAY,
+        );
+    }
   }
 
   async removeRepository(repositoryId: string, adminId: string, correlationId?: string) {
@@ -429,6 +491,7 @@ export class IngestionService {
     webhookId: number | null;
     status: string;
     statusMessage: string | null;
+    visibility: string;
     addedById: string;
     addedBy?: { name: string } | null;
     createdAt: Date;
@@ -442,6 +505,7 @@ export class IngestionService {
       webhookId: repository.webhookId,
       status: repository.status,
       statusMessage: repository.statusMessage,
+      visibility: repository.visibility,
       addedById: repository.addedById,
       addedByName: repository.addedBy?.name ?? null,
       createdAt: repository.createdAt.toISOString(),

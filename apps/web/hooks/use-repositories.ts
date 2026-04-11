@@ -55,6 +55,7 @@ export function useAddRepository() {
         webhookId: null,
         status: 'PENDING',
         statusMessage: null,
+        visibility: 'UNKNOWN',
         addedById: '',
         addedByName: null,
         createdAt: new Date().toISOString(),

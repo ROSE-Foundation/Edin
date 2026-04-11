@@ -1,5 +1,7 @@
 export type RepositoryStatus = 'ACTIVE' | 'PENDING' | 'ERROR' | 'REMOVING';
 
+export type MonitoredRepositoryVisibility = 'PUBLIC' | 'PRIVATE' | 'UNKNOWN';
+
 export interface MonitoredRepository {
   id: string;
   owner: string;
@@ -8,6 +10,7 @@ export interface MonitoredRepository {
   webhookId: number | null;
   status: RepositoryStatus;
   statusMessage: string | null;
+  visibility: MonitoredRepositoryVisibility;
   addedById: string;
   addedByName: string | null;
   createdAt: string;

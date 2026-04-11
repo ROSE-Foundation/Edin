@@ -105,6 +105,8 @@ export function AddRepositoryForm({ open, onOpenChange }: AddRepositoryFormProps
               and pull request review events.
             </p>
 
+            <PrivateRepoHelpBlock />
+
             <div className="mt-auto flex justify-end gap-[var(--spacing-sm)] border-t border-surface-subtle pt-[var(--spacing-md)]">
               <button
                 type="button"
@@ -125,6 +127,38 @@ export function AddRepositoryForm({ open, onOpenChange }: AddRepositoryFormProps
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+function PrivateRepoHelpBlock() {
+  const botUsername = process.env.NEXT_PUBLIC_EDIN_BOT_USERNAME;
+  const botLabel = botUsername ? `@${botUsername}` : 'the EDIN bot account';
+
+  return (
+    <div className="rounded-[var(--radius-md)] border border-surface-subtle bg-surface-sunken/40 p-[var(--spacing-md)]">
+      <p className="font-sans text-[13px] font-medium text-text-primary">
+        Connecting a private repository?
+      </p>
+      <ol className="mt-[var(--spacing-xs)] list-decimal pl-[var(--spacing-md)] font-sans text-[13px] text-text-secondary">
+        <li>
+          Ask the repository owner to open{' '}
+          <span className="font-mono text-text-primary">Settings → Collaborators</span>.
+        </li>
+        <li>
+          Invite <span className="font-medium text-text-primary">{botLabel}</span> with{' '}
+          <span className="font-medium">Read</span> access.
+        </li>
+        <li>
+          Once the invitation is accepted, return here and add the repository — EDIN will register
+          the webhook and start ingesting contributions.
+        </li>
+      </ol>
+      <p className="mt-[var(--spacing-xs)] font-sans text-[12px] text-text-secondary/80">
+        If access has not been granted yet, you will see a
+        <span className="font-mono"> REPOSITORY_NOT_FOUND_OR_NO_ACCESS </span>
+        error — no record is created and you can retry after the invite is accepted.
+      </p>
+    </div>
   );
 }
 

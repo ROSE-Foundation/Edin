@@ -17,6 +17,10 @@ export type AddRepositoryDto = z.infer<typeof addRepositorySchema>;
 
 export const repositoryStatusEnum = z.enum(['ACTIVE', 'PENDING', 'ERROR', 'REMOVING']);
 
+export const repositoryVisibilityEnum = z.enum(['PUBLIC', 'PRIVATE', 'UNKNOWN']);
+
+export type RepositoryVisibility = z.infer<typeof repositoryVisibilityEnum>;
+
 export const repositoryResponseSchema = z.object({
   id: z.string().uuid(),
   owner: z.string(),
@@ -25,6 +29,7 @@ export const repositoryResponseSchema = z.object({
   webhookId: z.number().nullable(),
   status: repositoryStatusEnum,
   statusMessage: z.string().nullable(),
+  visibility: repositoryVisibilityEnum,
   addedById: z.string().uuid(),
   createdAt: z.string(),
   updatedAt: z.string(),

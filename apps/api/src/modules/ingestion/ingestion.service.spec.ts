@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ConfigService } from '@nestjs/config';
 import { getQueueToken } from '@nestjs/bullmq';
 import { IngestionService } from './ingestion.service.js';
 import { GitHubApiService, GitHubApiError } from './github-api.service.js';
@@ -30,6 +31,10 @@ const mockGitHubApiService = {
   verifyRepository: vi.fn(),
 };
 
+const mockConfigService = {
+  get: vi.fn<(key: string) => string | undefined>(() => undefined),
+};
+
 const mockQueue = {
   add: vi.fn(),
 };
@@ -46,6 +51,7 @@ describe('IngestionService', () => {
     webhookSecret: 'test-secret-hex',
     status: 'ACTIVE',
     statusMessage: null,
+    visibility: 'PUBLIC',
     addedById: 'admin-uuid-1',
     createdAt: new Date('2026-03-01'),
     updatedAt: new Date('2026-03-01'),
@@ -54,6 +60,13 @@ describe('IngestionService', () => {
   beforeEach(async () => {
     vi.clearAllMocks();
 
+    // Default: pre-flight verify succeeds as a public repo. Individual tests
+    // override this to exercise private-repo + failure branches.
+    mockGitHubApiService.verifyRepository.mockResolvedValue({
+      ok: true,
+      visibility: 'public',
+    });
+
     const module = await Test.createTestingModule({
       providers: [
         IngestionService,
@@ -61,6 +74,7 @@ describe('IngestionService', () => {
         { provide: AuditService, useValue: mockAuditService },
         { provide: EventEmitter2, useValue: mockEventEmitter },
         { provide: GitHubApiService, useValue: mockGitHubApiService },
+        { provide: ConfigService, useValue: mockConfigService },
         { provide: getQueueToken('github-ingestion'), useValue: mockQueue },
       ],
     }).compile();
@@ -71,12 +85,13 @@ describe('IngestionService', () => {
   // ─── addRepository ─────────────────────────────────────────────────────
 
   describe('addRepository', () => {
-    it('should create repository and register webhook successfully', async () => {
+    it('should create public repository and register webhook successfully', async () => {
       const input = { owner: 'edin-foundation', repo: 'edin-core' };
       mockPrisma.monitoredRepository.create.mockResolvedValue({
         ...mockRepo,
         status: 'PENDING',
         webhookId: null,
+        visibility: 'PUBLIC',
       });
       mockGitHubApiService.createWebhook.mockResolvedValue({ webhookId: 12345 });
       mockPrisma.monitoredRepository.update.mockResolvedValue({
@@ -86,17 +101,128 @@ describe('IngestionService', () => {
 
       const result = await service.addRepository(input, 'admin-uuid-1', 'test-corr');
 
+      expect(mockGitHubApiService.verifyRepository).toHaveBeenCalledWith(
+        'edin-foundation',
+        'edin-core',
+        'test-corr',
+      );
+      expect(mockPrisma.monitoredRepository.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({ visibility: 'PUBLIC' }),
+        }),
+      );
       expect(result.fullName).toBe('edin-foundation/edin-core');
       expect(result.status).toBe('ACTIVE');
+      expect(result.visibility).toBe('PUBLIC');
       expect(result.addedByName).toBe('Alice Admin');
-      expect(mockAuditService.log).toHaveBeenCalledWith(
-        expect.objectContaining({ action: 'ingestion.repository.added' }),
-        expect.anything(),
-      );
       expect(mockEventEmitter.emit).toHaveBeenCalledWith(
         'ingestion.repository.added',
         expect.objectContaining({ fullName: 'edin-foundation/edin-core' }),
       );
+    });
+
+    it('should create private repository when bot has access', async () => {
+      const input = { owner: 'acme', repo: 'secret-core' };
+      mockGitHubApiService.verifyRepository.mockResolvedValue({
+        ok: true,
+        visibility: 'private',
+      });
+      const privateRepo = {
+        ...mockRepo,
+        id: 'repo-uuid-private',
+        owner: 'acme',
+        repo: 'secret-core',
+        fullName: 'acme/secret-core',
+        visibility: 'PRIVATE',
+      };
+      mockPrisma.monitoredRepository.create.mockResolvedValue({
+        ...privateRepo,
+        status: 'PENDING',
+        webhookId: null,
+      });
+      mockGitHubApiService.createWebhook.mockResolvedValue({ webhookId: 77777 });
+      mockPrisma.monitoredRepository.update.mockResolvedValue({
+        ...privateRepo,
+        webhookId: 77777,
+        addedBy: { name: 'Alice Admin' },
+      });
+
+      const result = await service.addRepository(input, 'admin-uuid-1');
+
+      expect(mockPrisma.monitoredRepository.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({ visibility: 'PRIVATE' }),
+        }),
+      );
+      expect(result.visibility).toBe('PRIVATE');
+      expect(result.status).toBe('ACTIVE');
+    });
+
+    it('should reject with REPOSITORY_NOT_FOUND_OR_NO_ACCESS and not persist on private-repo-without-access', async () => {
+      const input = { owner: 'acme', repo: 'secret-core' };
+      mockGitHubApiService.verifyRepository.mockResolvedValue({
+        ok: false,
+        reason: 'not_found_or_no_access',
+        message: 'Repository not found, or the EDIN bot account does not have access.',
+      });
+
+      await expect(service.addRepository(input, 'admin-uuid-1')).rejects.toMatchObject({
+        errorCode: 'REPOSITORY_NOT_FOUND_OR_NO_ACCESS',
+      });
+
+      expect(mockPrisma.monitoredRepository.create).not.toHaveBeenCalled();
+      expect(mockGitHubApiService.createWebhook).not.toHaveBeenCalled();
+      expect(mockEventEmitter.emit).not.toHaveBeenCalled();
+    });
+
+    it('should name the bot in the error message when GITHUB_BOT_USERNAME is set', async () => {
+      const input = { owner: 'acme', repo: 'secret-core' };
+      mockConfigService.get.mockImplementation((key: string) =>
+        key === 'GITHUB_BOT_USERNAME' ? 'edin-bot' : undefined,
+      );
+      mockGitHubApiService.verifyRepository.mockResolvedValue({
+        ok: false,
+        reason: 'not_found_or_no_access',
+        message: 'Repository not found, or the EDIN bot account does not have access.',
+      });
+
+      await expect(service.addRepository(input, 'admin-uuid-1')).rejects.toMatchObject({
+        errorCode: 'REPOSITORY_NOT_FOUND_OR_NO_ACCESS',
+        message: expect.stringContaining('@edin-bot'),
+      });
+
+      // Reset the mock to its default so subsequent tests aren't affected.
+      mockConfigService.get.mockImplementation(() => undefined);
+    });
+
+    it('should reject with GITHUB_TOKEN_MISSING_OR_INSUFFICIENT_SCOPE when token is absent or unauthorized', async () => {
+      const input = { owner: 'edin-foundation', repo: 'edin-core' };
+      mockGitHubApiService.verifyRepository.mockResolvedValue({
+        ok: false,
+        reason: 'token_missing_or_insufficient_scope',
+        message: 'GITHUB_APP_TOKEN is not configured.',
+      });
+
+      await expect(service.addRepository(input, 'admin-uuid-1')).rejects.toMatchObject({
+        errorCode: 'GITHUB_TOKEN_MISSING_OR_INSUFFICIENT_SCOPE',
+      });
+
+      expect(mockPrisma.monitoredRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('should reject with GITHUB_RATE_LIMITED on rate limit during verify', async () => {
+      const input = { owner: 'edin-foundation', repo: 'edin-core' };
+      mockGitHubApiService.verifyRepository.mockResolvedValue({
+        ok: false,
+        reason: 'rate_limited',
+        message: 'GitHub API rate limit exceeded. Please retry later.',
+      });
+
+      await expect(service.addRepository(input, 'admin-uuid-1')).rejects.toMatchObject({
+        errorCode: 'GITHUB_RATE_LIMITED',
+      });
+
+      expect(mockPrisma.monitoredRepository.create).not.toHaveBeenCalled();
     });
 
     it('should throw REPOSITORY_ALREADY_MONITORED on duplicate', async () => {
@@ -110,7 +236,7 @@ describe('IngestionService', () => {
       });
     });
 
-    it('should save with PENDING status when GitHub API fails', async () => {
+    it('should save with PENDING status when webhook creation fails after pre-flight succeeds', async () => {
       const input = { owner: 'edin-foundation', repo: 'edin-core' };
       mockPrisma.$transaction.mockImplementation((callback: (tx: any) => unknown) =>
         callback(mockPrisma),

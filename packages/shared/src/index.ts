@@ -144,6 +144,7 @@ export type {
 export {
   addRepositorySchema,
   repositoryStatusEnum,
+  repositoryVisibilityEnum,
   repositoryResponseSchema,
   listRepositoriesQuerySchema,
   contributionSourceEnum,
@@ -169,6 +170,7 @@ export type {
   ConfirmCollaborationDto,
   DisputeCollaborationDto,
   OverrideAttributionDto,
+  RepositoryVisibility,
 } from './schemas/ingestion.schema.js';
 
 export {
