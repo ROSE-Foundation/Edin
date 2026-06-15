@@ -40,10 +40,14 @@ import { PlagiarismCheckProcessor } from './plagiarism-check.processor.js';
     }),
   ],
   controllers: [
+    // PublicArticleController MUST be registered before ArticleController.
+    // Its static `articles/published` route would otherwise be shadowed by
+    // ArticleController's guarded `articles/:id` route (Express matches routes
+    // in registration order), causing public article listing to return 401.
+    PublicArticleController,
     ArticleController,
     EditorialController,
     EditorEligibilityController,
-    PublicArticleController,
     ArticleMetricsController,
     ModerationAdminController,
   ],
