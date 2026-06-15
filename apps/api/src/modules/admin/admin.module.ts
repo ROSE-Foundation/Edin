@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { PrismaModule } from '../../prisma/prisma.module.js';
 import { SettingsModule } from '../settings/settings.module.js';
+import { PublicationModule } from '../publication/publication.module.js';
+import { AdminArticlesController } from './articles.controller.js';
+import { AdminArticlesService } from './articles.service.js';
 import { HealthMetricsController } from './health-metrics.controller.js';
 import { HealthMetricsService } from './health-metrics.service.js';
 import { AlertsService } from './alerts.service.js';
@@ -19,6 +22,7 @@ import { AuditLogsService } from './audit-logs.service.js';
   imports: [
     PrismaModule,
     SettingsModule,
+    PublicationModule,
     BullModule.registerQueue({
       name: 'admin-reports',
       defaultJobOptions: {
@@ -36,6 +40,7 @@ import { AuditLogsService } from './audit-logs.service.js';
     AuditLogsController,
     AdminSettingsController,
     AdminContributorsController,
+    AdminArticlesController,
     HealthMetricsController,
     ReportsController,
   ],
@@ -45,6 +50,7 @@ import { AuditLogsService } from './audit-logs.service.js';
     ReportsService,
     ReportsProcessor,
     AdminContributorsService,
+    AdminArticlesService,
     SettingsAdminService,
     AuditLogsService,
   ],

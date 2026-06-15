@@ -421,6 +421,8 @@ export {
   ARTICLE_DOMAINS,
   publicArticleFilterSchema,
   fileImportResultSchema,
+  adminArticleTransitionSchema,
+  adminTransitionActionEnum,
 } from './schemas/article.schema.js';
 export type {
   CreateArticleDto,
@@ -430,6 +432,7 @@ export type {
   InlineCommentInput,
   ResubmitArticleInput,
   PublicArticleFilterDto,
+  AdminArticleTransitionInput,
 } from './schemas/article.schema.js';
 
 export {
@@ -467,6 +470,8 @@ export {
   MODERATION_STATUSES,
   MODERATION_FLAG_TYPES,
   MODERATION_ADMIN_ACTIONS,
+  ADMIN_TRANSITION_ACTIONS,
+  ARTICLE_ACTOR_ROLES,
 } from './types/article.types.js';
 export type {
   ArticleStatus,
@@ -508,6 +513,10 @@ export type {
   ArticleRewardAllocationDto,
   AuthorRewardSummaryDto,
   EditorRewardSummaryDto,
+  AdminTransitionAction,
+  ArticleActorRole,
+  ArticleNextActor,
+  AdminArticleListItemDto,
 } from './types/article.types.js';
 
 export type {

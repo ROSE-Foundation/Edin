@@ -10,6 +10,7 @@ const ADMIN_NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', exact: true },
   { href: '/admin/admission', label: 'Admission' },
   { href: '/admin/contributors', label: 'Contributors' },
+  { href: '/admin/articles', label: 'Articles' },
   { href: '/admin/feedback', label: 'Feedback' },
   { href: '/admin/evaluations/models', label: 'Evaluations' },
   { href: '/admin/evaluations/review-queue', label: 'Review Queue' },

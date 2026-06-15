@@ -202,7 +202,12 @@ export class ArticleService {
     };
   }
 
-  async submitArticle(id: string, userId: string, correlationId: string): Promise<ArticleDto> {
+  async submitArticle(
+    id: string,
+    userId: string,
+    correlationId: string,
+    options?: { adminOverride?: boolean },
+  ): Promise<ArticleDto> {
     const article = await this.prisma.article.findUnique({ where: { id } });
 
     if (!article) {
@@ -213,7 +218,7 @@ export class ArticleService {
       );
     }
 
-    if (article.authorId !== userId) {
+    if (!options?.adminOverride && article.authorId !== userId) {
       throw new DomainException(
         ERROR_CODES.ARTICLE_NOT_OWNED,
         'You do not have access to this article',

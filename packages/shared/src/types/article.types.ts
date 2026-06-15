@@ -345,3 +345,51 @@ export interface EditorRewardSummaryDto {
   allocations: ArticleRewardAllocationDto[];
   averageScore: number | null;
 }
+
+// ─── Admin Article Workflow Types ─────────────────────────────────────────────
+
+/**
+ * God-mode workflow transitions an admin can force from the admin article console.
+ * Each maps to an existing transition service call (see admin articles.service).
+ */
+export const ADMIN_TRANSITION_ACTIONS = [
+  'SUBMIT',
+  'ASSIGN_EDITOR',
+  'APPROVE',
+  'REQUEST_REVISIONS',
+  'REJECT',
+  'RESUBMIT',
+  'PUBLISH',
+  'UNPUBLISH',
+  'MODERATION_DISMISS',
+  'MODERATION_REQUEST_CORRECTIONS',
+  'MODERATION_REJECT',
+] as const;
+export type AdminTransitionAction = (typeof ADMIN_TRANSITION_ACTIONS)[number];
+
+/** Who is expected to act next on an article in its current state. */
+export const ARTICLE_ACTOR_ROLES = ['AUTHOR', 'EDITOR', 'ADMIN', 'SYSTEM', 'NONE'] as const;
+export type ArticleActorRole = (typeof ARTICLE_ACTOR_ROLES)[number];
+
+export interface ArticleNextActor {
+  role: ArticleActorRole;
+  id: string | null;
+  name: string | null;
+}
+
+export interface AdminArticleListItemDto {
+  id: string;
+  title: string;
+  slug: string;
+  domain: string;
+  status: ArticleStatus;
+  version: number;
+  author: { id: string; name: string };
+  editor: { id: string; name: string } | null;
+  moderationStatus: ModerationStatus | null;
+  nextActor: ArticleNextActor;
+  availableActions: AdminTransitionAction[];
+  submittedAt: string | null;
+  publishedAt: string | null;
+  updatedAt: string;
+}

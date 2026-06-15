@@ -112,3 +112,43 @@ export const fileImportResultSchema = z.object({
   abstract: z.string().max(300),
   body: z.string(),
 });
+
+/**
+ * Schema for admin god-mode workflow transitions.
+ * `reason` is mandatory and recorded in the audit log. `revisionRequests` is
+ * required for REQUEST_REVISIONS; `body` optionally overrides the body on RESUBMIT.
+ */
+export const adminTransitionActionEnum = z.enum([
+  'SUBMIT',
+  'ASSIGN_EDITOR',
+  'APPROVE',
+  'REQUEST_REVISIONS',
+  'REJECT',
+  'RESUBMIT',
+  'PUBLISH',
+  'UNPUBLISH',
+  'MODERATION_DISMISS',
+  'MODERATION_REQUEST_CORRECTIONS',
+  'MODERATION_REJECT',
+]);
+
+export const adminArticleTransitionSchema = z
+  .object({
+    action: adminTransitionActionEnum,
+    reason: z.string().min(10, 'Reason must be at least 10 characters').max(2000),
+    revisionRequests: z
+      .array(z.object({ description: z.string().min(1, 'Description is required') }))
+      .optional(),
+    body: z.string().min(500, 'Article body must be at least 500 characters').optional(),
+  })
+  .refine(
+    (data) =>
+      data.action !== 'REQUEST_REVISIONS' ||
+      (data.revisionRequests !== undefined && data.revisionRequests.length > 0),
+    {
+      message: 'At least one revision request is required when requesting revisions',
+      path: ['revisionRequests'],
+    },
+  );
+
+export type AdminArticleTransitionInput = z.infer<typeof adminArticleTransitionSchema>;

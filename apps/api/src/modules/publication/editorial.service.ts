@@ -243,6 +243,7 @@ export class EditorialService {
     editorId: string,
     data: EditorialFeedbackInput,
     correlationId: string,
+    options?: { adminOverride?: boolean },
   ): Promise<EditorialFeedbackDto> {
     const article = await this.prisma.article.findUnique({
       where: { id: articleId },
@@ -256,7 +257,7 @@ export class EditorialService {
       );
     }
 
-    if (article.editorId !== editorId) {
+    if (!options?.adminOverride && article.editorId !== editorId) {
       throw new DomainException(
         ERROR_CODES.ARTICLE_NOT_ASSIGNED_EDITOR,
         'You are not the assigned editor for this article',
@@ -441,6 +442,7 @@ export class EditorialService {
     authorId: string,
     body: string,
     correlationId: string,
+    options?: { adminOverride?: boolean },
   ): Promise<ArticleDto> {
     const article = await this.prisma.article.findUnique({
       where: { id: articleId },
@@ -454,7 +456,7 @@ export class EditorialService {
       );
     }
 
-    if (article.authorId !== authorId) {
+    if (!options?.adminOverride && article.authorId !== authorId) {
       throw new DomainException(
         ERROR_CODES.ARTICLE_NOT_OWNED,
         'You do not have access to this article',
