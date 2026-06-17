@@ -43,6 +43,7 @@ export function TiptapEditor({
       StarterKit.configure({
         heading: { levels: [2, 3, 4] },
         codeBlock: false, // replaced by CodeBlockLowlight
+        link: false, // replaced by the explicit Link extension below
       }),
       Link.configure({ openOnClick: false }),
       Image,

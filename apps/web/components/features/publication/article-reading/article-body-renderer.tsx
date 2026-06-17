@@ -31,6 +31,7 @@ export function ArticleBodyRenderer({ body }: ArticleBodyRendererProps) {
       StarterKit.configure({
         heading: { levels: [2, 3, 4] },
         codeBlock: false,
+        link: false, // replaced by the explicit Link extension below
       }),
       Link.configure({ openOnClick: true }),
       Image,
