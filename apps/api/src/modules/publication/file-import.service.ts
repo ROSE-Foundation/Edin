@@ -168,7 +168,7 @@ export class FileImportService {
 
       const parsed = this.parseNextElement(remaining);
       if (parsed) {
-        if (parsed.node) content.push(parsed.node);
+        if (parsed.nodes.length) content.push(...parsed.nodes);
         remaining = remaining.slice(parsed.consumed);
       } else {
         // Skip unrecognized content character by character
@@ -195,11 +195,25 @@ export class FileImportService {
     return JSON.stringify({ type: 'doc', content });
   }
 
-  private parseNextElement(html: string): { node: TiptapNode | null; consumed: number } | null {
+  private parseNextElement(html: string): { nodes: TiptapNode[]; consumed: number } | null {
     // Horizontal rule
     const hrMatch = html.match(/^<hr\s*\/?>/i);
     if (hrMatch) {
-      return { node: { type: 'horizontalRule' }, consumed: hrMatch[0].length };
+      return { nodes: [{ type: 'horizontalRule' }], consumed: hrMatch[0].length };
+    }
+
+    // Table
+    const tableMatch = html.match(/^<table[^>]*>([\s\S]*?)<\/table>/i);
+    if (tableMatch) {
+      const tableNode = this.parseTable(tableMatch[1]);
+      return { nodes: tableNode ? [tableNode] : [], consumed: tableMatch[0].length };
+    }
+
+    // Standalone block-level image (e.g. docx output)
+    const imgMatch = html.match(/^<img\s[^>]*\/?>/i);
+    if (imgMatch) {
+      const imageNode = this.parseImage(imgMatch[0]);
+      return { nodes: imageNode ? [imageNode] : [], consumed: imgMatch[0].length };
     }
 
     // Headings h1-h6
@@ -210,7 +224,7 @@ export class FileImportService {
       const level = Math.max(2, Math.min(4, rawLevel));
       const inlineContent = this.parseInlineContent(headingMatch[2]);
       return {
-        node: { type: 'heading', attrs: { level }, content: inlineContent },
+        nodes: [{ type: 'heading', attrs: { level }, content: inlineContent }],
         consumed: headingMatch[0].length,
       };
     }
@@ -220,7 +234,7 @@ export class FileImportService {
     if (codeBlockMatch) {
       const codeText = this.decodeHtmlEntities(codeBlockMatch[1]);
       return {
-        node: { type: 'codeBlock', content: [{ type: 'text', text: codeText }] },
+        nodes: [{ type: 'codeBlock', content: [{ type: 'text', text: codeText }] }],
         consumed: codeBlockMatch[0].length,
       };
     }
@@ -230,7 +244,7 @@ export class FileImportService {
     if (blockquoteMatch) {
       const innerContent = this.parseBlockContent(blockquoteMatch[1]);
       return {
-        node: { type: 'blockquote', content: innerContent },
+        nodes: [{ type: 'blockquote', content: innerContent }],
         consumed: blockquoteMatch[0].length,
       };
     }
@@ -240,7 +254,7 @@ export class FileImportService {
     if (ulMatch) {
       const items = this.parseListItems(ulMatch[1]);
       return {
-        node: { type: 'bulletList', content: items },
+        nodes: [{ type: 'bulletList', content: items }],
         consumed: ulMatch[0].length,
       };
     }
@@ -250,23 +264,110 @@ export class FileImportService {
     if (olMatch) {
       const items = this.parseListItems(olMatch[1]);
       return {
-        node: { type: 'orderedList', content: items },
+        nodes: [{ type: 'orderedList', content: items }],
         consumed: olMatch[0].length,
       };
     }
 
-    // Paragraph
+    // Paragraph (may contain block-level images that must be lifted out)
     const pMatch = html.match(/^<p[^>]*>([\s\S]*?)<\/p>/i);
     if (pMatch) {
-      const inlineContent = this.parseInlineContent(pMatch[1]);
-      if (inlineContent.length === 0) return { node: null, consumed: pMatch[0].length };
-      return {
-        node: { type: 'paragraph', content: inlineContent },
-        consumed: pMatch[0].length,
-      };
+      return { nodes: this.parseParagraph(pMatch[1]), consumed: pMatch[0].length };
     }
 
     return null;
+  }
+
+  /**
+   * Parses paragraph inner HTML into TipTap nodes. Images cannot be inline
+   * children of a paragraph in the TipTap schema, so any <img> is lifted out
+   * into its own block-level image node, splitting surrounding text into
+   * separate paragraphs.
+   */
+  private parseParagraph(inner: string): TiptapNode[] {
+    if (!/<img\s/i.test(inner)) {
+      const inlineContent = this.parseInlineContent(inner);
+      return inlineContent.length ? [{ type: 'paragraph', content: inlineContent }] : [];
+    }
+
+    const nodes: TiptapNode[] = [];
+    const imgRegex = /<img\s[^>]*\/?>/gi;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = imgRegex.exec(inner)) !== null) {
+      const before = this.parseInlineContent(inner.slice(lastIndex, match.index));
+      if (before.length) nodes.push({ type: 'paragraph', content: before });
+
+      const imageNode = this.parseImage(match[0]);
+      if (imageNode) nodes.push(imageNode);
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    const after = this.parseInlineContent(inner.slice(lastIndex));
+    if (after.length) nodes.push({ type: 'paragraph', content: after });
+
+    return nodes;
+  }
+
+  private parseImage(tag: string): TiptapNode | null {
+    const src = this.extractAttr(tag, 'src');
+    if (!src) return null;
+
+    // Only allow safe image sources — http(s), root-relative, or inline image data
+    const isSafeSrc = /^(?:https?:\/\/|\/|data:image\/)/i.test(src);
+    if (!isSafeSrc) return null;
+
+    const attrs: Record<string, unknown> = { src, alt: this.extractAttr(tag, 'alt') ?? '' };
+    const title = this.extractAttr(tag, 'title');
+    if (title) attrs.title = title;
+
+    return { type: 'image', attrs };
+  }
+
+  private extractAttr(tag: string, name: string): string | undefined {
+    const match = tag.match(new RegExp(`\\s${name}\\s*=\\s*"([^"]*)"`, 'i'));
+    if (match) return this.decodeHtmlEntities(match[1]);
+    const single = tag.match(new RegExp(`\\s${name}\\s*=\\s*'([^']*)'`, 'i'));
+    return single ? this.decodeHtmlEntities(single[1]) : undefined;
+  }
+
+  private parseTable(inner: string): TiptapNode | null {
+    const rows: TiptapNode[] = [];
+    const trRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+    let trMatch;
+
+    while ((trMatch = trRegex.exec(inner)) !== null) {
+      const cells: TiptapNode[] = [];
+      const cellRegex = /<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi;
+      let cellMatch;
+
+      while ((cellMatch = cellRegex.exec(trMatch[1])) !== null) {
+        const isHeader = cellMatch[1].toLowerCase() === 'th';
+        const cellInner = cellMatch[2].trim();
+        const hasBlocks = /<(?:p|ul|ol|blockquote|pre|h[1-6])[^>]*>/i.test(cellInner);
+
+        let cellContent: TiptapNode[];
+        if (hasBlocks) {
+          cellContent = this.parseBlockContent(cellInner);
+        } else {
+          const inlineContent = this.parseInlineContent(cellInner);
+          // TipTap table cells must contain at least one block node
+          cellContent = [
+            inlineContent.length
+              ? { type: 'paragraph', content: inlineContent }
+              : { type: 'paragraph' },
+          ];
+        }
+
+        cells.push({ type: isHeader ? 'tableHeader' : 'tableCell', content: cellContent });
+      }
+
+      if (cells.length > 0) rows.push({ type: 'tableRow', content: cells });
+    }
+
+    return rows.length > 0 ? { type: 'table', content: rows } : null;
   }
 
   private parseBlockContent(html: string): TiptapNode[] {
@@ -279,7 +380,7 @@ export class FileImportService {
 
       const parsed = this.parseNextElement(remaining);
       if (parsed) {
-        if (parsed.node) content.push(parsed.node);
+        if (parsed.nodes.length) content.push(...parsed.nodes);
         remaining = remaining.slice(parsed.consumed);
       } else {
         // Treat as inline text in a paragraph

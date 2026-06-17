@@ -9,7 +9,7 @@ import { DomainException } from '../../common/exceptions/domain.exception.js';
 interface TiptapTestNode {
   type: string;
   text?: string;
-  attrs?: { level?: number };
+  attrs?: { level?: number; src?: string; alt?: string };
   marks?: Array<{ type: string }>;
   content?: TiptapTestNode[];
 }
@@ -253,6 +253,52 @@ describe('FileImportService', () => {
 
       const blockquote = parsed.content.find((n) => n.type === 'blockquote');
       expect(blockquote).toBeDefined();
+    });
+
+    it('should convert markdown tables to tiptap table nodes', async () => {
+      const md = ['| Name | Age |', '| --- | --- |', '| Alice | 30 |', '| Bob | 25 |'].join('\n');
+      const file = makeFile(md, 'test.md');
+      const result = await service.importFile(file);
+      const parsed = JSON.parse(result.body) as TiptapTestDoc;
+
+      const table = parsed.content.find((n) => n.type === 'table');
+      expect(table).toBeDefined();
+      // 1 header row + 2 body rows
+      expect(table?.content?.length).toBe(3);
+
+      const headerRow = table?.content?.[0];
+      expect(headerRow?.type).toBe('tableRow');
+      expect(headerRow?.content?.[0].type).toBe('tableHeader');
+      expect(headerRow?.content?.[1].type).toBe('tableHeader');
+
+      const bodyRow = table?.content?.[1];
+      expect(bodyRow?.content?.[0].type).toBe('tableCell');
+
+      // Cell text is preserved
+      const firstCellText = headerRow?.content?.[0].content?.[0].content?.[0].text;
+      expect(firstCellText).toBe('Name');
+    });
+
+    it('should lift markdown images into block-level image nodes', async () => {
+      const md = 'Intro paragraph.\n\n![A scenic photo](https://example.com/photo.png)\n';
+      const file = makeFile(md, 'test.md');
+      const result = await service.importFile(file);
+      const parsed = JSON.parse(result.body) as TiptapTestDoc;
+
+      const image = parsed.content.find((n) => n.type === 'image');
+      expect(image).toBeDefined();
+      expect(image?.attrs?.src).toBe('https://example.com/photo.png');
+      expect(image?.attrs?.alt).toBe('A scenic photo');
+    });
+
+    it('should reject unsafe image sources', async () => {
+      const md = 'Intro paragraph.\n\n![bad](javascript:alert(1))\n';
+      const file = makeFile(md, 'test.md');
+      const result = await service.importFile(file);
+      const parsed = JSON.parse(result.body) as TiptapTestDoc;
+
+      const image = parsed.content.find((n) => n.type === 'image');
+      expect(image).toBeUndefined();
     });
   });
 

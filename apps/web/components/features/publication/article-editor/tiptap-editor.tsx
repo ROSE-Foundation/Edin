@@ -6,6 +6,10 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableCell } from '@tiptap/extension-table-cell';
 import { common, createLowlight } from 'lowlight';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SlashMenu } from './slash-menu';
@@ -46,6 +50,10 @@ export function TiptapEditor({
         placeholder: placeholder ?? 'Start writing your article...',
       }),
       CodeBlockLowlight.configure({ lowlight }),
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     editable,
     content: parseContent(content),
@@ -210,6 +218,41 @@ export function TiptapEditor({
           border: none;
           border-top: 1px solid var(--color-surface-border, #E8E6E1);
           margin: 2rem 0;
+        }
+        .prose-editor table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 1.5rem 0;
+          overflow: hidden;
+          table-layout: fixed;
+        }
+        .prose-editor table td,
+        .prose-editor table th {
+          border: 1px solid var(--color-surface-border, #E8E6E1);
+          padding: 0.5rem 0.75rem;
+          vertical-align: top;
+          text-align: left;
+          position: relative;
+        }
+        .prose-editor table th {
+          background: var(--color-surface-sunken, #F2F0EB);
+          font-weight: 600;
+        }
+        .prose-editor table .selectedCell:after {
+          background: rgba(196, 149, 106, 0.15);
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .prose-editor table .column-resize-handle {
+          background: var(--color-accent-primary, #C4956A);
+          bottom: 0;
+          position: absolute;
+          right: -2px;
+          top: 0;
+          width: 3px;
+          cursor: col-resize;
         }
         .prose-editor .is-editor-empty:first-child::before {
           color: var(--color-text-secondary, #6B7B8D);

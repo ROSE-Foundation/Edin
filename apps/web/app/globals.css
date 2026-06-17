@@ -242,3 +242,47 @@ body {
   border-top: 1px solid var(--color-surface-subtle);
   margin: 2rem 0;
 }
+
+.article-prose strong {
+  font-weight: 700;
+}
+
+.article-prose em {
+  font-style: italic;
+}
+
+.article-prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.article-prose table th,
+.article-prose table td {
+  border: 1px solid var(--color-surface-subtle);
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+  color: var(--color-text-primary);
+}
+
+.article-prose table th {
+  background: var(--color-surface-raised);
+  font-weight: 600;
+  color: var(--color-text-heading);
+}
+
+.article-prose table tr:nth-child(even) td {
+  background: var(--color-surface-raised);
+}
+
+/* Reset prose paragraph margins inside table cells */
+.article-prose table p {
+  margin-bottom: 0;
+  font-size: inherit;
+  line-height: inherit;
+}

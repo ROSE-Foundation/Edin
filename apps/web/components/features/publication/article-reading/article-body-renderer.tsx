@@ -5,6 +5,10 @@ import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableCell } from '@tiptap/extension-table-cell';
 import { common, createLowlight } from 'lowlight';
 
 const lowlight = createLowlight(common);
@@ -31,6 +35,10 @@ export function ArticleBodyRenderer({ body }: ArticleBodyRendererProps) {
       Link.configure({ openOnClick: true }),
       Image,
       CodeBlockLowlight.configure({ lowlight }),
+      Table,
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     editable: false,
     content: parseContent(body),

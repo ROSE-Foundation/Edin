@@ -60,6 +60,12 @@ const SLASH_MENU_ITEMS: SlashMenuItem[] = [
       }
     },
   },
+  {
+    label: 'Table',
+    description: 'Insert a 3×3 table',
+    action: (editor) =>
+      editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(),
+  },
 ];
 
 interface SlashMenuProps {
