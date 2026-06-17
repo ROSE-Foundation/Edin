@@ -257,7 +257,7 @@ export class AuthService {
     return {
       accessToken,
       expiresIn: this.parseExpirationToSeconds(
-        this.configService.get<string>('JWT_EXPIRATION', '15m'),
+        this.configService.get<string>('JWT_EXPIRATION', '24h'),
       ),
       refreshToken: `${contributor.id}:${refreshTokenId}`,
       refreshTokenId,

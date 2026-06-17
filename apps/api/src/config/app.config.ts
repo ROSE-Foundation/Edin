@@ -14,7 +14,7 @@ export const appConfigSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().min(1),
   GOOGLE_CALLBACK_URL: z.string().url(),
   JWT_SECRET: z.string().min(32),
-  JWT_EXPIRATION: z.string().default('15m'),
+  JWT_EXPIRATION: z.string().default('24h'),
   REFRESH_TOKEN_EXPIRATION: z.string().default('30d'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   GITHUB_APP_TOKEN: z.string().min(1).optional(),

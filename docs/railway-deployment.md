@@ -89,7 +89,7 @@ GITHUB_CALLBACK_URL=https://<api-service-domain>.up.railway.app/api/v1/auth/gith
 
 # ── JWT ──
 JWT_SECRET=<min_32_chars>
-JWT_EXPIRATION=15m
+JWT_EXPIRATION=24h
 REFRESH_TOKEN_EXPIRATION=30d
 
 # ── Anthropic (optional) ──

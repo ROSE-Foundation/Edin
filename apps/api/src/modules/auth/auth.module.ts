@@ -21,7 +21,7 @@ import { AbilityGuard } from '../../common/guards/ability.guard.js';
         signOptions: {
           expiresIn: configService.get<string>(
             'JWT_EXPIRATION',
-            '15m',
+            '24h',
           ) as `${number}${'s' | 'm' | 'h' | 'd'}`,
         },
       }),
