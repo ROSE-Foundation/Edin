@@ -32,6 +32,21 @@ export const appConfigSchema = z.object({
   ZENHUB_WEBHOOK_SECRET: z.string().min(1).optional(),
   ZENHUB_POLLING_INTERVAL_MS: z.coerce.number().int().min(60_000).default(900_000),
   ZENHUB_WORKSPACE_ID: z.string().optional(),
+
+  // SMTP email transport — all optional; when SMTP_HOST is unset MailService no-ops
+  SMTP_HOST: z.string().min(1).optional(),
+  SMTP_PORT: z.coerce.number().int().default(587),
+  SMTP_SECURE: z.enum(['true', 'false']).default('false'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
+
+  // Admission notification recipients — per domain, optional; comma-separated for multiple inboxes
+  ADMISSION_NOTIFICATION_EMAIL_TECHNOLOGY: z.string().optional(),
+  ADMISSION_NOTIFICATION_EMAIL_FINANCE: z.string().optional(),
+  ADMISSION_NOTIFICATION_EMAIL_IMPACT: z.string().optional(),
+  ADMISSION_NOTIFICATION_EMAIL_GOVERNANCE: z.string().optional(),
+  ADMISSION_NOTIFICATION_EMAIL_DEFAULT: z.string().optional(),
 });
 
 export type AppConfig = z.infer<typeof appConfigSchema>;

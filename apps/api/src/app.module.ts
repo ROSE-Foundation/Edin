@@ -8,6 +8,7 @@ import { randomUUID } from 'crypto';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { RedisModule } from './common/redis/redis.module.js';
+import { MailModule } from './common/mail/mail.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { ContributorModule } from './modules/contributor/contributor.module.js';
@@ -90,6 +91,7 @@ import type { AppConfig } from './config/app.config.js';
     PrismaModule,
     ComplianceModule,
     RedisModule,
+    MailModule,
     HealthModule,
     AuthModule,
     ContributorModule,
