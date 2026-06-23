@@ -4,6 +4,7 @@ import { AdmissionEmailListener } from './admission-email.listener.js';
 import type { ApplicationSubmittedEvent } from './admission-email.listener.js';
 import { MailService } from '../../common/mail/mail.service.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import { AuthService } from '../auth/auth.service.js';
 
 const APPLICATION = {
   applicantName: 'Jane Doe',
@@ -14,16 +15,22 @@ const APPLICATION = {
 
 function build(config: Record<string, unknown>) {
   const findUnique = vi.fn().mockResolvedValue(APPLICATION);
+  const contributorFindUnique = vi.fn();
   const sendMail = vi.fn().mockResolvedValue(true);
+  const createPasswordSetupToken = vi.fn().mockResolvedValue('raw-token-123');
 
-  const prisma = { application: { findUnique } } as unknown as PrismaService;
+  const prisma = {
+    application: { findUnique },
+    contributor: { findUnique: contributorFindUnique },
+  } as unknown as PrismaService;
   const mail = { sendMail } as unknown as MailService;
   const configService = {
     get: (key: string) => config[key],
   } as unknown as ConfigService;
+  const authService = { createPasswordSetupToken } as unknown as AuthService;
 
-  const listener = new AdmissionEmailListener(prisma, mail, configService);
-  return { listener, findUnique, sendMail };
+  const listener = new AdmissionEmailListener(prisma, mail, configService, authService);
+  return { listener, findUnique, contributorFindUnique, sendMail, createPasswordSetupToken };
 }
 
 const baseEvent: ApplicationSubmittedEvent = {
@@ -128,5 +135,57 @@ describe('AdmissionEmailListener', () => {
 
     await expect(listener.handleApplicationSubmitted(baseEvent)).resolves.toBeUndefined();
     expect(sendMail).not.toHaveBeenCalled();
+  });
+
+  describe('handleApplicationApproved', () => {
+    const newAccountEvent = {
+      applicationId: 'app-1',
+      adminId: 'admin-1',
+      correlationId: 'corr-1',
+      setPasswordContributorId: 'contrib-1',
+    };
+
+    it('emails the set-password link only to a newly-created account', async () => {
+      const { listener, contributorFindUnique, sendMail, createPasswordSetupToken } = build({
+        FRONTEND_URL: 'http://localhost:3000',
+      });
+      contributorFindUnique.mockResolvedValueOnce({ name: 'Jane Doe', email: 'jane@example.com' });
+
+      await listener.handleApplicationApproved(newAccountEvent);
+
+      expect(createPasswordSetupToken).toHaveBeenCalledWith('contrib-1');
+      const arg = sendMail.mock.calls[0][0];
+      expect(arg.to).toBe('jane@example.com');
+      expect(arg.text).toContain('http://localhost:3000/set-password?token=raw-token-123');
+      expect(arg.html).toContain('/set-password?token=raw-token-123');
+    });
+
+    it('skips entirely when no new account was created (no setPasswordContributorId)', async () => {
+      const { listener, contributorFindUnique, sendMail, createPasswordSetupToken } = build({
+        FRONTEND_URL: 'http://localhost:3000',
+      });
+
+      await listener.handleApplicationApproved({
+        applicationId: 'app-1',
+        adminId: 'admin-1',
+        correlationId: 'corr-1',
+        setPasswordContributorId: null,
+      });
+
+      expect(contributorFindUnique).not.toHaveBeenCalled();
+      expect(createPasswordSetupToken).not.toHaveBeenCalled();
+      expect(sendMail).not.toHaveBeenCalled();
+    });
+
+    it('swallows errors so approval is never affected', async () => {
+      const { listener, contributorFindUnique, sendMail, createPasswordSetupToken } = build({
+        FRONTEND_URL: 'http://localhost:3000',
+      });
+      contributorFindUnique.mockResolvedValueOnce({ name: 'Jane Doe', email: 'jane@example.com' });
+      createPasswordSetupToken.mockRejectedValueOnce(new Error('token failure'));
+
+      await expect(listener.handleApplicationApproved(newAccountEvent)).resolves.toBeUndefined();
+      expect(sendMail).not.toHaveBeenCalled();
+    });
   });
 });

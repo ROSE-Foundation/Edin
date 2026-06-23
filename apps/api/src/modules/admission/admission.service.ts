@@ -518,15 +518,22 @@ export class AdmissionService {
       );
     }
 
-    if (application.status !== 'UNDER_REVIEW') {
+    if (application.status !== 'UNDER_REVIEW' && application.status !== 'PENDING') {
       throw new DomainException(
         ERROR_CODES.INVALID_STATUS_TRANSITION,
-        `Cannot approve application with status ${application.status}. Application must be UNDER_REVIEW.`,
+        `Cannot approve application with status ${application.status}. Application must be PENDING or UNDER_REVIEW.`,
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
 
     const now = new Date();
+
+    // Roles below CONTRIBUTOR that approval may promote (never downgrade higher roles).
+    const PROMOTABLE_ROLES = ['PUBLIC', 'APPLICANT'];
+
+    // Set to the contributor id only when a BRAND-NEW account is created at
+    // approval — only those receive a set-password invitation email.
+    let newAccountContributorId: string | null = null;
 
     const result = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.application.update({
@@ -549,6 +556,51 @@ export class AdmissionService {
           contributorId: application.contributorId,
           applicationId,
           correlationId,
+        });
+      } else {
+        // Public (anonymous) applicant. Match an existing account case-insensitively
+        // to avoid duplicates; otherwise create a new one. Never downgrade an
+        // existing role, and only new accounts get a set-password email.
+        const email = application.applicantEmail.toLowerCase();
+        const existing = await tx.contributor.findFirst({
+          where: { email: { equals: email, mode: 'insensitive' } },
+        });
+
+        let contributorId: string;
+        if (existing) {
+          if (PROMOTABLE_ROLES.includes(existing.role)) {
+            await tx.contributor.update({
+              where: { id: existing.id },
+              data: { role: 'CONTRIBUTOR' },
+            });
+          }
+          contributorId = existing.id;
+          this.logger.log('Existing contributor linked at approval', {
+            contributorId,
+            applicationId,
+            correlationId,
+          });
+        } else {
+          const created = await tx.contributor.create({
+            data: {
+              name: application.applicantName,
+              email,
+              domain: application.domain,
+              role: 'CONTRIBUTOR',
+            },
+          });
+          contributorId = created.id;
+          newAccountContributorId = created.id;
+          this.logger.log('Contributor account created at approval', {
+            contributorId,
+            applicationId,
+            correlationId,
+          });
+        }
+
+        await tx.application.update({
+          where: { id: applicationId },
+          data: { contributorId },
         });
       }
 
@@ -574,6 +626,8 @@ export class AdmissionService {
       applicationId,
       adminId,
       correlationId,
+      // Only set for newly-created accounts — drives the set-password invitation.
+      setPasswordContributorId: newAccountContributorId,
     });
 
     this.logger.log('Application approved successfully', {

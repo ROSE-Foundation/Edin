@@ -4,6 +4,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import type { ContributorDomain } from '../../../generated/prisma/client/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { MailService } from '../../common/mail/mail.service.js';
+import { AuthService } from '../auth/auth.service.js';
 import type { AppConfig } from '../../config/app.config.js';
 
 export interface ApplicationSubmittedEvent {
@@ -11,6 +12,14 @@ export interface ApplicationSubmittedEvent {
   applicantEmail: string;
   domain: ContributorDomain;
   correlationId?: string;
+}
+
+export interface ApplicationApprovedEvent {
+  applicationId: string;
+  adminId: string;
+  correlationId?: string;
+  /** Set only for brand-new accounts created at approval — drives the invite. */
+  setPasswordContributorId?: string | null;
 }
 
 /** Basic sanity check for a recipient address (not full RFC 5322). */
@@ -39,6 +48,7 @@ export class AdmissionEmailListener {
     private readonly prisma: PrismaService,
     private readonly mailService: MailService,
     private readonly config: ConfigService<AppConfig, true>,
+    private readonly authService: AuthService,
   ) {}
 
   @OnEvent('admission.application.submitted')
@@ -111,6 +121,71 @@ export class AdmissionEmailListener {
         module: 'admission',
         applicationId,
         domain,
+        correlationId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  /**
+   * On approval, sends a best-effort set-password invitation email to the
+   * applicant with a one-time link. Failures never affect the approval.
+   */
+  @OnEvent('admission.application.approved')
+  async handleApplicationApproved(event: ApplicationApprovedEvent): Promise<void> {
+    const { applicationId, setPasswordContributorId, correlationId } = event;
+
+    // Only brand-new accounts created at approval get a set-password invitation;
+    // pre-existing accounts already have a way in.
+    if (!setPasswordContributorId) {
+      return;
+    }
+
+    try {
+      const contributor = await this.prisma.contributor.findUnique({
+        where: { id: setPasswordContributorId },
+        select: { name: true, email: true },
+      });
+
+      if (!contributor?.email) {
+        this.logger.warn('Approved contributor has no email; skipping set-password email', {
+          module: 'admission',
+          applicationId,
+          correlationId,
+        });
+        return;
+      }
+
+      const rawToken = await this.authService.createPasswordSetupToken(setPasswordContributorId);
+      const setPasswordUrl = `${this.config.get('FRONTEND_URL', { infer: true })}/set-password?token=${rawToken}`;
+
+      const subject = 'Your Edin application is approved — set your password';
+      const text = [
+        `Hi ${contributor.name},`,
+        ``,
+        `Your application to Edin has been approved. Set your password to activate your account:`,
+        setPasswordUrl,
+        ``,
+        `Your sign-in identifier is this email address (${contributor.email}). This link expires in 7 days.`,
+      ].join('\n');
+      const html = [
+        `<p>Hi ${escapeHtml(contributor.name)},</p>`,
+        `<p>Your application to Edin has been approved. Set your password to activate your account:</p>`,
+        `<p><a href="${escapeHtml(setPasswordUrl)}">Set your password</a></p>`,
+        `<p>Your sign-in identifier is this email address (${escapeHtml(contributor.email)}). This link expires in 7 days.</p>`,
+      ].join('');
+
+      await this.mailService.sendMail({
+        to: contributor.email,
+        subject,
+        text,
+        html,
+        correlationId,
+      });
+    } catch (error) {
+      this.logger.error('Failed to send set-password invitation email', {
+        module: 'admission',
+        applicationId,
         correlationId,
         error: error instanceof Error ? error.message : String(error),
       });

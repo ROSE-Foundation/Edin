@@ -34,8 +34,11 @@ const mockPrisma = {
   },
   contributor: {
     findUnique: vi.fn(),
+    findFirst: vi.fn(),
     findMany: vi.fn(),
+    create: vi.fn(),
     update: vi.fn(),
+    upsert: vi.fn(),
     count: vi.fn(),
   },
   buddyAssignment: {
@@ -555,10 +558,64 @@ describe('AdmissionService', () => {
       );
     });
 
-    it('throws INVALID_STATUS_TRANSITION for non-UNDER_REVIEW application', async () => {
+    it('approves a PENDING anonymous application and creates the account by lowercased email', async () => {
       mockPrisma.application.findUnique.mockResolvedValueOnce({
         ...mockApplication,
         status: 'PENDING',
+        contributorId: null,
+        applicantName: 'Jane Doe',
+        applicantEmail: 'Jane@Example.com',
+        domain: 'Technology',
+      });
+      mockPrisma.application.update.mockResolvedValue({ ...mockApplication, status: 'APPROVED' });
+      mockPrisma.contributor.findFirst.mockResolvedValueOnce(null);
+      mockPrisma.contributor.create.mockResolvedValueOnce({ id: 'new-contrib-1' });
+      mockAuditService.log.mockResolvedValueOnce(undefined);
+
+      const result = await service.approveApplication('app-uuid-1', 'admin-1', undefined, 'corr-p');
+
+      expect(result.status).toBe('APPROVED');
+      expect(mockPrisma.contributor.findFirst).toHaveBeenCalledWith({
+        where: { email: { equals: 'jane@example.com', mode: 'insensitive' } },
+      });
+      expect(mockPrisma.contributor.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({ email: 'jane@example.com', role: 'CONTRIBUTOR' }),
+        }),
+      );
+      expect(mockPrisma.application.update).toHaveBeenCalledWith({
+        where: { id: 'app-uuid-1' },
+        data: { contributorId: 'new-contrib-1' },
+      });
+    });
+
+    it('links an existing account by email and never downgrades its role', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        ...mockApplication,
+        status: 'PENDING',
+        contributorId: null,
+        applicantEmail: 'admin@example.com',
+        domain: 'Technology',
+      });
+      mockPrisma.application.update.mockResolvedValue({ ...mockApplication, status: 'APPROVED' });
+      // Existing higher-privilege account — must NOT be downgraded, NOT recreated.
+      mockPrisma.contributor.findFirst.mockResolvedValueOnce({ id: 'admin-acct', role: 'ADMIN' });
+      mockAuditService.log.mockResolvedValueOnce(undefined);
+
+      await service.approveApplication('app-uuid-1', 'admin-1', undefined, 'corr-existing');
+
+      expect(mockPrisma.contributor.create).not.toHaveBeenCalled();
+      expect(mockPrisma.contributor.update).not.toHaveBeenCalled(); // ADMIN not promotable → untouched
+      expect(mockPrisma.application.update).toHaveBeenCalledWith({
+        where: { id: 'app-uuid-1' },
+        data: { contributorId: 'admin-acct' },
+      });
+    });
+
+    it('throws INVALID_STATUS_TRANSITION when the application is neither PENDING nor UNDER_REVIEW', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        ...mockApplication,
+        status: 'APPROVED',
       });
 
       await expect(

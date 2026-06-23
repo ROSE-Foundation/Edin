@@ -81,14 +81,14 @@ export class AuthService {
         githubId: profile.githubId,
         githubUsername: profile.username,
         name: profile.displayName,
-        email: profile.email,
+        email: profile.email?.toLowerCase() ?? null,
         avatarUrl: profile.avatarUrl,
         role: 'APPLICANT',
       },
       update: {
         githubUsername: profile.username,
         name: profile.displayName,
-        email: profile.email,
+        email: profile.email?.toLowerCase() ?? null,
         avatarUrl: profile.avatarUrl,
       },
     });
@@ -133,7 +133,7 @@ export class AuthService {
         where: { id: byGoogleId.id },
         data: {
           name: profile.displayName,
-          email: profile.email,
+          email: profile.email?.toLowerCase() ?? null,
           avatarUrl: profile.avatarUrl,
         },
       });
@@ -147,7 +147,7 @@ export class AuthService {
 
     if (profile.email && profile.emailVerified) {
       const byEmail = await this.prisma.contributor.findUnique({
-        where: { email: profile.email },
+        where: { email: profile.email.toLowerCase() },
       });
 
       if (byEmail) {
@@ -198,7 +198,7 @@ export class AuthService {
       const created = await this.prisma.contributor.create({
         data: {
           googleId: profile.googleId,
-          email: profile.email,
+          email: profile.email?.toLowerCase() ?? null,
           name: profile.displayName,
           avatarUrl: profile.avatarUrl,
           role: 'APPLICANT',
