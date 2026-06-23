@@ -10,6 +10,7 @@ const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Finance: { bg: 'bg-domain-finance', text: 'text-black' },
   Impact: { bg: 'bg-domain-impact', text: 'text-black' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
+  Nurea_TV: { bg: 'bg-domain-governance', text: 'text-white' },
 };
 
 const ROLE_LABELS: Record<string, string> = {

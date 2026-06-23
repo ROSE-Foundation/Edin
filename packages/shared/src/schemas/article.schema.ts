@@ -1,6 +1,12 @@
 import { z } from 'zod';
 
-export const ARTICLE_DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
+export const ARTICLE_DOMAINS = [
+  'Technology',
+  'Finance',
+  'Impact',
+  'Governance',
+  'Nurea_TV',
+] as const;
 
 export const articleDomainEnum = z.enum(ARTICLE_DOMAINS);
 

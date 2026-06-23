@@ -15,6 +15,7 @@ const DOMAIN_OPTIONS = [
   { value: DOMAINS.Finance, label: 'Finance' },
   { value: DOMAINS.Impact, label: 'Impact' },
   { value: DOMAINS.Governance, label: 'Governance' },
+  { value: DOMAINS.Nurea_TV, label: 'Nurea TV' },
 ];
 
 interface DomainSelectorProps {
@@ -39,7 +40,8 @@ export function DomainSelector({
   const fetchIdRef = useRef(0);
 
   const fetchMicroTask = useCallback((domain: string) => {
-    if (!domain || !API_BASE_URL) {
+    // Nurea TV has no micro-task — never fetch one.
+    if (!domain || domain === DOMAINS.Nurea_TV || !API_BASE_URL) {
       setMicroTask(null);
       setLoading(false);
       return;

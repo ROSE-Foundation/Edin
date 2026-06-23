@@ -30,6 +30,7 @@ function AvatarFallback({ name, domain }: { name: string; domain: string | null 
     Finance: 'bg-[#C4956A]',
     Impact: 'bg-[#A85A5A]',
     Governance: 'bg-[#6B5B8A]',
+    Nurea_TV: 'bg-[#6B5B8A]',
   };
 
   const bgColor = domain ? (domainColors[domain] ?? 'bg-text-secondary') : 'bg-text-secondary';

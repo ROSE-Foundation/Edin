@@ -11,6 +11,11 @@ export const DOMAIN_COLORS: Record<string, { bg: string; text: string; border: s
     text: 'text-white',
     border: 'border-domain-governance',
   },
+  Nurea_TV: {
+    bg: 'bg-domain-governance',
+    text: 'text-white',
+    border: 'border-domain-governance',
+  },
 };
 
 export const DOMAIN_HEX_COLORS: Record<string, string> = {
@@ -18,4 +23,5 @@ export const DOMAIN_HEX_COLORS: Record<string, string> = {
   Finance: '#C49A3C',
   Impact: '#B06B6B',
   Governance: '#7B6B8A',
+  Nurea_TV: '#5A8CA0',
 };

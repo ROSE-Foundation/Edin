@@ -3,7 +3,13 @@ export const DOMAINS = {
   Finance: 'Finance',
   Impact: 'Impact',
   Governance: 'Governance',
+  Nurea_TV: 'Nurea_TV',
 } as const;
+
+/** Human-readable label for a domain enum value (e.g. 'Nurea_TV' -> 'Nurea TV'). */
+export function domainLabel(domain: Domain): string {
+  return DOMAIN_DETAILS[domain]?.name ?? domain.replace(/_/g, ' ');
+}
 
 export type Domain = (typeof DOMAINS)[keyof typeof DOMAINS];
 
@@ -31,6 +37,12 @@ export const DOMAIN_DETAILS = {
     description:
       'Shaping the rules, processes, and decision-making frameworks that guide the progressive decentralization of Edin.',
     accentColor: '#7B6B8A',
+  },
+  // TODO: editorial copy for Nurea TV pending — update name/description/accentColor when provided.
+  Nurea_TV: {
+    name: 'Nurea TV',
+    description: 'Contributions related to Nurea TV.',
+    accentColor: '#5A8CA0',
   },
 } as const;
 

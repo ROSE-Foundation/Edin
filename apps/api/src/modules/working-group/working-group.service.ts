@@ -1,6 +1,7 @@
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ERROR_CODES } from '@edin/shared';
+import type { ContributorDomain } from '../../../generated/prisma/client/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { AuditService } from '../compliance/audit/audit.service.js';
@@ -401,7 +402,7 @@ export class WorkingGroupService {
     });
   }
 
-  async getActiveTasksForDomain(domain: 'Technology' | 'Finance' | 'Impact' | 'Governance') {
+  async getActiveTasksForDomain(domain: ContributorDomain) {
     return this.prisma.microTask.findMany({
       where: {
         domain,

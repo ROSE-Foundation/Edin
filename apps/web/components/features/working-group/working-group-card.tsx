@@ -24,6 +24,11 @@ const DOMAIN_STYLES: Record<string, { bg: string; border: string; badge: string 
     border: 'border-[#7B6B8A]/20',
     badge: 'bg-domain-governance text-white',
   },
+  Nurea_TV: {
+    bg: 'bg-[#5A8CA0]/5',
+    border: 'border-[#5A8CA0]/20',
+    badge: 'bg-domain-governance text-white',
+  },
 };
 
 interface WorkingGroupCardProps {

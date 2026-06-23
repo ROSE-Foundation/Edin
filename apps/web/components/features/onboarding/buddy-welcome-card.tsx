@@ -8,6 +8,7 @@ const DOMAIN_COLORS: Record<string, { bg: string; text: string }> = {
   Finance: { bg: 'bg-domain-finance', text: 'text-white' },
   Impact: { bg: 'bg-domain-impact', text: 'text-white' },
   Governance: { bg: 'bg-domain-governance', text: 'text-white' },
+  Nurea_TV: { bg: 'bg-domain-governance', text: 'text-white' },
 };
 
 interface BuddyWelcomeCardProps {

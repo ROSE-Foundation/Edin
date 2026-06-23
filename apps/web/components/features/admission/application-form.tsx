@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createApplicationSchema } from '@edin/shared';
+import { createApplicationSchema, DOMAINS } from '@edin/shared';
 import type { CreateApplicationDto, Domain } from '@edin/shared';
 import { DomainSelector } from './domain-selector';
 import { GdprConsent } from './gdpr-consent';
@@ -48,6 +48,8 @@ export function ApplicationForm() {
 
   const selectedDomain = watch('domain');
   const statementValue = watch('statementOfInterest');
+  // Nurea TV applications have no micro-task step.
+  const hasMicroTask = Boolean(selectedDomain) && selectedDomain !== DOMAINS.Nurea_TV;
 
   const onSubmit = async (data: CreateApplicationDto) => {
     setIsSubmitting(true);
@@ -208,8 +210,8 @@ export function ApplicationForm() {
           </div>
         </div>
 
-        {/* Micro-task response (shown only when domain is selected) */}
-        {selectedDomain && (
+        {/* Micro-task response (shown only when the selected domain has a micro-task) */}
+        {hasMicroTask && (
           <div className="space-y-[var(--spacing-lg)]">
             <div>
               <label

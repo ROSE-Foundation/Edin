@@ -255,6 +255,12 @@ async function main() {
       domain: 'Governance' as const,
       accentColor: '#7B6B8A', // slate violet
     },
+    {
+      name: 'Nurea TV',
+      description: 'Contributions related to Nurea TV.',
+      domain: 'Nurea_TV' as const,
+      accentColor: '#5A8CA0', // slate blue (placeholder — pending editorial)
+    },
   ];
 
   for (const wg of workingGroups) {
@@ -298,6 +304,12 @@ async function main() {
       description: 'Governance domain channel',
       type: 'DOMAIN' as const,
       domain: 'Governance',
+    },
+    {
+      name: 'Nurea TV',
+      description: 'Nurea TV domain channel',
+      type: 'DOMAIN' as const,
+      domain: 'Nurea_TV',
     },
   ];
 
@@ -400,6 +412,27 @@ async function main() {
     } else {
       console.log(`Prize category "${pc.name}" already exists: ${existing.id}`);
     }
+  }
+
+  // Seed editor eligibility criteria for every domain. Required for the
+  // editor-application flow: GET /publication/editor-eligibility derives the
+  // list of domains from this table, and rows must exist before any
+  // contributor can apply. Uses upsert with empty update so admin-tuned
+  // values (via PATCH /editor-criteria/:domain) survive re-seeding.
+  const editorEligibilityDomains: ContributorDomain[] = [
+    'Technology',
+    'Finance',
+    'Impact',
+    'Governance',
+    'Nurea_TV',
+  ];
+  for (const domain of editorEligibilityDomains) {
+    const criteria = await prisma.editorEligibilityCriteria.upsert({
+      where: { domain },
+      update: {},
+      create: { domain },
+    });
+    console.log(`Upserted editor eligibility criteria for ${domain}: ${criteria.id}`);
   }
 
   console.log('Seeding complete.');

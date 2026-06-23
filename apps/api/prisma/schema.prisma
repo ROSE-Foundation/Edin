@@ -30,6 +30,7 @@ enum ContributorDomain {
   Finance
   Impact
   Governance
+  Nurea_TV
 
   @@schema("core")
 }
@@ -353,8 +354,8 @@ model Application {
   applicantEmail         String            @map("applicant_email")
   domain                 ContributorDomain
   statementOfInterest    String            @map("statement_of_interest") @db.VarChar(300)
-  microTaskDomain        ContributorDomain @map("micro_task_domain")
-  microTaskResponse      String            @map("micro_task_response")
+  microTaskDomain        ContributorDomain? @map("micro_task_domain")
+  microTaskResponse      String?            @map("micro_task_response")
   microTaskSubmissionUrl String?           @map("micro_task_submission_url")
   gdprConsentVersion     String            @map("gdpr_consent_version")
   gdprConsentedAt        DateTime          @map("gdpr_consented_at")

@@ -3,4 +3,5 @@ export const DOMAIN_COLORS: Record<string, string> = {
   Finance: '#C49A3C',
   Impact: '#B06B6B',
   Governance: '#7B6B8A',
+  Nurea_TV: '#5A8CA0',
 };

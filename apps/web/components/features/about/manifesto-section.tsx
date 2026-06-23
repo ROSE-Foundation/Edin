@@ -5,6 +5,7 @@ const DOMAIN_ACCENT_CLASSES: Record<string, { border: string; bgVar: string }> =
   Finance: { border: 'border-l-domain-finance', bgVar: '--color-domain-finance' },
   Impact: { border: 'border-l-domain-impact', bgVar: '--color-domain-impact' },
   Governance: { border: 'border-l-domain-governance', bgVar: '--color-domain-governance' },
+  Nurea_TV: { border: 'border-l-domain-governance', bgVar: '--color-domain-governance' },
 };
 
 interface ManifestoSectionProps {

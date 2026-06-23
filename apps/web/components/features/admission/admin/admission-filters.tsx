@@ -2,7 +2,7 @@
 
 import * as Select from '@radix-ui/react-select';
 
-const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'];
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance', 'Nurea_TV'];
 const STATUSES = [
   { value: 'PENDING', label: 'Pending' },
   { value: 'UNDER_REVIEW', label: 'Under Review' },

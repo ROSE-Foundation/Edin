@@ -25,6 +25,7 @@ const DOMAIN_TINT: Record<string, string> = {
   Finance: 'bg-[#C49A3C]/3',
   Impact: 'bg-[#B06B6B]/3',
   Governance: 'bg-[#7B6B8A]/3',
+  Nurea_TV: 'bg-[#7B6B8A]/3',
 };
 
 const DOMAIN_BADGE: Record<string, string> = {
@@ -32,6 +33,7 @@ const DOMAIN_BADGE: Record<string, string> = {
   Finance: 'bg-domain-finance text-text-primary',
   Impact: 'bg-domain-impact text-text-primary',
   Governance: 'bg-domain-governance text-white',
+  Nurea_TV: 'bg-domain-governance text-white',
 };
 
 interface Contribution {

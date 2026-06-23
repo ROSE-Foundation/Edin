@@ -6,25 +6,43 @@ const domainEnum = z.enum([
   DOMAINS.Finance,
   DOMAINS.Impact,
   DOMAINS.Governance,
+  DOMAINS.Nurea_TV,
 ]);
 
-export const createApplicationSchema = z.object({
-  applicantName: z
-    .string()
-    .min(1, 'Name is required')
-    .max(100, 'Name must be 100 characters or less'),
-  applicantEmail: z.string().email('Please enter a valid email address'),
-  domain: domainEnum,
-  statementOfInterest: z
-    .string()
-    .min(1, 'Statement of interest is required')
-    .max(300, 'Statement must be 300 characters or less'),
-  microTaskResponse: z.string().min(1, 'Micro-task response is required'),
-  microTaskSubmissionUrl: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
-  gdprConsent: z
-    .boolean()
-    .refine((val) => val === true, { message: 'You must accept the data processing agreement' }),
-});
+export const createApplicationSchema = z
+  .object({
+    applicantName: z
+      .string()
+      .min(1, 'Name is required')
+      .max(100, 'Name must be 100 characters or less'),
+    applicantEmail: z.string().email('Please enter a valid email address'),
+    domain: domainEnum,
+    statementOfInterest: z
+      .string()
+      .min(1, 'Statement of interest is required')
+      .max(300, 'Statement must be 300 characters or less'),
+    // Optional at the field level: the Nurea TV domain has no micro-task. Required for all
+    // other domains via the refine below.
+    microTaskResponse: z
+      .string()
+      .max(5000, 'Micro-task response must be 5000 characters or less')
+      .optional(),
+    microTaskSubmissionUrl: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
+    gdprConsent: z
+      .boolean()
+      .refine((val) => val === true, { message: 'You must accept the data processing agreement' }),
+  })
+  .superRefine((data, ctx) => {
+    if (data.domain !== DOMAINS.Nurea_TV) {
+      if (!data.microTaskResponse || data.microTaskResponse.trim().length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['microTaskResponse'],
+          message: 'Micro-task response is required',
+        });
+      }
+    }
+  });
 
 export type CreateApplicationDto = z.infer<typeof createApplicationSchema>;
 
@@ -66,7 +84,7 @@ export const assignReviewerSchema = z.object({
 export type AssignReviewerDto = z.infer<typeof assignReviewerSchema>;
 
 export const listApplicationsQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
+  domain: domainEnum.optional(),
   status: z.enum(['PENDING', 'UNDER_REVIEW', 'APPROVED', 'DECLINED']).optional(),
   cursor: z.string().uuid().optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
@@ -131,7 +149,7 @@ export const updateMicroTaskSchema = z.object({
 export type UpdateMicroTaskInput = z.infer<typeof updateMicroTaskSchema>;
 
 export const listMicroTasksQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
+  domain: domainEnum.optional(),
   isActive: z
     .enum(['true', 'false'])
     .transform((val) => val === 'true')
@@ -163,7 +181,7 @@ export const buddyOptInSchema = z.object({
 export type BuddyOptInDto = z.infer<typeof buddyOptInSchema>;
 
 export const listBuddyAssignmentsQuerySchema = z.object({
-  domain: z.enum(['Technology', 'Finance', 'Impact', 'Governance']).optional(),
+  domain: domainEnum.optional(),
   isActive: z
     .enum(['true', 'false'])
     .transform((val) => val === 'true')

@@ -13,7 +13,7 @@ import type {
 } from '@edin/shared';
 
 /** Edin ContributorDomain values used for task domain mapping. */
-const VALID_DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'] as const;
+const VALID_DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance', 'Nurea_TV'] as const;
 type ContributorDomain = (typeof VALID_DOMAINS)[number];
 
 /** Terminal task statuses that should not be overwritten by Zenhub sync. */

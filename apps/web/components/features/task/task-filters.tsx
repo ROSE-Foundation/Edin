@@ -2,7 +2,7 @@
 
 import * as Select from '@radix-ui/react-select';
 
-const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance'];
+const DOMAINS = ['Technology', 'Finance', 'Impact', 'Governance', 'Nurea_TV'];
 const DIFFICULTIES = [
   { value: 'BEGINNER', label: 'Beginner' },
   { value: 'INTERMEDIATE', label: 'Intermediate' },

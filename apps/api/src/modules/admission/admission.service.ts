@@ -52,9 +52,11 @@ export class AdmissionService {
             applicantEmail: dto.applicantEmail,
             domain: dto.domain,
             statementOfInterest: dto.statementOfInterest,
-            microTaskDomain: dto.domain,
-            microTaskResponse: dto.microTaskResponse,
-            microTaskSubmissionUrl: dto.microTaskSubmissionUrl || null,
+            // Nurea TV has no micro-task — store null for its micro-task fields.
+            microTaskDomain: dto.domain === 'Nurea_TV' ? null : dto.domain,
+            microTaskResponse: dto.domain === 'Nurea_TV' ? null : (dto.microTaskResponse ?? null),
+            microTaskSubmissionUrl:
+              dto.domain === 'Nurea_TV' ? null : dto.microTaskSubmissionUrl || null,
             gdprConsentVersion: '1.0',
             gdprConsentedAt: now,
             status: 'PENDING',
