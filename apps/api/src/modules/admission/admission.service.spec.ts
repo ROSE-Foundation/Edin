@@ -15,12 +15,14 @@ const mockPrisma = {
     findMany: vi.fn(),
     count: vi.fn(),
     update: vi.fn(),
+    delete: vi.fn(),
   },
   applicationReview: {
     create: vi.fn(),
     findFirst: vi.fn(),
     findMany: vi.fn(),
     update: vi.fn(),
+    deleteMany: vi.fn(),
   },
   microTask: {
     findFirst: vi.fn(),
@@ -1709,6 +1711,56 @@ describe('AdmissionService', () => {
 
       expect(result.isExpired).toBe(true);
       expect(result.isWithin72Hours).toBe(false);
+    });
+  });
+
+  describe('deleteApplication', () => {
+    it('deletes a declined application with its reviews and logs an audit entry', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        id: 'app-1',
+        status: 'DECLINED',
+        applicantEmail: 'jane@example.com',
+        domain: 'Technology',
+      });
+      mockPrisma.applicationReview.deleteMany.mockResolvedValueOnce({ count: 2 });
+      mockPrisma.application.delete.mockResolvedValueOnce({ id: 'app-1' });
+
+      const result = await service.deleteApplication('app-1', 'admin-1', 'corr-1');
+
+      expect(mockPrisma.applicationReview.deleteMany).toHaveBeenCalledWith({
+        where: { applicationId: 'app-1' },
+      });
+      expect(mockPrisma.application.delete).toHaveBeenCalledWith({ where: { id: 'app-1' } });
+      expect(mockPrisma.consentRecord.create).not.toHaveBeenCalled();
+      expect(mockAuditService.log).toHaveBeenCalledWith(
+        expect.objectContaining({
+          action: 'admission.application.deleted',
+          entityType: 'Application',
+          entityId: 'app-1',
+        }),
+        expect.anything(),
+      );
+      expect(result).toEqual({ id: 'app-1', deleted: true });
+    });
+
+    it('throws when the application does not exist', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.deleteApplication('missing', 'admin-1', 'corr-1')).rejects.toThrow();
+      expect(mockPrisma.application.delete).not.toHaveBeenCalled();
+    });
+
+    it('refuses to delete an application that is not DECLINED', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        id: 'app-2',
+        status: 'PENDING',
+        applicantEmail: 'bob@example.com',
+        domain: 'Finance',
+      });
+
+      await expect(service.deleteApplication('app-2', 'admin-1', 'corr-1')).rejects.toThrow();
+      expect(mockPrisma.applicationReview.deleteMany).not.toHaveBeenCalled();
+      expect(mockPrisma.application.delete).not.toHaveBeenCalled();
     });
   });
 });

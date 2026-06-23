@@ -660,6 +660,70 @@ export class AdmissionService {
     return result;
   }
 
+  /**
+   * Permanently deletes a DECLINED application and its reviews. The GDPR
+   * consent record is retained for compliance; the deletion is recorded in the
+   * audit log.
+   */
+  async deleteApplication(applicationId: string, adminId: string, correlationId?: string) {
+    this.logger.log('Deleting application', {
+      applicationId,
+      adminId,
+      correlationId,
+    });
+
+    const application = await this.prisma.application.findUnique({
+      where: { id: applicationId },
+    });
+
+    if (!application) {
+      throw new DomainException(
+        ERROR_CODES.APPLICATION_NOT_FOUND,
+        'Application not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (application.status !== 'DECLINED') {
+      throw new DomainException(
+        ERROR_CODES.INVALID_STATUS_TRANSITION,
+        `Cannot delete application with status ${application.status}. Only DECLINED applications can be deleted.`,
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    await this.prisma.$transaction(async (tx) => {
+      // ApplicationReview has no ON DELETE CASCADE — remove dependent rows first.
+      await tx.applicationReview.deleteMany({ where: { applicationId } });
+      await tx.application.delete({ where: { id: applicationId } });
+
+      // The GDPR ConsentRecord is intentionally retained; log who deleted what.
+      await this.auditService.log(
+        {
+          actorId: adminId,
+          action: 'admission.application.deleted',
+          entityType: 'Application',
+          entityId: applicationId,
+          details: {
+            applicantEmail: application.applicantEmail,
+            domain: application.domain,
+            previousStatus: application.status,
+          },
+          correlationId,
+        },
+        tx,
+      );
+    });
+
+    this.logger.log('Application deleted', {
+      applicationId,
+      adminId,
+      correlationId,
+    });
+
+    return { id: applicationId, deleted: true };
+  }
+
   async requestMoreInfo(
     applicationId: string,
     adminId: string,

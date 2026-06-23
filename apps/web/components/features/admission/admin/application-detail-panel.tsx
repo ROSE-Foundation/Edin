@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useApplicationDetail } from '../../../../hooks/use-admission-admin';
+import { useApplicationDetail, useDeleteApplication } from '../../../../hooks/use-admission-admin';
 import { DOMAIN_COLORS } from '../../../../lib/domain-colors';
 import { ReviewFeedbackList } from './review-feedback-list';
 import { ReviewerAssignment } from './reviewer-assignment';
@@ -43,6 +43,21 @@ export function ApplicationDetailPanel({
     open: boolean;
     action: 'APPROVED' | 'DECLINED' | 'REQUEST_MORE_INFO';
   }>({ open: false, action: 'APPROVED' });
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const deleteApplication = useDeleteApplication();
+
+  const handleDelete = async () => {
+    if (!application) return;
+    setDeleteError(null);
+    try {
+      await deleteApplication.mutateAsync({ applicationId: application.id });
+      setConfirmingDelete(false);
+      onOpenChange(false);
+    } catch {
+      setDeleteError('Failed to delete the application. Please try again.');
+    }
+  };
 
   const statusStyle = application
     ? (STATUS_STYLES[application.status] ?? {
@@ -59,7 +74,16 @@ export function ApplicationDetailPanel({
 
   return (
     <>
-      <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Root
+        open={open}
+        onOpenChange={(next) => {
+          if (!next) {
+            setConfirmingDelete(false);
+            setDeleteError(null);
+          }
+          onOpenChange(next);
+        }}
+      >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-40 bg-black/20 motion-safe:transition-opacity motion-safe:data-[state=open]:animate-in motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=open]:fade-in-0" />
           <Dialog.Content
@@ -210,6 +234,53 @@ export function ApplicationDetailPanel({
                     >
                       Decline
                     </button>
+                  </div>
+                )}
+
+                {/* Delete (only for DECLINED applications) — permanent, two-step confirm */}
+                {application.status === 'DECLINED' && (
+                  <div className="border-t border-surface-subtle p-[var(--spacing-lg)]">
+                    {deleteError && (
+                      <p
+                        className="mb-[var(--spacing-sm)] font-sans text-[13px] text-semantic-error"
+                        role="alert"
+                      >
+                        {deleteError}
+                      </p>
+                    )}
+                    {confirmingDelete ? (
+                      <div className="flex flex-wrap items-center justify-end gap-[var(--spacing-sm)]">
+                        <span className="mr-auto font-sans text-[13px] text-text-secondary">
+                          Permanently delete this application from the database?
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingDelete(false)}
+                          disabled={deleteApplication.isPending}
+                          className="rounded-[var(--radius-md)] border border-surface-subtle px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-text-primary transition-colors duration-[var(--transition-fast)] hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleDelete}
+                          disabled={deleteApplication.isPending}
+                          className="rounded-[var(--radius-md)] bg-semantic-error px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-semantic-error/90 focus-visible:outline-2 focus-visible:outline-semantic-error focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          {deleteApplication.isPending ? 'Deleting…' : 'Confirm delete'}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex justify-end">
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingDelete(true)}
+                          className="rounded-[var(--radius-md)] border border-semantic-error px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-semantic-error transition-colors duration-[var(--transition-fast)] hover:bg-semantic-error/5 focus-visible:outline-2 focus-visible:outline-semantic-error focus-visible:outline-offset-2"
+                        >
+                          Delete application
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </>

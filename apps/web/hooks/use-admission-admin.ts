@@ -185,4 +185,19 @@ export function useUpdateApplicationStatus() {
   });
 }
 
+export function useDeleteApplication() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ applicationId }: { applicationId: string }) => {
+      return apiClient(`/api/v1/admission/applications/${applicationId}`, {
+        method: 'DELETE',
+      });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['admission'] });
+    },
+  });
+}
+
 export type { ApplicationListItem, ApplicationFull, Reviewer };

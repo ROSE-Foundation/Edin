@@ -231,6 +231,17 @@ export class AdmissionController {
     );
   }
 
+  @Delete('applications/:id')
+  @UseGuards(JwtAuthGuard, AbilityGuard)
+  @CheckAbility((ability) => ability.can(Action.Manage, 'Application'))
+  async deleteApplication(
+    @Param('id') id: string,
+    @CurrentUser() user: CurrentUserPayload,
+    @Req() req: Request,
+  ) {
+    return this.admissionService.deleteApplication(id, user.id, req.correlationId);
+  }
+
   @Get('reviewers')
   @UseGuards(JwtAuthGuard, AbilityGuard)
   @CheckAbility((ability) => ability.can(Action.Manage, 'Application'))
