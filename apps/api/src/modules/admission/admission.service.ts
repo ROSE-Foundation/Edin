@@ -609,10 +609,10 @@ export class AdmissionService {
       );
     }
 
-    if (application.status !== 'UNDER_REVIEW') {
+    if (application.status !== 'UNDER_REVIEW' && application.status !== 'PENDING') {
       throw new DomainException(
         ERROR_CODES.INVALID_STATUS_TRANSITION,
-        `Cannot decline application with status ${application.status}. Application must be UNDER_REVIEW.`,
+        `Cannot decline application with status ${application.status}. Application must be PENDING or UNDER_REVIEW.`,
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }

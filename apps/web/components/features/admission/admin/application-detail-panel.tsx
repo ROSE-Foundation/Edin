@@ -68,7 +68,10 @@ export function ApplicationDetailPanel({
     : null;
   const domainColor = application?.domain ? DOMAIN_COLORS[application.domain] : null;
 
+  // Approve / Request Info require a review in progress; Decline is allowed
+  // directly from PENDING too (reject without first assigning a reviewer).
   const canTakeAction = application?.status === 'UNDER_REVIEW';
+  const canDecline = application?.status === 'UNDER_REVIEW' || application?.status === 'PENDING';
 
   const existingReviewerIds = application?.reviews.map((r) => r.reviewer.id) ?? [];
 
@@ -210,27 +213,33 @@ export function ApplicationDetailPanel({
                   )}
                 </div>
 
-                {/* Action buttons (only for UNDER_REVIEW) */}
-                {canTakeAction && (
+                {/* Action buttons: Approve/Request Info for UNDER_REVIEW; Decline also from PENDING */}
+                {canDecline && (
                   <div className="flex gap-[var(--spacing-sm)] border-t border-surface-subtle p-[var(--spacing-lg)]">
-                    <button
-                      type="button"
-                      onClick={() => setActionDialog({ open: true, action: 'APPROVED' })}
-                      className="flex-1 rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActionDialog({ open: true, action: 'REQUEST_MORE_INFO' })}
-                      className="rounded-[var(--radius-md)] border border-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-accent-primary transition-colors duration-[var(--transition-fast)] hover:bg-accent-primary/5 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
-                    >
-                      Request Info
-                    </button>
+                    {canTakeAction && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setActionDialog({ open: true, action: 'APPROVED' })}
+                          className="flex-1 rounded-[var(--radius-md)] bg-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-white transition-[background-color] duration-[var(--transition-fast)] hover:bg-accent-primary/90 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActionDialog({ open: true, action: 'REQUEST_MORE_INFO' })
+                          }
+                          className="rounded-[var(--radius-md)] border border-accent-primary px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-accent-primary transition-colors duration-[var(--transition-fast)] hover:bg-accent-primary/5 focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
+                        >
+                          Request Info
+                        </button>
+                      </>
+                    )}
                     <button
                       type="button"
                       onClick={() => setActionDialog({ open: true, action: 'DECLINED' })}
-                      className="rounded-[var(--radius-md)] border border-semantic-error px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-semantic-error transition-colors duration-[var(--transition-fast)] hover:bg-semantic-error/5 focus-visible:outline-2 focus-visible:outline-semantic-error focus-visible:outline-offset-2"
+                      className={`${canTakeAction ? '' : 'flex-1 '}rounded-[var(--radius-md)] border border-semantic-error px-[var(--spacing-md)] py-[var(--spacing-sm)] font-sans text-[14px] font-medium text-semantic-error transition-colors duration-[var(--transition-fast)] hover:bg-semantic-error/5 focus-visible:outline-2 focus-visible:outline-semantic-error focus-visible:outline-offset-2`}
                     >
                       Decline
                     </button>

@@ -594,10 +594,32 @@ describe('AdmissionService', () => {
       );
     });
 
-    it('throws INVALID_STATUS_TRANSITION for non-UNDER_REVIEW application', async () => {
+    it('declines a PENDING application directly (no reviewer assignment required)', async () => {
       mockPrisma.application.findUnique.mockResolvedValueOnce({
         ...mockApplication,
         status: 'PENDING',
+      });
+      mockPrisma.application.update.mockResolvedValueOnce({
+        ...mockApplication,
+        status: 'DECLINED',
+        declineReason: 'Not a fit',
+      });
+      mockAuditService.log.mockResolvedValueOnce(undefined);
+
+      const result = await service.declineApplication(
+        'app-uuid-1',
+        'admin-1',
+        'Not a fit',
+        'corr-decline-pending',
+      );
+
+      expect(result.status).toBe('DECLINED');
+    });
+
+    it('throws INVALID_STATUS_TRANSITION when the application is neither PENDING nor UNDER_REVIEW', async () => {
+      mockPrisma.application.findUnique.mockResolvedValueOnce({
+        ...mockApplication,
+        status: 'APPROVED',
       });
 
       await expect(
