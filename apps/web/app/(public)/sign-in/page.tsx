@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SignInButtons } from './sign-in-buttons';
+import { SignInForm } from './sign-in-form';
 
 export const metadata: Metadata = {
   title: 'Sign in — Edin',
@@ -42,7 +43,15 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
           </div>
         ) : null}
 
-        <SignInButtons className="mt-8" />
+        <SignInForm className="mt-8" />
+
+        <div className="mt-6 flex items-center gap-3" aria-hidden="true">
+          <span className="h-px flex-1 bg-surface-subtle" />
+          <span className="font-sans text-[12px] text-text-tertiary">or</span>
+          <span className="h-px flex-1 bg-surface-subtle" />
+        </div>
+
+        <SignInButtons className="mt-6" />
 
         <p className="mt-8 font-sans text-[12px] leading-relaxed text-text-tertiary">
           By signing in you agree to Edin&apos;s community guidelines and our processing of your

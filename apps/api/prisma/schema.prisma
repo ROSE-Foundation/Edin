@@ -284,6 +284,7 @@ model Contributor {
   githubUsername String?            @unique @map("github_username")
   googleId       String?            @unique @map("google_id")
   email          String?            @unique
+  passwordHash   String?            @map("password_hash")
   name           String
   bio            String?            @db.VarChar(500)
   avatarUrl      String?            @map("avatar_url")
@@ -343,8 +344,27 @@ model Contributor {
   trackRecordMilestones          TrackRecordMilestone[]
   trackRecordOutcomes            TrackRecordOutcome[]
   newspaperItemVotes             NewspaperItemVote[]         @relation("NewspaperItemVotes")
+  passwordSetupTokens            PasswordSetupToken[]
 
   @@map("contributors")
+  @@schema("core")
+}
+
+/// One-time, hashed, expiring token used to set an account password (e.g. after
+/// admission approval). Only the SHA-256 hash is stored; the raw token travels
+/// in the email link.
+model PasswordSetupToken {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contributorId String    @map("contributor_id") @db.Uuid
+  tokenHash     String    @unique @map("token_hash")
+  expiresAt     DateTime  @map("expires_at")
+  usedAt        DateTime? @map("used_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  contributor Contributor @relation(fields: [contributorId], references: [id], onDelete: Cascade)
+
+  @@index([contributorId])
+  @@map("password_setup_tokens")
   @@schema("core")
 }
 

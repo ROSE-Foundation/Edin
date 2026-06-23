@@ -22,6 +22,7 @@ interface AuthState {
   isLoading: boolean;
   loginWithGithub: () => void;
   loginWithGoogle: () => void;
+  loginWithPassword: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -73,6 +74,28 @@ export function useAuth(): AuthState {
     window.location.href = `${API_BASE_URL}/api/v1/auth/google`;
   };
 
+  const loginWithPassword = async (email: string, password: string) => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Invalid email or password');
+    }
+
+    const body = (await response.json()) as { data?: { accessToken?: string } };
+    const token = body.data?.accessToken;
+    if (!token) {
+      throw new Error('Login failed');
+    }
+
+    setAccessToken(token);
+    await queryClient.invalidateQueries({ queryKey: ['auth', 'me'] });
+  };
+
   const logout = async () => {
     try {
       const token = getAccessToken();
@@ -92,6 +115,7 @@ export function useAuth(): AuthState {
     isLoading,
     loginWithGithub,
     loginWithGoogle,
+    loginWithPassword,
     logout,
   };
 }

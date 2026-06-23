@@ -44,6 +44,7 @@
     "@prisma/adapter-pg": "^7.4.2",
     "@prisma/client": "^7.4.2",
     "@prisma/instrumentation": "^7.0.0",
+    "argon2": "^0.44.0",
     "bullmq": "^5.70.2",
     "cookie-parser": "^1.4.7",
     "helmet": "^8.0.0",

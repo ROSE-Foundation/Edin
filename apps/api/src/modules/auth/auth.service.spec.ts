@@ -7,6 +7,15 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import { RedisService } from '../../common/redis/redis.service.js';
 import { DomainException } from '../../common/exceptions/domain.exception.js';
 import { AuditService } from '../compliance/audit/audit.service.js';
+import argon2 from 'argon2';
+
+vi.mock('argon2', () => ({
+  default: {
+    hash: vi.fn(),
+    verify: vi.fn(),
+    argon2id: 2,
+  },
+}));
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -17,6 +26,13 @@ describe('AuthService', () => {
       update: ReturnType<typeof vi.fn>;
       create: ReturnType<typeof vi.fn>;
     };
+    passwordSetupToken: {
+      findUnique: ReturnType<typeof vi.fn>;
+      create: ReturnType<typeof vi.fn>;
+      update: ReturnType<typeof vi.fn>;
+      updateMany: ReturnType<typeof vi.fn>;
+    };
+    $transaction: ReturnType<typeof vi.fn>;
   };
   let mockAuditService: { log: ReturnType<typeof vi.fn> };
   let jwtService: { signAsync: ReturnType<typeof vi.fn> };
@@ -49,6 +65,17 @@ describe('AuthService', () => {
         update: vi.fn(),
         create: vi.fn(),
       },
+      passwordSetupToken: {
+        findUnique: vi.fn(),
+        create: vi.fn().mockResolvedValue(undefined),
+        update: vi.fn().mockResolvedValue(undefined),
+        updateMany: vi.fn().mockResolvedValue({ count: 1 }),
+      },
+      $transaction: vi.fn((arg: unknown) =>
+        typeof arg === 'function'
+          ? (arg as (tx: unknown) => unknown)(prisma)
+          : Promise.all(arg as unknown[]),
+      ),
     };
 
     mockAuditService = {
@@ -389,6 +416,176 @@ describe('AuthService', () => {
           correlationId: 'corr-444',
         }),
       );
+    });
+  });
+
+  describe('loginWithPassword', () => {
+    it('issues tokens for valid email + password', async () => {
+      prisma.contributor.findUnique.mockResolvedValueOnce({
+        ...mockContributor,
+        passwordHash: '$argon2id$hash',
+        isActive: true,
+      });
+      vi.mocked(argon2.verify).mockResolvedValueOnce(true);
+
+      const result = await service.loginWithPassword('Test@Example.com', 'pw', 'corr-login');
+
+      expect(prisma.contributor.findUnique).toHaveBeenCalledWith({
+        where: { email: 'test@example.com' },
+      });
+      expect(result.accessToken).toBe('mock.jwt.token');
+    });
+
+    it('throws generic INVALID_CREDENTIALS on wrong password', async () => {
+      prisma.contributor.findUnique.mockResolvedValueOnce({
+        ...mockContributor,
+        passwordHash: '$argon2id$hash',
+        isActive: true,
+      });
+      vi.mocked(argon2.verify).mockResolvedValueOnce(false);
+
+      await expect(service.loginWithPassword('test@example.com', 'bad')).rejects.toThrow(
+        DomainException,
+      );
+    });
+
+    it('throws when the account has no password set (OAuth-only)', async () => {
+      prisma.contributor.findUnique.mockResolvedValueOnce({
+        ...mockContributor,
+        passwordHash: null,
+        isActive: true,
+      });
+      // Verify runs against the dummy hash (constant-time), so it returns false here.
+      vi.mocked(argon2.verify).mockResolvedValueOnce(false);
+
+      await expect(service.loginWithPassword('test@example.com', 'pw')).rejects.toThrow(
+        DomainException,
+      );
+    });
+
+    it('runs a verify even for an unknown email (constant-time)', async () => {
+      vi.mocked(argon2.verify).mockClear();
+      prisma.contributor.findUnique.mockResolvedValueOnce(null);
+      vi.mocked(argon2.verify).mockResolvedValueOnce(false);
+
+      await expect(service.loginWithPassword('nobody@example.com', 'pw')).rejects.toThrow(
+        DomainException,
+      );
+      expect(argon2.verify).toHaveBeenCalledTimes(1);
+    });
+
+    it('throws for an unknown email', async () => {
+      prisma.contributor.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.loginWithPassword('nobody@example.com', 'pw')).rejects.toThrow(
+        DomainException,
+      );
+    });
+  });
+
+  describe('createPasswordSetupToken', () => {
+    it('persists a SHA-256 hash with a future expiry and returns the raw token', async () => {
+      const raw = await service.createPasswordSetupToken(mockContributor.id);
+
+      expect(raw).toMatch(/^[a-f0-9]{64}$/);
+      const arg = prisma.passwordSetupToken.create.mock.calls[0][0] as {
+        data: { contributorId: string; tokenHash: string; expiresAt: Date };
+      };
+      expect(arg.data.contributorId).toBe(mockContributor.id);
+      expect(arg.data.tokenHash).toMatch(/^[a-f0-9]{64}$/);
+      expect(arg.data.tokenHash).not.toBe(raw);
+      expect(arg.data.expiresAt.getTime()).toBeGreaterThan(Date.now());
+    });
+  });
+
+  describe('setPassword', () => {
+    it('sets the hash and atomically consumes the token for a valid token', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce({
+        id: 'tok-1',
+        contributorId: mockContributor.id,
+        usedAt: null,
+        expiresAt: new Date(Date.now() + 60_000),
+        contributor: { isActive: true },
+      });
+      prisma.passwordSetupToken.updateMany.mockResolvedValueOnce({ count: 1 });
+      vi.mocked(argon2.hash).mockResolvedValueOnce('$argon2id$newhash');
+
+      await service.setPassword('rawtoken', 'a-strong-password', 'corr-set');
+
+      expect(prisma.passwordSetupToken.updateMany).toHaveBeenCalledWith({
+        where: { id: 'tok-1', usedAt: null },
+        data: { usedAt: expect.any(Date) },
+      });
+      expect(prisma.contributor.update).toHaveBeenCalledWith({
+        where: { id: mockContributor.id },
+        data: { passwordHash: '$argon2id$newhash' },
+      });
+    });
+
+    it('throws if the token was concurrently consumed (lost the race)', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce({
+        id: 'tok-race',
+        contributorId: mockContributor.id,
+        usedAt: null,
+        expiresAt: new Date(Date.now() + 60_000),
+        contributor: { isActive: true },
+      });
+      prisma.passwordSetupToken.updateMany.mockResolvedValueOnce({ count: 0 });
+      vi.mocked(argon2.hash).mockResolvedValueOnce('$argon2id$newhash');
+
+      await expect(service.setPassword('raced', 'a-strong-password')).rejects.toThrow(
+        DomainException,
+      );
+      expect(prisma.contributor.update).not.toHaveBeenCalled();
+    });
+
+    it('throws for an unknown token', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce(null);
+      await expect(service.setPassword('bad', 'a-strong-password')).rejects.toThrow(
+        DomainException,
+      );
+    });
+
+    it('throws for an already-used token', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce({
+        id: 'tok-2',
+        contributorId: mockContributor.id,
+        usedAt: new Date(),
+        expiresAt: new Date(Date.now() + 60_000),
+        contributor: { isActive: true },
+      });
+      await expect(service.setPassword('used', 'a-strong-password')).rejects.toThrow(
+        DomainException,
+      );
+      expect(prisma.contributor.update).not.toHaveBeenCalled();
+    });
+
+    it('throws for an expired token', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce({
+        id: 'tok-3',
+        contributorId: mockContributor.id,
+        usedAt: null,
+        expiresAt: new Date(Date.now() - 60_000),
+        contributor: { isActive: true },
+      });
+      await expect(service.setPassword('expired', 'a-strong-password')).rejects.toThrow(
+        DomainException,
+      );
+      expect(prisma.contributor.update).not.toHaveBeenCalled();
+    });
+
+    it('throws when the token belongs to an inactive contributor', async () => {
+      prisma.passwordSetupToken.findUnique.mockResolvedValueOnce({
+        id: 'tok-4',
+        contributorId: mockContributor.id,
+        usedAt: null,
+        expiresAt: new Date(Date.now() + 60_000),
+        contributor: { isActive: false },
+      });
+      await expect(service.setPassword('inactive', 'a-strong-password')).rejects.toThrow(
+        DomainException,
+      );
+      expect(prisma.contributor.update).not.toHaveBeenCalled();
     });
   });
 });

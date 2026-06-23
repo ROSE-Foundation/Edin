@@ -39,7 +39,10 @@ export {
   authTokenResponseSchema,
   refreshTokenRequestSchema,
   githubCallbackQuerySchema,
+  loginSchema,
+  setPasswordSchema,
 } from './schemas/auth.schema.js';
+export type { LoginDto, SetPasswordDto } from './schemas/auth.schema.js';
 
 export { rosterQuerySchema } from './schemas/roster.schema.js';
 export type { RosterQueryParams } from './schemas/roster.schema.js';

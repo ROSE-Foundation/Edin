@@ -2,7 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatus } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { randomUUID, randomBytes, createHash } from 'crypto';
+import argon2 from 'argon2';
 import { ERROR_CODES } from '@edin/shared';
 import type { Prisma } from '../../../generated/prisma/client/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
@@ -28,6 +29,24 @@ interface TokenPair {
   refreshToken: string;
   refreshTokenId: string;
 }
+
+/** Password-setup token lifetime: 7 days. */
+const SETUP_TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+/** Explicit argon2id parameters (OWASP minimum) — pinned for determinism. */
+const ARGON2_OPTIONS = {
+  type: argon2.argon2id,
+  memoryCost: 19456,
+  timeCost: 2,
+  parallelism: 1,
+} as const;
+
+/**
+ * Constant argon2id hash verified against when no usable account is found, so
+ * login does equal work on every path (defeats timing-based user enumeration).
+ */
+const DUMMY_PASSWORD_HASH =
+  '$argon2id$v=19$m=19456,t=2,p=1$VRI0rSQTCy60mLpiADJR4Q$XxjM7kd2jTpeDrfVhhOJxAlCJGxpmV9Dbfn5phKWKts';
 
 @Injectable()
 export class AuthService {
@@ -262,6 +281,135 @@ export class AuthService {
       refreshToken: `${contributor.id}:${refreshTokenId}`,
       refreshTokenId,
     };
+  }
+
+  /**
+   * Authenticates with email + password and issues a token pair. Returns a
+   * single generic error for any failure (unknown email, no password set,
+   * inactive, or wrong password) so the response never reveals which.
+   */
+  async loginWithPassword(
+    email: string,
+    password: string,
+    correlationId?: string,
+  ): Promise<TokenPair> {
+    const normalizedEmail = email.trim().toLowerCase();
+    const contributor = await this.prisma.contributor.findUnique({
+      where: { email: normalizedEmail },
+    });
+
+    // Always run a verify (against a dummy hash when no usable account exists)
+    // so every path costs the same — no timing-based user enumeration. Any
+    // argon2 error (e.g. corrupt stored hash) is treated as a failed login.
+    const hashToVerify =
+      contributor?.isActive && contributor.passwordHash
+        ? contributor.passwordHash
+        : DUMMY_PASSWORD_HASH;
+
+    let passwordValid = false;
+    try {
+      passwordValid = await argon2.verify(hashToVerify, password);
+    } catch {
+      passwordValid = false;
+    }
+
+    if (!contributor || !contributor.isActive || !contributor.passwordHash || !passwordValid) {
+      this.logger.warn('Password login failed', { correlationId });
+      throw new DomainException(
+        ERROR_CODES.INVALID_CREDENTIALS,
+        'Invalid email or password',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    this.logger.log('Password login succeeded', {
+      contributorId: contributor.id,
+      correlationId,
+    });
+
+    return this.generateTokens({ id: contributor.id, role: contributor.role });
+  }
+
+  /**
+   * Creates a one-time password-setup token for a contributor and returns the
+   * RAW token (only its SHA-256 hash is persisted). The caller is responsible
+   * for delivering the raw token (e.g. via an email link).
+   */
+  async createPasswordSetupToken(contributorId: string): Promise<string> {
+    const rawToken = randomBytes(32).toString('hex');
+    const tokenHash = createHash('sha256').update(rawToken).digest('hex');
+
+    // Issuing a fresh token invalidates any prior unused ones for this
+    // contributor, keeping at most one live setup link at a time.
+    await this.prisma.$transaction([
+      this.prisma.passwordSetupToken.updateMany({
+        where: { contributorId, usedAt: null },
+        data: { usedAt: new Date() },
+      }),
+      this.prisma.passwordSetupToken.create({
+        data: {
+          contributorId,
+          tokenHash,
+          expiresAt: new Date(Date.now() + SETUP_TOKEN_TTL_MS),
+        },
+      }),
+    ]);
+
+    return rawToken;
+  }
+
+  /**
+   * Sets a contributor's password from a valid, unexpired, unused setup token,
+   * then marks the token used. Throws PASSWORD_SETUP_TOKEN_INVALID otherwise.
+   */
+  async setPassword(token: string, password: string, correlationId?: string): Promise<void> {
+    const tokenHash = createHash('sha256').update(token).digest('hex');
+    const record = await this.prisma.passwordSetupToken.findUnique({
+      where: { tokenHash },
+      include: { contributor: { select: { isActive: true } } },
+    });
+
+    if (
+      !record ||
+      record.usedAt ||
+      record.expiresAt < new Date() ||
+      !record.contributor?.isActive
+    ) {
+      throw new DomainException(
+        ERROR_CODES.PASSWORD_SETUP_TOKEN_INVALID,
+        'This password setup link is invalid or has expired',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const passwordHash = await argon2.hash(password, ARGON2_OPTIONS);
+
+    await this.prisma.$transaction(async (tx) => {
+      // Atomically claim the token (usedAt: null guard) to prevent concurrent
+      // double-spend of the same link; only the winner sets the password.
+      const consumed = await tx.passwordSetupToken.updateMany({
+        where: { id: record.id, usedAt: null },
+        data: { usedAt: new Date() },
+      });
+
+      if (consumed.count === 0) {
+        throw new DomainException(
+          ERROR_CODES.PASSWORD_SETUP_TOKEN_INVALID,
+          'This password setup link is invalid or has expired',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      await tx.contributor.update({
+        where: { id: record.contributorId },
+        data: { passwordHash },
+      });
+    });
+
+    this.logger.log('Password set via setup token', {
+      contributorId: record.contributorId,
+      correlationId,
+    });
   }
 
   async refreshTokens(oldRefreshToken: string, correlationId?: string): Promise<TokenPair> {

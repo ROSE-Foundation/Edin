@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Req, Res, UseGuards, HttpStatus, Logger } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Req,
+  Res,
+  UseGuards,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { ERROR_CODES } from '@edin/shared';
+import { ERROR_CODES, loginSchema, setPasswordSchema } from '@edin/shared';
 import { AuthService } from './auth.service.js';
 import type { GithubProfile } from './strategies/github.strategy.js';
 import type { GoogleProfile } from './strategies/google.strategy.js';
@@ -133,6 +144,62 @@ export class AuthController {
         timestamp: new Date().toISOString(),
         correlationId,
       },
+    });
+  }
+
+  @Post('login')
+  @Throttle({ default: { ttl: 60000, limit: 5 } })
+  async login(@Body() body: unknown, @Req() req: Request, @Res() res: Response): Promise<void> {
+    const correlationId = req.correlationId;
+    const parsed = loginSchema.safeParse(body);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid login data',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({ field: e.path.join('.'), message: e.message })),
+      );
+    }
+
+    const tokens = await this.authService.loginWithPassword(
+      parsed.data.email,
+      parsed.data.password,
+      correlationId,
+    );
+
+    this.setRefreshCookie(res, tokens.refreshToken);
+
+    res.status(HttpStatus.OK).json({
+      data: { accessToken: tokens.accessToken, expiresIn: tokens.expiresIn },
+      meta: { timestamp: new Date().toISOString(), correlationId },
+    });
+  }
+
+  @Post('set-password')
+  @Throttle({ default: { ttl: 60000, limit: 5 } })
+  async setPassword(
+    @Body() body: unknown,
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<void> {
+    const correlationId = req.correlationId;
+    const parsed = setPasswordSchema.safeParse(body);
+
+    if (!parsed.success) {
+      throw new DomainException(
+        ERROR_CODES.VALIDATION_ERROR,
+        'Invalid password data',
+        HttpStatus.BAD_REQUEST,
+        parsed.error.errors.map((e) => ({ field: e.path.join('.'), message: e.message })),
+      );
+    }
+
+    await this.authService.setPassword(parsed.data.token, parsed.data.password, correlationId);
+
+    res.status(HttpStatus.OK).json({
+      data: { message: 'Password set successfully' },
+      meta: { timestamp: new Date().toISOString(), correlationId },
     });
   }
 
